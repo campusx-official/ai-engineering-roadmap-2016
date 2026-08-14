@@ -161,11 +161,30 @@ phones.
 
 ---
 
+## Deployment
+
+Static output, no adapter and no server runtime — any static host works. `vercel.json`
+pins the framework preset, build command and output directory, and adds long cache
+headers for the generated share images.
+
+The origin used for canonical URLs, the sitemap and absolute `og:image` URLs resolves in
+this order (see `astro.config.mjs`):
+
+1. `SITE_URL` — explicit override. Set this in the host's environment variables once a
+   custom domain is attached.
+2. `VERCEL_PROJECT_PRODUCTION_URL` — injected by Vercel at build time. Deliberately not
+   `VERCEL_URL`, which changes on every deployment and would churn canonicals.
+3. `https://roadmap.campusx.in` — the fallback used by local builds.
+
+`robots.txt` is generated from the same value (`src/pages/robots.txt.ts`), so the sitemap
+line can never point at a different domain than the pages do.
+
+---
+
 ## Before launch
 
-- Set the real origin in `astro.config.mjs` (`SITE`) and in `public/robots.txt` — it
-  feeds canonicals, the sitemap and absolute `og:image` URLs. Currently
-  `https://roadmap.campusx.in`.
+- Attach the custom domain, then set `SITE_URL` to it in the host's environment
+  variables so canonicals and share images stop pointing at the deployment subdomain.
 - Confirm `src/data/courses.ts` against the live CampusX One catalog, including which
   items are still `status: 'soon'`.
 - Point `CAMPUSX_ONE_URL` at the real `#cxo-pricing` anchor if the host domain differs.
