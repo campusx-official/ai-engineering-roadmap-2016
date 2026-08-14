@@ -1,0 +1,424 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import Pill from '../../components/Pill.astro';
+import Eyebrow from '../../components/Eyebrow.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import SessionMeter from '../../components/SessionMeter.astro';
+import ModuleRow from '../../components/ModuleRow.astro';
+import ShipItCallout from '../../components/ShipItCallout.astro';
+import CourseCard from '../../components/CourseCard.astro';
+import LevelNav from '../../components/LevelNav.astro';
+import StickyLevelNav from '../../components/StickyLevelNav.astro';
+import Button from '../../components/Button.astro';
+import { coursesFor, CAMPUSX_ONE_URL } from '../../data/courses';
+import {
+  levels,
+  phases,
+  phaseOfLevel,
+  capstoneOf,
+  conceptsOf,
+  toolsOf,
+  teachingModules,
+  prevLevel,
+  cumulativeSessions,
+  sentence,
+  totalSessions,
+  type Level,
+} from '../../data/levels';
+
+export function getStaticPaths() {
+  return levels.map((level) => ({
+    params: { n: String(level.number) },
+    props: { level },
+  }));
+}
+
+interface Props { level: Level; }
+const { level } = Astro.props;
+
+const phase = phaseOfLevel(level.number);
+const phaseIndex = phases.findIndex((p) => p.id === phase.id);
+const capstone = capstoneOf(level);
+const modules = teachingModules(level);
+const courses = coursesFor(level.number);
+const concepts = conceptsOf(level);
+const tools = toolsOf(level);
+const prev = prevLevel(level.number);
+const cumulative = cumulativeSessions(level.number);
+const cumulativePct = Math.round((cumulative / totalSessions) * 100);
+
+const prereq =
+  level.prereqStated ??
+  (prev ? `Level ${prev.number} · ${prev.title}` : null);
+
+const description = `Level ${level.number} of the CampusX AI Engineering Roadmap: ${level.scope}`.slice(0, 300);
+---
+
+<Base
+  title={`Level ${level.number} · ${level.title} — AI Engineering Roadmap`}
+  description={description}
+  page="level"
+  levelNumber={level.number}
+  ogImage={`/og/level-${level.number}.png`}
+>
+  <Fragment slot="head">
+    {/* Maintainer note: fields the source .txt did not provide. */}
+    {level.todos.length > 0 && (
+      <Fragment set:html={`<!-- TODO (${level.sourceFile}): ${level.todos.join(' | ')} -->`} />
+    )}
+  </Fragment>
+
+  <Fragment slot="subnav">
+    <StickyLevelNav level={level} />
+  </Fragment>
+
+  <article data-phase={phase.id}>
+    <!-- ───────────────── header ───────────────── -->
+    <header class="lh">
+      <div class="wrap lh__inner">
+        <div class="lh__crumbs">
+          <a href="/#map" class="lh__crumb">Roadmap</a>
+          <Icon name="chevron-right" size={13} />
+          <span class="lh__crumb lh__crumb--phase">{phase.name}</span>
+        </div>
+
+        <div class="lh__top">
+          <span class="lh__num" aria-hidden="true">{level.number}</span>
+          <div class="lh__headings">
+            <Eyebrow text={`Phase ${phaseIndex + 1} · ${phase.name}`} class="lh__eyebrow" />
+            <h1 class="h1 lh__title">{level.title}</h1>
+          </div>
+        </div>
+
+        <p class="lede lh__scope">{sentence(level.scope)}</p>
+
+        <div class="lh__facts">
+          <div class="lh__fact">
+            <span class="lh__fact-label">This level</span>
+            <SessionMeter count={level.totalSessions} size="md" showLabel={false} class="lh__meter" />
+            <span class="lh__fact-value">{level.totalSessions} sessions · {level.modules.length} modules</span>
+          </div>
+
+          <div class="lh__fact">
+            <span class="lh__fact-label">Cumulative</span>
+            <span class="lh__prog">
+              <span class="lh__prog-fill" style={`width:${cumulativePct}%`}></span>
+            </span>
+            <span class="lh__fact-value">{cumulative} of {totalSessions} sessions ({cumulativePct}%)</span>
+          </div>
+
+          {prereq && (
+            <div class="lh__fact lh__fact--pre">
+              <span class="lh__fact-label">Assumes</span>
+              {prev ? (
+                <a class="lh__pre" href={`/level/${prev.number}/`} data-track="prereq_click" data-track-data={String(prev.number)}>
+                  <Icon name="corner-left-up" size={14} />
+                  <span>{prereq}</span>
+                </a>
+              ) : (
+                <span class="lh__pre lh__pre--none">
+                  <Icon name="flag-triangle-right" size={14} />
+                  <span>{prereq} — this is the start</span>
+                </span>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </header>
+
+    <!-- ───────────────── module map ───────────────── -->
+    <section class="section lsec" aria-labelledby="modules-h">
+      <div class="wrap">
+        <SectionHeader
+          eyebrow="Module map"
+          title={`${modules.length} modules to work through.`}
+          subhead="Each row is a module: its icon, its session count, and — behind the expander — exactly what you should be able to do afterwards."
+          class="lsec__head"
+        />
+        <div id="modules-h" class="mods">
+          {modules.map((m, i) => (
+            <ModuleRow module={m} index={i} levelNumber={level.number} />
+          ))}
+        </div>
+        <p class="mods__hint">
+          <Icon name="chevrons-up-down" size={14} />
+          <span>Expand any module for its objectives</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ───────────────── stack ───────────────── -->
+    {level.stack.length > 0 && (
+      <section class="section lsec lsec--tight stack">
+        <div class="wrap">
+          <SectionHeader eyebrow="Stack" title="What you touch here." class="lsec__head" />
+
+          {/* Two equal columns: what you learn, and what you install. A level
+              with only one of the two gets the full width. */}
+          <div class={`stack__cols ${concepts.length && tools.length ? '' : 'stack__cols--single'}`}>
+            {concepts.length > 0 && (
+              <div class="stack__col">
+                <h3 class="stack__label" id="concepts-h">
+                  <Icon name="lightbulb" size={14} />
+                  <span>Concepts</span>
+                  <span class="stack__count">{concepts.length}</span>
+                </h3>
+                <ul class="stack__list" aria-labelledby="concepts-h" role="list">
+                  {concepts.map((tag) => (
+                    <li><Pill tone="phase" size="md">{tag.label}</Pill></li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {tools.length > 0 && (
+              <div class="stack__col">
+                <h3 class="stack__label" id="tools-h">
+                  <Icon name="wrench" size={14} />
+                  <span>Tools</span>
+                  <span class="stack__count">{tools.length}</span>
+                </h3>
+                <ul class="stack__list" aria-labelledby="tools-h" role="list">
+                  {tools.map((tag) => (
+                    <li><Pill tone="phase" size="md">{tag.label}</Pill></li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- ───────────────── ship it ───────────────── -->
+    {capstone && (
+      <section class="section lsec lsec--tight" id="ship">
+        <div class="wrap">
+          <ShipItCallout module={capstone} levelNumber={level.number} />
+        </div>
+      </section>
+    )}
+
+    <!-- ───────────────── campusx ───────────────── -->
+    <section class="section lsec courses" aria-labelledby="courses-h">
+      <div class="wrap">
+        <SectionHeader
+          eyebrow="Learn this on CampusX"
+          title={courses.length > 0 ? 'Courses that cover this level.' : 'No direct course mapping yet.'}
+          subhead={
+            courses.length > 0
+              ? 'Included with CampusX One. Items marked coming soon are still in production.'
+              : 'This level has no mapped catalog item yet — CampusX One is still the place to ask questions while you work through it.'
+          }
+          class="lsec__head"
+        />
+
+        {courses.length > 0 && (
+          <ul class="courses__grid" id="courses-h" role="list">
+            {courses.map((c) => (
+              <li><CourseCard course={c} levelNumber={level.number} /></li>
+            ))}
+          </ul>
+        )}
+
+        <div class="courses__cta">
+          <Button
+            href={CAMPUSX_ONE_URL}
+            variant="primary"
+            external
+            track="campusx_cta_click"
+            trackData={`level_${level.number}`}
+          >
+            Open CampusX One
+          </Button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────── nav ───────────────── -->
+    <section class="section lsec lnav-section no-print">
+      <div class="wrap">
+        <LevelNav current={level.number} />
+      </div>
+    </section>
+  </article>
+</Base>
+
+<style>
+  /* ---------- header ---------- */
+  .lh {
+    padding-block: 40px 34px;
+    background: linear-gradient(180deg, var(--phase-bg) 0%, #fff 100%);
+  }
+  @media (min-width: 768px) { .lh { padding-block: 56px 44px; } }
+
+  .lh__inner { display: flex; flex-direction: column; gap: 18px; }
+
+  .lh__crumbs {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--cx-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
+  .lh__crumb:hover { color: var(--cx-purple); }
+  .lh__crumb--phase { color: var(--phase-ac); }
+
+  .lh__top { display: flex; align-items: flex-start; gap: 16px; }
+  @media (min-width: 768px) { .lh__top { gap: 24px; align-items: center; } }
+
+  .lh__num {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 62px;
+    height: 62px;
+    border-radius: 20px;
+    background: #fff;
+    border: 2px solid var(--phase-br);
+    color: var(--phase-ac);
+    font-family: var(--cx-font-display);
+    font-weight: 700;
+    font-size: 30px;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+    box-shadow: var(--cx-shadow-card);
+  }
+  @media (min-width: 768px) { .lh__num { width: 88px; height: 88px; font-size: 42px; border-radius: 26px; } }
+
+  .lh__headings { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .lh__eyebrow { color: var(--phase-ac) !important; }
+  .lh__title { font-size: clamp(30px, 6vw, 62px); }
+
+  .lh__scope { max-width: 62ch; }
+
+  .lh__facts {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 8px;
+    padding: 18px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid var(--phase-br);
+    border-radius: var(--cx-r-card);
+  }
+  @media (min-width: 820px) {
+    .lh__facts { grid-template-columns: repeat(3, 1fr); gap: 26px; padding: 20px 24px; }
+  }
+
+  .lh__fact { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+  .lh__fact-label {
+    font-family: var(--cx-font-mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
+  .lh__fact-value {
+    font-family: var(--cx-font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+    color: var(--cx-g700);
+    font-variant-numeric: tabular-nums;
+  }
+  .lh__meter :global(.meter__track) { max-width: none; }
+
+  .lh__prog { display: block; height: 6px; border-radius: 999px; background: var(--cx-border-2); overflow: hidden; }
+  .lh__prog-fill { display: block; height: 100%; border-radius: 999px; background: var(--phase-ac); opacity: 0.85; }
+
+  .lh__pre {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--phase-ac);
+    line-height: 1.4;
+  }
+  .lh__pre:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .lh__pre--none { color: var(--cx-g500); }
+  .lh__pre--none:hover { text-decoration: none; }
+
+  /* ---------- sections ---------- */
+  .lsec { padding-block: 44px; }
+  @media (min-width: 768px) { .lsec { padding-block: 56px; } }
+  .lsec--tight { padding-block: 22px; }
+  .lsec__head { margin-bottom: 26px; max-width: 640px; }
+
+  .mods { border-radius: var(--cx-r-card); overflow: hidden; }
+
+  .mods__hint {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 16px;
+    font-family: var(--cx-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
+
+  /* ---------- stack ---------- */
+  .stack__cols {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  @media (min-width: 820px) {
+    /* equal halves regardless of how many pills land in each */
+    .stack__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; }
+    .stack__cols:not(.stack__cols--single) .stack__col + .stack__col {
+      padding-left: 40px;
+      margin-left: -40px;
+      border-left: 1px solid var(--cx-border);
+    }
+    .stack__cols--single { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  .stack__col { min-width: 0; }
+
+  .stack__label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    padding-bottom: 11px;
+    border-bottom: 1px solid var(--cx-border);
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--phase-ac);
+  }
+  .stack__count {
+    margin-left: auto;
+    font-size: 11px;
+    color: var(--cx-g500);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stack__list { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+
+  /* ---------- courses ---------- */
+  .courses__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 620px) { .courses__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .courses__grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .courses__cta { margin-top: 22px; }
+
+  .lnav-section { padding-top: 12px; padding-bottom: 72px; }
+</style>

@@ -1,0 +1,5055 @@
+{
+  "generatedFrom": "./AI ENGINEER ROADMAP",
+  "totalLevels": 15,
+  "totalSessions": 235,
+  "totalModules": 136,
+  "phases": [
+    {
+      "id": "foundations",
+      "name": "Foundations",
+      "levels": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "theme": "software, LLM 101, orchestration, prompting",
+      "color": "violet",
+      "icon": "blocks"
+    },
+    {
+      "id": "retrieval",
+      "name": "Retrieval",
+      "levels": [
+        4,
+        5
+      ],
+      "theme": "embeddings/vector, RAG",
+      "color": "blue",
+      "icon": "search"
+    },
+    {
+      "id": "agentic",
+      "name": "Agentic",
+      "levels": [
+        6,
+        7
+      ],
+      "theme": "agents, context engineering",
+      "color": "emerald",
+      "icon": "bot"
+    },
+    {
+      "id": "trust",
+      "name": "Evaluation & Trust",
+      "levels": [
+        8,
+        9
+      ],
+      "theme": "evals, security",
+      "color": "amber",
+      "icon": "shield-check"
+    },
+    {
+      "id": "production",
+      "name": "Production",
+      "levels": [
+        10,
+        11
+      ],
+      "theme": "system design, LLMOps",
+      "color": "cyan",
+      "icon": "server"
+    },
+    {
+      "id": "frontier",
+      "name": "Frontier & Proof",
+      "levels": [
+        12,
+        13,
+        14
+      ],
+      "theme": "multimodal, fine-tuning, projects",
+      "color": "rose",
+      "icon": "sparkles"
+    }
+  ],
+  "levels": [
+    {
+      "number": 0,
+      "slug": "level-0",
+      "title": "Software Engineering Fundamentals",
+      "sourceFile": "level0-software-fundamentals.txt",
+      "scope": "become comfortable building, debugging, and deploying real software before adding LLMs. This is the engineering foundation for everything that follows.",
+      "prereqStated": null,
+      "phase": "foundations",
+      "icon": "terminal",
+      "modules": [
+        {
+          "id": "M0.1",
+          "name": "Python for AI Engineering",
+          "sessionCount": 4,
+          "icon": "terminal",
+          "objectives": [
+            {
+              "text": "Write clean, idiomatic Python using functions, classes, modules, comprehensions, exceptions, and common standard-library utilities."
+            },
+            {
+              "text": "Reason confidently about core data structures: lists, tuples, sets, dictionaries, iterators, generators, and when to use each."
+            },
+            {
+              "text": "Use type hints, dataclass/Pydantic-style models, and static analysis to make interfaces explicit and catch mistakes earlier."
+            },
+            {
+              "text": "Understand mutability, references, scope, exceptions, context managers, and common Python failure modes."
+            },
+            {
+              "text": "Work with files, paths, environment variables, JSON, CSV, and basic serialization."
+            },
+            {
+              "text": "Understand synchronous vs asynchronous execution; use async / await to perform concurrent network/API calls without blocking."
+            },
+            {
+              "text": "Manage virtual environments and dependencies with uv; understand pyproject.toml, dependency locking, and reproducible environments."
+            },
+            {
+              "text": "Structure larger programs into modules and packages instead of writing everything in one script."
+            },
+            {
+              "text": "Write basic unit tests with pytest and learn to debug using stack traces, logs, and breakpoints."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Build a small multi-file Python application that is typed, tested, dependency-managed, and capable of making concurrent external API calls."
+        },
+        {
+          "id": "M0.2",
+          "name": "The Web: HTTP, REST & JSON",
+          "sessionCount": 3,
+          "icon": "braces",
+          "objectives": [
+            {
+              "text": "Understand the full HTTP request/response cycle: URL, method, headers, body, server processing, response, and status code."
+            },
+            {
+              "text": "Work with common methods such as GET, POST, PUT/PATCH, and DELETE, and understand idempotency at a practical level."
+            },
+            {
+              "text": "Understand important status-code families and common codes such as 200, 201, 400, 401, 403, 404, 409, 429, and 500."
+            },
+            {
+              "text": "Understand headers, query parameters, path parameters, request bodies, content types, and cookies at a practical level."
+            },
+            {
+              "text": "Produce, parse, validate, and manipulate JSON confidently."
+            },
+            {
+              "text": "Understand RESTful resource design and design clean endpoints for a simple application."
+            },
+            {
+              "text": "Understand authentication basics: API keys, bearer tokens, authorization headers, and why secrets should not be embedded in URLs or client code."
+            },
+            {
+              "text": "Use tools such as curl, Postman/Bruno, or Python HTTP clients to inspect and debug APIs."
+            },
+            {
+              "text": "Distinguish client-side failures, server-side failures, and network failures."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Read unfamiliar API documentation, construct requests manually, interpret responses, and design a sensible REST API."
+        },
+        {
+          "id": "M0.3",
+          "name": "Building APIs with FastAPI",
+          "sessionCount": 3,
+          "icon": "globe",
+          "objectives": [
+            {
+              "text": "Build a FastAPI application with routes, path/query parameters, request bodies, and response models."
+            },
+            {
+              "text": "Use Pydantic models for validation, serialization, typed inputs, and typed outputs."
+            },
+            {
+              "text": "Understand dependency injection at a practical level for reusable application dependencies."
+            },
+            {
+              "text": "Return appropriate HTTP status codes and design consistent error responses."
+            },
+            {
+              "text": "Handle exceptions cleanly instead of leaking raw stack traces to clients."
+            },
+            {
+              "text": "Use FastAPI's automatically generated OpenAPI/Swagger documentation and understand how API schemas are derived."
+            },
+            {
+              "text": "Write synchronous and asynchronous endpoints and understand when each is appropriate."
+            },
+            {
+              "text": "Call external HTTP services from async endpoints without blocking the server."
+            },
+            {
+              "text": "Understand application startup/shutdown, configuration through environment variables, and basic middleware concepts."
+            },
+            {
+              "text": "Test endpoints using pytest and FastAPI's test client."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Build a documented, validated, testable API that communicates with at least one external service."
+        },
+        {
+          "id": "M0.4",
+          "name": "Data & Persistence Basics",
+          "sessionCount": 2,
+          "icon": "file-text",
+          "objectives": [
+            {
+              "text": "Understand relational data modeling: tables, rows, columns, primary keys, foreign keys, relationships, and basic normalization."
+            },
+            {
+              "text": "Use PostgreSQL and write SQL for SELECT, INSERT, UPDATE, DELETE, filtering, sorting, grouping, joins, and basic aggregations."
+            },
+            {
+              "text": "Understand indexes conceptually and why query design affects performance."
+            },
+            {
+              "text": "Connect PostgreSQL to a Python/FastAPI application using a database driver or ORM."
+            },
+            {
+              "text": "Understand connection strings, connection pooling, transactions, commits, and rollbacks at a practical level."
+            },
+            {
+              "text": "Keep database credentials outside source code and manage configuration through environment variables."
+            },
+            {
+              "text": "Understand migrations conceptually so schema changes can be versioned safely."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Build an API whose data survives application restarts and supports real CRUD operations backed by PostgreSQL."
+        },
+        {
+          "id": "M0.5",
+          "name": "Git & Collaboration",
+          "sessionCount": 2,
+          "icon": "git-branch",
+          "objectives": [
+            {
+              "text": "Understand repositories, commits, branches, remotes, diffs, and the staging area."
+            },
+            {
+              "text": "Follow a practical workflow: branch → make changes → commit → push → pull request → review → merge."
+            },
+            {
+              "text": "Write useful commit messages and inspect history using Git tools."
+            },
+            {
+              "text": "Resolve merge conflicts confidently rather than avoiding them."
+            },
+            {
+              "text": "Understand .gitignore and prevent secrets, virtual environments, generated files, and local configuration from entering the repository."
+            },
+            {
+              "text": "Structure repositories clearly with source code, tests, configuration, documentation, and dependency files."
+            },
+            {
+              "text": "Write a README that explains what the project does, how to install it, configure it, run it, test it, and call its API."
+            },
+            {
+              "text": "Understand basic collaboration concepts such as code review, pull requests, and protected main branches."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Hand another developer your repository and have them understand, run, and contribute to it without needing you beside them."
+        },
+        {
+          "id": "M0.6",
+          "name": "Containers & Deployment",
+          "sessionCount": 2,
+          "icon": "ship",
+          "objectives": [
+            {
+              "text": "Understand the practical distinction between your application, its environment, and the machine running it."
+            },
+            {
+              "text": "Understand containers and images conceptually and why Docker improves reproducibility."
+            },
+            {
+              "text": "Write a Dockerfile, build an image, run a container locally, expose ports, and pass environment variables safely."
+            },
+            {
+              "text": "Understand image layers, .dockerignore, container logs, and common container startup failures."
+            },
+            {
+              "text": "Containerize a FastAPI application and connect it to its required configuration/services."
+            },
+            {
+              "text": "Deploy a service to a cloud/platform provider and expose it through a publicly reachable URL."
+            },
+            {
+              "text": "Configure production environment variables and secrets separately from local development."
+            },
+            {
+              "text": "Read deployment logs, inspect HTTP errors, and diagnose failed builds or crashes."
+            },
+            {
+              "text": "Understand basic production concepts such as health checks, process restarts, and the difference between local and deployed environments."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Take a service that works locally, containerize it, deploy it, and debug it when the production environment behaves differently."
+        },
+        {
+          "id": "M0.7",
+          "name": "Capstone: Ship a No-AI REST Service",
+          "sessionCount": 1,
+          "icon": "flag",
+          "objectives": [
+            {
+              "text": "Build a complete application using Python + FastAPI + PostgreSQL + Git + Docker + deployment, with no LLM or AI dependency."
+            },
+            {
+              "text": "Design a small but realistic domain such as task management, bookmarks, expense tracking, inventory, notes, or support tickets."
+            },
+            {
+              "text": "Implement multiple REST endpoints with validated request/response schemas and persistent CRUD operations."
+            },
+            {
+              "text": "Include at least one external API integration and use async execution where appropriate."
+            },
+            {
+              "text": "Handle validation failures, missing resources, external-service errors, and unexpected server errors cleanly."
+            },
+            {
+              "text": "Add basic automated tests, configuration via environment variables, and useful application logging."
+            },
+            {
+              "text": "Maintain the project in Git with a clean repository structure and a README containing setup and usage instructions."
+            },
+            {
+              "text": "Package the service with Docker and deploy it to a publicly reachable URL."
+            },
+            {
+              "text": "Verify the deployed API using its OpenAPI docs, curl, or an API client."
+            }
+          ],
+          "notes": [],
+          "isCapstone": true,
+          "isGap": false,
+          "finalResult": "a real service that another person can clone, run, test, call over HTTP, and inspect without any AI component hiding weak software-engineering fundamentals."
+        }
+      ],
+      "stack": [
+        {
+          "label": "Python",
+          "kind": "tool"
+        },
+        {
+          "label": "uv",
+          "kind": "tool"
+        },
+        {
+          "label": "pytest",
+          "kind": "tool"
+        },
+        {
+          "label": "type hints",
+          "kind": "concept"
+        },
+        {
+          "label": "Pydantic",
+          "kind": "tool"
+        },
+        {
+          "label": "FastAPI",
+          "kind": "tool"
+        },
+        {
+          "label": "HTTP/REST",
+          "kind": "concept"
+        },
+        {
+          "label": "JSON",
+          "kind": "concept"
+        },
+        {
+          "label": "OpenAPI",
+          "kind": "concept"
+        },
+        {
+          "label": "PostgreSQL",
+          "kind": "tool"
+        },
+        {
+          "label": "SQL",
+          "kind": "concept"
+        },
+        {
+          "label": "Git",
+          "kind": "tool"
+        },
+        {
+          "label": "Docker",
+          "kind": "tool"
+        },
+        {
+          "label": "curl",
+          "kind": "tool"
+        },
+        {
+          "label": "Postman",
+          "kind": "tool"
+        },
+        {
+          "label": "Bruno",
+          "kind": "tool"
+        },
+        {
+          "label": "async/await",
+          "kind": "concept"
+        },
+        {
+          "label": "tracing",
+          "kind": "concept"
+        }
+      ],
+      "project": "M0.7",
+      "totalSessions": 17,
+      "statedSessions": null,
+      "completionOutcomes": [
+        "Write clean, typed, modular Python and debug it systematically.",
+        "Use async programming for network-bound workloads.",
+        "Manage dependencies and reproducible environments.",
+        "Understand HTTP requests, responses, REST APIs, authentication, and JSON.",
+        "Build validated, documented APIs with FastAPI.",
+        "Store and query application data using PostgreSQL and SQL.",
+        "Connect application code safely to a database.",
+        "Test application behavior rather than relying only on manual checks.",
+        "Work confidently with Git branches, commits, pull requests, and merge conflicts.",
+        "Structure a repository so another engineer can understand it.",
+        "Containerize an application with Docker.",
+        "Deploy a backend service to a public endpoint.",
+        "Use logs, errors, and traces to diagnose failures.",
+        "Ship a complete software service before an LLM enters the architecture."
+      ],
+      "todos": []
+    },
+    {
+      "number": 1,
+      "slug": "level-1",
+      "title": "LLM 101",
+      "sourceFile": "level1-llm-101.txt",
+      "scope": "Build a strong mental model of how LLMs work, why they behave the way they do, and how to choose and use the right model for a task.",
+      "prereqStated": "None",
+      "phase": "foundations",
+      "icon": "brain",
+      "modules": [
+        {
+          "id": "M1.1",
+          "name": "What an LLM Actually Is",
+          "sessionCount": 1,
+          "icon": "book-open",
+          "objectives": [
+            {
+              "text": "Understand what a Large Language Model actually does, with next-token prediction as the core idea and generation as a repeated predict → choose → append → repeat process."
+            },
+            {
+              "text": "Understand what an LLM is not: a database, search engine, deterministic program, or repository of stored answers."
+            },
+            {
+              "text": "Understand why the same underlying model can perform writing, summarization, translation, coding, question answering, and classification."
+            },
+            {
+              "text": "Build intuition for how capability improves through better data, more compute, larger models, and better training."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "tryIt": "Give the same prompt multiple times and observe variation; predict the next word/token in simple sentences before asking the model.",
+          "outcome": "Explain an LLM simply: an LLM generates text by repeatedly predicting the most appropriate next token given the tokens it has already seen."
+        },
+        {
+          "id": "M1.2",
+          "name": "Tokenization",
+          "sessionCount": 1,
+          "icon": "scissors-line-dashed",
+          "objectives": [
+            {
+              "text": "Distinguish characters, words, and tokens; understand token IDs, why LLMs operate on tokens, and why different tokenizers can split the same text differently."
+            },
+            {
+              "text": "Explore tokenization of normal English, uncommon words, numbers, code, emojis, Hindi/Devanagari, and mixed Hindi-English text."
+            },
+            {
+              "text": "Connect tokenization to API pricing, context-window consumption, output length, latency, spelling difficulties, character-counting failures, and mathematical/numerical behavior."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "tryIt": "Compare token counts for an English paragraph, its Hindi translation, source code, and a list of numbers.",
+          "outcome": "Explain why two texts with roughly the same number of words can have very different token counts and LLM costs."
+        },
+        {
+          "id": "M1.3",
+          "name": "Inside an LLM: Embeddings, Attention & Transformers",
+          "sessionCount": 2,
+          "icon": "vector-square",
+          "objectives": [
+            {
+              "text": "Understand how token IDs become embeddings, what vectors represent conceptually, why concepts are represented numerically, and how representations change as they pass through transformer layers.",
+              "group": "Tokens → Vectors"
+            },
+            {
+              "text": "Understand what model parameters are and what sizes such as 8B, 70B, and 400B+ mean.",
+              "group": "Tokens → Vectors"
+            },
+            {
+              "text": "Understand why more parameters can increase capacity, while larger does not automatically mean better.",
+              "group": "Tokens → Vectors"
+            },
+            {
+              "text": "Understand attention through the intuition: a token looks at other relevant tokens in the context to build a better representation of what it means.",
+              "group": "Attention"
+            },
+            {
+              "text": "Build a high-level understanding of queries, keys, values, attention scores, transformer layers, and causal attention — without matrix mathematics.",
+              "group": "Attention"
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "tryIt": "Inspect an attention visualization for a sentence such as “The animal didn't cross the street because it was tired” and reason about what \"it\" should attend to.",
+          "mentalModel": "Text → Tokens → Embeddings → Transformer layers + attention → Next-token probabilities",
+          "outcome": "Explain conceptually what happens between a token entering the model and the model producing next-token probabilities."
+        },
+        {
+          "id": "M1.4",
+          "name": "How LLMs Learn",
+          "sessionCount": 2,
+          "icon": "graduation-cap",
+          "objectives": [
+            {
+              "text": "Understand pretraining, how enormous text datasets are used, why next-token prediction creates its own training signal, and what self-supervised learning means.",
+              "group": "Pretraining"
+            },
+            {
+              "text": "Understand how pretraining enables models to learn grammar, facts, patterns, concepts, relationships, coding syntax, and problem-solving patterns.",
+              "group": "Pretraining"
+            },
+            {
+              "text": "Explore memorization vs generalization, including why an LLM can sometimes answer questions it has never seen verbatim.",
+              "group": "Pretraining"
+            },
+            {
+              "text": "Understand the broad pipeline: Pretraining → Supervised Fine-Tuning → Preference / Reinforcement Training → Deployed Assistant.",
+              "group": "Post-training"
+            },
+            {
+              "text": "Understand SFT, RLHF, RLAIF, preference optimization at a conceptual level, and safety tuning.",
+              "group": "Post-training"
+            },
+            {
+              "text": "Connect post-training to why chat models follow instructions, answer conversationally, refuse certain requests, hedge, structure answers, and ask for clarification.",
+              "group": "Post-training"
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "tryIt": "Compare a base model and an instruction-tuned model using identical prompts.",
+          "outcome": "Explain why a pretrained model may know a lot while still being a poor conversational assistant."
+        },
+        {
+          "id": "M1.5",
+          "name": "How LLM Inference Works",
+          "sessionCount": 1,
+          "icon": "cpu",
+          "objectives": [
+            {
+              "text": "Understand what happens after sending a prompt to an LLM API: Prompt → process input → predict token → generate token → repeat."
+            },
+            {
+              "text": "Distinguish prefill, where the model processes the input/context, from decode, where new tokens are generated one by one."
+            },
+            {
+              "text": "Understand input tokens, output tokens, time to first token (TTFT), tokens per second, and total latency."
+            },
+            {
+              "text": "Build intuition for KV caching and why the model does not need to recompute the entire conversation from scratch after every generated token."
+            },
+            {
+              "text": "Connect inference mechanics to latency, cost, long prompts, long outputs, and reasoning models."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Explain why generating 2,000 output tokens usually takes much longer than generating 50 tokens even with the same input."
+        },
+        {
+          "id": "M1.6",
+          "name": "The Context Window",
+          "sessionCount": 1,
+          "icon": "layout-panel-left",
+          "objectives": [
+            {
+              "text": "Understand what the context window is and what can occupy it: system instructions, conversation history, user prompts, documents, examples, tool outputs, and generated content."
+            },
+            {
+              "text": "Distinguish context ≠ model knowledge ≠ long-term memory."
+            },
+            {
+              "text": "Understand what can happen with very long contexts: truncation, attention degradation, lost-in-the-middle effects, and context dilution."
+            },
+            {
+              "text": "Understand why a model supporting a huge context window does not mean it can use every token equally well."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "tryIt": "Place an important fact near the beginning, middle, and end of a long document and compare retrieval performance.",
+          "outcome": "Decide whether a task needs a larger-context model or a better strategy for selecting what enters context."
+        },
+        {
+          "id": "M1.7",
+          "name": "Sampling & Generation Parameters",
+          "sessionCount": 1,
+          "icon": "sigma",
+          "objectives": [
+            {
+              "text": "Start from the model's next-token probability distribution and ask: which token should actually be generated?"
+            },
+            {
+              "text": "Understand greedy decoding, temperature, top-p, top-k, maximum output tokens, stop sequences, and repetition/frequency/presence penalties where supported."
+            },
+            {
+              "text": "Understand task-dependent randomness: lower randomness for extraction, structured output, classification, and factual QA; higher randomness for brainstorming, creative writing, and diverse alternatives."
+            },
+            {
+              "text": "Understand that different model APIs expose different controls and that some reasoning models provide less direct control over traditional sampling parameters."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "tryIt": "Run the same prompt at several temperature settings and compare consistency, creativity, and correctness.",
+          "outcome": "Choose sensible generation settings based on the task instead of changing temperature arbitrarily."
+        },
+        {
+          "id": "M1.8",
+          "name": "Reasoning Models & Test-Time Compute",
+          "sessionCount": 1,
+          "icon": "workflow",
+          "objectives": [
+            {
+              "text": "Understand why some models spend substantially more compute before producing an answer."
+            },
+            {
+              "text": "Build intuition for test-time compute, reasoning effort, thinking budgets, and internal reasoning tokens/compute."
+            },
+            {
+              "text": "Identify tasks where reasoning tends to help: difficult mathematics, complex coding, planning, multi-step logic, and constraint-heavy problems."
+            },
+            {
+              "text": "Identify tasks where it may be unnecessary: sentiment classification, simple extraction, rewriting, and straightforward summarization."
+            },
+            {
+              "text": "Understand the trade-off: more reasoning can improve quality but generally increases cost and latency."
+            },
+            {
+              "text": "Adapt prompting for reasoning models: move away from relying on “think step by step” and instead clearly state the goal, provide relevant context, specify constraints, and define what a good answer looks like."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "tryIt": "Run the same problems through a fast general model and a reasoning model; compare accuracy, latency, and cost.",
+          "outcome": "Recognize when paying for extra reasoning compute is likely to be worthwhile."
+        },
+        {
+          "id": "M1.9",
+          "name": "LLM Capabilities & Failure Modes",
+          "sessionCount": 1,
+          "icon": "triangle-alert",
+          "objectives": [
+            {
+              "text": "Understand common strengths: summarization, text transformation, extraction, classification, semantic understanding, coding, translation, brainstorming, working with unstructured information, and few-shot adaptation."
+            },
+            {
+              "text": "Understand common failure modes: hallucination, arithmetic mistakes, brittle reasoning, instruction-following failures, prompt sensitivity, context failures, outdated knowledge, nondeterminism, and confident incorrect answers."
+            },
+            {
+              "text": "Understand hallucination mechanistically: an LLM is trained to generate a likely continuation, not to independently verify that every generated statement is true, which makes fluent incorrect answers possible."
+            },
+            {
+              "text": "Adopt the engineering question: instead of “Can GPT do this?”, ask “How reliably does this model perform this task under the conditions of my application?”"
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "tryIt": "Create 10 questions where the model knows the answer, probably does not know it, receives misleading information, or receives insufficient information; observe how confidence changes.",
+          "outcome": "Predict which tasks are naturally well suited to LLMs and which require additional safeguards."
+        },
+        {
+          "id": "M1.10",
+          "name": "Understanding the Model Landscape",
+          "sessionCount": 1,
+          "icon": "git-fork",
+          "objectives": [
+            {
+              "text": "Understand closed/API models through trade-offs involving frontier capability, convenience, infrastructure, privacy, vendor dependence, and control."
+            },
+            {
+              "text": "Understand open-weight models through self-hosting, privacy, customization, infrastructure requirements, and operational complexity."
+            },
+            {
+              "text": "Learn other useful distinctions: small vs large, dense vs Mixture-of-Experts, general-purpose vs specialized, reasoning vs non-reasoning, and text-only vs multimodal."
+            },
+            {
+              "text": "Internalize the core principle: there is no universally best LLM; the best model depends on the workload."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Compare two models using meaningful architectural, capability, and deployment differences rather than relying purely on leaderboard rank."
+        },
+        {
+          "id": "M1.11",
+          "name": "Choosing the Right Model",
+          "sessionCount": 1,
+          "icon": "git-fork",
+          "objectives": [
+            {
+              "text": "Evaluate models across eight dimensions:"
+            },
+            {
+              "text": "Capability: Can it perform the task at all?"
+            },
+            {
+              "text": "Quality: How reliably does it perform your specific task?"
+            },
+            {
+              "text": "Latency: How quickly does it respond?"
+            },
+            {
+              "text": "Cost: What will each request cost at your expected usage?"
+            },
+            {
+              "text": "Context: Can it accommodate the required input?"
+            },
+            {
+              "text": "Modalities: Do you need text, images, audio, or video?"
+            },
+            {
+              "text": "Privacy & deployment: Can you use an external API, or do you require self-hosting?"
+            },
+            {
+              "text": "Product features: Do you require structured outputs, function calling, tools, streaming, or caching?"
+            },
+            {
+              "text": "Learn to critically read model cards, benchmark tables, pricing pages, context-window specifications, and API documentation."
+            },
+            {
+              "text": "Understand why benchmark scores alone should not determine model selection."
+            },
+            {
+              "text": "Follow the workflow: Define task → Identify requirements → Shortlist models → Test on your own examples → Measure quality → Measure latency → Measure cost → Inspect failures → Choose the model."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Select models based on application requirements and empirical performance rather than popularity or leaderboard position."
+        }
+      ],
+      "stack": [
+        {
+          "label": "streaming",
+          "kind": "concept"
+        },
+        {
+          "label": "structured outputs",
+          "kind": "concept"
+        },
+        {
+          "label": "few-shot",
+          "kind": "concept"
+        },
+        {
+          "label": "embeddings",
+          "kind": "concept"
+        },
+        {
+          "label": "summarization",
+          "kind": "concept"
+        },
+        {
+          "label": "SFT",
+          "kind": "concept"
+        },
+        {
+          "label": "RLHF",
+          "kind": "concept"
+        },
+        {
+          "label": "tokenization",
+          "kind": "concept"
+        },
+        {
+          "label": "attention",
+          "kind": "concept"
+        },
+        {
+          "label": "transformers",
+          "kind": "concept"
+        }
+      ],
+      "project": null,
+      "totalSessions": 13,
+      "statedSessions": 13,
+      "completionOutcomes": [],
+      "todos": [
+        "No capstone/ship-it module found."
+      ]
+    },
+    {
+      "number": 2,
+      "slug": "level-2",
+      "title": "Working with LLM APIs (Orchestration)",
+      "sourceFile": "level2-llm-orchestration.txt",
+      "scope": "turn individual LLM calls into reliable software workflows — messages, streaming, structured outputs, tools, multi-step orchestration, concurrency, failure handling, and observability. RAG and agents come later.",
+      "prereqStated": null,
+      "phase": "foundations",
+      "icon": "plug",
+      "modules": [
+        {
+          "id": "M2.1",
+          "name": "First API calls & conversation state",
+          "sessionCount": 2,
+          "icon": "save",
+          "objectives": [
+            {
+              "text": "Call OpenAI/Anthropic SDKs; work with models, messages, system instructions, user/assistant roles, response objects, stop reasons, and usage metadata."
+            },
+            {
+              "text": "Understand that most LLM APIs are fundamentally stateless and learn to maintain conversation history explicitly."
+            },
+            {
+              "text": "Distinguish application state from information currently present in the model's context."
+            },
+            {
+              "text": "Manage API keys safely using environment variables, .env files, or secret managers; never expose server-side credentials in frontend code."
+            },
+            {
+              "text": "Inspect input/output tokens, request metadata, and model responses instead of treating the API as a simple prompt → string function."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M2.2",
+          "name": "Streaming",
+          "sessionCount": 1,
+          "icon": "radio",
+          "objectives": [
+            {
+              "text": "Stream model output incrementally and render partial responses in a terminal or UI."
+            },
+            {
+              "text": "Understand TTFT, generation speed, perceived latency, and total latency."
+            },
+            {
+              "text": "Accumulate streamed events into a complete response and handle cancellations, interrupted streams, network failures, and incomplete generations."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M2.3",
+          "name": "LangChain fundamentals",
+          "sessionCount": 2,
+          "icon": "book-open",
+          "objectives": [
+            {
+              "text": "Understand why orchestration libraries exist and what LangChain abstracts over raw provider SDKs."
+            },
+            {
+              "text": "Work with chat models, messages, prompt templates, output parsers, streaming, and model configuration."
+            },
+            {
+              "text": "Use LangChain with multiple model providers while understanding the underlying API calls it is making."
+            },
+            {
+              "text": "Learn the core composition model and build simple pipelines using prompts, models, parsers, and runnables."
+            },
+            {
+              "text": "Compare equivalent implementations using raw SDKs and LangChain to understand convenience vs abstraction overhead."
+            },
+            {
+              "text": "Keep the mental model that LangChain is an orchestration layer, not the LLM itself."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M2.4",
+          "name": "Structured outputs",
+          "sessionCount": 2,
+          "icon": "braces",
+          "objectives": [
+            {
+              "text": "Generate schema-constrained outputs rather than relying on “please return JSON” prompting."
+            },
+            {
+              "text": "Define schemas using JSON Schema/Pydantic; work with required fields, optional fields, enums, lists, nested objects, and typed responses."
+            },
+            {
+              "text": "Implement structured outputs using both provider-native capabilities and LangChain abstractions."
+            },
+            {
+              "text": "Validate model outputs before passing them into application logic."
+            },
+            {
+              "text": "Distinguish syntactic validity from semantic correctness: valid JSON can still contain incorrect information."
+            },
+            {
+              "text": "Implement a generate → validate → accept / retry / repair / reject workflow for invalid outputs."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M2.5",
+          "name": "Function / tool calling",
+          "sessionCount": 3,
+          "icon": "wrench",
+          "objectives": [
+            {
+              "text": "Understand that the LLM normally chooses a tool and generates arguments; your application executes the actual function."
+            },
+            {
+              "text": "Define tools using names, descriptions, parameter schemas, types, and required arguments."
+            },
+            {
+              "text": "Implement the full loop: user → LLM → tool request → execute tool → return result → LLM → final answer."
+            },
+            {
+              "text": "Work with tool-call IDs and correctly insert tool results back into the conversation."
+            },
+            {
+              "text": "Implement tool calling using provider APIs directly and understand how LangChain represents and executes tools."
+            },
+            {
+              "text": "Handle sequential calls, multiple calls to the same tool, parallel calls, and workflows where one tool result determines the next tool call."
+            },
+            {
+              "text": "Handle tool failures and malformed arguments instead of assuming every requested invocation is executable."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M2.6",
+          "name": "Designing good tools",
+          "sessionCount": 1,
+          "icon": "wrench",
+          "objectives": [
+            {
+              "text": "Design tools with precise names, clear descriptions, minimal parameters, strong types, and useful error responses."
+            },
+            {
+              "text": "Understand how ambiguous or overlapping tools can cause incorrect tool selection."
+            },
+            {
+              "text": "Avoid giving the model huge numbers of poorly differentiated tools or unnecessary arguments."
+            },
+            {
+              "text": "Treat model-generated arguments as untrusted input: validate types, values, permissions, and potentially destructive operations before execution."
+            },
+            {
+              "text": "Understand that tool descriptions themselves are part of the context the model uses to decide what action to take."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M2.7",
+          "name": "Multi-step LLM workflows",
+          "sessionCount": 1,
+          "icon": "workflow",
+          "objectives": [
+            {
+              "text": "Move beyond prompt → model → answer and build workflows containing multiple LLM calls, tools, transformations, and application logic."
+            },
+            {
+              "text": "Implement common orchestration patterns: sequential pipelines, routing, conditional branches, and fan-out/fan-in."
+            },
+            {
+              "text": "Learn when to split a complex task into multiple specialized calls instead of using one enormous prompt."
+            },
+            {
+              "text": "Build some workflows manually to understand their control flow, then reproduce them using LangChain composition primitives."
+            },
+            {
+              "text": "Understand the distinction between application-controlled workflows and the more autonomous agentic systems introduced later."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M2.8",
+          "name": "Async, concurrency & batching",
+          "sessionCount": 1,
+          "icon": "split",
+          "objectives": [
+            {
+              "text": "Understand synchronous vs asynchronous API calls and when concurrency improves throughput."
+            },
+            {
+              "text": "Process many independent LLM requests concurrently rather than sequentially."
+            },
+            {
+              "text": "Use bounded concurrency so higher throughput does not immediately create rate-limit failures."
+            },
+            {
+              "text": "Apply async and batch execution using both provider SDKs and orchestration-layer abstractions."
+            },
+            {
+              "text": "Understand the trade-off between concurrency, throughput, latency, API limits, resource consumption, and cost."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M2.9",
+          "name": "Robustness: retries, timeouts & fallbacks",
+          "sessionCount": 2,
+          "icon": "life-buoy",
+          "objectives": [
+            {
+              "text": "Recognize common API failures: authentication errors, invalid requests, rate limits, server errors, network failures, timeouts, context-limit errors, and malformed model outputs."
+            },
+            {
+              "text": "Decide which failures should be retried and which should fail immediately; for example, authentication errors generally should not be retried while transient server errors may be."
+            },
+            {
+              "text": "Implement exponential backoff, jitter, maximum retry counts, sensible request timeouts, and graceful degradation."
+            },
+            {
+              "text": "Add model/provider fallbacks when appropriate, while understanding that fallback models may differ in quality and behavior."
+            },
+            {
+              "text": "Handle failures at both levels: LLM API failure and tool/API failure."
+            },
+            {
+              "text": "Understand where reliability logic should live: provider SDK, orchestration layer, or your application code."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M2.10",
+          "name": "Cost, usage & observability",
+          "sessionCount": 1,
+          "icon": "activity",
+          "objectives": [
+            {
+              "text": "Track model, input tokens, output tokens, latency, retries, errors, tool calls, and estimated cost for every request."
+            },
+            {
+              "text": "Treat a multi-step LLM interaction as a trace rather than an isolated API call."
+            },
+            {
+              "text": "Inspect which step caused a failure, which call consumed the most tokens, which tool was selected, and where latency accumulated."
+            },
+            {
+              "text": "Use callbacks/tracing to understand LangChain workflows and connect individual model and tool calls into a single execution trace."
+            },
+            {
+              "text": "Build enough logging and tracing that you can debug workflows without relying on scattered print() statements."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M2.11",
+          "name": "Other orchestration frameworks",
+          "sessionCount": 2,
+          "icon": "boxes",
+          "objectives": [
+            {
+              "text": "Understand that LangChain is one orchestration approach rather than a universal standard."
+            },
+            {
+              "text": "Explore LlamaIndex and how its abstractions and emphasis differ from LangChain."
+            },
+            {
+              "text": "Explore graph/state-machine style orchestration for workflows containing branches, loops, persistent state, and more complex control flow."
+            },
+            {
+              "text": "Get introduced to LangGraph as a graph-based approach for stateful LLM workflows."
+            },
+            {
+              "text": "Get introduced to DSPy as a more declarative approach where you specify desired input/output behavior rather than manually composing every prompt."
+            },
+            {
+              "text": "Compare orchestration approaches on development speed, abstraction overhead, debugging, portability, dependency complexity, state management, and control."
+            },
+            {
+              "text": "Develop the ability to choose between raw SDKs, LangChain, graph-based frameworks, LlamaIndex, DSPy, or a custom orchestration layer based on the application."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M2.12",
+          "name": "Capstone: streaming tool-using assistant",
+          "sessionCount": 1,
+          "icon": "flag",
+          "objectives": [
+            {
+              "text": "Build a conversational assistant that maintains history, uses system instructions, streams responses, and exposes at least 2–3 real tools/APIs."
+            },
+            {
+              "text": "Support sequential or parallel tool use where appropriate and validate all model-generated tool arguments."
+            },
+            {
+              "text": "Add structured outputs where useful, retry transient failures, enforce timeouts, and handle tool/API errors gracefully."
+            },
+            {
+              "text": "Record token usage, latency, retries, tool calls, and estimated cost so the entire workflow can be inspected."
+            },
+            {
+              "text": "Build the main implementation using LangChain while being able to explain the raw API/tool-call mechanics underneath it."
+            },
+            {
+              "text": "The final application should combine LLM + software + external tools + control flow + reliability, without relying on RAG or autonomous agents."
+            }
+          ],
+          "notes": [],
+          "isCapstone": true,
+          "isGap": false
+        }
+      ],
+      "stack": [
+        {
+          "label": "Pydantic",
+          "kind": "tool"
+        },
+        {
+          "label": "JSON",
+          "kind": "concept"
+        },
+        {
+          "label": "async/await",
+          "kind": "concept"
+        },
+        {
+          "label": "OpenAI SDK",
+          "kind": "tool"
+        },
+        {
+          "label": "Anthropic SDK",
+          "kind": "tool"
+        },
+        {
+          "label": "LangChain",
+          "kind": "tool"
+        },
+        {
+          "label": "LangGraph",
+          "kind": "tool"
+        },
+        {
+          "label": "LlamaIndex",
+          "kind": "tool"
+        },
+        {
+          "label": "DSPy",
+          "kind": "tool"
+        },
+        {
+          "label": "streaming",
+          "kind": "concept"
+        },
+        {
+          "label": "tool calling",
+          "kind": "concept"
+        },
+        {
+          "label": "structured outputs",
+          "kind": "concept"
+        },
+        {
+          "label": "JSON Schema",
+          "kind": "concept"
+        },
+        {
+          "label": "tracing",
+          "kind": "concept"
+        }
+      ],
+      "project": "M2.12",
+      "totalSessions": 19,
+      "statedSessions": null,
+      "completionOutcomes": [
+        "Call and understand modern LLM APIs rather than treating them as black boxes.",
+        "Maintain multi-turn conversation state and stream responses into a real application.",
+        "Use LangChain confidently while understanding what it abstracts from the underlying APIs.",
+        "Turn model outputs into validated typed data.",
+        "Give LLMs access to real software tools safely and implement the full tool-calling loop.",
+        "Build sequential, conditional, parallel, routed, and fan-out/fan-in workflows.",
+        "Process large numbers of calls concurrently.",
+        "Survive API failures, rate limits, and timeouts.",
+        "Measure token usage, latency, errors, tool activity, and cost.",
+        "Understand different orchestration approaches including raw SDKs, LangChain, LangGraph, LlamaIndex, and DSPy.",
+        "Decide when an orchestration framework is useful and which style best fits an application.",
+        "Build a complete production-style, tool-using LLM workflow."
+      ],
+      "todos": []
+    },
+    {
+      "number": 3,
+      "slug": "level-3",
+      "title": "Prompt Engineering",
+      "sourceFile": "level3-prompt-engineering.txt",
+      "scope": "design instructions that make LLM behavior more reliable and predictable. Context engineering comes later.",
+      "prereqStated": null,
+      "phase": "foundations",
+      "icon": "message-square-code",
+      "modules": [
+        {
+          "id": "M3.1",
+          "name": "Anatomy of a prompt",
+          "sessionCount": 1,
+          "icon": "message-square-code",
+          "objectives": [
+            {
+              "text": "Structure prompts using instructions, context, input, constraints, examples, and output requirements."
+            },
+            {
+              "text": "Use system/user/assistant roles correctly and understand instruction priority."
+            },
+            {
+              "text": "Separate instructions clearly from user-provided or external data."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M3.2",
+          "name": "Zero-shot & few-shot prompting",
+          "sessionCount": 2,
+          "icon": "message-square-code",
+          "objectives": [
+            {
+              "text": "Know when a clear zero-shot instruction is sufficient and when examples are needed."
+            },
+            {
+              "text": "Design useful few-shot examples that demonstrate desired behavior and output format."
+            },
+            {
+              "text": "Understand how example quality, diversity, and ordering can affect results."
+            },
+            {
+              "text": "Distinguish few-shot prompting from fine-tuning."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M3.3",
+          "name": "Reasoning & decomposition",
+          "sessionCount": 1,
+          "icon": "workflow",
+          "objectives": [
+            {
+              "text": "Use reasoning-oriented prompting for complex logic, planning, mathematics, coding, and constraint-heavy tasks."
+            },
+            {
+              "text": "Know when extra reasoning is unnecessary for tasks such as extraction, classification, and rewriting."
+            },
+            {
+              "text": "Break complex tasks into clearer subproblems or intermediate steps."
+            },
+            {
+              "text": "Adapt prompting for reasoning models rather than relying blindly on “think step by step.”"
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M3.4",
+          "name": "System prompt design",
+          "sessionCount": 2,
+          "icon": "message-square-code",
+          "objectives": [
+            {
+              "text": "Define application purpose, behavior, constraints, boundaries, and output expectations in the system prompt."
+            },
+            {
+              "text": "Separate stable application rules from task-specific user instructions."
+            },
+            {
+              "text": "Specify what the model should do when information is missing, ambiguous, or outside scope."
+            },
+            {
+              "text": "Add lightweight behavioral guardrails without turning the system prompt into an enormous rulebook."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M3.5",
+          "name": "Controlling output",
+          "sessionCount": 1,
+          "icon": "type",
+          "objectives": [
+            {
+              "text": "Control response style, length, format, headings, labels, tables, and JSON through clear instructions and examples."
+            },
+            {
+              "text": "Know when prompting is enough and when structured-output/schema enforcement from Level 2 is more reliable."
+            },
+            {
+              "text": "Separate semantic instructions from programmatic format enforcement."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M3.6",
+          "name": "Prompt reliability & debugging",
+          "sessionCount": 2,
+          "icon": "life-buoy",
+          "objectives": [
+            {
+              "text": "Diagnose failures caused by ambiguous instructions, conflicting constraints, poor examples, missing context, or unclear output requirements."
+            },
+            {
+              "text": "Build a small test set containing normal cases, edge cases, and known failures."
+            },
+            {
+              "text": "Compare prompt versions on the same examples instead of judging them from individual responses."
+            },
+            {
+              "text": "Reduce unnecessary output variance and regressions through systematic iteration."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M3.7",
+          "name": "Prompt versioning, cost & caching",
+          "sessionCount": 1,
+          "icon": "wallet",
+          "objectives": [
+            {
+              "text": "Version prompts like code and track which prompt/model combination produced each result."
+            },
+            {
+              "text": "Compare prompt variants using quality, latency, token usage, and cost."
+            },
+            {
+              "text": "Remove unnecessary context and repeated instructions."
+            },
+            {
+              "text": "Understand prompt caching and structure reusable prompt prefixes to benefit from caching where supported."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M3.8",
+          "name": "Prompt injection basics",
+          "sessionCount": 1,
+          "icon": "bug",
+          "objectives": [
+            {
+              "text": "Understand prompt injection and why external/user-controlled text should be treated as untrusted data."
+            },
+            {
+              "text": "Recognize attempts to override system instructions or extract hidden information."
+            },
+            {
+              "text": "Understand that prompt wording alone is not a security boundary; permissions and sensitive actions must be controlled by application code."
+            },
+            {
+              "text": "Leave deeper adversarial security and defenses for the later security level."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "L3 Capstone",
+          "name": "Optimize a Real Prompt",
+          "sessionCount": null,
+          "icon": "flag",
+          "objectives": [
+            {
+              "text": "Choose one realistic task such as classification, extraction, support answering, or a domain-specific assistant."
+            },
+            {
+              "text": "Create a small test set and develop multiple prompt versions. Compare them on:"
+            },
+            {
+              "text": "correctness,"
+            },
+            {
+              "text": "instruction following,"
+            },
+            {
+              "text": "output-format adherence,"
+            },
+            {
+              "text": "consistency,"
+            },
+            {
+              "text": "token usage,"
+            },
+            {
+              "text": "latency/cost."
+            },
+            {
+              "text": "Select the final prompt based on measured performance rather than intuition."
+            }
+          ],
+          "notes": [],
+          "isCapstone": true,
+          "isGap": false
+        }
+      ],
+      "stack": [
+        {
+          "label": "JSON",
+          "kind": "concept"
+        },
+        {
+          "label": "prompt caching",
+          "kind": "concept"
+        },
+        {
+          "label": "few-shot",
+          "kind": "concept"
+        },
+        {
+          "label": "system prompts",
+          "kind": "concept"
+        },
+        {
+          "label": "prompt injection",
+          "kind": "concept"
+        },
+        {
+          "label": "guardrails",
+          "kind": "concept"
+        }
+      ],
+      "project": "L3 Capstone",
+      "totalSessions": 11,
+      "statedSessions": null,
+      "completionOutcomes": [
+        "Structure clear prompts using instructions, context, constraints, examples, and output requirements.",
+        "Decide when to use zero-shot, few-shot, or reasoning-oriented prompting.",
+        "Write effective system prompts.",
+        "Control model outputs while knowing when schemas are preferable.",
+        "Debug and improve prompts systematically using test cases.",
+        "Version and compare prompts based on quality, latency, and cost.",
+        "Recognize basic prompt-injection risks.",
+        "Treat prompt engineering as an iterative engineering process rather than a collection of tricks."
+      ],
+      "todos": []
+    },
+    {
+      "number": 4,
+      "slug": "level-4",
+      "title": "Embeddings, Semantic Search & Vector Databases",
+      "sourceFile": "level4-embeddings-and-vector-dbs.txt",
+      "scope": "build the retrieval layer that RAG depends on — ingestion, chunking, embeddings, vector search, and hybrid retrieval.",
+      "prereqStated": null,
+      "phase": "retrieval",
+      "icon": "vector-square",
+      "modules": [
+        {
+          "id": "M4.1",
+          "name": "Data ingestion & document processing",
+          "sessionCount": 2,
+          "icon": "file-text",
+          "objectives": [
+            {
+              "text": "Extract content from common sources such as PDFs, HTML, DOCX, and structured documents; understand when OCR is required."
+            },
+            {
+              "text": "Clean and normalize messy text while preserving useful document structure and metadata."
+            },
+            {
+              "text": "Handle duplicate documents, document updates, and incremental re-indexing."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Convert a real-world document collection into clean, structured data ready for retrieval."
+        },
+        {
+          "id": "M4.2",
+          "name": "Chunking strategies",
+          "sessionCount": 2,
+          "icon": "scissors",
+          "objectives": [
+            {
+              "text": "Understand why documents must usually be split before embedding and retrieval."
+            },
+            {
+              "text": "Apply fixed-size, recursive, structural, and semantic chunking."
+            },
+            {
+              "text": "Reason about chunk size, overlap, boundaries, and metadata and how they affect retrieval quality."
+            },
+            {
+              "text": "Understand the trade-off between small precise chunks and larger context-rich chunks."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Choose a sensible chunking strategy based on document structure and query type."
+        },
+        {
+          "id": "M4.3",
+          "name": "Embeddings fundamentals",
+          "sessionCount": 2,
+          "icon": "vector-square",
+          "objectives": [
+            {
+              "text": "Understand embeddings as vector representations that capture semantic relationships between text."
+            },
+            {
+              "text": "Generate embeddings for documents and queries using an embedding model."
+            },
+            {
+              "text": "Understand dimensions, embedding model choice, multilingual/domain performance, cost, and latency trade-offs."
+            },
+            {
+              "text": "Understand that embeddings from different models/vector spaces generally cannot be mixed directly."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Select and use an embedding model appropriate for a retrieval task."
+        },
+        {
+          "id": "M4.4",
+          "name": "Similarity & semantic search",
+          "sessionCount": 2,
+          "icon": "vector-square",
+          "objectives": [
+            {
+              "text": "Understand cosine similarity, dot product, and Euclidean distance and how they are used to compare vectors."
+            },
+            {
+              "text": "Build a simple semantic-search system from scratch: query → embedding → similarity → top-k results."
+            },
+            {
+              "text": "Understand the difference between semantic similarity and exact keyword matching."
+            },
+            {
+              "text": "Explore common failure cases such as exact names, IDs, numbers, and rare terminology."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Build semantic search without relying on a vector database and understand exactly what the database will later automate."
+        },
+        {
+          "id": "M4.5",
+          "name": "Vector databases & ANN search",
+          "sessionCount": 3,
+          "icon": "vector-square",
+          "objectives": [
+            {
+              "text": "Store embeddings, documents, IDs, and metadata in a vector database such as pgvector or Qdrant."
+            },
+            {
+              "text": "Perform top-k vector search with metadata filtering."
+            },
+            {
+              "text": "Understand why brute-force search becomes expensive at scale and why Approximate Nearest Neighbor (ANN) search exists."
+            },
+            {
+              "text": "Build intuition for HNSW and IVF and their speed ↔ memory ↔ recall trade-offs without going deep into implementation mathematics."
+            },
+            {
+              "text": "Understand indexing, updates, deletes, and basic operational considerations."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Build and query a scalable vector-search index over a real corpus."
+        },
+        {
+          "id": "M4.6",
+          "name": "Sparse & hybrid retrieval",
+          "sessionCount": 2,
+          "icon": "flask-conical",
+          "objectives": [
+            {
+              "text": "Understand traditional lexical retrieval and BM25, and why keyword search can outperform embeddings for some queries."
+            },
+            {
+              "text": "Compare sparse/BM25 retrieval with dense/vector retrieval."
+            },
+            {
+              "text": "Combine dense and sparse results using hybrid retrieval and techniques such as Reciprocal Rank Fusion (RRF)."
+            },
+            {
+              "text": "Understand when hybrid retrieval helps, especially for queries containing names, technical terms, IDs, numbers, and exact phrases."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Choose between dense, sparse, and hybrid retrieval rather than defaulting to vector search for every problem."
+        },
+        {
+          "id": "M4.7",
+          "name": "Retrieval evaluation",
+          "sessionCount": 1,
+          "icon": "flask-conical",
+          "objectives": [
+            {
+              "text": "Create a small set of queries with known relevant documents/chunks."
+            },
+            {
+              "text": "Understand top-k retrieval and calculate Recall@k."
+            },
+            {
+              "text": "Compare chunking strategies, embedding models, retrieval methods, and k using the same evaluation set."
+            },
+            {
+              "text": "Understand why retrieval quality should be measured independently before adding an LLM generator."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Evaluate whether a retrieval system actually finds the information users need."
+        },
+        {
+          "id": "M4.8",
+          "name": "Capstone: Build a Hybrid Search Engine",
+          "sessionCount": 1,
+          "icon": "flag",
+          "objectives": [
+            {
+              "text": "Ingest and clean a real document corpus, preserve useful metadata, chunk the documents, generate embeddings, and index them in a vector database."
+            },
+            {
+              "text": "Implement dense search + BM25 + hybrid retrieval, including metadata filters where useful."
+            },
+            {
+              "text": "Create a small evaluation dataset and compare approaches using Recall@k."
+            },
+            {
+              "text": "Deploy a simple search API/UI that returns the most relevant chunks for a user query."
+            }
+          ],
+          "notes": [],
+          "isCapstone": true,
+          "isGap": false,
+          "finalResult": "a measurable retrieval system ready to become the retrieval component of a RAG application."
+        }
+      ],
+      "stack": [
+        {
+          "label": "OCR",
+          "kind": "concept"
+        },
+        {
+          "label": "chunking",
+          "kind": "concept"
+        },
+        {
+          "label": "embeddings",
+          "kind": "concept"
+        },
+        {
+          "label": "pgvector",
+          "kind": "tool"
+        },
+        {
+          "label": "Qdrant",
+          "kind": "tool"
+        },
+        {
+          "label": "ANN",
+          "kind": "concept"
+        },
+        {
+          "label": "HNSW",
+          "kind": "concept"
+        },
+        {
+          "label": "IVF",
+          "kind": "concept"
+        },
+        {
+          "label": "BM25",
+          "kind": "concept"
+        },
+        {
+          "label": "hybrid retrieval",
+          "kind": "concept"
+        },
+        {
+          "label": "RRF",
+          "kind": "concept"
+        },
+        {
+          "label": "Recall@k",
+          "kind": "concept"
+        }
+      ],
+      "project": "M4.8",
+      "totalSessions": 15,
+      "statedSessions": null,
+      "completionOutcomes": [
+        "Convert messy documents into retrieval-ready data.",
+        "Choose and tune an appropriate chunking strategy.",
+        "Understand and generate embeddings.",
+        "Build semantic search from first principles.",
+        "Use vector databases and understand ANN search conceptually.",
+        "Use metadata filtering effectively.",
+        "Understand BM25 and lexical retrieval.",
+        "Build dense, sparse, and hybrid retrieval systems.",
+        "Measure retrieval quality using Recall@k.",
+        "Improve retrieval based on evidence rather than intuition."
+      ],
+      "todos": []
+    },
+    {
+      "number": 5,
+      "slug": "level-5",
+      "title": "RAG",
+      "sourceFile": "level5-rag.txt",
+      "scope": "ground LLMs in external knowledge, improve retrieval quality, and learn the major RAG architectures used beyond a naive retrieve-and-generate pipeline.",
+      "prereqStated": null,
+      "phase": "retrieval",
+      "icon": "library-big",
+      "modules": [
+        {
+          "id": "M5.1",
+          "name": "RAG architecture & when to use it",
+          "sessionCount": 1,
+          "icon": "network",
+          "objectives": [
+            {
+              "text": "Understand the core pipeline: query → retrieve → assemble context → generate answer."
+            },
+            {
+              "text": "Understand what RAG solves: private knowledge, frequently changing information, large knowledge bases, and source-grounded answers."
+            },
+            {
+              "text": "Know when not to use RAG: when the model already knows enough, the task is purely transformational, or the required knowledge can simply fit in context."
+            },
+            {
+              "text": "Distinguish retrieval failure from generation failure."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Decide whether a problem genuinely needs RAG."
+        },
+        {
+          "id": "M5.2",
+          "name": "Baseline RAG from scratch",
+          "sessionCount": 2,
+          "icon": "hammer",
+          "objectives": [
+            {
+              "text": "Build a complete RAG pipeline manually using the retrieval system from Level 4."
+            },
+            {
+              "text": "Retrieve top-k chunks, assemble them into the prompt, and generate an answer grounded in the retrieved context."
+            },
+            {
+              "text": "Design prompts that instruct the model to answer from supplied evidence and avoid unsupported claims."
+            },
+            {
+              "text": "Handle cases where retrieval returns weak, irrelevant, or insufficient context."
+            },
+            {
+              "text": "Understand the effect of k, chunk ordering, and total context size on answer quality."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Build a working RAG application without hiding the mechanics behind a framework."
+        },
+        {
+          "id": "M5.3",
+          "name": "Reranking",
+          "sessionCount": 2,
+          "icon": "arrow-down-up",
+          "objectives": [
+            {
+              "text": "Understand the two-stage pattern: retrieve many candidates → rerank → send the best chunks to the LLM."
+            },
+            {
+              "text": "Use cross-encoder or dedicated reranking models to reorder retrieved chunks."
+            },
+            {
+              "text": "Understand why reranking can improve relevance while adding latency and cost."
+            },
+            {
+              "text": "Compare retrieval with and without reranking and understand when reranking provides little benefit."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Improve the quality of context sent to the LLM without simply increasing the number of retrieved chunks."
+        },
+        {
+          "id": "M5.4",
+          "name": "Query transformation & RAG-Fusion",
+          "sessionCount": 2,
+          "icon": "shuffle",
+          "objectives": [
+            {
+              "text": "Understand why the user's original question is not always the best retrieval query."
+            },
+            {
+              "text": "Apply query rewriting, query expansion, multi-query retrieval, and HyDE."
+            },
+            {
+              "text": "Understand RAG-Fusion: generate multiple queries, retrieve for each, and combine rankings using techniques such as Reciprocal Rank Fusion."
+            },
+            {
+              "text": "Use multiple retrieval queries for ambiguous, multi-faceted, or poorly phrased questions."
+            },
+            {
+              "text": "Understand the trade-off between improved retrieval and additional LLM calls, latency, and cost."
+            },
+            {
+              "text": "Avoid query transformation when baseline retrieval already performs well."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Transform difficult user questions into better retrieval queries."
+        },
+        {
+          "id": "M5.5",
+          "name": "Grounding, citations & abstention",
+          "sessionCount": 1,
+          "icon": "quote",
+          "objectives": [
+            {
+              "text": "Generate answers grounded in retrieved evidence rather than unsupported model knowledge."
+            },
+            {
+              "text": "Attach claims to their supporting documents/chunks and produce useful source citations."
+            },
+            {
+              "text": "Understand that having citations is not the same as being grounded; the cited source must actually support the claim."
+            },
+            {
+              "text": "Detect insufficient evidence and respond with an appropriate “I don't know / insufficient information” instead of forcing an answer."
+            },
+            {
+              "text": "Keep retrieved evidence and model-generated synthesis clearly distinguishable."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Produce answers that are traceable to evidence and can abstain when the evidence is insufficient."
+        },
+        {
+          "id": "M5.6",
+          "name": "RAG variants & advanced patterns",
+          "sessionCount": 3,
+          "icon": "git-fork",
+          "objectives": [
+            {
+              "text": "Understand the progression from Naive RAG → Advanced RAG → adaptive/self-correcting RAG architectures."
+            },
+            {
+              "text": "Learn Self-RAG: retrieval is performed when needed and the model reflects on retrieved evidence and its generated response."
+            },
+            {
+              "text": "Learn CRAG (Corrective RAG): evaluate retrieved evidence and trigger corrective retrieval when the initial results are weak."
+            },
+            {
+              "text": "Learn Adaptive RAG: dynamically decide whether retrieval is required and which retrieval strategy should be used."
+            },
+            {
+              "text": "Understand iterative RAG, where retrieval and generation repeat until enough evidence has been gathered."
+            },
+            {
+              "text": "Understand multi-hop RAG, where answering requires several retrieval steps or combining evidence from multiple sources."
+            },
+            {
+              "text": "Learn Graph RAG: represent entities and relationships as a graph and retrieve/summarize information using graph structure rather than relying purely on vector similarity."
+            },
+            {
+              "text": "Build intuition for when Graph RAG is useful: highly connected knowledge, entity relationships, global questions, and information spread across many documents."
+            },
+            {
+              "text": "Compare advanced approaches on quality, complexity, latency, cost, and failure mode addressed rather than assuming more advanced RAG is always better."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Recognize major RAG variants and choose an architecture based on why baseline RAG is failing."
+        },
+        {
+          "id": "M5.7",
+          "name": "RAG with frameworks",
+          "sessionCount": 1,
+          "icon": "search",
+          "objectives": [
+            {
+              "text": "Rebuild the manually created RAG pipeline using LlamaIndex or LangChain."
+            },
+            {
+              "text": "Work with framework abstractions for ingestion, indexes, retrievers, rerankers, query engines, and citations."
+            },
+            {
+              "text": "Implement common RAG improvements such as reranking and query transformation using framework components."
+            },
+            {
+              "text": "Compare the framework implementation with the hand-built version on control, development speed, debugging, and complexity."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Use RAG frameworks productively while still understanding the retrieval and generation mechanics underneath them."
+        },
+        {
+          "id": "M5.8",
+          "name": "Capstone: Deploy an Advanced RAG Application",
+          "sessionCount": 1,
+          "icon": "flag",
+          "objectives": [
+            {
+              "text": "Build a document Q&A application over a real corpus with ingestion, chunking, retrieval, generation, citations, and abstention."
+            },
+            {
+              "text": "Establish a baseline RAG pipeline and add at least one meaningful improvement such as reranking, query transformation, RAG-Fusion, hybrid retrieval, or an advanced RAG variant."
+            },
+            {
+              "text": "Handle weak retrieval and insufficient evidence gracefully."
+            },
+            {
+              "text": "Track latency, token usage, and cost across the pipeline."
+            },
+            {
+              "text": "Deploy the application as an API or simple user interface."
+            }
+          ],
+          "notes": [],
+          "isCapstone": true,
+          "isGap": false,
+          "finalResult": "a complete RAG application that goes substantially beyond a basic retrieve → stuff context → generate demo."
+        }
+      ],
+      "stack": [
+        {
+          "label": "LangChain",
+          "kind": "tool"
+        },
+        {
+          "label": "LlamaIndex",
+          "kind": "tool"
+        },
+        {
+          "label": "chunking",
+          "kind": "concept"
+        },
+        {
+          "label": "hybrid retrieval",
+          "kind": "concept"
+        },
+        {
+          "label": "RRF",
+          "kind": "concept"
+        },
+        {
+          "label": "reranking",
+          "kind": "concept"
+        },
+        {
+          "label": "HyDE",
+          "kind": "concept"
+        },
+        {
+          "label": "RAG-Fusion",
+          "kind": "concept"
+        },
+        {
+          "label": "Self-RAG",
+          "kind": "concept"
+        },
+        {
+          "label": "CRAG",
+          "kind": "concept"
+        },
+        {
+          "label": "Adaptive RAG",
+          "kind": "concept"
+        },
+        {
+          "label": "Graph RAG",
+          "kind": "concept"
+        },
+        {
+          "label": "citations",
+          "kind": "concept"
+        },
+        {
+          "label": "summarization",
+          "kind": "concept"
+        }
+      ],
+      "project": "M5.8",
+      "totalSessions": 13,
+      "statedSessions": null,
+      "completionOutcomes": [
+        "Decide when RAG is and is not the right architecture.",
+        "Build a complete RAG pipeline from scratch.",
+        "Understand how retrieval quality affects generation quality.",
+        "Improve retrieved context using reranking.",
+        "Improve difficult retrieval queries using rewriting, HyDE, multi-query retrieval, and RAG-Fusion.",
+        "Generate grounded answers with citations and appropriate abstention.",
+        "Explain and distinguish Naive RAG, Self-RAG, CRAG, Adaptive RAG, iterative RAG, multi-hop RAG, and Graph RAG.",
+        "Choose an advanced RAG architecture based on the failure mode of the baseline system.",
+        "Use RAG frameworks without treating them as black boxes.",
+        "Deploy a production-style RAG application."
+      ],
+      "todos": []
+    },
+    {
+      "number": 6,
+      "slug": "level-6",
+      "title": "AI Agents",
+      "sourceFile": "level6-agents.txt",
+      "scope": "build systems where models can decide what to do next, use tools, maintain state, recover from failures, and collaborate with other agents. Planning · tools · MCP · memory · multi-agent · LangGraph.",
+      "prereqStated": null,
+      "phase": "agentic",
+      "icon": "bot",
+      "modules": [
+        {
+          "id": "M6.1",
+          "name": "What is an agent?",
+          "sessionCount": 1,
+          "icon": "book-open",
+          "objectives": [
+            {
+              "text": "Understand the basic loop: goal → decide → act → observe → repeat → finish."
+            },
+            {
+              "text": "Distinguish LLM call vs chain vs workflow vs agent, especially based on who decides what happens next."
+            },
+            {
+              "text": "Understand where agents are useful: open-ended, multi-step tasks where the execution path cannot be fully predetermined."
+            },
+            {
+              "text": "Know when a deterministic workflow is simpler, cheaper, and more reliable."
+            },
+            {
+              "text": "Understand the basic components of an agent: model, instructions, tools, state/memory, control loop, stopping conditions."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Decide whether a problem genuinely requires an agent."
+        },
+        {
+          "id": "M6.2",
+          "name": "ReAct, planning & reflection",
+          "sessionCount": 2,
+          "icon": "route",
+          "objectives": [
+            {
+              "text": "Understand the ReAct pattern: the agent alternates between deciding what to do and acting on the environment."
+            },
+            {
+              "text": "Implement a simple agent loop manually before using a framework."
+            },
+            {
+              "text": "Understand step-by-step execution vs plan-first execution."
+            },
+            {
+              "text": "Break complex goals into subtasks and dynamically revise plans as new information appears."
+            },
+            {
+              "text": "Use reflection/self-correction when actions fail or results are insufficient."
+            },
+            {
+              "text": "Implement stopping conditions, maximum steps, and protection against repetitive loops."
+            },
+            {
+              "text": "Understand that more planning/reflection can increase quality but also latency and cost."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Build an agent capable of solving a multi-step task without hard-coding its exact execution path."
+        },
+        {
+          "id": "M6.3",
+          "name": "Tools for agents",
+          "sessionCount": 2,
+          "icon": "wrench",
+          "objectives": [
+            {
+              "text": "Extend Level 2 tool calling into agentic tool use where the model repeatedly selects among available capabilities."
+            },
+            {
+              "text": "Design tools with clear names, descriptions, schemas, typed arguments, useful outputs, and useful error messages."
+            },
+            {
+              "text": "Improve tool selection and argument correctness."
+            },
+            {
+              "text": "Handle sequential, dependent, parallel, and repeated tool calls."
+            },
+            {
+              "text": "Handle tool failures and allow the agent to recover or choose an alternative."
+            },
+            {
+              "text": "Limit the size of tool results returned to the model so context does not become overwhelmed."
+            },
+            {
+              "text": "Separate read-only tools from consequential tools and add confirmation/permission checks where necessary."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Give an agent useful capabilities without giving it uncontrolled access to the underlying application."
+        },
+        {
+          "id": "M6.4",
+          "name": "MCP (Model Context Protocol)",
+          "sessionCount": 3,
+          "icon": "plug-zap",
+          "objectives": [
+            {
+              "text": "Understand why MCP exists: provide a standardized way for AI applications to connect to external tools, resources, and prompts."
+            },
+            {
+              "text": "Understand the host → client → server architecture and the responsibility of each component."
+            },
+            {
+              "text": "Distinguish ordinary function calling from MCP: tool calling describes how a model requests an action, while MCP standardizes how external capabilities are exposed to AI applications."
+            },
+            {
+              "text": "Build an MCP server that exposes tools/resources from a real system such as a database, filesystem, SaaS application, or internal API."
+            },
+            {
+              "text": "Work with schemas, capabilities, errors, local/remote transports, and authentication."
+            },
+            {
+              "text": "Build/use an MCP client and connect it to one or more servers."
+            },
+            {
+              "text": "Understand permissions, trust boundaries, and the risk of connecting to untrusted MCP servers."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Build a reusable MCP integration that can expose a real system to compatible AI applications."
+        },
+        {
+          "id": "M6.5",
+          "name": "Memory basics",
+          "sessionCount": 2,
+          "icon": "save",
+          "objectives": [
+            {
+              "text": "Distinguish conversation history, state, short-term memory, and long-term memory."
+            },
+            {
+              "text": "Implement short-term memory so an agent can retain information during a conversation or task."
+            },
+            {
+              "text": "Implement basic long-term memory using persistent stores or retrieval-backed memory."
+            },
+            {
+              "text": "Store useful facts, preferences, summaries, or previous outcomes instead of blindly preserving every message."
+            },
+            {
+              "text": "Retrieve relevant memories when needed rather than injecting the entire history into every request."
+            },
+            {
+              "text": "Understand basic memory operations: write → retrieve → update → forget."
+            },
+            {
+              "text": "Handle growing conversations through trimming or summarization."
+            },
+            {
+              "text": "Keep deeper context offloading/compression strategies for the later Context Engineering level."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Build an agent that remembers relevant information during and across interactions."
+        },
+        {
+          "id": "M6.6",
+          "name": "Multi-agent architectures",
+          "sessionCount": 3,
+          "icon": "users",
+          "objectives": [
+            {
+              "text": "Understand why multiple agents may help when tasks require different tools, instructions, models, permissions, or areas of expertise."
+            },
+            {
+              "text": "Learn common patterns:"
+            },
+            {
+              "text": "orchestrator → workers"
+            },
+            {
+              "text": "sequential handoffs,"
+            },
+            {
+              "text": "parallel specialists,"
+            },
+            {
+              "text": "hierarchical supervisor/worker architectures."
+            },
+            {
+              "text": "Build an orchestrator that decomposes work and delegates tasks to specialist agents."
+            },
+            {
+              "text": "Pass useful state/context between agents and aggregate their outputs."
+            },
+            {
+              "text": "Handle worker failures, retries, reassignment, and escalation."
+            },
+            {
+              "text": "Understand common multi-agent problems: duplicated work, coordination overhead, context growth, conflicting results, latency, and cost."
+            },
+            {
+              "text": "Understand A2A as an interoperability approach for independently built agents and contrast it conceptually with MCP: MCP connects agents to tools/resources; A2A connects agents to agents."
+            },
+            {
+              "text": "Learn when multiple agents genuinely improve specialization and when one strong agent with several tools is preferable."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Design multi-agent systems only when decomposition or specialization actually justifies the additional complexity."
+        },
+        {
+          "id": "M6.7",
+          "name": "Building agents with LangGraph",
+          "sessionCount": 3,
+          "icon": "git-branch",
+          "objectives": [
+            {
+              "text": "LangGraph is positioned as a low-level orchestration framework/runtime for long-running, stateful agents."
+            },
+            {
+              "text": "Model agent execution using state, nodes, and edges."
+            },
+            {
+              "text": "Build nodes for model calls, tools, processing logic, and decisions."
+            },
+            {
+              "text": "Use conditional edges to dynamically determine the next action."
+            },
+            {
+              "text": "Implement loops for repeated tool use, retries, and iterative execution."
+            },
+            {
+              "text": "Add checkpointing/persistence so execution can survive interruptions."
+            },
+            {
+              "text": "Resume long-running agent runs rather than restarting them from scratch."
+            },
+            {
+              "text": "Add human-in-the-loop interrupts for actions requiring approval or intervention."
+            },
+            {
+              "text": "Inspect agent state to debug why a particular execution path was taken."
+            },
+            {
+              "text": "Understand when graph-based orchestration offers more control than a simple agent loop."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Build a controllable, stateful, resumable agent with explicit execution logic."
+        },
+        {
+          "id": "M6.8",
+          "name": "Sandboxed execution",
+          "sessionCount": 1,
+          "icon": "terminal",
+          "objectives": [
+            {
+              "text": "Understand why model-generated Python, shell commands, or arbitrary programs should not execute directly inside the production application."
+            },
+            {
+              "text": "Run generated code inside isolated environments such as E2B, Modal, containers, or equivalent sandboxes."
+            },
+            {
+              "text": "Restrict filesystem, network, credentials, execution time, and compute resources."
+            },
+            {
+              "text": "Capture stdout, stderr, files, and errors and return only necessary results to the agent."
+            },
+            {
+              "text": "Understand the principle of reducing the blast radius when an agent can take executable actions."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Give an agent code-execution capabilities without exposing the host system unnecessarily."
+        },
+        {
+          "id": "M6.9",
+          "name": "Agent reliability, UX & failure recovery",
+          "sessionCount": 2,
+          "icon": "life-buoy",
+          "objectives": [
+            {
+              "text": "Handle common failures: wrong tool selection, bad arguments, unavailable tools, repeated actions, incomplete plans, infinite loops, and context growth."
+            },
+            {
+              "text": "Define maximum steps, timeouts, retry budgets, cost/token budgets, and stopping conditions."
+            },
+            {
+              "text": "Make operations idempotent where possible so retries do not accidentally repeat real-world side effects."
+            },
+            {
+              "text": "Persist enough execution state to resume after interruption."
+            },
+            {
+              "text": "Add fallback actions and human escalation when the agent cannot continue safely."
+            },
+            {
+              "text": "Surface useful progress to users: current task, tool/action being performed, results, sources, and requests for approval."
+            },
+            {
+              "text": "Allow users to cancel, pause, resume, or redirect long-running work."
+            },
+            {
+              "text": "Avoid exposing unnecessary private reasoning while still making execution understandable."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Build agents that fail predictably, recover gracefully, and keep the user informed and in control."
+        },
+        {
+          "id": "M6.10",
+          "name": "Agent frameworks & libraries",
+          "sessionCount": 2,
+          "icon": "boxes",
+          "objectives": [
+            {
+              "text": "After learning the primitives, implement the same small agent in several frameworks and understand what each one abstracts."
+            },
+            {
+              "text": "LangGraph"
+            },
+            {
+              "text": "Low-level graph/state-based orchestration for long-running, stateful agents."
+            },
+            {
+              "text": "Strong fit when explicit control flow, persistence, loops, and human-in-the-loop behavior matter."
+            },
+            {
+              "text": "Google Agent Development Kit (ADK)"
+            },
+            {
+              "text": "Build agents using Google's open-source ADK and explore its agent, session/state, tools, multi-agent, deployment, and A2A-related abstractions."
+            },
+            {
+              "text": "Understand its emphasis on building, debugging, evaluating, and deploying agent systems rather than merely wrapping an LLM call."
+            },
+            {
+              "text": "CrewAI"
+            },
+            {
+              "text": "Build agents and collaborative Crews, and understand Flows for more controlled workflow-style orchestration."
+            },
+            {
+              "text": "Explore role-based multi-agent patterns and compare them with explicit graph orchestration."
+            },
+            {
+              "text": "Agno"
+            },
+            {
+              "text": "Build Agents, Teams, and Workflows and understand the distinction between agent autonomy, team coordination, and deterministic workflows."
+            },
+            {
+              "text": "Explore its production/runtime layer and how agent systems can be exposed as services."
+            },
+            {
+              "text": "OpenAI Agents SDK"
+            },
+            {
+              "text": "Build code-first agents using tools, handoffs, sessions, guardrails, tracing, and specialist agents."
+            },
+            {
+              "text": "Compare a lightweight SDK-style agent loop with graph-oriented or multi-agent-first frameworks."
+            },
+            {
+              "text": "Compare them on"
+            },
+            {
+              "text": "abstraction level,"
+            },
+            {
+              "text": "control over execution,"
+            },
+            {
+              "text": "state/persistence,"
+            },
+            {
+              "text": "multi-agent support,"
+            },
+            {
+              "text": "tool integrations,"
+            },
+            {
+              "text": "MCP/A2A support,"
+            },
+            {
+              "text": "debugging/observability,"
+            },
+            {
+              "text": "deployment,"
+            },
+            {
+              "text": "vendor/model flexibility."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Understand the agent-framework landscape and choose a framework based on architecture rather than popularity."
+        },
+        {
+          "id": "M6.11",
+          "name": "Capstone: Build a Production-Style Agent",
+          "sessionCount": 1,
+          "icon": "flag",
+          "objectives": [
+            {
+              "text": "Choose one substantial project."
+            },
+            {
+              "text": "Option A · Research agent"
+            },
+            {
+              "text": "Build:"
+            },
+            {
+              "text": "Planner → Researcher → Analyst → Writer"
+            },
+            {
+              "text": "with dynamic planning, tools, state, source tracking, retries, and optional specialist agents."
+            },
+            {
+              "text": "Option B · MCP-powered agent"
+            },
+            {
+              "text": "Build an MCP server for a real service and an agent capable of using its tools/resources to complete multi-step tasks."
+            },
+            {
+              "text": "Option C · Coding/data agent"
+            },
+            {
+              "text": "Build an agent that:"
+            },
+            {
+              "text": "understands task → plans → writes code → executes in sandbox → inspects result/error → fixes code → returns output"
+            },
+            {
+              "text": "Capstone requirements"
+            },
+            {
+              "text": "at least 3 useful tools,"
+            },
+            {
+              "text": "multi-step autonomous execution,"
+            },
+            {
+              "text": "explicit state,"
+            },
+            {
+              "text": "stopping conditions,"
+            },
+            {
+              "text": "failure recovery,"
+            },
+            {
+              "text": "logs/progress visibility,"
+            },
+            {
+              "text": "at least one human approval point for consequential actions where appropriate,"
+            },
+            {
+              "text": "implementation in one agent framework while being able to explain the underlying agent loop."
+            }
+          ],
+          "notes": [],
+          "isCapstone": true,
+          "isGap": false,
+          "finalResult": "a real agent that demonstrates planning + tools + state + recovery + controlled autonomy, not merely an LLM wrapped in a while loop."
+        }
+      ],
+      "stack": [
+        {
+          "label": "Python",
+          "kind": "tool"
+        },
+        {
+          "label": "LangGraph",
+          "kind": "tool"
+        },
+        {
+          "label": "tool calling",
+          "kind": "concept"
+        },
+        {
+          "label": "ReAct",
+          "kind": "concept"
+        },
+        {
+          "label": "MCP",
+          "kind": "concept"
+        },
+        {
+          "label": "A2A",
+          "kind": "concept"
+        },
+        {
+          "label": "CrewAI",
+          "kind": "tool"
+        },
+        {
+          "label": "Agno",
+          "kind": "tool"
+        },
+        {
+          "label": "Google ADK",
+          "kind": "tool"
+        },
+        {
+          "label": "OpenAI Agents SDK",
+          "kind": "tool"
+        },
+        {
+          "label": "E2B",
+          "kind": "tool"
+        },
+        {
+          "label": "Modal",
+          "kind": "tool"
+        },
+        {
+          "label": "checkpointing",
+          "kind": "concept"
+        },
+        {
+          "label": "human-in-the-loop",
+          "kind": "concept"
+        },
+        {
+          "label": "summarization",
+          "kind": "concept"
+        },
+        {
+          "label": "tracing",
+          "kind": "concept"
+        },
+        {
+          "label": "guardrails",
+          "kind": "concept"
+        },
+        {
+          "label": "sandboxing",
+          "kind": "concept"
+        }
+      ],
+      "project": "M6.11",
+      "totalSessions": 22,
+      "statedSessions": null,
+      "completionOutcomes": [
+        "Distinguish chains, workflows, and agents.",
+        "Implement an agent loop from scratch.",
+        "Use ReAct, planning, and reflection appropriately.",
+        "Build robust tools for autonomous systems.",
+        "Build and consume MCP servers.",
+        "Implement short- and long-term agent memory.",
+        "Design orchestrator/worker and other multi-agent architectures.",
+        "Understand MCP vs A2A.",
+        "Build stateful agents using LangGraph.",
+        "Add checkpointing and human-in-the-loop control.",
+        "Execute model-generated code safely.",
+        "Design failure recovery and user-facing progress.",
+        "Work with LangGraph, Google ADK, CrewAI, Agno, and OpenAI Agents SDK and understand their different abstractions.",
+        "Choose between a deterministic workflow, single agent, or multi-agent system based on the actual problem."
+      ],
+      "todos": []
+    },
+    {
+      "number": 7,
+      "slug": "level-7",
+      "title": "Context Engineering",
+      "sourceFile": "level7-context-engineering.txt",
+      "scope": "manage the model’s limited context window deliberately — decide what enters, what stays, what gets compressed, and what gets moved outside.",
+      "prereqStated": null,
+      "phase": "agentic",
+      "icon": "layout-panel-left",
+      "modules": [
+        {
+          "id": "M7.1",
+          "name": "The context window as a resource",
+          "sessionCount": 1,
+          "icon": "gauge",
+          "objectives": [
+            {
+              "text": "Treat context as a limited budget rather than “more is always better.”"
+            },
+            {
+              "text": "Understand context rot, distraction, conflicting context, lost-in-the-middle, and token/cost growth."
+            },
+            {
+              "text": "Inspect what actually enters the model’s window and identify which parts are useful versus noise."
+            },
+            {
+              "text": "Allocate rough budgets across instructions, conversation history, retrieval, memory, tools, and working state."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Diagnose when model degradation is really a context-management problem."
+        },
+        {
+          "id": "M7.2",
+          "name": "Context selection & assembly",
+          "sessionCount": 2,
+          "icon": "list-filter",
+          "objectives": [
+            {
+              "text": "Assemble instructions + conversation history + retrieved knowledge + memory + tool definitions/results + application state deliberately."
+            },
+            {
+              "text": "Decide what should be always present, dynamically retrieved, summarized, or excluded."
+            },
+            {
+              "text": "Prioritize information based on relevance, importance, recency, and reliability."
+            },
+            {
+              "text": "Order and structure context so instructions, evidence, memory, and user data remain clearly distinguishable."
+            },
+            {
+              "text": "Avoid redundant, stale, contradictory, or irrelevant context."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Construct the smallest useful context for the current model decision."
+        },
+        {
+          "id": "M7.3",
+          "name": "Compression & compaction",
+          "sessionCount": 2,
+          "icon": "archive",
+          "objectives": [
+            {
+              "text": "Summarize growing conversation history while preserving goals, constraints, decisions, and unresolved work."
+            },
+            {
+              "text": "Compact large tool outputs before feeding them back into the model."
+            },
+            {
+              "text": "Apply rolling summaries and hierarchical summarization for long-running tasks."
+            },
+            {
+              "text": "Preserve exact structured information separately when summarization could lose important details."
+            },
+            {
+              "text": "Understand the trade-off between context reduction and information loss."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Reduce context size without losing task-critical information."
+        },
+        {
+          "id": "M7.4",
+          "name": "Memory & state offloading",
+          "sessionCount": 2,
+          "icon": "save",
+          "objectives": [
+            {
+              "text": "Move information outside the active window using scratchpads, files, databases, memory stores, task state, and working notes."
+            },
+            {
+              "text": "Distinguish active context from information that can be stored externally and retrieved later."
+            },
+            {
+              "text": "Persist plans, completed steps, decisions, intermediate results, and important facts across long-running tasks."
+            },
+            {
+              "text": "Build note-taking agents that write useful information externally and recall it when required."
+            },
+            {
+              "text": "Understand the distinction between memory for remembering and offloading for freeing context space."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Build systems that do not require the entire task history to remain inside the model’s context."
+        },
+        {
+          "id": "M7.5",
+          "name": "Long-context strategies",
+          "sessionCount": 1,
+          "icon": "scroll-text",
+          "objectives": [
+            {
+              "text": "Understand why large context windows do not eliminate context-engineering problems."
+            },
+            {
+              "text": "Manage lost-in-the-middle using better positioning, selective retrieval, and context restructuring."
+            },
+            {
+              "text": "Compare full-context stuffing, retrieval-over-history, summarization, hierarchical context, and selective loading."
+            },
+            {
+              "text": "Decide when to give the model more context versus retrieve only the relevant parts."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Choose an appropriate strategy for very long documents, conversations, and agent runs."
+        },
+        {
+          "id": "M7.6",
+          "name": "Tool context management",
+          "sessionCount": 1,
+          "icon": "wrench",
+          "objectives": [
+            {
+              "text": "Understand that tool definitions and tool results also compete for context-window space."
+            },
+            {
+              "text": "Dynamically expose only the tools relevant to the current task where possible."
+            },
+            {
+              "text": "Summarize or filter large API/search/database outputs before returning them to the model."
+            },
+            {
+              "text": "Keep full tool results externally and retrieve details again when required."
+            },
+            {
+              "text": "Prevent long agent loops from accumulating unnecessary observations and tool output."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Keep tool-heavy agents coherent without letting their action history overwhelm the context."
+        },
+        {
+          "id": "M7.7",
+          "name": "Context caching & efficiency",
+          "sessionCount": 1,
+          "icon": "database-zap",
+          "objectives": [
+            {
+              "text": "Understand how repeatedly sending large static contexts affects cost and latency."
+            },
+            {
+              "text": "Structure stable instructions and reusable context to benefit from prompt/context caching where supported."
+            },
+            {
+              "text": "Separate stable context from rapidly changing task state."
+            },
+            {
+              "text": "Reduce redundant tokens while preserving useful information."
+            },
+            {
+              "text": "Measure token usage, cache utilization, latency, and cost rather than optimizing blindly."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Make large-context applications more efficient without sacrificing quality."
+        },
+        {
+          "id": "M7.8",
+          "name": "Capstone: Context-Managed Long-Horizon Agent",
+          "sessionCount": 1,
+          "icon": "flag",
+          "objectives": [
+            {
+              "text": "Take a tool-using agent from Level 6 and run it through a long task where naive context accumulation causes degradation."
+            },
+            {
+              "text": "Define an explicit context budget and dynamically decide what to keep, retrieve, compress, offload, or discard."
+            },
+            {
+              "text": "Add history compaction, external state, selective memory retrieval, and tool-output compression."
+            },
+            {
+              "text": "Preserve the original goal, constraints, completed work, and pending tasks across a long execution."
+            },
+            {
+              "text": "Compare the context-managed version against a naive “keep everything” implementation on coherence, token usage, latency, and cost."
+            }
+          ],
+          "notes": [],
+          "isCapstone": true,
+          "isGap": false,
+          "finalResult": "an agent that stays useful across a long, tool-heavy session because its context is actively managed."
+        }
+      ],
+      "stack": [
+        {
+          "label": "prompt caching",
+          "kind": "concept"
+        },
+        {
+          "label": "summarization",
+          "kind": "concept"
+        },
+        {
+          "label": "scratchpads",
+          "kind": "concept"
+        }
+      ],
+      "project": "M7.8",
+      "totalSessions": 11,
+      "statedSessions": null,
+      "completionOutcomes": [
+        "Diagnose context-related failures.",
+        "Treat the context window as a finite engineering resource.",
+        "Select and prioritize what deserves to enter the window.",
+        "Assemble instructions, retrieval, memory, state, and tool outputs effectively.",
+        "Compress long histories without losing critical information.",
+        "Offload state and working knowledge outside the active context.",
+        "Choose between long-context stuffing, retrieval, summarization, and selective loading.",
+        "Manage context growth in tool-heavy agents.",
+        "Use caching and context reduction to control latency and cost.",
+        "Build long-running agents that continuously keep, retrieve, compress, offload, and discard information."
+      ],
+      "todos": []
+    },
+    {
+      "number": 8,
+      "slug": "level-8",
+      "title": "LLM Evals",
+      "sourceFile": "level8-llm-evals.txt",
+      "scope": "prove that an LLM system actually works, understand where it fails, and prevent quality regressions. Evaluate models, RAG pipelines, and agents using reproducible test sets instead of demos and intuition.",
+      "prereqStated": null,
+      "phase": "trust",
+      "icon": "flask-conical",
+      "modules": [
+        {
+          "id": "M8.1",
+          "name": "Eval-driven development",
+          "sessionCount": 1,
+          "icon": "repeat",
+          "objectives": [
+            {
+              "text": "Understand why traditional unit tests are not enough for probabilistic LLM systems."
+            },
+            {
+              "text": "Treat evals as a continuous engineering loop: define behavior → measure → inspect failures → improve → measure again."
+            },
+            {
+              "text": "Distinguish offline evals from online/production evaluation."
+            },
+            {
+              "text": "Understand the different evaluation targets: model → component → workflow → complete application."
+            },
+            {
+              "text": "Define success criteria before changing prompts, models, retrieval logic, or architecture."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Make system changes based on measured quality rather than intuition."
+        },
+        {
+          "id": "M8.2",
+          "name": "Golden datasets & test-case design",
+          "sessionCount": 2,
+          "icon": "clipboard-check",
+          "objectives": [
+            {
+              "text": "Build representative test cases containing input, expected behavior, reference answer/context where appropriate, and metadata."
+            },
+            {
+              "text": "Cover normal cases, edge cases, known failures, ambiguous inputs, and adversarial cases."
+            },
+            {
+              "text": "Create test cases manually as well as from production failures, user feedback, and sampled real-world interactions."
+            },
+            {
+              "text": "Organize examples by task type, difficulty, language, query category, or other useful dimensions."
+            },
+            {
+              "text": "Version datasets alongside prompts, models, and application changes."
+            },
+            {
+              "text": "Avoid repeatedly optimizing against a tiny fixed dataset until it stops representing real usage."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Build and maintain a golden dataset that represents the real behavior your application needs to handle."
+        },
+        {
+          "id": "M8.3",
+          "name": "Metrics & evaluation methods",
+          "sessionCount": 2,
+          "icon": "ruler",
+          "objectives": [
+            {
+              "text": "Understand reference-based vs reference-free evaluation."
+            },
+            {
+              "text": "Use deterministic metrics where possible: exact match, accuracy, precision, recall, F1, execution success, schema validity, and task-specific programmatic checks."
+            },
+            {
+              "text": "Use semantic similarity when correct answers can have different wording."
+            },
+            {
+              "text": "Understand BLEU/ROUGE and why lexical overlap alone is often insufficient for modern LLM applications."
+            },
+            {
+              "text": "Distinguish objectively measurable behaviors from subjective qualities such as helpfulness, completeness, style, and coherence."
+            },
+            {
+              "text": "Choose metrics based on the task instead of searching for one universal LLM-quality score."
+            },
+            {
+              "text": "Combine several complementary metrics when application quality has multiple dimensions."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Choose the simplest reliable evaluation method for the behavior being measured."
+        },
+        {
+          "id": "M8.4",
+          "name": "LLM-as-a-Judge",
+          "sessionCount": 3,
+          "icon": "gavel",
+          "objectives": [
+            {
+              "text": "Use LLMs to evaluate qualities that are difficult to measure using deterministic code."
+            },
+            {
+              "text": "Design clear criteria, rubrics, scoring scales, and judge prompts."
+            },
+            {
+              "text": "Implement binary pass/fail, pointwise scoring, and pairwise comparison."
+            },
+            {
+              "text": "Understand when pairwise comparison is more reliable than assigning absolute scores."
+            },
+            {
+              "text": "Use reference answers or source context when the evaluation criterion requires them."
+            },
+            {
+              "text": "Calibrate judge outputs against human-labelled examples."
+            },
+            {
+              "text": "Understand common judge failure modes such as position bias, verbosity bias, self-preference, inconsistent scoring, and weak rubric interpretation."
+            },
+            {
+              "text": "Improve judge reliability using explicit rubrics, structured outputs, randomized ordering, and repeated evaluation where appropriate."
+            },
+            {
+              "text": "Keep the evaluated system and the judge logically separate; avoid blindly trusting a model to evaluate itself."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Build an LLM judge whose behavior has been validated rather than assuming judge scores are automatically trustworthy."
+        },
+        {
+          "id": "M8.5",
+          "name": "RAG evaluations",
+          "sessionCount": 2,
+          "icon": "search-check",
+          "objectives": [
+            {
+              "text": "Evaluate RAG at the retriever, generator, and end-to-end pipeline levels."
+            },
+            {
+              "text": "Measure retrieval quality using metrics such as Recall@k, Precision@k, MRR, and contextual relevance where appropriate."
+            },
+            {
+              "text": "Evaluate generated answers using faithfulness/groundedness, answer relevance, correctness, and citation support."
+            },
+            {
+              "text": "Understand contextual precision and contextual recall and how they differ from ordinary document-level retrieval metrics."
+            },
+            {
+              "text": "Diagnose whether a poor final answer came from retrieval failure → poor context → generator failure."
+            },
+            {
+              "text": "Evaluate the generator independently when useful by supplying known-good context and measuring whether it answers faithfully and relevantly."
+            },
+            {
+              "text": "Compare changes such as chunking, embedding model, k, reranking, query transformation, and prompting using the same test set."
+            },
+            {
+              "text": "Use frameworks such as DeepEval and RAGAS while understanding what their metrics are actually computing."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Evaluate individual RAG components separately and determine which part of the pipeline is responsible for poor quality."
+        },
+        {
+          "id": "M8.6",
+          "name": "Agent evaluations",
+          "sessionCount": 2,
+          "icon": "bot",
+          "objectives": [
+            {
+              "text": "Understand why evaluating only the final response is insufficient for agentic systems."
+            },
+            {
+              "text": "Evaluate task completion, trajectory quality, tool selection, tool arguments, tool-result usage, and stopping behavior."
+            },
+            {
+              "text": "Check whether the agent chose the correct tools and used them in an appropriate order."
+            },
+            {
+              "text": "Detect unnecessary tool calls, repeated actions, loops, incorrect handoffs, and failed recovery attempts."
+            },
+            {
+              "text": "Evaluate whether the agent successfully adapts when a tool fails, information is missing, or intermediate results are unexpected."
+            },
+            {
+              "text": "Measure both outcome quality and execution efficiency."
+            },
+            {
+              "text": "Track operational dimensions such as latency, token usage, tool-call count, number of steps, and total cost."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Determine not just whether an agent succeeded, but whether it followed a reliable and efficient trajectory."
+        },
+        {
+          "id": "M8.7",
+          "name": "Observability & tracing",
+          "sessionCount": 2,
+          "icon": "activity",
+          "objectives": [
+            {
+              "text": "Trace complete LLM executions containing prompts, model calls, retrieval, tools, retries, agent steps, and final responses."
+            },
+            {
+              "text": "Capture the actual inputs and outputs at every important step in a multi-stage application."
+            },
+            {
+              "text": "Track operational metrics such as latency, TTFT, token usage, cost, errors, retries, and tool-call frequency."
+            },
+            {
+              "text": "Use observability platforms such as Langfuse or Phoenix to inspect complex runs."
+            },
+            {
+              "text": "Connect evaluation failures back to the exact traces that produced them."
+            },
+            {
+              "text": "Debug failures by inspecting what context the model received, what was retrieved, which tools were called, and what those tools returned."
+            },
+            {
+              "text": "Identify which step is responsible for unexpected cost or latency."
+            },
+            {
+              "text": "Understand the distinction between evals for measuring quality and tracing for understanding why a particular run behaved the way it did."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Reconstruct and debug the execution of a complex LLM system rather than treating it as a black box."
+        },
+        {
+          "id": "M8.8",
+          "name": "Regression testing & evals in CI",
+          "sessionCount": 1,
+          "icon": "git-pull-request",
+          "objectives": [
+            {
+              "text": "Convert important evaluation examples into a permanent regression suite."
+            },
+            {
+              "text": "Automatically run evals when prompts, models, retrieval logic, tools, or application code change."
+            },
+            {
+              "text": "Compare candidate versions against an existing baseline."
+            },
+            {
+              "text": "Define acceptable quality thresholds and prevent changes from shipping when important metrics regress."
+            },
+            {
+              "text": "Track quality alongside latency and cost so an accuracy improvement does not silently make the application prohibitively slow or expensive."
+            },
+            {
+              "text": "Separate lightweight CI evals from larger and more expensive evaluation suites."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Treat LLM quality as a release criterion rather than something manually checked after deployment."
+        },
+        {
+          "id": "M8.9",
+          "name": "Production evals & feedback loops",
+          "sessionCount": 1,
+          "icon": "refresh-cw",
+          "objectives": [
+            {
+              "text": "Sample real production interactions and evaluate them continuously."
+            },
+            {
+              "text": "Use explicit user feedback, implicit behavior, support issues, and observed failures to discover gaps in the offline test set."
+            },
+            {
+              "text": "Monitor quality across prompt versions, models, user segments, and application changes."
+            },
+            {
+              "text": "Add important production failures back into the golden dataset."
+            },
+            {
+              "text": "Understand the continuous loop: production failure → new eval case → fix → regression test → redeploy."
+            },
+            {
+              "text": "Combine offline evals with production signals rather than assuming either is sufficient on its own."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Build an evaluation system that becomes more representative as the application encounters real-world usage."
+        },
+        {
+          "id": "M8.10",
+          "name": "Capstone: CI-Gated Evaluation Suite",
+          "sessionCount": 1,
+          "icon": "flag",
+          "objectives": [
+            {
+              "text": "Choose an existing RAG or agent application from earlier levels."
+            },
+            {
+              "text": "Create a versioned golden dataset containing representative examples, edge cases, and known failures."
+            },
+            {
+              "text": "Implement a combination of programmatic metrics, semantic metrics, and LLM-as-a-judge where appropriate."
+            },
+            {
+              "text": "Add component-level evaluation for retrieval/tool use in addition to evaluating the final output."
+            },
+            {
+              "text": "Track quality, latency, token usage, and cost."
+            },
+            {
+              "text": "Add tracing so failed eval cases can be inspected at the execution level."
+            },
+            {
+              "text": "Integrate the suite into CI and define a threshold where a meaningful quality regression causes the PR/build to fail."
+            },
+            {
+              "text": "Feed future production failures back into the suite."
+            }
+          ],
+          "notes": [],
+          "isCapstone": true,
+          "isGap": false,
+          "finalResult": "an application where changes cannot ship merely because a few manual demos still look good."
+        }
+      ],
+      "stack": [
+        {
+          "label": "structured outputs",
+          "kind": "concept"
+        },
+        {
+          "label": "chunking",
+          "kind": "concept"
+        },
+        {
+          "label": "embeddings",
+          "kind": "concept"
+        },
+        {
+          "label": "Recall@k",
+          "kind": "concept"
+        },
+        {
+          "label": "reranking",
+          "kind": "concept"
+        },
+        {
+          "label": "citations",
+          "kind": "concept"
+        },
+        {
+          "label": "DeepEval",
+          "kind": "tool"
+        },
+        {
+          "label": "RAGAS",
+          "kind": "tool"
+        },
+        {
+          "label": "LLM-as-a-Judge",
+          "kind": "concept"
+        },
+        {
+          "label": "Langfuse",
+          "kind": "tool"
+        },
+        {
+          "label": "Phoenix",
+          "kind": "tool"
+        },
+        {
+          "label": "tracing",
+          "kind": "concept"
+        },
+        {
+          "label": "CI",
+          "kind": "concept"
+        },
+        {
+          "label": "F1",
+          "kind": "concept"
+        },
+        {
+          "label": "MRR",
+          "kind": "concept"
+        },
+        {
+          "label": "BLEU/ROUGE",
+          "kind": "concept"
+        }
+      ],
+      "project": "M8.10",
+      "totalSessions": 17,
+      "statedSessions": null,
+      "completionOutcomes": [
+        "Design representative golden datasets and maintain them over time.",
+        "Choose between deterministic, semantic, reference-based, and reference-free evaluation methods.",
+        "Build and calibrate LLM-as-a-judge evaluators.",
+        "Evaluate RAG retrieval, generation, and the complete pipeline separately.",
+        "Evaluate agent outcomes, trajectories, tool usage, and recovery behavior.",
+        "Trace complex LLM applications and diagnose failures from their execution history.",
+        "Measure quality alongside latency, token usage, and cost.",
+        "Build permanent regression suites.",
+        "Run quality checks automatically as part of CI.",
+        "Use production feedback to continuously improve evaluation coverage.",
+        "Practice eval-driven development as the default way to improve an AI system."
+      ],
+      "todos": []
+    },
+    {
+      "number": 9,
+      "slug": "level-9",
+      "title": "AI Security",
+      "sourceFile": "level9-ai-security.txt",
+      "scope": "secure LLM, RAG, and agent systems against model-specific attacks, unsafe actions, data leakage, and regulatory risk.",
+      "prereqStated": null,
+      "phase": "trust",
+      "icon": "shield-half",
+      "modules": [
+        {
+          "id": "M9.1",
+          "name": "AI threat model",
+          "sessionCount": 1,
+          "icon": "shield",
+          "objectives": [
+            {
+              "text": "Understand how the attack surface changes when models can process untrusted content, access private data, call tools, and take actions."
+            },
+            {
+              "text": "Identify trust boundaries across prompts, retrieved data, tools, memory, model outputs, and external systems."
+            },
+            {
+              "text": "Treat model-generated outputs and actions as untrusted until validated."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Threat-model an LLM application before adding defenses."
+        },
+        {
+          "id": "M9.2",
+          "name": "Prompt injection & data exfiltration",
+          "sessionCount": 3,
+          "icon": "bug",
+          "objectives": [
+            {
+              "text": "Distinguish direct prompt injection from indirect injection hidden inside documents, web pages, emails, retrieved chunks, or tool outputs."
+            },
+            {
+              "text": "Understand attacks that attempt to override instructions, manipulate tools, expose private context, or redirect an agent's objective."
+            },
+            {
+              "text": "Understand the dangerous combination of untrusted input + powerful tools/private data + an exfiltration path."
+            },
+            {
+              "text": "Defend using instruction/data separation, least privilege, authorization checks, restricted tools, confirmation gates, and output validation."
+            },
+            {
+              "text": "Understand why prompting the model to “ignore malicious instructions” is not a sufficient security boundary."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Build applications that remain safe even when malicious instructions reach the model."
+        },
+        {
+          "id": "M9.3",
+          "name": "Jailbreaks, guardrails & moderation",
+          "sessionCount": 2,
+          "icon": "bug",
+          "objectives": [
+            {
+              "text": "Distinguish jailbreaks from prompt injection and recognize common jailbreak patterns."
+            },
+            {
+              "text": "Add input and output guardrails, moderation, validation, and policy checks."
+            },
+            {
+              "text": "Understand the limitations of model-based guardrails and why multiple layers of defense are required."
+            },
+            {
+              "text": "Test guardrails against adversarial and obfuscated inputs instead of only normal requests."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Reduce unsafe model behavior without relying on a single defensive prompt."
+        },
+        {
+          "id": "M9.4",
+          "name": "Agent & tool security",
+          "sessionCount": 2,
+          "icon": "shield",
+          "objectives": [
+            {
+              "text": "Apply least privilege so agents only receive the tools and permissions required for the task."
+            },
+            {
+              "text": "Separate read-only actions from consequential actions such as sending messages, modifying records, deleting data, purchasing, or executing code."
+            },
+            {
+              "text": "Validate tool selection, arguments, permissions, and outputs independently of the LLM."
+            },
+            {
+              "text": "Add human approval for sensitive or irreversible operations."
+            },
+            {
+              "text": "Limit agent steps, runtime, cost, and tool usage to prevent runaway execution."
+            },
+            {
+              "text": "Sandbox model-generated code and treat generated SQL, commands, URLs, or API calls as untrusted."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Give agents useful autonomy without giving them unrestricted control over real systems."
+        },
+        {
+          "id": "M9.5",
+          "name": "RAG & knowledge security",
+          "sessionCount": 1,
+          "icon": "shield",
+          "objectives": [
+            {
+              "text": "Treat retrieved documents as untrusted data, not trusted instructions."
+            },
+            {
+              "text": "Understand retrieval poisoning and malicious instructions hidden inside indexed documents."
+            },
+            {
+              "text": "Enforce document-level permissions so users retrieve only information they are authorized to access."
+            },
+            {
+              "text": "Prevent cross-user or cross-tenant data leakage from vector stores and memory systems."
+            },
+            {
+              "text": "Preserve source/provenance information for retrieved content."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Secure the knowledge layer underneath a RAG application."
+        },
+        {
+          "id": "M9.6",
+          "name": "Data privacy, PII & secrets",
+          "sessionCount": 2,
+          "icon": "lock",
+          "objectives": [
+            {
+              "text": "Identify sensitive data including PII, credentials, financial information, private conversations, and confidential business data."
+            },
+            {
+              "text": "Detect, redact, mask, or minimize sensitive information before sending it to models when appropriate."
+            },
+            {
+              "text": "Avoid unnecessarily storing sensitive data in prompts, logs, traces, memories, vector stores, or evaluation datasets."
+            },
+            {
+              "text": "Understand data retention, deletion, residency, access control, and third-party model-provider considerations."
+            },
+            {
+              "text": "Protect secrets so they are never unnecessarily exposed to the model."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Minimize the amount of sensitive information exposed throughout an AI system."
+        },
+        {
+          "id": "M9.7",
+          "name": "Red teaming AI systems",
+          "sessionCount": 2,
+          "icon": "bug",
+          "objectives": [
+            {
+              "text": "Build adversarial tests for prompt injection, jailbreaks, malicious documents, tool misuse, data extraction, and unsafe agent actions."
+            },
+            {
+              "text": "Test RAG systems by injecting malicious content into retrievable documents."
+            },
+            {
+              "text": "Test agents by attempting to make them exceed permissions, misuse tools, reveal secrets, or enter loops."
+            },
+            {
+              "text": "Turn discovered vulnerabilities into permanent security regression tests."
+            },
+            {
+              "text": "Track measures such as attack-success rate, sensitive-data leakage, and unsafe-action rate where useful."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Test defenses adversarially instead of assuming they work."
+        },
+        {
+          "id": "M9.8",
+          "name": "Responsible AI & governance",
+          "sessionCount": 1,
+          "icon": "scale",
+          "objectives": [
+            {
+              "text": "Understand core concerns around hallucination, bias/fairness, transparency, accountability, and human oversight."
+            },
+            {
+              "text": "Document intended use, known limitations, important risks, evaluations, and human-control mechanisms."
+            },
+            {
+              "text": "Understand the practical implications of relevant regulations such as the EU AI Act and India's DPDP framework."
+            },
+            {
+              "text": "Maintain auditability through model/prompt versions, logs, approvals, and evaluation records."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Recognize when an AI application creates governance or compliance obligations."
+        },
+        {
+          "id": "M9.9",
+          "name": "Capstone: Red-Team & Secure an Agentic RAG App",
+          "sessionCount": 1,
+          "icon": "flag",
+          "objectives": [
+            {
+              "text": "Take an application built in earlier levels and attack it using:"
+            },
+            {
+              "text": "direct and indirect prompt injection,"
+            },
+            {
+              "text": "malicious retrieved documents,"
+            },
+            {
+              "text": "jailbreak attempts,"
+            },
+            {
+              "text": "private-data extraction,"
+            },
+            {
+              "text": "tool misuse,"
+            },
+            {
+              "text": "unauthorized actions."
+            },
+            {
+              "text": "Then add:"
+            },
+            {
+              "text": "least-privilege tools,"
+            },
+            {
+              "text": "permission checks,"
+            },
+            {
+              "text": "guardrails,"
+            },
+            {
+              "text": "PII/secrets protection,"
+            },
+            {
+              "text": "approval gates,"
+            },
+            {
+              "text": "sandboxing,"
+            },
+            {
+              "text": "security regression tests."
+            }
+          ],
+          "notes": [],
+          "isCapstone": true,
+          "isGap": false,
+          "finalResult": "an AI system designed to remain safe even when the model makes a bad decision or receives malicious input."
+        }
+      ],
+      "stack": [
+        {
+          "label": "SQL",
+          "kind": "concept"
+        },
+        {
+          "label": "prompt injection",
+          "kind": "concept"
+        },
+        {
+          "label": "chunking",
+          "kind": "concept"
+        },
+        {
+          "label": "tracing",
+          "kind": "concept"
+        },
+        {
+          "label": "moderation",
+          "kind": "concept"
+        },
+        {
+          "label": "guardrails",
+          "kind": "concept"
+        },
+        {
+          "label": "least privilege",
+          "kind": "concept"
+        },
+        {
+          "label": "sandboxing",
+          "kind": "concept"
+        },
+        {
+          "label": "PII",
+          "kind": "concept"
+        },
+        {
+          "label": "EU AI Act",
+          "kind": "concept"
+        },
+        {
+          "label": "DPDP",
+          "kind": "concept"
+        }
+      ],
+      "project": "M9.9",
+      "totalSessions": 15,
+      "statedSessions": null,
+      "completionOutcomes": [
+        "Threat-model LLM, RAG, and agent applications.",
+        "Defend against direct and indirect prompt injection.",
+        "Implement practical guardrails and moderation.",
+        "Secure agent tools using least privilege and human approval.",
+        "Protect RAG systems against malicious or unauthorized knowledge.",
+        "Protect PII, secrets, and user data.",
+        "Red-team AI systems and turn attacks into regression tests.",
+        "Understand the basic governance obligations surrounding production AI.",
+        "Design around the principle that the model itself is not a security boundary."
+      ],
+      "todos": []
+    },
+    {
+      "number": 10,
+      "slug": "level-10",
+      "title": "AI System Design",
+      "sourceFile": "level10-ai-system-design.txt",
+      "scope": "design a complete production AI application and defend every architectural choice across quality, latency, cost, reliability, and user experience.",
+      "prereqStated": null,
+      "phase": "production",
+      "icon": "network",
+      "modules": [
+        {
+          "id": "M10.1",
+          "name": "The AI system design framework",
+          "sessionCount": 2,
+          "icon": "boxes",
+          "objectives": [
+            {
+              "text": "Start from the use case, success criteria, constraints, traffic, latency requirements, quality requirements, privacy, and cost budget."
+            },
+            {
+              "text": "Decide deliberately between prompting, RAG, agents, fine-tuning, or combinations of them."
+            },
+            {
+              "text": "Reason about the central trade-offs: quality ↔ latency ↔ cost, plus complexity and reliability."
+            },
+            {
+              "text": "Establish a simple baseline before introducing sophisticated architecture."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Turn a product requirement into a defensible AI architecture rather than starting with a favorite technology."
+        },
+        {
+          "id": "M10.2",
+          "name": "Context & knowledge architecture",
+          "sessionCount": 2,
+          "icon": "smartphone",
+          "objectives": [
+            {
+              "text": "Decide what knowledge should come from model knowledge, prompt/context, RAG, memory, or external tools."
+            },
+            {
+              "text": "Design the full context pipeline: ingestion → retrieval → reranking → context assembly → generation."
+            },
+            {
+              "text": "Combine vector, keyword, graph, and other retrieval approaches where justified."
+            },
+            {
+              "text": "Handle freshness, updates, access control, scale, and source provenance."
+            },
+            {
+              "text": "Decide what information should be retrieved dynamically versus kept permanently in the model's context or external state."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Design the knowledge layer that supplies the model with the right information at the right time."
+        },
+        {
+          "id": "M10.3",
+          "name": "Model routing & gateways",
+          "sessionCount": 2,
+          "icon": "git-fork",
+          "objectives": [
+            {
+              "text": "Understand the role of a model gateway as the abstraction between application code and model providers."
+            },
+            {
+              "text": "Route requests based on task type, capability, latency, context length, cost, modality, or risk."
+            },
+            {
+              "text": "Build model cascades where cheaper/faster models handle easy requests and stronger models handle difficult ones."
+            },
+            {
+              "text": "Add model/provider fallbacks and understand the quality risks introduced by switching models."
+            },
+            {
+              "text": "Centralize authentication, usage tracking, retries, rate limits, and provider abstraction where appropriate."
+            }
+          ],
+          "notes": [
+            "This maps particularly closely to Huyen’s architecture step of adding a model router and gateway."
+          ],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Avoid designing applications around a single hard-coded model."
+        },
+        {
+          "id": "M10.4",
+          "name": "Latency & inference optimization",
+          "sessionCount": 2,
+          "icon": "zap",
+          "objectives": [
+            {
+              "text": "Break latency into components such as retrieval, TTFT, model generation, tool calls, and network overhead."
+            },
+            {
+              "text": "Use streaming to improve perceived latency."
+            },
+            {
+              "text": "Parallelize independent operations and avoid unnecessary sequential LLM calls."
+            },
+            {
+              "text": "Understand when smaller/faster models can replace larger models."
+            },
+            {
+              "text": "Apply prompt/context reduction, batching, and inference-service optimizations where appropriate."
+            },
+            {
+              "text": "Reason about throughput, latency, and utilization at scale."
+            }
+          ],
+          "notes": [
+            "Inference performance and both model- and service-level optimization are major topics in the book’s inference optimization chapter."
+          ],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Identify where an AI application is slow and choose the appropriate optimization instead of simply upgrading infrastructure."
+        },
+        {
+          "id": "M10.5",
+          "name": "Caching architecture",
+          "sessionCount": 1,
+          "icon": "database-zap",
+          "objectives": [
+            {
+              "text": "Understand the different caches available in an AI system: exact-response caching, prompt/context caching, retrieval caching, and semantic caching."
+            },
+            {
+              "text": "Decide what is safe to cache and define appropriate expiration/invalidation strategies."
+            },
+            {
+              "text": "Use semantic caching when different queries can reasonably share an answer."
+            },
+            {
+              "text": "Understand the trade-off between freshness, quality, latency, and cost."
+            },
+            {
+              "text": "Measure actual cache hit rate and savings rather than assuming caching helps."
+            }
+          ],
+          "notes": [
+            "Caching is another explicit step in Huyen’s production AI architecture."
+          ],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Use caching as an architectural optimization rather than an afterthought."
+        },
+        {
+          "id": "M10.6",
+          "name": "Reliability, guardrails & graceful degradation",
+          "sessionCount": 2,
+          "icon": "shield-half",
+          "objectives": [
+            {
+              "text": "Design for model failures, provider outages, tool failures, rate limits, malformed outputs, and retrieval failures."
+            },
+            {
+              "text": "Add timeouts, retries, fallbacks, circuit breakers, queues, and rate limits where appropriate."
+            },
+            {
+              "text": "Place guardrails at important system boundaries rather than relying entirely on the model."
+            },
+            {
+              "text": "Design graceful degradation: simpler model, reduced functionality, cached answer, human escalation, or explicit inability to complete the request."
+            },
+            {
+              "text": "Use human approval for high-risk or irreversible actions."
+            },
+            {
+              "text": "Define service-level expectations for availability, latency, and quality."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Design a system that remains useful when individual AI components fail."
+        },
+        {
+          "id": "M10.7",
+          "name": "AI pipeline orchestration",
+          "sessionCount": 1,
+          "icon": "network",
+          "objectives": [
+            {
+              "text": "Design the end-to-end flow between retrieval, models, tools, agents, guardrails, caches, and external systems."
+            },
+            {
+              "text": "Decide which decisions should be deterministic and which should be delegated to the model."
+            },
+            {
+              "text": "Choose between synchronous execution, asynchronous jobs, queues, and long-running agent workflows."
+            },
+            {
+              "text": "Avoid unnecessary agentic complexity when a deterministic pipeline is sufficient."
+            },
+            {
+              "text": "Define clear component boundaries so individual parts can be changed, evaluated, and scaled independently."
+            }
+          ],
+          "notes": [
+            "Pipeline orchestration and agent patterns both appear explicitly in the book’s final architecture chapter."
+          ],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Turn individual AI components into a coherent production system."
+        },
+        {
+          "id": "M10.8",
+          "name": "Monitoring, feedback & continuous improvement",
+          "sessionCount": 1,
+          "icon": "activity",
+          "objectives": [
+            {
+              "text": "Connect evals, traces, operational metrics, and user feedback into the production architecture."
+            },
+            {
+              "text": "Monitor quality, latency, cost, errors, retrieval behavior, tool usage, and model/provider performance."
+            },
+            {
+              "text": "Capture explicit feedback such as ratings as well as useful implicit behavioral signals."
+            },
+            {
+              "text": "Turn production failures and user feedback into new evaluation cases."
+            },
+            {
+              "text": "Version models, prompts, retrieval configurations, and application changes so regressions can be traced."
+            },
+            {
+              "text": "Understand the loop: deploy → observe → collect feedback → evaluate → improve → redeploy."
+            }
+          ],
+          "notes": [
+            "Huyen’s final chapter explicitly treats monitoring/observability and user-feedback design as parts of the AI engineering architecture."
+          ],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Design AI products that improve from real-world usage rather than remaining static after launch."
+        },
+        {
+          "id": "M10.9",
+          "name": "AI system design case studies",
+          "sessionCount": 2,
+          "icon": "network",
+          "objectives": [
+            {
+              "text": "Whiteboard several systems end-to-end and defend the choices."
+            },
+            {
+              "text": "Customer-support copilot"
+            },
+            {
+              "text": "Design around:"
+            },
+            {
+              "text": "RAG and fresh knowledge,"
+            },
+            {
+              "text": "citations,"
+            },
+            {
+              "text": "model routing,"
+            },
+            {
+              "text": "caching,"
+            },
+            {
+              "text": "escalation to humans,"
+            },
+            {
+              "text": "latency and cost constraints."
+            },
+            {
+              "text": "Coding assistant"
+            },
+            {
+              "text": "Design around:"
+            },
+            {
+              "text": "large codebase context,"
+            },
+            {
+              "text": "retrieval,"
+            },
+            {
+              "text": "tool/code execution,"
+            },
+            {
+              "text": "model selection,"
+            },
+            {
+              "text": "sandboxing,"
+            },
+            {
+              "text": "long-running tasks."
+            },
+            {
+              "text": "Deep research agent"
+            },
+            {
+              "text": "Design around:"
+            },
+            {
+              "text": "search and retrieval,"
+            },
+            {
+              "text": "planning,"
+            },
+            {
+              "text": "parallel tool calls,"
+            },
+            {
+              "text": "context management,"
+            },
+            {
+              "text": "long-running execution,"
+            },
+            {
+              "text": "citations,"
+            },
+            {
+              "text": "cost budgets and failure recovery."
+            },
+            {
+              "text": "For each case, reason about requirements → baseline → architecture → bottlenecks → failure modes → scaling → trade-offs."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Defend architectural decisions rather than merely draw boxes and arrows."
+        },
+        {
+          "id": "M10.10",
+          "name": "Capstone: AI System Design Document",
+          "sessionCount": 1,
+          "icon": "flag",
+          "objectives": [
+            {
+              "text": "Choose a substantial AI product and produce a complete design covering:"
+            },
+            {
+              "text": "requirements and success criteria,"
+            },
+            {
+              "text": "expected traffic and constraints,"
+            },
+            {
+              "text": "high-level architecture,"
+            },
+            {
+              "text": "model choice and routing,"
+            },
+            {
+              "text": "context/RAG architecture,"
+            },
+            {
+              "text": "tools/agents where required,"
+            },
+            {
+              "text": "caching strategy,"
+            },
+            {
+              "text": "latency and cost budget,"
+            },
+            {
+              "text": "reliability and fallback strategy,"
+            },
+            {
+              "text": "security/guardrails,"
+            },
+            {
+              "text": "evaluation and monitoring,"
+            },
+            {
+              "text": "user-feedback loop,"
+            },
+            {
+              "text": "scaling strategy."
+            },
+            {
+              "text": "Include an architecture diagram and explicitly justify the major trade-offs and alternatives rejected."
+            }
+          ],
+          "notes": [],
+          "isCapstone": true,
+          "isGap": false,
+          "finalResult": "a design you could defend in an AI system-design interview or an engineering architecture review."
+        }
+      ],
+      "stack": [
+        {
+          "label": "async/await",
+          "kind": "concept"
+        },
+        {
+          "label": "streaming",
+          "kind": "concept"
+        },
+        {
+          "label": "prompt caching",
+          "kind": "concept"
+        },
+        {
+          "label": "reranking",
+          "kind": "concept"
+        },
+        {
+          "label": "citations",
+          "kind": "concept"
+        },
+        {
+          "label": "tracing",
+          "kind": "concept"
+        },
+        {
+          "label": "guardrails",
+          "kind": "concept"
+        },
+        {
+          "label": "sandboxing",
+          "kind": "concept"
+        },
+        {
+          "label": "model routing",
+          "kind": "concept"
+        },
+        {
+          "label": "model gateway",
+          "kind": "concept"
+        },
+        {
+          "label": "semantic caching",
+          "kind": "concept"
+        },
+        {
+          "label": "circuit breakers",
+          "kind": "concept"
+        }
+      ],
+      "project": "M10.10",
+      "totalSessions": 16,
+      "statedSessions": null,
+      "completionOutcomes": [
+        "Translate product requirements into an AI system architecture.",
+        "Decide between prompting, RAG, agents, and fine-tuning.",
+        "Design context and retrieval architecture.",
+        "Build model routing, gateways, cascades, and fallbacks.",
+        "Optimize inference for latency, throughput, and cost.",
+        "Design appropriate caching layers.",
+        "Build for failures and graceful degradation.",
+        "Decide what should be deterministic versus agentic.",
+        "Integrate monitoring, evals, and user feedback into the architecture.",
+        "Reason about the entire application rather than optimizing individual AI components in isolation.",
+        "Whiteboard and defend a production AI system end-to-end."
+      ],
+      "todos": []
+    },
+    {
+      "number": 11,
+      "slug": "level-11",
+      "title": "LLMOps: From Development to Production",
+      "sourceFile": "level11-llmops.txt",
+      "scope": "Launch, test, watch, and protect Large Language Model apps in the real world while managing changing outputs, prompt updates, and the special behaviors of RAG and Agent systems.",
+      "prereqStated": null,
+      "phase": "production",
+      "icon": "gauge",
+      "modules": [
+        {
+          "id": "M11.1",
+          "name": "Foundations of LLMOps",
+          "sessionCount": 1,
+          "icon": "book-open",
+          "objectives": [
+            {
+              "text": "Define exactly what LLMOps is: the organized process of building, testing, watching, and running Large Language Model applications in the real world."
+            },
+            {
+              "text": "Explain why LLMOps is its own special field and how it is different from regular MLOps."
+            },
+            {
+              "text": "Compare Model LLMOps (which means training, fine-tuning, and hosting raw AI models) with Application LLMOps (which means building and running useful apps on top of existing AI models)."
+            },
+            {
+              "text": "Look at the Model LLMOps lifecycle—gathering huge amounts of data, updating model weights, and managing massive servers—and understand why we chose to focus on Application LLMOps instead, since most teams today build apps rather than make their own models from scratch."
+            },
+            {
+              "text": "Map the complete journey of an LLM app from early building stages to putting it live and watching its performance."
+            },
+            {
+              "text": "Show how the daily running of a RAG app is different from an Agentic app."
+            },
+            {
+              "text": "Give a big-picture view of the whole LLMOps toolkit, including how we access models, check quality, track errors, keep things safe, and update code automatically."
+            },
+            {
+              "text": "Understand the two main projects (a RAG app and an Agentic app) that we will build and manage during this course."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Understand the full journey of an LLM application and the complete LLMOps toolkit before writing any code."
+        },
+        {
+          "id": "M11.2",
+          "name": "Application development",
+          "sessionCount": 1,
+          "icon": "hammer",
+          "objectives": [
+            {
+              "text": "Build a RAG app that reads documents, breaks them into pieces, stores them, and connects them to an LLM to answer questions."
+            },
+            {
+              "text": "Build an Agent app that uses tools, plans steps, remembers past actions, and works on its own."
+            },
+            {
+              "text": "Use basic tools like LangChain for RAG, LangGraph for Agents, Chroma for storage, and OpenAI or Anthropic models."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Set up the basic RAG and Agent apps that we will improve and put online in later steps."
+        },
+        {
+          "id": "M11.3",
+          "name": "Evaluation",
+          "sessionCount": 3,
+          "icon": "flask-conical",
+          "objectives": [
+            {
+              "text": "Create test question-answer pairs automatically using DeepEval instead of typing them out by hand."
+            },
+            {
+              "text": "Run a full test on both apps and save the starting scores in MLflow before changing any code."
+            },
+            {
+              "text": "Score the RAG app on how truthful and exact it is using AI-as-a-judge tools."
+            },
+            {
+              "text": "Score the Agent app on whether it picks the right tools, finishes the job, and takes logical steps."
+            },
+            {
+              "text": "Set up automatic alarms to catch if new changes break the app."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Measure the quality of your LLM apps automatically without needing humans to check every answer."
+        },
+        {
+          "id": "M11.4",
+          "name": "Experiment tracking & prompt versioning",
+          "sessionCount": 2,
+          "icon": "git-compare",
+          "objectives": [
+            {
+              "text": "Save and manage different versions of prompts using Langfuse so apps can pull them when running."
+            },
+            {
+              "text": "Label prompt versions for different stages like testing and live production."
+            },
+            {
+              "text": "Keep track of RAG settings (like chunk size) and Agent settings (like tools) as recorded MLflow experiments."
+            },
+            {
+              "text": "Track Metrics and artifacts along with the parameters."
+            },
+            {
+              "text": "Compare different prompt versions side-by-side in a dashboard to see how changes affect the output."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Keep a clear, organized history of your prompts and app settings so you can easily repeat success."
+        },
+        {
+          "id": "M11.5",
+          "name": "Guardrails & output safety",
+          "sessionCount": 2,
+          "icon": "shield-half",
+          "objectives": [
+            {
+              "text": "Look at different safety tools like Guardrails AI, NeMo Guardrails"
+            },
+            {
+              "text": "Force the LLM to give answers in a strict format and automatically ask again if it gets it wrong using Guardrails AI."
+            },
+            {
+              "text": "Add checkers to block bad user inputs and stop prompt injection attacks."
+            },
+            {
+              "text": "Add checkers to stop the LLM from making things up, going off-topic, or leaking private data."
+            },
+            {
+              "text": "Put strict limits on Agent apps to check tool inputs and stop the agent from getting stuck in endless loops."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Check and fix inputs and outputs to make sure the LLM app is safe and reliable before users see the results."
+        },
+        {
+          "id": "M11.6",
+          "name": "Application serving & containerization",
+          "sessionCount": 3,
+          "icon": "container",
+          "objectives": [
+            {
+              "text": "Move the app logic from simple scripts into a strong, real-world FastAPI backend."
+            },
+            {
+              "text": "Turn Streamlit into just a screen that talks to the FastAPI backend."
+            },
+            {
+              "text": "Send answers word-by-word in real time (streaming) so users do not have to wait for the whole reply."
+            },
+            {
+              "text": "Create an application frontend using Streamlit which handles user queries"
+            },
+            {
+              "text": "Pack the frontend and backend into Docker containers and connect them using Docker Compose."
+            },
+            {
+              "text": "Hide passwords and API keys safely inside the containers using .env files."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Upgrade the apps into a fast, streaming, and easily movable container setup."
+        },
+        {
+          "id": "M11.7",
+          "name": "CI/CD with GitHub Actions",
+          "sessionCount": 2,
+          "icon": "infinity",
+          "objectives": [
+            {
+              "text": "Build automatic pipelines in GitHub Actions that use your tests as a strict door to production."
+            },
+            {
+              "text": "Run the DeepEval tests automatically every time you push new code."
+            },
+            {
+              "text": "Stop the release instantly if any test score falls below your set limits."
+            },
+            {
+              "text": "Build effective gates to apply regression testing on new versions"
+            },
+            {
+              "text": "Build Docker images with clear version tags only after all tests pass."
+            },
+            {
+              "text": "Upload the safe and tested Docker images to Docker Hub."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Automate your testing and building steps so only high-quality code goes live."
+        },
+        {
+          "id": "M11.8",
+          "name": "Deployment on AWS",
+          "sessionCount": 3,
+          "icon": "cloud-upload",
+          "objectives": [
+            {
+              "text": "Set up AWS EC2 servers to run LLM workloads, installing Docker and the right access roles."
+            },
+            {
+              "text": "Automate the release process using AWS CodeDeploy to pull new Docker images and swap them safely."
+            },
+            {
+              "text": "Set up a Load Balancer to manage traffic and make sure the word-by-word streaming works smoothly."
+            },
+            {
+              "text": "Add Auto Scaling to automatically add more servers when busy and remove them when quiet."
+            },
+            {
+              "text": "Store sensitive API keys securely in the cloud using AWS Secrets Manager."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Launch your packed apps on AWS with automatic updates, traffic management, and scaling."
+        },
+        {
+          "id": "M11.9",
+          "name": "Post-deployment monitoring",
+          "sessionCount": 3,
+          "icon": "activity",
+          "objectives": [
+            {
+              "text": "Set up Prometheus on a special server to gather health data from all your running machines."
+            },
+            {
+              "text": "Watch computer health stats like CPU, memory, and network usage using Node Exporter."
+            },
+            {
+              "text": "Track app stats like the number of requests, LLM calls, and tokens used."
+            },
+            {
+              "text": "Build simple Grafana dashboards to see the health of your servers, app traffic, and LLM behavior in one place."
+            },
+            {
+              "text": "Set up alarms in Grafana to warn you if servers get too busy or fail to scale."
+            },
+            {
+              "text": "Monitor logs, latency and token costs for each of your inputs through tracing."
+            },
+            {
+              "text": "Run frequent online evaluations over your app."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Keep a close watch on your live AWS setup, covering both the computer health and app speed."
+        },
+        {
+          "id": "M11.11",
+          "name": "Capstone: LLMOps Project",
+          "sessionCount": 4,
+          "icon": "flag",
+          "objectives": [
+            {
+              "text": "Choose an Agent app and show off the whole LLMOps process from start to finish."
+            },
+            {
+              "text": "Build around core LLMOps steps: app building, tracking settings, automatic testing, live watching, safety checkers, Docker packing, auto-releases, AWS hosting, and Grafana dashboards."
+            },
+            {
+              "text": "For this project, follow the path: build →  test → track → secure → pack → launch → watch."
+            }
+          ],
+          "notes": [],
+          "isCapstone": true,
+          "isGap": false,
+          "outcome": "Show a fully launched, watched, and safe Agent app built from the ground up."
+        }
+      ],
+      "stack": [
+        {
+          "label": "FastAPI",
+          "kind": "tool"
+        },
+        {
+          "label": "GitHub",
+          "kind": "tool"
+        },
+        {
+          "label": "Docker",
+          "kind": "tool"
+        },
+        {
+          "label": "LangChain",
+          "kind": "tool"
+        },
+        {
+          "label": "LangGraph",
+          "kind": "tool"
+        },
+        {
+          "label": "streaming",
+          "kind": "concept"
+        },
+        {
+          "label": "prompt injection",
+          "kind": "concept"
+        },
+        {
+          "label": "chunking",
+          "kind": "concept"
+        },
+        {
+          "label": "DeepEval",
+          "kind": "tool"
+        },
+        {
+          "label": "Langfuse",
+          "kind": "tool"
+        },
+        {
+          "label": "tracing",
+          "kind": "concept"
+        },
+        {
+          "label": "CI",
+          "kind": "concept"
+        },
+        {
+          "label": "guardrails",
+          "kind": "concept"
+        },
+        {
+          "label": "MLflow",
+          "kind": "tool"
+        },
+        {
+          "label": "Streamlit",
+          "kind": "tool"
+        },
+        {
+          "label": "Chroma",
+          "kind": "tool"
+        },
+        {
+          "label": "Docker Compose",
+          "kind": "tool"
+        },
+        {
+          "label": "Docker Hub",
+          "kind": "tool"
+        },
+        {
+          "label": "GitHub Actions",
+          "kind": "tool"
+        },
+        {
+          "label": "AWS",
+          "kind": "tool"
+        },
+        {
+          "label": "EC2",
+          "kind": "tool"
+        },
+        {
+          "label": "CodeDeploy",
+          "kind": "tool"
+        },
+        {
+          "label": "Auto Scaling",
+          "kind": "tool"
+        },
+        {
+          "label": "Secrets Manager",
+          "kind": "tool"
+        },
+        {
+          "label": "load balancer",
+          "kind": "concept"
+        },
+        {
+          "label": "Prometheus",
+          "kind": "tool"
+        },
+        {
+          "label": "Grafana",
+          "kind": "tool"
+        },
+        {
+          "label": "Node Exporter",
+          "kind": "tool"
+        },
+        {
+          "label": "Guardrails AI",
+          "kind": "tool"
+        },
+        {
+          "label": "NeMo Guardrails",
+          "kind": "tool"
+        }
+      ],
+      "project": "M11.11",
+      "totalSessions": 24,
+      "statedSessions": null,
+      "completionOutcomes": [
+        "Build LLM apps and move them into real-world container setups.",
+        "Manage different prompt versions and track settings easily.",
+        "Test RAG and Agent apps thoroughly without needing perfect human answers.",
+        "Force exact output formats and block bad inputs or data leaks.",
+        "Make automatic pipelines that test your app before letting it go live.",
+        "Launch, balance traffic, and automatically grow your LLM servers on AWS.",
+        "Watch your instance health, app speed, and LLM costs continuously in the real world."
+      ],
+      "todos": []
+    },
+    {
+      "number": 12,
+      "slug": "level-12",
+      "title": "Advanced AI Systems (Multimodal)",
+      "sourceFile": "level12-advanced-ai-systems.txt",
+      "scope": "work across modalities and at the current shippable frontier.",
+      "prereqStated": null,
+      "phase": "frontier",
+      "icon": "audio-lines",
+      "modules": [
+        {
+          "id": "M12.1",
+          "name": "Multimodal foundations",
+          "sessionCount": 1,
+          "icon": "shapes",
+          "objectives": [
+            {
+              "text": "Explain, intuitively, how multimodal models fuse text with other modalities."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M12.2",
+          "name": "Vision & document understanding",
+          "sessionCount": 3,
+          "icon": "eye",
+          "objectives": [
+            {
+              "text": "Do image Q&A and document/PDF understanding, including charts and tables."
+            },
+            {
+              "text": "Build visual RAG."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M12.3",
+          "name": "Speech: STT & TTS",
+          "sessionCount": 2,
+          "icon": "mic",
+          "objectives": [
+            {
+              "text": "Build speech-to-text (Whisper) and text-to-speech (Kokoro) pipelines."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M12.4",
+          "name": "Realtime voice agents",
+          "sessionCount": 3,
+          "icon": "audio-lines",
+          "objectives": [
+            {
+              "text": "Use a realtime API with turn-taking, interruption, and low latency."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M12.5",
+          "name": "Image generation",
+          "sessionCount": 1,
+          "icon": "image",
+          "objectives": [
+            {
+              "text": "Use generation models and controllable-generation techniques."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M12.6",
+          "name": "Deep research agents",
+          "sessionCount": 2,
+          "icon": "telescope",
+          "objectives": [
+            {
+              "text": "Build long-horizon research and synthesis into structured reports."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M12.7",
+          "name": "On-device / edge",
+          "sessionCount": 1,
+          "icon": "smartphone",
+          "objectives": [
+            {
+              "text": "Run small quantized models locally and reason about the tradeoffs."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M12.8",
+          "name": "Capstone: voice agent or multimodal pipeline",
+          "sessionCount": 1,
+          "icon": "flag",
+          "objectives": [
+            {
+              "text": "Ship one end-to-end multimodal build."
+            }
+          ],
+          "notes": [],
+          "isCapstone": true,
+          "isGap": false
+        }
+      ],
+      "stack": [
+        {
+          "label": "quantization",
+          "kind": "concept"
+        },
+        {
+          "label": "Whisper",
+          "kind": "tool"
+        },
+        {
+          "label": "Kokoro",
+          "kind": "tool"
+        },
+        {
+          "label": "STT",
+          "kind": "concept"
+        },
+        {
+          "label": "TTS",
+          "kind": "concept"
+        },
+        {
+          "label": "visual RAG",
+          "kind": "concept"
+        },
+        {
+          "label": "image generation",
+          "kind": "concept"
+        }
+      ],
+      "project": "M12.8",
+      "totalSessions": 14,
+      "statedSessions": null,
+      "completionOutcomes": [],
+      "todos": []
+    },
+    {
+      "number": 13,
+      "slug": "level-13",
+      "title": "Fine-Tuning",
+      "sourceFile": "level13-fine-tuning.txt",
+      "scope": "the prompt-vs-RAG-vs-fine-tune call, and a small tune when an eval justifies it.",
+      "prereqStated": null,
+      "phase": "frontier",
+      "icon": "sliders-horizontal",
+      "modules": [
+        {
+          "id": "M13.1",
+          "name": "Should you fine-tune?",
+          "sessionCount": 1,
+          "icon": "circle-question-mark",
+          "objectives": [
+            {
+              "text": "Make the tradeoff honestly; identify the narrow cases where FT wins."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M13.2",
+          "name": "Data curation for fine-tuning",
+          "sessionCount": 2,
+          "icon": "file-text",
+          "objectives": [
+            {
+              "text": "Build and format high-quality training data (most of the real work)."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M13.3",
+          "name": "SFT & LoRA/QLoRA",
+          "sessionCount": 3,
+          "icon": "sliders-horizontal",
+          "objectives": [
+            {
+              "text": "Run a LoRA/QLoRA tune with PEFT (Unsloth/Axolotl) and set hyperparameters."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M13.4",
+          "name": "Preference tuning: DPO",
+          "sessionCount": 2,
+          "icon": "thumbs-up",
+          "objectives": [
+            {
+              "text": "Build preference data and run DPO; know when it's warranted."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M13.5",
+          "name": "Reinforcement fine-tuning (RFT)",
+          "sessionCount": 1,
+          "icon": "award",
+          "objectives": [
+            {
+              "text": "Explain reward-based tuning intuition and its use cases."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M13.6",
+          "name": "Distillation",
+          "sessionCount": 1,
+          "icon": "shrink",
+          "objectives": [
+            {
+              "text": "Distill a large model into a small one for cost/latency wins."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M13.7",
+          "name": "Evaluating fine-tunes",
+          "sessionCount": 1,
+          "icon": "flask-conical",
+          "objectives": [
+            {
+              "text": "Measure before/after on Level-8 evals and catch regressions."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "M13.8",
+          "name": "Capstone: a LoRA that beats a prompted baseline",
+          "sessionCount": 1,
+          "icon": "flag",
+          "objectives": [
+            {
+              "text": "Ship a tune with the eval numbers, before and after, as proof."
+            }
+          ],
+          "notes": [],
+          "isCapstone": true,
+          "isGap": false
+        }
+      ],
+      "stack": [
+        {
+          "label": "LoRA",
+          "kind": "concept"
+        },
+        {
+          "label": "QLoRA",
+          "kind": "concept"
+        },
+        {
+          "label": "PEFT",
+          "kind": "tool"
+        },
+        {
+          "label": "Unsloth",
+          "kind": "tool"
+        },
+        {
+          "label": "Axolotl",
+          "kind": "tool"
+        },
+        {
+          "label": "SFT",
+          "kind": "concept"
+        },
+        {
+          "label": "DPO",
+          "kind": "concept"
+        },
+        {
+          "label": "RFT",
+          "kind": "concept"
+        },
+        {
+          "label": "distillation",
+          "kind": "concept"
+        }
+      ],
+      "project": "M13.8",
+      "totalSessions": 12,
+      "statedSessions": null,
+      "completionOutcomes": [],
+      "todos": []
+    },
+    {
+      "number": 14,
+      "slug": "level-14",
+      "title": "Projects",
+      "sourceFile": "level14-projects.txt",
+      "scope": "proof, not concepts. Portfolio builds that compose earlier levels. Ship 3–5 public.",
+      "prereqStated": null,
+      "phase": "frontier",
+      "icon": "trophy",
+      "modules": [
+        {
+          "id": "P14.1",
+          "name": "Document Q&A platform",
+          "sessionCount": 3,
+          "icon": "messages-square",
+          "objectives": [
+            {
+              "text": "Compose L4–L5 with FastAPI and a retrieval eval; deploy publicly."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "P14.2",
+          "name": "Resume ↔ JD screening agent",
+          "sessionCount": 2,
+          "icon": "briefcase",
+          "objectives": [
+            {
+              "text": "Demonstrate tool calling and structured output on a real business task."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "P14.3",
+          "name": "Multi-agent research report system",
+          "sessionCount": 3,
+          "icon": "users",
+          "objectives": [
+            {
+              "text": "Show LangGraph orchestration and state management (L6)."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "P14.4",
+          "name": "MCP server for a real tool",
+          "sessionCount": 2,
+          "icon": "plug-zap",
+          "objectives": [
+            {
+              "text": "Connect a model to a calendar/CRM/task manager — the 2026 pattern."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "P14.5",
+          "name": "Monitored production API",
+          "sessionCount": 2,
+          "icon": "activity",
+          "objectives": [
+            {
+              "text": "Tell the ops story: routing, fallback, cost caps, tracing (L11)."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "P14.6",
+          "name": "Voice or multimodal build",
+          "sessionCount": 3,
+          "icon": "audio-lines",
+          "objectives": [
+            {
+              "text": "Ship a realtime voice agent or a vision pipeline (L12)."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        },
+        {
+          "id": "P14.7",
+          "name": "Portfolio & positioning",
+          "sessionCount": 1,
+          "icon": "flag",
+          "objectives": [
+            {
+              "text": "Write projects up, publish to GitHub, record demos, and present the work."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false
+        }
+      ],
+      "stack": [
+        {
+          "label": "FastAPI",
+          "kind": "tool"
+        },
+        {
+          "label": "GitHub",
+          "kind": "tool"
+        },
+        {
+          "label": "LangGraph",
+          "kind": "tool"
+        },
+        {
+          "label": "tool calling",
+          "kind": "concept"
+        },
+        {
+          "label": "structured outputs",
+          "kind": "concept"
+        },
+        {
+          "label": "MCP",
+          "kind": "concept"
+        },
+        {
+          "label": "tracing",
+          "kind": "concept"
+        }
+      ],
+      "project": null,
+      "totalSessions": 16,
+      "statedSessions": null,
+      "completionOutcomes": [],
+      "todos": []
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+Level 2 · Working with LLM APIs (Orchestration)
+
+Scope: turn individual LLM calls into reliable software workflows — messages, streaming, structured outputs, tools, multi-step orchestration, concurrency, failure handling, and observability. RAG and agents come later.
+
+M2.1 · First API calls & conversation state — (sessions: 2)
+
+Call OpenAI/Anthropic SDKs; work with models, messages, system instructions, user/assistant roles, response objects, stop reasons, and usage metadata.
+Understand that most LLM APIs are fundamentally stateless and learn to maintain conversation history explicitly.
+Distinguish application state from information currently present in the model's context.
+Manage API keys safely using environment variables, .env files, or secret managers; never expose server-side credentials in frontend code.
+Inspect input/output tokens, request metadata, and model responses instead of treating the API as a simple prompt → string function.
+
+M2.2 · Streaming — (sessions: 1)
+
+Stream model output incrementally and render partial responses in a terminal or UI.
+Understand TTFT, generation speed, perceived latency, and total latency.
+Accumulate streamed events into a complete response and handle cancellations, interrupted streams, network failures, and incomplete generations.
+
+M2.3 · LangChain fundamentals — (sessions: 2)
+
+Understand why orchestration libraries exist and what LangChain abstracts over raw provider SDKs.
+Work with chat models, messages, prompt templates, output parsers, streaming, and model configuration.
+Use LangChain with multiple model providers while understanding the underlying API calls it is making.
+Learn the core composition model and build simple pipelines using prompts, models, parsers, and runnables.
+Compare equivalent implementations using raw SDKs and LangChain to understand convenience vs abstraction overhead.
+Keep the mental model that LangChain is an orchestration layer, not the LLM itself.
+
+M2.4 · Structured outputs — (sessions: 2)
+
+Generate schema-constrained outputs rather than relying on “please return JSON” prompting.
+Define schemas using JSON Schema/Pydantic; work with required fields, optional fields, enums, lists, nested objects, and typed responses.
+Implement structured outputs using both provider-native capabilities and LangChain abstractions.
+Validate model outputs before passing them into application logic.
+Distinguish syntactic validity from semantic correctness: valid JSON can still contain incorrect information.
+Implement a generate → validate → accept / retry / repair / reject workflow for invalid outputs.
+
+M2.5 · Function / tool calling — (sessions: 3)
+
+Understand that the LLM normally chooses a tool and generates arguments; your application executes the actual function.
+Define tools using names, descriptions, parameter schemas, types, and required arguments.
+Implement the full loop: user → LLM → tool request → execute tool → return result → LLM → final answer.
+Work with tool-call IDs and correctly insert tool results back into the conversation.
+Implement tool calling using provider APIs directly and understand how LangChain represents and executes tools.
+Handle sequential calls, multiple calls to the same tool, parallel calls, and workflows where one tool result determines the next tool call.
+Handle tool failures and malformed arguments instead of assuming every requested invocation is executable.
+
+M2.6 · Designing good tools — (sessions: 1)
+
+Design tools with precise names, clear descriptions, minimal parameters, strong types, and useful error responses.
+Understand how ambiguous or overlapping tools can cause incorrect tool selection.
+Avoid giving the model huge numbers of poorly differentiated tools or unnecessary arguments.
+Treat model-generated arguments as untrusted input: validate types, values, permissions, and potentially destructive operations before execution.
+Understand that tool descriptions themselves are part of the context the model uses to decide what action to take.
+
+M2.7 · Multi-step LLM workflows — (sessions: 1)
+
+Move beyond prompt → model → answer and build workflows containing multiple LLM calls, tools, transformations, and application logic.
+Implement common orchestration patterns: sequential pipelines, routing, conditional branches, and fan-out/fan-in.
+Learn when to split a complex task into multiple specialized calls instead of using one enormous prompt.
+Build some workflows manually to understand their control flow, then reproduce them using LangChain composition primitives.
+Understand the distinction between application-controlled workflows and the more autonomous agentic systems introduced later.
+
+M2.8 · Async, concurrency & batching — (sessions: 1)
+
+Understand synchronous vs asynchronous API calls and when concurrency improves throughput.
+Process many independent LLM requests concurrently rather than sequentially.
+Use bounded concurrency so higher throughput does not immediately create rate-limit failures.
+Apply async and batch execution using both provider SDKs and orchestration-layer abstractions.
+Understand the trade-off between concurrency, throughput, latency, API limits, resource consumption, and cost.
+
+M2.9 · Robustness: retries, timeouts & fallbacks — (sessions: 2)
+
+Recognize common API failures: authentication errors, invalid requests, rate limits, server errors, network failures, timeouts, context-limit errors, and malformed model outputs.
+Decide which failures should be retried and which should fail immediately; for example, authentication errors generally should not be retried while transient server errors may be.
+Implement exponential backoff, jitter, maximum retry counts, sensible request timeouts, and graceful degradation.
+Add model/provider fallbacks when appropriate, while understanding that fallback models may differ in quality and behavior.
+Handle failures at both levels: LLM API failure and tool/API failure.
+Understand where reliability logic should live: provider SDK, orchestration layer, or your application code.
+
+M2.10 · Cost, usage & observability — (sessions: 1)
+
+Track model, input tokens, output tokens, latency, retries, errors, tool calls, and estimated cost for every request.
+Treat a multi-step LLM interaction as a trace rather than an isolated API call.
+Inspect which step caused a failure, which call consumed the most tokens, which tool was selected, and where latency accumulated.
+Use callbacks/tracing to understand LangChain workflows and connect individual model and tool calls into a single execution trace.
+Build enough logging and tracing that you can debug workflows without relying on scattered print() statements.
+
+M2.11 · Other orchestration frameworks — (sessions: 2)
+
+Understand that LangChain is one orchestration approach rather than a universal standard.
+Explore LlamaIndex and how its abstractions and emphasis differ from LangChain.
+Explore graph/state-machine style orchestration for workflows containing branches, loops, persistent state, and more complex control flow.
+Get introduced to LangGraph as a graph-based approach for stateful LLM workflows.
+Get introduced to DSPy as a more declarative approach where you specify desired input/output behavior rather than manually composing every prompt.
+Compare orchestration approaches on development speed, abstraction overhead, debugging, portability, dependency complexity, state management, and control.
+Develop the ability to choose between raw SDKs, LangChain, graph-based frameworks, LlamaIndex, DSPy, or a custom orchestration layer based on the application.
+
+M2.12 · Capstone: streaming tool-using assistant — (sessions: 1)
+
+Build a conversational assistant that maintains history, uses system instructions, streams responses, and exposes at least 2–3 real tools/APIs.
+Support sequential or parallel tool use where appropriate and validate all model-generated tool arguments.
+Add structured outputs where useful, retry transient failures, enforce timeouts, and handle tool/API errors gracefully.
+Record token usage, latency, retries, tool calls, and estimated cost so the entire workflow can be inspected.
+Build the main implementation using LangChain while being able to explain the raw API/tool-call mechanics underneath it.
+The final application should combine LLM + software + external tools + control flow + reliability, without relying on RAG or autonomous agents.
+Level 2 completion outcome
+
+By the end of this level, you should be able to:
+
+Call and understand modern LLM APIs rather than treating them as black boxes.
+Maintain multi-turn conversation state and stream responses into a real application.
+Use LangChain confidently while understanding what it abstracts from the underlying APIs.
+Turn model outputs into validated typed data.
+Give LLMs access to real software tools safely and implement the full tool-calling loop.
+Build sequential, conditional, parallel, routed, and fan-out/fan-in workflows.
+Process large numbers of calls concurrently.
+Survive API failures, rate limits, and timeouts.
+Measure token usage, latency, errors, tool activity, and cost.
+Understand different orchestration approaches including raw SDKs, LangChain, LangGraph, LlamaIndex, and DSPy.
+Decide when an orchestration framework is useful and which style best fits an application.
+Build a complete production-style, tool-using LLM workflow.

@@ -1,0 +1,84 @@
+Level 3 · Prompt Engineering
+
+Scope: design instructions that make LLM behavior more reliable and predictable. Context engineering comes later.
+
+M3.1 · Anatomy of a prompt — (sessions: 1)
+
+Structure prompts using instructions, context, input, constraints, examples, and output requirements.
+Use system/user/assistant roles correctly and understand instruction priority.
+Separate instructions clearly from user-provided or external data.
+
+M3.2 · Zero-shot & few-shot prompting — (sessions: 2)
+
+Know when a clear zero-shot instruction is sufficient and when examples are needed.
+Design useful few-shot examples that demonstrate desired behavior and output format.
+Understand how example quality, diversity, and ordering can affect results.
+Distinguish few-shot prompting from fine-tuning.
+
+M3.3 · Reasoning & decomposition — (sessions: 1)
+
+Use reasoning-oriented prompting for complex logic, planning, mathematics, coding, and constraint-heavy tasks.
+Know when extra reasoning is unnecessary for tasks such as extraction, classification, and rewriting.
+Break complex tasks into clearer subproblems or intermediate steps.
+Adapt prompting for reasoning models rather than relying blindly on “think step by step.”
+
+M3.4 · System prompt design — (sessions: 2)
+
+Define application purpose, behavior, constraints, boundaries, and output expectations in the system prompt.
+Separate stable application rules from task-specific user instructions.
+Specify what the model should do when information is missing, ambiguous, or outside scope.
+Add lightweight behavioral guardrails without turning the system prompt into an enormous rulebook.
+
+M3.5 · Controlling output — (sessions: 1)
+
+Control response style, length, format, headings, labels, tables, and JSON through clear instructions and examples.
+Know when prompting is enough and when structured-output/schema enforcement from Level 2 is more reliable.
+Separate semantic instructions from programmatic format enforcement.
+
+M3.6 · Prompt reliability & debugging — (sessions: 2)
+
+Diagnose failures caused by ambiguous instructions, conflicting constraints, poor examples, missing context, or unclear output requirements.
+Build a small test set containing normal cases, edge cases, and known failures.
+Compare prompt versions on the same examples instead of judging them from individual responses.
+Reduce unnecessary output variance and regressions through systematic iteration.
+
+M3.7 · Prompt versioning, cost & caching — (sessions: 1)
+
+Version prompts like code and track which prompt/model combination produced each result.
+Compare prompt variants using quality, latency, token usage, and cost.
+Remove unnecessary context and repeated instructions.
+Understand prompt caching and structure reusable prompt prefixes to benefit from caching where supported.
+
+M3.8 · Prompt injection basics — (sessions: 1)
+
+Understand prompt injection and why external/user-controlled text should be treated as untrusted data.
+Recognize attempts to override system instructions or extract hidden information.
+Understand that prompt wording alone is not a security boundary; permissions and sensitive actions must be controlled by application code.
+Leave deeper adversarial security and defenses for the later security level.
+Level 3 Capstone · Optimize a Real Prompt
+
+Choose one realistic task such as classification, extraction, support answering, or a domain-specific assistant.
+
+Create a small test set and develop multiple prompt versions. Compare them on:
+
+correctness,
+instruction following,
+output-format adherence,
+consistency,
+token usage,
+latency/cost.
+
+Select the final prompt based on measured performance rather than intuition.
+
+Level 3 completion outcome
+
+By the end of this level, you should be able to:
+
+Structure clear prompts using instructions, context, constraints, examples, and output requirements.
+Decide when to use zero-shot, few-shot, or reasoning-oriented prompting.
+Write effective system prompts.
+Control model outputs while knowing when schemas are preferable.
+Debug and improve prompts systematically using test cases.
+Version and compare prompts based on quality, latency, and cost.
+Recognize basic prompt-injection risks.
+Treat prompt engineering as an iterative engineering process rather than a collection of tricks.

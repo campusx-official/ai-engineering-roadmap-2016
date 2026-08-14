@@ -1,0 +1,258 @@
+---
+import Base from '../layouts/Base.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import Icon from '../components/Icon.astro';
+import Button from '../components/Button.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import ProgressDots from '../components/ProgressDots.astro';
+import { CAMPUSX_ONE_URL } from '../data/courses';
+import { levels, phases, totalSessions, totalModules, getLevel, sentence } from '../data/levels';
+
+const forWho = [
+  {
+    icon: 'code',
+    title: 'You can already write software',
+    body: 'Start at Level 0 anyway and check it off fast. It exists so the levels above it can assume Python, APIs, SQL, Git and Docker without hedging.',
+  },
+  {
+    icon: 'sparkles',
+    title: 'You have shipped LLM demos',
+    body: 'You probably belong around Levels 2–5. The gap between a demo and a system is retrieval quality, evals and failure handling — that is what the middle of the map is.',
+  },
+  {
+    icon: 'briefcase',
+    title: 'You are hiring or being hired',
+    body: 'The levels are roughly the scope of an AI engineering interview loop. Level 10 is the system-design round; Level 14 is the portfolio.',
+  },
+];
+
+const rules = [
+  {
+    icon: 'arrow-down-narrow-wide',
+    title: 'The order is the product',
+    body: 'Levels are cumulative. RAG without retrieval evaluation, or agents without tool discipline, is where most self-taught paths quietly break.',
+  },
+  {
+    icon: 'package-check',
+    title: 'Finish means shipped',
+    body: 'Every level ends with something deployable. If the capstone is not running somewhere, the level is not done — regardless of how much of it you watched.',
+  },
+  {
+    icon: 'scan-search',
+    title: 'Skip honestly',
+    body: 'Read a level’s outcome list before skipping it. If you cannot do every line on it today, that level is not behind you.',
+  },
+  {
+    icon: 'save',
+    title: 'Progress stays on this device',
+    body: 'Marking a level complete writes to your browser’s local storage. No account, no sync, nothing leaves the machine.',
+  },
+];
+
+const firstLevel = getLevel(0)!;
+---
+
+<Base
+  title="How the roadmap works — AI Engineering Roadmap | CampusX"
+  description="Who the AI Engineering Roadmap is for, how the 15 levels are sequenced, and how to decide where to start."
+  page="start"
+>
+  <section class="sh-hero">
+    <div class="wrap wrap-narrow sh-hero__inner">
+      <Eyebrow text="How it works" />
+      <h1 class="h1 sh-hero__title">Where to start, and how to know you're done.</h1>
+      <p class="lede">
+        {levels.length} levels, {phases.length} phases, {totalModules} modules, {totalSessions} sessions.
+        Read this once and the map will make sense on its own afterwards.
+      </p>
+      <ProgressDots variant="strip" class="sh-hero__dots" />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap wrap-narrow">
+      <SectionHeader
+        eyebrow="Who it's for"
+        title="Three people use this map."
+        subhead="Where you enter matters more than how fast you move."
+      />
+      <ul class="who" role="list">
+        {
+          forWho.map((w) => (
+            <li class="who__item reveal">
+              <span class="who__ico"><Icon name={w.icon} size={18} /></span>
+              <div>
+                <h3 class="who__title">{w.title}</h3>
+                <p class="who__body">{w.body}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section rules">
+    <div class="wrap wrap-narrow">
+      <SectionHeader eyebrow="The rules" title="Four things that make it work." />
+      <ul class="rules__grid" role="list">
+        {
+          rules.map((r) => (
+            <li class="rules__item reveal">
+              <Icon name={r.icon} size={19} class="rules__ico" />
+              <h3 class="rules__title">{r.title}</h3>
+              <p class="rules__body">{r.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap wrap-narrow">
+      <SectionHeader
+        eyebrow="The phases"
+        title="Six chunks, not fifteen things."
+        subhead="The colour banding on the map exists so you hold six ideas in your head instead of fifteen."
+      />
+      <ol class="phases" role="list">
+        {
+          phases.map((p, i) => (
+            <li class="phases__item" data-phase={p.id}>
+              <span class="phases__n">{String(i + 1).padStart(2, '0')}</span>
+              <span class="phases__ico"><Icon name={p.icon} size={16} /></span>
+              <span class="phases__body">
+                <span class="phases__name">{p.name}</span>
+                <span class="phases__theme">{p.theme}</span>
+              </span>
+              <span class="phases__range">
+                L{p.levels[0]}–{p.levels[p.levels.length - 1]}
+              </span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section start-cta">
+    <div class="wrap wrap-narrow start-cta__inner">
+      <Eyebrow text="Begin" />
+      <h2 class="h2">Level {firstLevel.number} · {firstLevel.title}</h2>
+      <p class="lede">{sentence(firstLevel.scope)}</p>
+      <div class="start-cta__buttons">
+        <Button href="/level/0/" variant="primary" size="lg" icon="arrow-right" track="start_cta_level0">
+          Start Level 0
+        </Button>
+        <Button href="/#map" variant="secondary" size="lg" track="start_cta_map">See the full map</Button>
+        <Button
+          href={CAMPUSX_ONE_URL}
+          variant="ghost"
+          size="lg"
+          external
+          track="campusx_cta_click"
+          trackData="start_page"
+        >
+          CampusX One
+        </Button>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .sh-hero { padding-block: 52px 40px; background: linear-gradient(180deg, var(--cx-violet-bg), #fff); }
+  @media (min-width: 768px) { .sh-hero { padding-block: 76px 52px; } }
+  .sh-hero__inner { display: flex; flex-direction: column; gap: 16px; }
+  .sh-hero__title { font-size: clamp(32px, 6vw, 60px); }
+  .sh-hero__dots { margin-top: 14px; }
+
+  .who { display: flex; flex-direction: column; gap: 14px; margin: 32px 0 0; padding: 0; list-style: none; }
+  .who__item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    padding: 22px;
+    background: #fff;
+    border: 1px solid var(--cx-border);
+    border-radius: var(--cx-r-card);
+    box-shadow: var(--cx-shadow-card);
+  }
+  .who__ico {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    flex: none;
+    border-radius: 12px;
+    background: var(--p-violet-bg);
+    border: 1px solid var(--p-violet-br);
+    color: var(--cx-purple);
+  }
+  .who__title { font-size: 18px; margin-bottom: 6px; }
+  .who__body { font-size: 14.5px; line-height: 1.65; color: var(--cx-g600); }
+
+  .rules { background: var(--cx-cream); border-block: 1px solid var(--cx-border); }
+  .rules__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin: 32px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 700px) { .rules__grid { grid-template-columns: repeat(2, 1fr); } }
+  .rules__item {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    padding: 22px;
+    background: #fff;
+    border: 1px solid var(--cx-border);
+    border-radius: var(--cx-r-card);
+  }
+  .rules__ico { color: var(--cx-purple); }
+  .rules__title { font-size: 17px; }
+  .rules__body { font-size: 14.5px; line-height: 1.62; color: var(--cx-g600); }
+
+  .phases { display: flex; flex-direction: column; gap: 8px; margin: 32px 0 0; padding: 0; list-style: none; }
+  .phases__item {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 14px 18px;
+    background: var(--phase-bg);
+    border: 1px solid var(--phase-br);
+    border-radius: var(--cx-r-card-sm);
+  }
+  .phases__n {
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    color: var(--phase-ac);
+    opacity: 0.65;
+    font-variant-numeric: tabular-nums;
+  }
+  .phases__ico { color: var(--phase-ac); display: grid; place-items: center; flex: none; }
+  .phases__body { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+  .phases__name {
+    font-family: var(--cx-font-display);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    color: var(--cx-ink);
+  }
+  .phases__theme { font-size: 13px; color: var(--cx-g600); }
+  .phases__range {
+    margin-left: auto;
+    flex: none;
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--phase-ac);
+  }
+
+  .start-cta { background: var(--cx-violet-bg); border-top: 1px solid var(--p-violet-br); }
+  .start-cta__inner { display: flex; flex-direction: column; gap: 14px; }
+  .start-cta__buttons { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; }
+</style>

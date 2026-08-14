@@ -1,0 +1,87 @@
+---
+/**
+ * Session counts rendered as a segmented meter rather than a sentence —
+ * "4 sessions" becomes four segments (CLAUDE.md §7).
+ *
+ * `of` scales the meter against a shared baseline so level meters can be
+ * compared across the map; the trailing segments render as empty track.
+ */
+interface Props {
+  /** Forwarded to the root element (carries Astro's scope attribute). */
+  [key: string]: unknown;
+  count: number | null;
+  of?: number;
+  size?: 'sm' | 'md';
+  showLabel?: boolean;
+  label?: string;
+  class?: string;
+}
+const {
+  count,
+  of,
+  size = 'md',
+  showLabel = true,
+  label,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const total = Math.max(count ?? 0, of ?? 0);
+const segments = Array.from({ length: total }, (_, i) => i < (count ?? 0));
+const text = label ?? (count === null ? 'sessions not stated' : `${count} ${count === 1 ? 'session' : 'sessions'}`);
+---
+
+<div class={`meter meter--${size} ${className}`} {...rest}>
+  {
+    count === null ? (
+      <span class="meter__none" aria-hidden="true" />
+    ) : (
+      <span class="meter__track" role="img" aria-label={text}>
+        {segments.map((filled) => <span class={`meter__seg ${filled ? 'is-on' : ''}`} />)}
+      </span>
+    )
+  }
+  {showLabel && <span class="meter__label" aria-hidden={count === null ? undefined : 'true'}>{text}</span>}
+</div>
+
+<style>
+  .meter { display: flex; align-items: center; gap: 10px; min-width: 0; }
+
+  .meter__track { display: flex; gap: 3px; flex: 1 1 auto; min-width: 0; max-width: 260px; }
+
+
+  .meter__seg {
+    flex: 1 1 0;
+    /* stays small so a long meter never dictates the card's width */
+    min-width: 2px;
+    border-radius: 999px;
+    background: var(--cx-border-2);
+  }
+  .meter__seg.is-on { background: var(--phase-ac, var(--cx-purple)); opacity: 0.85; }
+
+  .meter--sm .meter__seg { height: 4px; }
+  .meter--md .meter__seg { height: 6px; }
+
+  .meter__none {
+    flex: 1 1 auto;
+    max-width: 260px;
+    height: 4px;
+    border-radius: 999px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--cx-border-2) 0 6px,
+      transparent 6px 10px
+    );
+  }
+
+  .meter__label {
+    flex: none;
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+    font-variant-numeric: tabular-nums;
+  }
+  .meter--md .meter__label { font-size: 11.5px; }
+</style>

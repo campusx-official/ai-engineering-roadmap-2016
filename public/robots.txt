@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://roadmap.campusx.in/sitemap-index.xml

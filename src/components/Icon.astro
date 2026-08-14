@@ -1,0 +1,59 @@
+---
+/**
+ * Inline Lucide icon. Icon geometry is read from @iconify-json/lucide at build
+ * time and emitted as inline SVG — one icon set, one stroke weight, zero JS and
+ * zero network requests.
+ */
+import lucide from '@iconify-json/lucide/icons.json';
+
+interface Props {
+  name: string;
+  size?: number;
+  /** Decorative icons are hidden from AT; pass a label to expose one. */
+  label?: string;
+  class?: string;
+  strokeWidth?: number;
+  /** Scope attributes and any other SVG attributes, forwarded as-is. */
+  [key: string]: unknown;
+}
+
+/* `rest` carries Astro's scoped-style attribute (data-astro-cid-*) down onto the
+   <svg>, without which a parent's scoped rules cannot style the icon. */
+const {
+  name,
+  size = 20,
+  label,
+  class: className = '',
+  strokeWidth,
+  ...rest
+} = Astro.props;
+
+const icons = lucide.icons as Record<string, { body: string; width?: number; height?: number }>;
+const icon = icons[name];
+
+if (!icon) {
+  throw new Error(
+    `Icon "${name}" is not in the Lucide set. Fix the name in the data or the icon rules.`,
+  );
+}
+
+let body = icon.body;
+if (strokeWidth) body = body.replace(/stroke-width="[^"]*"/g, `stroke-width="${strokeWidth}"`);
+
+const w = icon.width ?? lucide.width ?? 24;
+const h = icon.height ?? lucide.height ?? 24;
+---
+
+<svg
+  {...rest}
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox={`0 0 ${w} ${h}`}
+  width={size}
+  height={size}
+  class={className}
+  role={label ? 'img' : undefined}
+  aria-label={label}
+  aria-hidden={label ? undefined : 'true'}
+  focusable="false"
+  set:html={label ? `<title>${label}</title>${body}` : body}
+/>

@@ -1,0 +1,192 @@
+Level 6 · AI Agents
+
+Scope: build systems where models can decide what to do next, use tools, maintain state, recover from failures, and collaborate with other agents. Planning · tools · MCP · memory · multi-agent · LangGraph.
+
+M6.1 · What is an agent? — (sessions: 1)
+
+Understand the basic loop: goal → decide → act → observe → repeat → finish.
+Distinguish LLM call vs chain vs workflow vs agent, especially based on who decides what happens next.
+Understand where agents are useful: open-ended, multi-step tasks where the execution path cannot be fully predetermined.
+Know when a deterministic workflow is simpler, cheaper, and more reliable.
+Understand the basic components of an agent: model, instructions, tools, state/memory, control loop, stopping conditions.
+Outcome: Decide whether a problem genuinely requires an agent.
+
+M6.2 · ReAct, planning & reflection — (sessions: 2)
+
+Understand the ReAct pattern: the agent alternates between deciding what to do and acting on the environment.
+Implement a simple agent loop manually before using a framework.
+Understand step-by-step execution vs plan-first execution.
+Break complex goals into subtasks and dynamically revise plans as new information appears.
+Use reflection/self-correction when actions fail or results are insufficient.
+Implement stopping conditions, maximum steps, and protection against repetitive loops.
+Understand that more planning/reflection can increase quality but also latency and cost.
+Outcome: Build an agent capable of solving a multi-step task without hard-coding its exact execution path.
+
+M6.3 · Tools for agents — (sessions: 2)
+
+Extend Level 2 tool calling into agentic tool use where the model repeatedly selects among available capabilities.
+Design tools with clear names, descriptions, schemas, typed arguments, useful outputs, and useful error messages.
+Improve tool selection and argument correctness.
+Handle sequential, dependent, parallel, and repeated tool calls.
+Handle tool failures and allow the agent to recover or choose an alternative.
+Limit the size of tool results returned to the model so context does not become overwhelmed.
+Separate read-only tools from consequential tools and add confirmation/permission checks where necessary.
+Outcome: Give an agent useful capabilities without giving it uncontrolled access to the underlying application.
+
+M6.4 · MCP (Model Context Protocol) — (sessions: 3)
+
+Understand why MCP exists: provide a standardized way for AI applications to connect to external tools, resources, and prompts.
+Understand the host → client → server architecture and the responsibility of each component.
+Distinguish ordinary function calling from MCP: tool calling describes how a model requests an action, while MCP standardizes how external capabilities are exposed to AI applications.
+Build an MCP server that exposes tools/resources from a real system such as a database, filesystem, SaaS application, or internal API.
+Work with schemas, capabilities, errors, local/remote transports, and authentication.
+Build/use an MCP client and connect it to one or more servers.
+Understand permissions, trust boundaries, and the risk of connecting to untrusted MCP servers.
+Outcome: Build a reusable MCP integration that can expose a real system to compatible AI applications.
+
+M6.5 · Memory basics — (sessions: 2)
+
+Distinguish conversation history, state, short-term memory, and long-term memory.
+Implement short-term memory so an agent can retain information during a conversation or task.
+Implement basic long-term memory using persistent stores or retrieval-backed memory.
+Store useful facts, preferences, summaries, or previous outcomes instead of blindly preserving every message.
+Retrieve relevant memories when needed rather than injecting the entire history into every request.
+Understand basic memory operations: write → retrieve → update → forget.
+Handle growing conversations through trimming or summarization.
+Keep deeper context offloading/compression strategies for the later Context Engineering level.
+Outcome: Build an agent that remembers relevant information during and across interactions.
+
+M6.6 · Multi-agent architectures — (sessions: 3)
+
+Understand why multiple agents may help when tasks require different tools, instructions, models, permissions, or areas of expertise.
+Learn common patterns:
+orchestrator → workers
+sequential handoffs,
+parallel specialists,
+hierarchical supervisor/worker architectures.
+Build an orchestrator that decomposes work and delegates tasks to specialist agents.
+Pass useful state/context between agents and aggregate their outputs.
+Handle worker failures, retries, reassignment, and escalation.
+Understand common multi-agent problems: duplicated work, coordination overhead, context growth, conflicting results, latency, and cost.
+Understand A2A as an interoperability approach for independently built agents and contrast it conceptually with MCP: MCP connects agents to tools/resources; A2A connects agents to agents.
+Learn when multiple agents genuinely improve specialization and when one strong agent with several tools is preferable.
+Outcome: Design multi-agent systems only when decomposition or specialization actually justifies the additional complexity.
+
+M6.7 · Building agents with LangGraph — (sessions: 3)
+
+LangGraph is positioned as a low-level orchestration framework/runtime for long-running, stateful agents.
+
+Model agent execution using state, nodes, and edges.
+Build nodes for model calls, tools, processing logic, and decisions.
+Use conditional edges to dynamically determine the next action.
+Implement loops for repeated tool use, retries, and iterative execution.
+Add checkpointing/persistence so execution can survive interruptions.
+Resume long-running agent runs rather than restarting them from scratch.
+Add human-in-the-loop interrupts for actions requiring approval or intervention.
+Inspect agent state to debug why a particular execution path was taken.
+Understand when graph-based orchestration offers more control than a simple agent loop.
+Outcome: Build a controllable, stateful, resumable agent with explicit execution logic.
+
+M6.8 · Sandboxed execution — (sessions: 1)
+
+Understand why model-generated Python, shell commands, or arbitrary programs should not execute directly inside the production application.
+Run generated code inside isolated environments such as E2B, Modal, containers, or equivalent sandboxes.
+Restrict filesystem, network, credentials, execution time, and compute resources.
+Capture stdout, stderr, files, and errors and return only necessary results to the agent.
+Understand the principle of reducing the blast radius when an agent can take executable actions.
+Outcome: Give an agent code-execution capabilities without exposing the host system unnecessarily.
+
+M6.9 · Agent reliability, UX & failure recovery — (sessions: 2)
+
+Handle common failures: wrong tool selection, bad arguments, unavailable tools, repeated actions, incomplete plans, infinite loops, and context growth.
+Define maximum steps, timeouts, retry budgets, cost/token budgets, and stopping conditions.
+Make operations idempotent where possible so retries do not accidentally repeat real-world side effects.
+Persist enough execution state to resume after interruption.
+Add fallback actions and human escalation when the agent cannot continue safely.
+Surface useful progress to users: current task, tool/action being performed, results, sources, and requests for approval.
+Allow users to cancel, pause, resume, or redirect long-running work.
+Avoid exposing unnecessary private reasoning while still making execution understandable.
+Outcome: Build agents that fail predictably, recover gracefully, and keep the user informed and in control.
+
+M6.10 · Agent frameworks & libraries — (sessions: 2)
+
+After learning the primitives, implement the same small agent in several frameworks and understand what each one abstracts.
+
+LangGraph
+Low-level graph/state-based orchestration for long-running, stateful agents.
+Strong fit when explicit control flow, persistence, loops, and human-in-the-loop behavior matter.
+Google Agent Development Kit (ADK)
+Build agents using Google's open-source ADK and explore its agent, session/state, tools, multi-agent, deployment, and A2A-related abstractions.
+Understand its emphasis on building, debugging, evaluating, and deploying agent systems rather than merely wrapping an LLM call.
+CrewAI
+Build agents and collaborative Crews, and understand Flows for more controlled workflow-style orchestration.
+Explore role-based multi-agent patterns and compare them with explicit graph orchestration.
+Agno
+Build Agents, Teams, and Workflows and understand the distinction between agent autonomy, team coordination, and deterministic workflows.
+Explore its production/runtime layer and how agent systems can be exposed as services.
+OpenAI Agents SDK
+Build code-first agents using tools, handoffs, sessions, guardrails, tracing, and specialist agents.
+Compare a lightweight SDK-style agent loop with graph-oriented or multi-agent-first frameworks.
+Compare them on
+abstraction level,
+control over execution,
+state/persistence,
+multi-agent support,
+tool integrations,
+MCP/A2A support,
+debugging/observability,
+deployment,
+vendor/model flexibility.
+Outcome: Understand the agent-framework landscape and choose a framework based on architecture rather than popularity.
+M6.11 · Capstone: Build a Production-Style Agent — (sessions: 1)
+
+Choose one substantial project.
+
+Option A · Research agent
+
+Build:
+
+Planner → Researcher → Analyst → Writer
+
+with dynamic planning, tools, state, source tracking, retries, and optional specialist agents.
+
+Option B · MCP-powered agent
+
+Build an MCP server for a real service and an agent capable of using its tools/resources to complete multi-step tasks.
+
+Option C · Coding/data agent
+
+Build an agent that:
+
+understands task → plans → writes code → executes in sandbox → inspects result/error → fixes code → returns output
+
+Capstone requirements
+at least 3 useful tools,
+multi-step autonomous execution,
+explicit state,
+stopping conditions,
+failure recovery,
+logs/progress visibility,
+at least one human approval point for consequential actions where appropriate,
+implementation in one agent framework while being able to explain the underlying agent loop.
+
+Final result: a real agent that demonstrates planning + tools + state + recovery + controlled autonomy, not merely an LLM wrapped in a while loop.
+
+Level 6 completion outcome
+
+By the end of this level, you should be able to:
+
+Distinguish chains, workflows, and agents.
+Implement an agent loop from scratch.
+Use ReAct, planning, and reflection appropriately.
+Build robust tools for autonomous systems.
+Build and consume MCP servers.
+Implement short- and long-term agent memory.
+Design orchestrator/worker and other multi-agent architectures.
+Understand MCP vs A2A.
+Build stateful agents using LangGraph.
+Add checkpointing and human-in-the-loop control.
+Execute model-generated code safely.
+Design failure recovery and user-facing progress.
+Work with LangGraph, Google ADK, CrewAI, Agno, and OpenAI Agents SDK and understand their different abstractions.
+Choose between a deterministic workflow, single agent, or multi-agent system based on the actual problem.

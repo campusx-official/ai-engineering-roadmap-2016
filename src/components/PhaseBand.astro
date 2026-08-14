@@ -1,0 +1,148 @@
+---
+/**
+ * A colour-banded stretch of the journey. The rail runs the full height of the
+ * band, so consecutive bands read as one continuous line that changes colour at
+ * each phase boundary — that is what chunks 15 levels into 6 groups.
+ */
+import Icon from './Icon.astro';
+import LevelNode from './LevelNode.astro';
+import { getLevel, type Phase } from '../data/levels';
+
+interface Props {
+  phase: Phase;
+  index: number;
+  isLast?: boolean;
+}
+const { phase, index, isLast = false } = Astro.props;
+
+const bandLevels = phase.levels.map((n) => getLevel(n)!).filter(Boolean);
+const bandSessions = bandLevels.reduce((n, l) => n + l.totalSessions, 0);
+const range =
+  phase.levels.length === 1
+    ? `Level ${phase.levels[0]}`
+    : `Levels ${phase.levels[0]}–${phase.levels[phase.levels.length - 1]}`;
+---
+
+<section
+  class={`band ${isLast ? 'band--last' : ''}`}
+  data-phase={phase.id}
+  aria-labelledby={`phase-${phase.id}`}
+>
+  <div class="band__gutter">
+    <div class="band__sticky">
+      <span class="band__chip">
+        <Icon name={phase.icon} size={15} />
+        <span class="band__index">Phase {index + 1}</span>
+      </span>
+      <h3 class="band__name" id={`phase-${phase.id}`}>{phase.name}</h3>
+      <p class="band__range">{range}</p>
+      <p class="band__theme">{phase.theme}</p>
+      <p class="band__sessions">{bandSessions} sessions</p>
+    </div>
+  </div>
+
+  <ol class="band__nodes" role="list">
+    {bandLevels.map((level) => <LevelNode level={level} />)}
+  </ol>
+</section>
+
+<style>
+  .band {
+    position: relative;
+    display: grid;
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr);
+    /* rail column width — LevelNode aligns its pin to this */
+    --rail-col: 54px;
+  }
+  @media (min-width: 900px) {
+    .band { grid-template-columns: 232px minmax(0, 1fr); column-gap: 8px; --rail-col: 68px; }
+  }
+
+  /* the rail itself: one line per band, colour = phase */
+  .band__nodes {
+    position: relative;
+    min-width: 0;
+    margin: 0;
+    padding: 0 0 26px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .band__nodes::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(var(--rail-col) / 2 - 1.5px);
+    width: 3px;
+    border-radius: 3px;
+    background: var(--phase-br);
+  }
+  .band--last .band__nodes::before {
+    /* the journey ends: fade the rail out under the final node */
+    bottom: 34px;
+    background: linear-gradient(to bottom, var(--phase-br) 70%, transparent);
+  }
+
+  /* ----- gutter / phase label ----- */
+  .band__gutter { min-width: 0; padding-left: var(--rail-col); padding-bottom: 14px; }
+  @media (min-width: 900px) {
+    .band__gutter { padding-left: 0; padding-bottom: 0; padding-top: 24px; }
+  }
+
+  .band__sticky { display: flex; flex-direction: column; gap: 4px; }
+  @media (min-width: 900px) {
+    .band__sticky { position: sticky; top: 104px; padding-right: 24px; }
+  }
+
+  .band__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    align-self: flex-start;
+    padding: 5px 12px 5px 10px;
+    border-radius: 999px;
+    background: var(--phase-bg);
+    border: 1px solid var(--phase-br);
+    color: var(--phase-ac);
+    margin-bottom: 4px;
+  }
+  .band__index {
+    font-family: var(--cx-font-mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .band__name {
+    font-family: var(--cx-font-display);
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    color: var(--cx-ink);
+  }
+  @media (min-width: 900px) { .band__name { font-size: 26px; } }
+
+  .band__range {
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--phase-ac);
+  }
+  .band__theme { font-size: 14px; line-height: 1.5; color: var(--cx-g600); margin-top: 6px; }
+  .band__sessions {
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+    margin-top: 8px;
+  }
+  @media (max-width: 899px) {
+    .band__theme, .band__sessions { display: none; }
+  }
+</style>

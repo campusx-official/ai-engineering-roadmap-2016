@@ -1,0 +1,223 @@
+---
+/**
+ * One stop on the roadmap: a node pinned to the phase rail plus its card.
+ * Completion state is stamped on by client JS (data-done) — the server render
+ * is the "not started" state, so the page is correct before any JS runs.
+ */
+import Icon from './Icon.astro';
+import SessionMeter from './SessionMeter.astro';
+import { maxLevelSessions, sentence, type Level } from '../data/levels';
+
+interface Props {
+  level: Level;
+  compact?: boolean;
+}
+const { level, compact = false } = Astro.props;
+const moduleCount = level.modules.length;
+---
+
+<li class="node" data-level={level.number} data-phase={level.phase}>
+  <a
+    class="node__link"
+    href={`/level/${level.number}/`}
+    data-track="level_open"
+    data-track-data={String(level.number)}
+    aria-label={`Level ${level.number}: ${level.title}`}
+  >
+    <span class="node__pin">
+      <span class="node__badge">
+        <span class="node__num">{level.number}</span>
+        <Icon name="check" size={20} class="node__check" strokeWidth={3} />
+      </span>
+    </span>
+
+    <span class="node__card">
+      <span class="node__top">
+        <Icon name={level.icon} size={17} class="node__ico" />
+        <span class="node__eyebrow">Level {level.number}</span>
+        <span class="node__done-tag">Completed</span>
+      </span>
+
+      <span class="node__title">{level.title}</span>
+      {!compact && <span class="node__scope">{sentence(level.scope)}</span>}
+
+      <span class="node__foot">
+        <SessionMeter count={level.totalSessions} of={maxLevelSessions} size="sm" showLabel={false} />
+        <span class="node__meta">
+          {level.totalSessions} sessions
+          <span class="node__dot">·</span>
+          {moduleCount} modules
+        </span>
+        <Icon name="arrow-right" size={16} class="node__arrow" />
+      </span>
+    </span>
+  </a>
+</li>
+
+<style>
+  .node { position: relative; list-style: none; }
+
+  .node__link {
+    display: grid;
+    grid-template-columns: var(--rail-col) minmax(0, 1fr);
+    align-items: start;
+    gap: 0;
+    padding-block: 7px;
+    border-radius: var(--cx-r-card);
+  }
+
+  /* ----- pin on the rail ----- */
+  .node__pin { display: flex; justify-content: center; padding-top: 16px; }
+
+  .node__badge {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    background: #fff;
+    border: 2px solid var(--phase-br);
+    color: var(--phase-ac);
+    font-family: var(--cx-font-display);
+    font-weight: 700;
+    font-size: 15px;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    box-shadow: 0 0 0 5px #fff;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+  @media (min-width: 900px) {
+    .node__badge { width: 44px; height: 44px; font-size: 17px; }
+  }
+
+  .node__check { display: none; }
+
+  /* ----- card ----- */
+  .node__card {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 9px;
+    padding: 18px;
+    background: #fff;
+    border: 1px solid var(--cx-border);
+    border-radius: var(--cx-r-card);
+    box-shadow: var(--cx-shadow-card);
+    transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+  @media (min-width: 900px) { .node__card { padding: 22px 24px; gap: 10px; } }
+
+  .node__top { display: flex; align-items: center; gap: 8px; }
+  .node__ico { color: var(--phase-ac); flex: none; }
+
+  .node__eyebrow {
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--phase-ac);
+  }
+
+  .node__done-tag {
+    display: none;
+    margin-left: auto;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--cx-green-bg);
+    color: var(--cx-green-ink);
+    font-family: var(--cx-font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .node__title {
+    overflow-wrap: anywhere;
+    font-family: var(--cx-font-display);
+    font-weight: 700;
+    font-size: 19px;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--cx-ink);
+  }
+  @media (min-width: 900px) { .node__title { font-size: 21px; } }
+
+  .node__scope {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--cx-g600);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .node__foot {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 3px;
+    padding-top: 12px;
+    border-top: 1px solid var(--cx-border);
+  }
+  .node__foot :global(.meter) { flex: 0 1 120px; min-width: 0; }
+
+  .node__meta {
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--cx-g500);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .node__dot { padding-inline: 5px; color: var(--cx-g500); }
+
+  .node__arrow {
+    margin-left: auto;
+    flex: none;
+    color: var(--cx-g500);
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  /* ----- interaction ----- */
+  .node__link:hover .node__card {
+    border-color: var(--phase-br);
+    box-shadow: var(--cx-shadow-card-hover);
+    transform: translateY(-2px);
+  }
+  .node__link:hover .node__badge {
+    background: var(--phase-bg);
+    transform: scale(1.06);
+  }
+  .node__link:hover .node__arrow { color: var(--phase-ac); transform: translateX(3px); }
+  .node__link:focus-visible { outline-offset: 4px; }
+
+  /* ----- completed ----- */
+  .node[data-done] .node__badge {
+    background: var(--cx-green-bg);
+    border-color: var(--cx-green-ink);
+    color: var(--cx-green-ink);
+  }
+  .node[data-done] .node__num { display: none; }
+  .node[data-done] .node__check { display: block; }
+  .node[data-done] .node__done-tag { display: inline-flex; }
+  .node[data-done] .node__card { background: #fcfdfc; }
+
+  /* ----- resume marker ----- */
+  .node[data-resume] .node__card {
+    border-color: var(--cx-purple);
+    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.12), var(--cx-shadow-card);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .node__card, .node__badge, .node__arrow { transition: none; }
+    .node__link:hover .node__card,
+    .node__link:hover .node__badge,
+    .node__link:hover .node__arrow { transform: none; }
+  }
+</style>

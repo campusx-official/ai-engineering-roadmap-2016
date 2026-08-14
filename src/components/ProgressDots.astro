@@ -1,0 +1,147 @@
+---
+/**
+ * The whole path in one strip: 15 phase-coloured segments, each a link to its
+ * level. Doubles as the map legend and as the sticky mini-map on level pages.
+ * Completion state is applied by client JS.
+ */
+import { levels, phaseOfLevel } from '../data/levels';
+
+interface Props {
+  /** Forwarded to the root element (carries Astro's scope attribute). */
+  [key: string]: unknown;
+  current?: number;
+  variant?: 'strip' | 'nav';
+  class?: string;
+}
+const { current, variant = 'strip', class: className = '', ...rest } = Astro.props;
+---
+
+<nav class={`dots dots--${variant} ${className}`} {...rest} aria-label="All levels">
+  <ol class="dots__list" role="list">
+    {
+      levels.map((l) => (
+        <li class="dots__item" data-phase={l.phase} data-level={l.number}>
+          <a
+            class="dots__link"
+            href={`/level/${l.number}/`}
+            aria-current={current === l.number ? 'page' : undefined}
+            data-track="minimap_jump"
+            data-track-data={String(l.number)}
+          >
+            <span class="dots__n">{l.number}</span>
+            <span class="dots__tip">
+              <span class="dots__tip-n">L{l.number}</span>
+              {l.title}
+              <span class="dots__tip-phase">{phaseOfLevel(l.number).name}</span>
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<style>
+  .dots__list {
+    display: flex;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .dots__item { flex: 1 1 0; min-width: 0; position: relative; }
+
+  .dots__link {
+    position: relative;
+    display: grid;
+    place-items: center;
+    height: 100%;
+    border-radius: 7px;
+    background: var(--phase-bg);
+    border: 1px solid var(--phase-br);
+    color: var(--phase-ac);
+    font-family: var(--cx-font-mono);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    transition: background-color 0.16s ease, transform 0.16s ease, border-color 0.16s ease;
+  }
+
+  .dots--strip .dots__link { height: 40px; font-size: 12px; }
+  .dots--nav .dots__link { height: 28px; font-size: 11px; border-radius: 6px; }
+
+  .dots__link:hover { transform: translateY(-2px); border-color: var(--phase-ac); }
+  .dots__link[aria-current='page'] {
+    background: var(--phase-ac);
+    border-color: var(--phase-ac);
+    color: #fff;
+  }
+
+  /* completed */
+  .dots__item[data-done] .dots__link {
+    background: var(--cx-green-bg);
+    border-color: var(--cx-green-ink);
+    color: var(--cx-green-ink);
+  }
+  .dots__item[data-done] .dots__link[aria-current='page'] {
+    background: var(--cx-green);
+    color: #fff;
+  }
+
+  /* ----- tooltip ----- */
+  .dots__tip {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: max-content;
+    max-width: 220px;
+    padding: 9px 12px;
+    border-radius: 10px;
+    background: var(--cx-ink);
+    color: #fff;
+    font-family: var(--cx-font-body);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.35;
+    text-align: left;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+  .dots__link:hover .dots__tip,
+  .dots__link:focus-visible .dots__tip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .dots__tip-n,
+  .dots__tip-phase {
+    font-family: var(--cx-font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.62);
+  }
+
+  /* keep tooltips inside the viewport at the ends of the strip */
+  .dots__item:first-child .dots__tip { left: 0; transform: translateX(0) translateY(4px); }
+  .dots__item:first-child .dots__link:hover .dots__tip,
+  .dots__item:first-child .dots__link:focus-visible .dots__tip { transform: translateX(0) translateY(0); }
+  .dots__item:last-child .dots__tip { left: auto; right: 0; transform: translateX(0) translateY(4px); }
+  .dots__item:last-child .dots__link:hover .dots__tip,
+  .dots__item:last-child .dots__link:focus-visible .dots__tip { transform: translateX(0) translateY(0); }
+
+  /* Tooltips are a pointer affordance and, being absolutely positioned, still
+     contribute to scroll width — drop them where there is no hover and no room. */
+  @media (max-width: 780px), (hover: none) {
+    .dots__tip { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dots__link, .dots__tip { transition: none; }
+    .dots__link:hover { transform: none; }
+  }
+</style>

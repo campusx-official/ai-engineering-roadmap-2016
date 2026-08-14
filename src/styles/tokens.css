@@ -1,0 +1,74 @@
+/* CampusX design tokens — the canonical brand layer.
+   Values mirror the CampusX One landing page (see CLAUDE.md §5).
+   Tailwind reads the same values through the @theme block in global.css. */
+
+:root {
+  /* brand */
+  --cx-purple: #6c5ce7;
+  --cx-purple-deep: #4338ca;
+  --cx-purple-hover: #5b4cdb;
+  --cx-violet-700: #6d28d9;
+
+  /* ink & gray */
+  --cx-ink: #0f0f14;
+  --cx-ink-2: #18181b;
+  --cx-g700: #3f3f46;
+  --cx-g600: #52525b;
+  --cx-g500: #71717a;
+  --cx-g400: #a1a1aa;
+
+  /* surfaces */
+  --cx-white: #ffffff;
+  --cx-cream: #faf8f3;
+  --cx-gray: #f9fafb;
+  --cx-violet-bg: #faf9ff;
+
+  /* lines */
+  --cx-border: #e7e5e0;
+  --cx-border-2: #e4e4e7;
+
+  /* success */
+  --cx-green: #059669;        /* fills, borders, graphics */
+  --cx-green-ink: #065f46;    /* text/icons on --cx-green-bg (AA: 7.3:1) */
+  --cx-green-bg: #ecfdf5;
+
+  /* type */
+  --cx-font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --cx-font-body: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  --cx-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+  /* radii */
+  --cx-r-card: 18px;
+  --cx-r-card-sm: 14px;
+  --cx-r-pill: 999px;
+
+  /* elevation */
+  --cx-shadow-card: 0 8px 24px rgba(15, 15, 20, 0.05);
+  --cx-shadow-card-hover: 0 14px 36px rgba(15, 15, 20, 0.09);
+  --cx-shadow-btn: 0 10px 28px rgba(108, 92, 231, 0.25);
+
+  /* emphasis */
+  --cx-grad: linear-gradient(135deg, #4338ca, #6c5ce7);
+
+  /* pastel pill palette — {bg, border, accent}. Accent doubles as the text
+     colour on the pastel background; every pair clears WCAG AA (>=4.5:1). */
+  --p-violet-bg: #ede9fe;   --p-violet-br: #ddd6fe;   --p-violet-ac: #6d28d9;
+  --p-blue-bg: #dbeafe;     --p-blue-br: #bfdbfe;     --p-blue-ac: #1d4ed8;
+  --p-emerald-bg: #d1fae5;  --p-emerald-br: #a7f3d0;  --p-emerald-ac: #047857;
+  --p-rose-bg: #ffe4e6;     --p-rose-br: #fecdd3;     --p-rose-ac: #be123c;
+  --p-amber-bg: #fef3c7;    --p-amber-br: #fde68a;    --p-amber-ac: #b45309;
+  --p-cyan-bg: #cffafe;     --p-cyan-br: #a5f3fc;     --p-cyan-ac: #0e7490;
+  --p-pink-bg: #fce7f3;     --p-pink-br: #fbcfe8;     --p-pink-ac: #9d174d;
+  --p-indigo-bg: #e0e7ff;   --p-indigo-br: #c7d2fe;   --p-indigo-ac: #3730a3;
+  --p-green-bg: #ecfdf5;    --p-green-br: #d1fae5;    --p-green-ac: #065f46;
+  --p-slate-bg: #f1f5f9;    --p-slate-br: #e2e8f0;    --p-slate-ac: #334155;
+}
+
+/* Per-phase colour surface. Set `data-phase` on any subtree and the children
+   pick up --phase-* without needing to know which phase they are in. */
+[data-phase='foundations'] { --phase-bg: var(--p-violet-bg);  --phase-br: var(--p-violet-br);  --phase-ac: var(--p-violet-ac); }
+[data-phase='retrieval']   { --phase-bg: var(--p-blue-bg);    --phase-br: var(--p-blue-br);    --phase-ac: var(--p-blue-ac); }
+[data-phase='agentic']     { --phase-bg: var(--p-emerald-bg); --phase-br: var(--p-emerald-br); --phase-ac: var(--p-emerald-ac); }
+[data-phase='trust']       { --phase-bg: var(--p-amber-bg);   --phase-br: var(--p-amber-br);   --phase-ac: var(--p-amber-ac); }
+[data-phase='production']  { --phase-bg: var(--p-cyan-bg);    --phase-br: var(--p-cyan-br);    --phase-ac: var(--p-cyan-ac); }
+[data-phase='frontier']    { --phase-bg: var(--p-rose-bg);    --phase-br: var(--p-rose-br);    --phase-ac: var(--p-rose-ac); }

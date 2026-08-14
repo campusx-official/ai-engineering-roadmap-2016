@@ -1,0 +1,12 @@
+---
+interface Props {
+  /** Forwarded to the root element (carries Astro's scope attribute). */
+  [key: string]: unknown;
+  text: string;
+  color?: string;
+  class?: string;
+}
+const { text, color, class: className = '', ...rest } = Astro.props;
+---
+
+<p class={`eyebrow ${className}`} {...rest} style={color ? `color:${color}` : undefined}>{text}</p>

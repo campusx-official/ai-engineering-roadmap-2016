@@ -1,0 +1,61 @@
+---
+/**
+ * Pastel pill with a left accent bar. Colour comes either from an explicit
+ * palette name or from the nearest [data-phase] ancestor. Text uses the palette
+ * accent colour, which clears AA against the pastel background.
+ */
+import Icon from './Icon.astro';
+
+type Tone =
+  | 'violet' | 'blue' | 'emerald' | 'rose' | 'amber'
+  | 'cyan' | 'pink' | 'indigo' | 'green' | 'slate' | 'phase';
+
+interface Props {
+  /** Forwarded to the root element (carries Astro's scope attribute). */
+  [key: string]: unknown;
+  tone?: Tone;
+  icon?: string;
+  size?: 'sm' | 'md';
+  accent?: boolean;
+  class?: string;
+}
+const { tone = 'phase', icon, size = 'md', accent = true, class: className = '', ...rest } = Astro.props;
+
+const vars =
+  tone === 'phase'
+    ? '--bg:var(--phase-bg,var(--p-slate-bg));--br:var(--phase-br,var(--p-slate-br));--ac:var(--phase-ac,var(--p-slate-ac))'
+    : `--bg:var(--p-${tone}-bg);--br:var(--p-${tone}-br);--ac:var(--p-${tone}-ac)`;
+---
+
+<span
+  class={`pill pill--${size} ${accent ? 'pill--accent' : ''} ${className}`} {...rest}
+  style={vars}
+>
+  {icon && <Icon name={icon} size={size === 'sm' ? 12 : 14} class="pill__ico" />}
+  <slot />
+</span>
+
+<style>
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--bg);
+    border: 1px solid var(--br);
+    color: var(--ac);
+    border-radius: var(--cx-r-pill);
+    font-family: var(--cx-font-mono);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+  .pill--sm { font-size: 11px; padding: 4px 11px; }
+  .pill--md { font-size: 12px; padding: 6px 14px; }
+
+  /* the "left accent" from the brief, as an inset bar */
+  .pill--accent { padding-left: 14px; box-shadow: inset 3px 0 0 var(--ac); }
+  .pill--accent.pill--sm { padding-left: 12px; }
+
+  .pill__ico { flex: none; opacity: 0.9; }
+</style>

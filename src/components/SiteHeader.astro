@@ -1,0 +1,87 @@
+---
+import Icon from './Icon.astro';
+import Button from './Button.astro';
+import { CAMPUSX_ONE_URL } from '../data/courses';
+---
+
+<header class="hdr no-print">
+  <div class="wrap hdr__inner">
+    <a class="hdr__brand" href="/">
+      <span class="hdr__mark"><Icon name="route" size={17} /></span>
+      <span class="hdr__names">
+        <span class="hdr__name">AI Engineering Roadmap</span>
+        <span class="hdr__by">by CampusX</span>
+      </span>
+    </a>
+
+    <nav class="hdr__nav" aria-label="Primary">
+      <a class="hdr__link" href="/#map">The map</a>
+      <a class="hdr__link" href="/start/">How it works</a>
+    </nav>
+
+    <Button
+      href={CAMPUSX_ONE_URL}
+      variant="primary"
+      external
+      class="hdr__cta"
+      track="campusx_cta_click"
+      trackData="header"
+    >
+      CampusX One
+    </Button>
+  </div>
+</header>
+
+<style>
+  .hdr { border-bottom: 1px solid var(--cx-border); background: #fff; }
+
+  .hdr__inner {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-block: 14px;
+  }
+
+  .hdr__brand { display: flex; align-items: center; gap: 11px; margin-right: auto; }
+
+  .hdr__mark {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    flex: none;
+    border-radius: 10px;
+    background: var(--cx-grad);
+    color: #fff;
+  }
+
+  .hdr__names { display: flex; flex-direction: column; line-height: 1.15; }
+  .hdr__name {
+    font-family: var(--cx-font-display);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.02em;
+    color: var(--cx-ink);
+  }
+  .hdr__by {
+    font-family: var(--cx-font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
+
+  .hdr__nav { display: none; gap: 26px; }
+  @media (min-width: 860px) { .hdr__nav { display: flex; } }
+
+  .hdr__link {
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--cx-g600);
+    transition: color 0.16s ease;
+  }
+  .hdr__link:hover { color: var(--cx-purple); }
+
+  .hdr__cta { padding: 10px 20px !important; font-size: 14px !important; }
+  @media (max-width: 480px) { .hdr__cta { display: none; } }
+</style>

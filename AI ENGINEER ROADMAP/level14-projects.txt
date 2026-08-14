@@ -1,0 +1,31 @@
+Level 14 · Projects
+
+Scope: proof, not concepts. Portfolio builds that compose earlier levels. Ship 3–5 public.
+
+P14.1 · Document Q&A platform — (sessions: 3)
+
+Compose L4–L5 with FastAPI and a retrieval eval; deploy publicly.
+
+P14.2 · Resume ↔ JD screening agent — (sessions: 2)
+
+Demonstrate tool calling and structured output on a real business task.
+
+P14.3 · Multi-agent research report system — (sessions: 3)
+
+Show LangGraph orchestration and state management (L6).
+
+P14.4 · MCP server for a real tool — (sessions: 2)
+
+Connect a model to a calendar/CRM/task manager — the 2026 pattern.
+
+P14.5 · Monitored production API — (sessions: 2)
+
+Tell the ops story: routing, fallback, cost caps, tracing (L11).
+
+P14.6 · Voice or multimodal build — (sessions: 3)
+
+Ship a realtime voice agent or a vision pipeline (L12).
+
+P14.7 · Portfolio & positioning — (sessions: 1)
+
+Write projects up, publish to GitHub, record demos, and present the work.

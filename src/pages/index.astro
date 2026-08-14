@@ -1,0 +1,382 @@
+---
+import Base from '../layouts/Base.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import StatBlock from '../components/StatBlock.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import HeroPath from '../components/HeroPath.astro';
+import ProgressStrip from '../components/ProgressStrip.astro';
+import RoadmapMap from '../components/RoadmapMap.astro';
+import { CAMPUSX_ONE_URL } from '../data/courses';
+import {
+  levels,
+  phases,
+  totalSessions,
+  totalModules,
+  capstoneOf,
+  phaseOfLevel,
+} from '../data/levels';
+
+const ships = levels
+  .map((l) => ({ level: l, capstone: capstoneOf(l) }))
+  .filter((x) => x.capstone !== null);
+
+const howItWorks = [
+  {
+    icon: 'map-pin',
+    title: 'Find your floor',
+    body: 'Start where you actually are. Every level states what it assumes, so you can skip forward honestly instead of hopefully.',
+  },
+  {
+    icon: 'layers',
+    title: 'Work one level at a time',
+    body: 'Each level is modules of a few sessions each, ending in one thing you ship. The order is the point — the levels compound.',
+  },
+  {
+    icon: 'package-check',
+    title: 'Prove it by shipping',
+    body: 'A level counts as done when its capstone runs, not when the videos are watched. Mark it complete and move on.',
+  },
+];
+---
+
+<Base
+  title="AI Engineering Roadmap — 15 levels from fundamentals to production | CampusX"
+  description={`A visual ${levels.length}-level path into AI engineering: software fundamentals, LLMs, RAG, agents, evals, security, system design and LLMOps — ${totalModules} modules, ${totalSessions} sessions, one capstone per level.`}
+  page="home"
+  ogImage="/og/default.png"
+>
+  <!-- ───────────────────────── hero ───────────────────────── -->
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div class="hero__copy">
+        <Eyebrow text="AI Engineering Roadmap" />
+        <h1 class="h1 hero__title">
+          Fifteen levels from <span class="grad-text">writing software</span> to shipping AI systems.
+        </h1>
+        <p class="lede hero__lede">
+          Not a playlist. A sequence. Each level assumes the one before it, teaches a
+          few modules' worth of skills, and ends with something you deploy.
+        </p>
+
+        <div class="hero__ctas">
+          <Button href="#map" variant="primary" size="lg" icon="arrow-down" track="hero_cta_map">
+            See the map
+          </Button>
+          <Button href="/start/" variant="secondary" size="lg" track="hero_cta_start">
+            How to use it
+          </Button>
+        </div>
+
+        <div class="hero__stats">
+          <StatBlock value={levels.length} label="Levels" icon="layers" />
+          <StatBlock value={totalModules} label="Modules" icon="list-tree" />
+          <StatBlock value={totalSessions} label="Sessions" icon="clock" />
+          <StatBlock value={ships.length} label="Things you ship" icon="package-check" />
+        </div>
+      </div>
+
+      <div class="hero__visual">
+        <HeroPath />
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────────────── progress ───────────────────────── -->
+  <div class="wrap resume no-print">
+    <ProgressStrip />
+  </div>
+
+  <!-- ───────────────────────── how it works ───────────────────────── -->
+  <section class="section how">
+    <div class="wrap">
+      <SectionHeader
+        eyebrow="How to use this"
+        title="Three rules, then start walking."
+        subhead="The roadmap works as a sequence. These are the only instructions it needs."
+      />
+      <ol class="how__grid" role="list">
+        {
+          howItWorks.map((step, i) => (
+            <li class="how__item reveal">
+              <span class="how__ico"><Icon name={step.icon} size={19} /></span>
+              <span class="how__n">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="how__title">{step.title}</h3>
+              <p class="how__body">{step.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- ───────────────────────── the map ───────────────────────── -->
+  <section class="section map-section" id="map">
+    <div class="wrap">
+      <SectionHeader
+        eyebrow="The roadmap"
+        title="The whole path, in order."
+        subhead={`${phases.length} phases, ${levels.length} levels. Colour groups the phases; the rail is the order. Tap any level for its modules, stack and capstone.`}
+        class="map-section__head"
+      />
+      <RoadmapMap />
+    </div>
+  </section>
+
+  <!-- ───────────────────────── what you ship ───────────────────────── -->
+  <section class="section ships">
+    <div class="wrap">
+      <SectionHeader
+        eyebrow="Proof, not notes"
+        title={`${ships.length} things you will have built.`}
+        subhead="Every level ends in one deliverable. This is the portfolio the path produces."
+      />
+      <ul class="ships__grid" role="list">
+        {
+          ships.map(({ level, capstone }) => (
+            <li class="ships__item reveal" data-phase={level.phase}>
+              <a href={`/level/${level.number}/#ship`} data-track="ship_click" data-track-data={String(level.number)}>
+                <span class="ships__lvl">L{level.number}</span>
+                <span class="ships__name">{capstone!.name.replace(/^Capstone:\s*/i, '')}</span>
+                <span class="ships__phase">{phaseOfLevel(level.number).name}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- ───────────────────────── campusx ───────────────────────── -->
+  <section class="section cta">
+    <div class="wrap cta__inner">
+      <div class="cta__copy">
+        <Eyebrow text="Learn it on CampusX" />
+        <h2 class="h2">The roadmap is free. The classroom is CampusX One.</h2>
+        <p class="lede">
+          Most levels map to courses in the CampusX One catalog — Python and Docker at the
+          bottom, RAG and agents in the middle, evals and LLMOps near the top. The map
+          tells you what to learn next; CampusX One is where you go and learn it.
+        </p>
+        <div class="cta__buttons">
+          <Button
+            href={CAMPUSX_ONE_URL}
+            variant="primary"
+            size="lg"
+            external
+            track="campusx_cta_click"
+            trackData="home_footer"
+          >
+            Explore CampusX One
+          </Button>
+          <Button href="/level/0/" variant="secondary" size="lg" track="cta_level0">
+            Start at Level 0
+          </Button>
+        </div>
+      </div>
+
+      <ul class="cta__phases" role="list">
+        {
+          phases.map((p) => (
+            <li class="cta__phase" data-phase={p.id}>
+              <Icon name={p.icon} size={15} />
+              <span class="cta__phase-name">{p.name}</span>
+              <span class="cta__phase-range">
+                L{p.levels[0]}–{p.levels[p.levels.length - 1]}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ---------- hero ---------- */
+  .hero {
+    padding-block: 56px 40px;
+    background: linear-gradient(180deg, var(--cx-violet-bg) 0%, #fff 78%);
+    border-bottom: 1px solid transparent;
+  }
+  @media (min-width: 900px) { .hero { padding-block: 84px 56px; } }
+
+  .hero__grid { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
+  @media (min-width: 980px) {
+    .hero__grid { grid-template-columns: minmax(0, 1.12fr) minmax(340px, 0.88fr); gap: 56px; }
+  }
+
+  .hero__copy { display: flex; flex-direction: column; gap: 20px; }
+  /* the hero column is ~560px wide on desktop — cap the display size so the
+     headline lands on three or four lines instead of six */
+  .hero__title { margin-top: 4px; font-size: clamp(36px, 5.2vw, 58px); max-width: 17ch; }
+  @media (min-width: 1180px) { .hero__title { font-size: 64px; max-width: 17ch; } }
+
+  .hero__lede { max-width: 54ch; }
+
+  .hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+
+  .hero__stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px 18px;
+    margin-top: 18px;
+    padding-top: 26px;
+    border-top: 1px solid var(--cx-border);
+  }
+  @media (min-width: 560px) { .hero__stats { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+  .hero__visual { min-width: 0; }
+
+  /* ---------- progress ---------- */
+  .resume { margin-top: 8px; }
+
+  /* ---------- how ---------- */
+  .how { padding-block: 64px; }
+  .how__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin: 36px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 768px) { .how__grid { grid-template-columns: repeat(3, 1fr); gap: 22px; } }
+
+  .how__item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas: 'ico n' 'title title' 'body body';
+    gap: 10px 12px;
+    padding: 24px;
+    background: var(--cx-cream);
+    border: 1px solid var(--cx-border);
+    border-radius: var(--cx-r-card);
+  }
+  .how__ico {
+    grid-area: ico;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: #fff;
+    border: 1px solid var(--cx-border);
+    color: var(--cx-purple);
+  }
+  .how__n {
+    grid-area: n;
+    align-self: center;
+    justify-self: end;
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--cx-g500);
+  }
+  .how__title { grid-area: title; font-size: 19px; margin-top: 4px; }
+  .how__body { grid-area: body; font-size: 14.5px; line-height: 1.6; color: var(--cx-g600); }
+
+  /* ---------- map ---------- */
+  .map-section { background: #fff; padding-top: 24px; scroll-margin-top: 80px; }
+  .map-section__head { margin-bottom: 34px; max-width: 720px; }
+
+  /* ---------- ships ---------- */
+  .ships { background: var(--cx-gray); border-block: 1px solid var(--cx-border); }
+  .ships__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin: 34px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 620px) { .ships__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .ships__grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .ships__item a {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    height: 100%;
+    padding: 14px 16px;
+    background: #fff;
+    border: 1px solid var(--cx-border);
+    border-radius: var(--cx-r-card-sm);
+    transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .ships__item a:hover {
+    border-color: var(--phase-br);
+    box-shadow: var(--cx-shadow-card);
+    transform: translateY(-2px);
+  }
+  .ships__lvl {
+    flex: none;
+    padding: 3px 9px;
+    border-radius: 6px;
+    background: var(--phase-bg);
+    border: 1px solid var(--phase-br);
+    color: var(--phase-ac);
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .ships__name {
+    font-size: 14.5px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--cx-ink);
+    min-width: 0;
+  }
+  .ships__phase {
+    margin-left: auto;
+    flex: none;
+    font-family: var(--cx-font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+    display: none;
+  }
+  @media (min-width: 1000px) { .ships__phase { display: block; } }
+
+  /* ---------- cta ---------- */
+  .cta { background: var(--cx-cream); }
+  .cta__inner { display: grid; grid-template-columns: 1fr; gap: 34px; align-items: center; }
+  @media (min-width: 900px) { .cta__inner { grid-template-columns: minmax(0, 1.3fr) minmax(240px, 0.7fr); gap: 56px; } }
+
+  .cta__copy { display: flex; flex-direction: column; gap: 16px; }
+  .cta__copy .lede { max-width: 56ch; }
+  .cta__buttons { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+
+  .cta__phases { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .cta__phase {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: var(--phase-bg);
+    border: 1px solid var(--phase-br);
+    border-radius: var(--cx-r-card-sm);
+    color: var(--phase-ac);
+  }
+  .cta__phase-name {
+    font-family: var(--cx-font-display);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+  }
+  .cta__phase-range {
+    margin-left: auto;
+    font-family: var(--cx-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    opacity: 0.8;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ships__item a { transition: border-color 0.18s ease; }
+    .ships__item a:hover { transform: none; }
+  }
+</style>

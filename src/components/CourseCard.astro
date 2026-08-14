@@ -1,0 +1,91 @@
+---
+import Icon from './Icon.astro';
+import { CAMPUSX_ONE_URL, type Course } from '../data/courses';
+
+interface Props {
+  course: Course;
+  levelNumber: number;
+}
+const { course, levelNumber } = Astro.props;
+const soon = course.status === 'soon';
+---
+
+<a
+  class={`cc ${soon ? 'cc--soon' : ''}`}
+  href={CAMPUSX_ONE_URL}
+  target="_blank"
+  rel="noopener noreferrer"
+  data-track="campusx_course_click"
+  data-track-data={`${levelNumber}:${course.title}`}
+>
+  <span class="cc__ico"><Icon name={soon ? 'clock' : 'play'} size={15} /></span>
+  <span class="cc__body">
+    <span class="cc__title">{course.title}</span>
+    <span class="cc__meta">
+      {soon ? 'Coming soon' : 'On CampusX One'}
+      {course.note && <span class="cc__note">· {course.note}</span>}
+    </span>
+  </span>
+  <Icon name="arrow-up-right" size={15} class="cc__go" />
+</a>
+
+<style>
+  .cc {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: #fff;
+    border: 1px solid var(--cx-border);
+    border-radius: var(--cx-r-card-sm);
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+  }
+  .cc:hover {
+    border-color: var(--cx-purple);
+    box-shadow: var(--cx-shadow-card);
+    transform: translateY(-2px);
+  }
+
+  .cc__ico {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    flex: none;
+    border-radius: 9px;
+    background: var(--p-violet-bg);
+    border: 1px solid var(--p-violet-br);
+    color: var(--cx-purple);
+  }
+  .cc--soon .cc__ico {
+    background: var(--cx-gray);
+    border-color: var(--cx-border-2);
+    color: var(--cx-g500);
+  }
+
+  .cc__body { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+  .cc__title {
+    font-family: var(--cx-font-display);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    color: var(--cx-ink);
+  }
+  .cc__meta {
+    font-family: var(--cx-font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
+  .cc--soon .cc__meta { color: var(--p-amber-ac); }
+  .cc__note { text-transform: none; letter-spacing: 0.04em; color: var(--cx-g500); }
+
+  .cc__go { margin-left: auto; flex: none; color: var(--cx-g500); }
+  .cc:hover .cc__go { color: var(--cx-purple); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cc { transition: border-color 0.18s ease; }
+    .cc:hover { transform: none; }
+  }
+</style>

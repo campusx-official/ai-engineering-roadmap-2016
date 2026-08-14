@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import Button from '../components/Button.astro';
+import ProgressDots from '../components/ProgressDots.astro';
+import { levels } from '../data/levels';
+---
+
+<Base
+  title="Off the map (404) — AI Engineering Roadmap"
+  description="That page isn't on the roadmap. Jump back to the map or pick a level."
+  page="404"
+  noindex
+>
+  <section class="nf">
+    <div class="wrap wrap-narrow nf__inner">
+      <Eyebrow text="404 · off the map" />
+      <h1 class="h1 nf__title">There's no level here.</h1>
+      <p class="lede">
+        The roadmap runs from Level 0 to Level {levels.length - 1}. Whatever you were
+        looking for isn't one of them — pick a level below or head back to the map.
+      </p>
+
+      <ProgressDots variant="strip" class="nf__dots" />
+
+      <div class="nf__buttons">
+        <Button href="/#map" variant="primary" size="lg" icon="map" iconPosition="left" track="404_map">
+          Back to the map
+        </Button>
+        <Button href="/level/0/" variant="secondary" size="lg" track="404_level0">Start at Level 0</Button>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf { padding-block: 72px 96px; background: linear-gradient(180deg, var(--cx-violet-bg), #fff); }
+  @media (min-width: 768px) { .nf { padding-block: 104px 128px; } }
+  .nf__inner { display: flex; flex-direction: column; gap: 16px; }
+  .nf__title { font-size: clamp(34px, 7vw, 66px); }
+  .nf__dots { margin-top: 18px; }
+  .nf__buttons { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+</style>

@@ -1,0 +1,138 @@
+---
+/**
+ * Resume state + overall completion. Renders a truthful 0% before JS runs, so
+ * nothing shifts when localStorage is read.
+ */
+import Icon from './Icon.astro';
+import { levels } from '../data/levels';
+---
+
+<div class="ps" data-progress-state="empty">
+  <div class="ps__left">
+    <span class="ps__ring">
+      <span class="ps__pct" data-progress-percent>0%</span>
+    </span>
+    <span class="ps__text">
+      <span class="ps__label">Your progress</span>
+      <span class="ps__count">
+        <b data-progress-count>0</b> of {levels.length} levels complete
+      </span>
+    </span>
+  </div>
+
+  <div
+    class="ps__bar"
+    role="progressbar"
+    aria-valuemin="0"
+    aria-valuemax={levels.length}
+    aria-valuenow="0"
+    aria-valuetext={`0 of ${levels.length} levels complete`}
+    aria-label="Roadmap completion"
+  >
+    <span class="ps__fill" data-progress-bar style="width:0%"></span>
+  </div>
+
+  <a class="ps__cta" href="/level/0/" data-resume-link data-track="resume_click">
+    <span data-resume-label>Start at Level 0</span>
+    <Icon name="arrow-right" size={15} />
+  </a>
+
+  <button type="button" class="ps__reset" data-progress-reset>Reset</button>
+</div>
+
+<style>
+  .ps {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px 18px;
+    padding: 16px 18px;
+    border-radius: var(--cx-r-card);
+    background: var(--cx-violet-bg);
+    border: 1px solid var(--p-violet-br);
+  }
+  @media (min-width: 768px) { .ps { padding: 18px 22px; } }
+
+  .ps__left { display: flex; align-items: center; gap: 12px; flex: none; }
+
+  .ps__ring {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    flex: none;
+    border-radius: 999px;
+    background: #fff;
+    border: 2px solid var(--p-violet-br);
+  }
+  .ps__pct {
+    font-family: var(--cx-font-display);
+    font-weight: 700;
+    font-size: 12.5px;
+    letter-spacing: -0.02em;
+    color: var(--cx-purple);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ps__text { display: flex; flex-direction: column; gap: 1px; }
+  .ps__label {
+    font-family: var(--cx-font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cx-purple);
+  }
+  .ps__count { font-size: 14px; color: var(--cx-g600); }
+  .ps__count b { color: var(--cx-ink); font-weight: 600; }
+
+  .ps__bar {
+    flex: 1 1 160px;
+    height: 7px;
+    min-width: 120px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid var(--p-violet-br);
+    overflow: hidden;
+  }
+  .ps__fill {
+    display: block;
+    height: 100%;
+    background: var(--cx-grad);
+    border-radius: 999px;
+    transition: width 0.4s ease;
+  }
+
+  .ps__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex: none;
+    padding: 11px 20px;
+    border-radius: 999px;
+    background: var(--cx-purple);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: var(--cx-shadow-btn);
+    transition: background-color 0.18s ease;
+  }
+  .ps__cta:hover { background: var(--cx-purple-hover); }
+
+  .ps__reset {
+    flex: none;
+    padding: 6px 4px;
+    border: 0;
+    background: none;
+    color: var(--cx-g500);
+    font-family: var(--cx-font-body);
+    font-size: 12.5px;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .ps__reset:hover { color: var(--cx-purple); }
+  /* nothing to reset until something is done */
+  .ps[data-progress-state='empty'] .ps__reset { display: none; }
+
+  @media (prefers-reduced-motion: reduce) { .ps__fill, .ps__cta { transition: none; } }
+</style>

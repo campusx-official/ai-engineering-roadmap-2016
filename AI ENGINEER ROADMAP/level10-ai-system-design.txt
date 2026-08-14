@@ -1,0 +1,164 @@
+Level 10 · AI System Design
+
+Scope: design a complete production AI application and defend every architectural choice across quality, latency, cost, reliability, and user experience.
+
+M10.1 · The AI system design framework — (sessions: 2)
+
+Start from the use case, success criteria, constraints, traffic, latency requirements, quality requirements, privacy, and cost budget.
+Decide deliberately between prompting, RAG, agents, fine-tuning, or combinations of them.
+Reason about the central trade-offs: quality ↔ latency ↔ cost, plus complexity and reliability.
+Establish a simple baseline before introducing sophisticated architecture.
+Outcome: Turn a product requirement into a defensible AI architecture rather than starting with a favorite technology.
+
+M10.2 · Context & knowledge architecture — (sessions: 2)
+
+Decide what knowledge should come from model knowledge, prompt/context, RAG, memory, or external tools.
+Design the full context pipeline: ingestion → retrieval → reranking → context assembly → generation.
+Combine vector, keyword, graph, and other retrieval approaches where justified.
+Handle freshness, updates, access control, scale, and source provenance.
+Decide what information should be retrieved dynamically versus kept permanently in the model's context or external state.
+Outcome: Design the knowledge layer that supplies the model with the right information at the right time.
+
+M10.3 · Model routing & gateways — (sessions: 2)
+
+Understand the role of a model gateway as the abstraction between application code and model providers.
+Route requests based on task type, capability, latency, context length, cost, modality, or risk.
+Build model cascades where cheaper/faster models handle easy requests and stronger models handle difficult ones.
+Add model/provider fallbacks and understand the quality risks introduced by switching models.
+Centralize authentication, usage tracking, retries, rate limits, and provider abstraction where appropriate.
+Outcome: Avoid designing applications around a single hard-coded model.
+
+This maps particularly closely to Huyen’s architecture step of adding a model router and gateway.
+
+M10.4 · Latency & inference optimization — (sessions: 2)
+
+Break latency into components such as retrieval, TTFT, model generation, tool calls, and network overhead.
+Use streaming to improve perceived latency.
+Parallelize independent operations and avoid unnecessary sequential LLM calls.
+Understand when smaller/faster models can replace larger models.
+Apply prompt/context reduction, batching, and inference-service optimizations where appropriate.
+Reason about throughput, latency, and utilization at scale.
+Outcome: Identify where an AI application is slow and choose the appropriate optimization instead of simply upgrading infrastructure.
+
+Inference performance and both model- and service-level optimization are major topics in the book’s inference optimization chapter.
+
+M10.5 · Caching architecture — (sessions: 1)
+
+Understand the different caches available in an AI system: exact-response caching, prompt/context caching, retrieval caching, and semantic caching.
+Decide what is safe to cache and define appropriate expiration/invalidation strategies.
+Use semantic caching when different queries can reasonably share an answer.
+Understand the trade-off between freshness, quality, latency, and cost.
+Measure actual cache hit rate and savings rather than assuming caching helps.
+Outcome: Use caching as an architectural optimization rather than an afterthought.
+
+Caching is another explicit step in Huyen’s production AI architecture.
+
+M10.6 · Reliability, guardrails & graceful degradation — (sessions: 2)
+
+Design for model failures, provider outages, tool failures, rate limits, malformed outputs, and retrieval failures.
+Add timeouts, retries, fallbacks, circuit breakers, queues, and rate limits where appropriate.
+Place guardrails at important system boundaries rather than relying entirely on the model.
+Design graceful degradation: simpler model, reduced functionality, cached answer, human escalation, or explicit inability to complete the request.
+Use human approval for high-risk or irreversible actions.
+Define service-level expectations for availability, latency, and quality.
+Outcome: Design a system that remains useful when individual AI components fail.
+
+M10.7 · AI pipeline orchestration — (sessions: 1)
+
+Design the end-to-end flow between retrieval, models, tools, agents, guardrails, caches, and external systems.
+Decide which decisions should be deterministic and which should be delegated to the model.
+Choose between synchronous execution, asynchronous jobs, queues, and long-running agent workflows.
+Avoid unnecessary agentic complexity when a deterministic pipeline is sufficient.
+Define clear component boundaries so individual parts can be changed, evaluated, and scaled independently.
+Outcome: Turn individual AI components into a coherent production system.
+
+Pipeline orchestration and agent patterns both appear explicitly in the book’s final architecture chapter.
+
+M10.8 · Monitoring, feedback & continuous improvement — (sessions: 1)
+
+Connect evals, traces, operational metrics, and user feedback into the production architecture.
+Monitor quality, latency, cost, errors, retrieval behavior, tool usage, and model/provider performance.
+Capture explicit feedback such as ratings as well as useful implicit behavioral signals.
+Turn production failures and user feedback into new evaluation cases.
+Version models, prompts, retrieval configurations, and application changes so regressions can be traced.
+Understand the loop: deploy → observe → collect feedback → evaluate → improve → redeploy.
+Outcome: Design AI products that improve from real-world usage rather than remaining static after launch.
+
+Huyen’s final chapter explicitly treats monitoring/observability and user-feedback design as parts of the AI engineering architecture.
+
+M10.9 · AI system design case studies — (sessions: 2)
+
+Whiteboard several systems end-to-end and defend the choices.
+
+Customer-support copilot
+
+Design around:
+
+RAG and fresh knowledge,
+citations,
+model routing,
+caching,
+escalation to humans,
+latency and cost constraints.
+Coding assistant
+
+Design around:
+
+large codebase context,
+retrieval,
+tool/code execution,
+model selection,
+sandboxing,
+long-running tasks.
+Deep research agent
+
+Design around:
+
+search and retrieval,
+planning,
+parallel tool calls,
+context management,
+long-running execution,
+citations,
+cost budgets and failure recovery.
+
+For each case, reason about requirements → baseline → architecture → bottlenecks → failure modes → scaling → trade-offs.
+
+Outcome: Defend architectural decisions rather than merely draw boxes and arrows.
+M10.10 · Capstone: AI System Design Document — (sessions: 1)
+
+Choose a substantial AI product and produce a complete design covering:
+
+requirements and success criteria,
+expected traffic and constraints,
+high-level architecture,
+model choice and routing,
+context/RAG architecture,
+tools/agents where required,
+caching strategy,
+latency and cost budget,
+reliability and fallback strategy,
+security/guardrails,
+evaluation and monitoring,
+user-feedback loop,
+scaling strategy.
+
+Include an architecture diagram and explicitly justify the major trade-offs and alternatives rejected.
+
+Final result: a design you could defend in an AI system-design interview or an engineering architecture review.
+
+Level 10 completion outcome
+
+By the end of this level, you should be able to:
+
+Translate product requirements into an AI system architecture.
+Decide between prompting, RAG, agents, and fine-tuning.
+Design context and retrieval architecture.
+Build model routing, gateways, cascades, and fallbacks.
+Optimize inference for latency, throughput, and cost.
+Design appropriate caching layers.
+Build for failures and graceful degradation.
+Decide what should be deterministic versus agentic.
+Integrate monitoring, evals, and user feedback into the architecture.
+Reason about the entire application rather than optimizing individual AI components in isolation.
+Whiteboard and defend a production AI system end-to-end.

@@ -1,0 +1,99 @@
+Level 1 · LLM 101
+
+Goal: Build a strong mental model of how LLMs work, why they behave the way they do, and how to choose and use the right model for a task.
+Prerequisites: None · Depth: Conceptual + hands-on; no research papers or heavy mathematics · Suggested duration: 13 sessions.
+
+M1.1 · What an LLM Actually Is — sessions: 1
+Understand what a Large Language Model actually does, with next-token prediction as the core idea and generation as a repeated predict → choose → append → repeat process.
+Understand what an LLM is not: a database, search engine, deterministic program, or repository of stored answers.
+Understand why the same underlying model can perform writing, summarization, translation, coding, question answering, and classification.
+Build intuition for how capability improves through better data, more compute, larger models, and better training.
+Try: Give the same prompt multiple times and observe variation; predict the next word/token in simple sentences before asking the model.
+Outcome: Explain an LLM simply: an LLM generates text by repeatedly predicting the most appropriate next token given the tokens it has already seen.
+M1.2 · Tokenization — sessions: 1
+Distinguish characters, words, and tokens; understand token IDs, why LLMs operate on tokens, and why different tokenizers can split the same text differently.
+Explore tokenization of normal English, uncommon words, numbers, code, emojis, Hindi/Devanagari, and mixed Hindi-English text.
+Connect tokenization to API pricing, context-window consumption, output length, latency, spelling difficulties, character-counting failures, and mathematical/numerical behavior.
+Try: Compare token counts for an English paragraph, its Hindi translation, source code, and a list of numbers.
+Outcome: Explain why two texts with roughly the same number of words can have very different token counts and LLM costs.
+M1.3 · Inside an LLM: Embeddings, Attention & Transformers — sessions: 2
+Session 1 · Tokens → Vectors
+Understand how token IDs become embeddings, what vectors represent conceptually, why concepts are represented numerically, and how representations change as they pass through transformer layers.
+Understand what model parameters are and what sizes such as 8B, 70B, and 400B+ mean.
+Understand why more parameters can increase capacity, while larger does not automatically mean better.
+Session 2 · Attention
+Understand attention through the intuition: a token looks at other relevant tokens in the context to build a better representation of what it means.
+Build a high-level understanding of queries, keys, values, attention scores, transformer layers, and causal attention — without matrix mathematics.
+Try: Inspect an attention visualization for a sentence such as “The animal didn't cross the street because it was tired” and reason about what "it" should attend to.
+Mental model: Text → Tokens → Embeddings → Transformer layers + attention → Next-token probabilities
+Outcome: Explain conceptually what happens between a token entering the model and the model producing next-token probabilities.
+M1.4 · How LLMs Learn — sessions: 2
+Session 1 · Pretraining
+Understand pretraining, how enormous text datasets are used, why next-token prediction creates its own training signal, and what self-supervised learning means.
+Understand how pretraining enables models to learn grammar, facts, patterns, concepts, relationships, coding syntax, and problem-solving patterns.
+Explore memorization vs generalization, including why an LLM can sometimes answer questions it has never seen verbatim.
+Session 2 · Post-training
+Understand the broad pipeline: Pretraining → Supervised Fine-Tuning → Preference / Reinforcement Training → Deployed Assistant.
+Understand SFT, RLHF, RLAIF, preference optimization at a conceptual level, and safety tuning.
+Connect post-training to why chat models follow instructions, answer conversationally, refuse certain requests, hedge, structure answers, and ask for clarification.
+Try: Compare a base model and an instruction-tuned model using identical prompts.
+Outcome: Explain why a pretrained model may know a lot while still being a poor conversational assistant.
+M1.5 · How LLM Inference Works — sessions: 1
+Understand what happens after sending a prompt to an LLM API: Prompt → process input → predict token → generate token → repeat.
+Distinguish prefill, where the model processes the input/context, from decode, where new tokens are generated one by one.
+Understand input tokens, output tokens, time to first token (TTFT), tokens per second, and total latency.
+Build intuition for KV caching and why the model does not need to recompute the entire conversation from scratch after every generated token.
+Connect inference mechanics to latency, cost, long prompts, long outputs, and reasoning models.
+Outcome: Explain why generating 2,000 output tokens usually takes much longer than generating 50 tokens even with the same input.
+M1.6 · The Context Window — sessions: 1
+Understand what the context window is and what can occupy it: system instructions, conversation history, user prompts, documents, examples, tool outputs, and generated content.
+Distinguish context ≠ model knowledge ≠ long-term memory.
+Understand what can happen with very long contexts: truncation, attention degradation, lost-in-the-middle effects, and context dilution.
+Understand why a model supporting a huge context window does not mean it can use every token equally well.
+Try: Place an important fact near the beginning, middle, and end of a long document and compare retrieval performance.
+Outcome: Decide whether a task needs a larger-context model or a better strategy for selecting what enters context.
+M1.7 · Sampling & Generation Parameters — sessions: 1
+Start from the model's next-token probability distribution and ask: which token should actually be generated?
+Understand greedy decoding, temperature, top-p, top-k, maximum output tokens, stop sequences, and repetition/frequency/presence penalties where supported.
+Understand task-dependent randomness: lower randomness for extraction, structured output, classification, and factual QA; higher randomness for brainstorming, creative writing, and diverse alternatives.
+Understand that different model APIs expose different controls and that some reasoning models provide less direct control over traditional sampling parameters.
+Try: Run the same prompt at several temperature settings and compare consistency, creativity, and correctness.
+Outcome: Choose sensible generation settings based on the task instead of changing temperature arbitrarily.
+M1.8 · Reasoning Models & Test-Time Compute — sessions: 1
+Understand why some models spend substantially more compute before producing an answer.
+Build intuition for test-time compute, reasoning effort, thinking budgets, and internal reasoning tokens/compute.
+Identify tasks where reasoning tends to help: difficult mathematics, complex coding, planning, multi-step logic, and constraint-heavy problems.
+Identify tasks where it may be unnecessary: sentiment classification, simple extraction, rewriting, and straightforward summarization.
+Understand the trade-off: more reasoning can improve quality but generally increases cost and latency.
+Adapt prompting for reasoning models: move away from relying on “think step by step” and instead clearly state the goal, provide relevant context, specify constraints, and define what a good answer looks like.
+Try: Run the same problems through a fast general model and a reasoning model; compare accuracy, latency, and cost.
+Outcome: Recognize when paying for extra reasoning compute is likely to be worthwhile.
+M1.9 · LLM Capabilities & Failure Modes — sessions: 1
+Understand common strengths: summarization, text transformation, extraction, classification, semantic understanding, coding, translation, brainstorming, working with unstructured information, and few-shot adaptation.
+Understand common failure modes: hallucination, arithmetic mistakes, brittle reasoning, instruction-following failures, prompt sensitivity, context failures, outdated knowledge, nondeterminism, and confident incorrect answers.
+Understand hallucination mechanistically: an LLM is trained to generate a likely continuation, not to independently verify that every generated statement is true, which makes fluent incorrect answers possible.
+Adopt the engineering question: instead of “Can GPT do this?”, ask “How reliably does this model perform this task under the conditions of my application?”
+Try: Create 10 questions where the model knows the answer, probably does not know it, receives misleading information, or receives insufficient information; observe how confidence changes.
+Outcome: Predict which tasks are naturally well suited to LLMs and which require additional safeguards.
+M1.10 · Understanding the Model Landscape — sessions: 1
+Understand closed/API models through trade-offs involving frontier capability, convenience, infrastructure, privacy, vendor dependence, and control.
+Understand open-weight models through self-hosting, privacy, customization, infrastructure requirements, and operational complexity.
+Learn other useful distinctions: small vs large, dense vs Mixture-of-Experts, general-purpose vs specialized, reasoning vs non-reasoning, and text-only vs multimodal.
+Internalize the core principle: there is no universally best LLM; the best model depends on the workload.
+Outcome: Compare two models using meaningful architectural, capability, and deployment differences rather than relying purely on leaderboard rank.
+M1.11 · Choosing the Right Model — sessions: 1
+
+Evaluate models across eight dimensions:
+
+Capability: Can it perform the task at all?
+Quality: How reliably does it perform your specific task?
+Latency: How quickly does it respond?
+Cost: What will each request cost at your expected usage?
+Context: Can it accommodate the required input?
+Modalities: Do you need text, images, audio, or video?
+Privacy & deployment: Can you use an external API, or do you require self-hosting?
+Product features: Do you require structured outputs, function calling, tools, streaming, or caching?
+Learn to critically read model cards, benchmark tables, pricing pages, context-window specifications, and API documentation.
+Understand why benchmark scores alone should not determine model selection.
+Follow the workflow: Define task → Identify requirements → Shortlist models → Test on your own examples → Measure quality → Measure latency → Measure cost → Inspect failures → Choose the model.
+Outcome: Select models based on application requirements and empirical performance rather than popularity or leaderboard position.

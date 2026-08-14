@@ -1,0 +1,153 @@
+---
+import Icon from './Icon.astro';
+import { prevLevel, nextLevel, phaseOfLevel } from '../data/levels';
+
+interface Props { current: number; }
+const { current } = Astro.props;
+
+const prev = prevLevel(current);
+const next = nextLevel(current);
+---
+
+<nav class="lnav" aria-label="Level navigation">
+  {
+    prev ? (
+      <a
+        class="lnav__side lnav__side--prev"
+        href={`/level/${prev.number}/`}
+        data-phase={prev.phase}
+        data-track="level_prev"
+        data-track-data={String(prev.number)}
+      >
+        <Icon name="arrow-left" size={17} class="lnav__arrow" />
+        <span class="lnav__text">
+          <span class="lnav__label">Previous · Level {prev.number}</span>
+          <span class="lnav__title">{prev.title}</span>
+          <span class="lnav__phase">{phaseOfLevel(prev.number).name}</span>
+        </span>
+      </a>
+    ) : (
+      <span class="lnav__side lnav__side--empty">
+        <span class="lnav__text">
+          <span class="lnav__label">Start of the path</span>
+          <span class="lnav__title">Level 0 is the beginning</span>
+        </span>
+      </span>
+    )
+  }
+
+  <a class="lnav__map" href="/#map" data-track="back_to_map">
+    <Icon name="map" size={18} />
+    <span>Back to map</span>
+  </a>
+
+  {
+    next ? (
+      <a
+        class="lnav__side lnav__side--next"
+        href={`/level/${next.number}/`}
+        data-phase={next.phase}
+        data-track="level_next"
+        data-track-data={String(next.number)}
+      >
+        <span class="lnav__text">
+          <span class="lnav__label">Next · Level {next.number}</span>
+          <span class="lnav__title">{next.title}</span>
+          <span class="lnav__phase">{phaseOfLevel(next.number).name}</span>
+        </span>
+        <Icon name="arrow-right" size={17} class="lnav__arrow" />
+      </a>
+    ) : (
+      <span class="lnav__side lnav__side--empty lnav__side--next">
+        <span class="lnav__text">
+          <span class="lnav__label">End of the path</span>
+          <span class="lnav__title">You've reached the last level</span>
+        </span>
+      </span>
+    )
+  }
+</nav>
+
+<style>
+  .lnav {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    align-items: stretch;
+  }
+  @media (min-width: 860px) {
+    .lnav { grid-template-columns: 1fr auto 1fr; gap: 16px; }
+  }
+
+  .lnav__side {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 20px;
+    background: #fff;
+    border: 1px solid var(--cx-border);
+    border-radius: var(--cx-r-card);
+    box-shadow: var(--cx-shadow-card);
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+  }
+  a.lnav__side:hover {
+    border-color: var(--phase-br);
+    box-shadow: var(--cx-shadow-card-hover);
+    transform: translateY(-2px);
+  }
+  .lnav__side--next { justify-content: flex-end; text-align: right; }
+  .lnav__side--empty { background: var(--cx-gray); box-shadow: none; border-style: dashed; }
+
+  .lnav__text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+  .lnav__side--next .lnav__text { align-items: flex-end; }
+
+  .lnav__label {
+    font-family: var(--cx-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
+  .lnav__title {
+    font-family: var(--cx-font-display);
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    color: var(--cx-ink);
+  }
+  .lnav__side--empty .lnav__title { color: var(--cx-g500); font-weight: 500; font-size: 15px; }
+
+  .lnav__phase {
+    font-family: var(--cx-font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--phase-ac, var(--cx-g400));
+  }
+
+  .lnav__arrow { flex: none; color: var(--phase-ac, var(--cx-g400)); transition: transform 0.18s ease; }
+  .lnav__side--prev:hover .lnav__arrow { transform: translateX(-3px); }
+  .lnav__side--next:hover .lnav__arrow { transform: translateX(3px); }
+
+  .lnav__map {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 16px 22px;
+    border-radius: var(--cx-r-card);
+    background: var(--cx-ink);
+    color: #fff;
+    font-weight: 600;
+    font-size: 14.5px;
+    transition: background-color 0.18s ease;
+  }
+  .lnav__map:hover { background: var(--cx-purple); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lnav__side, .lnav__arrow, .lnav__map { transition: none; }
+    a.lnav__side:hover { transform: none; }
+    .lnav__side:hover .lnav__arrow { transform: none; }
+  }
+</style>

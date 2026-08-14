@@ -1,0 +1,49 @@
+---
+/** Circular level/step number. Filled variant carries the phase colour. */
+interface Props {
+  /** Forwarded to the root element (carries Astro's scope attribute). */
+  [key: string]: unknown;
+  n: number | string;
+  size?: 'sm' | 'md' | 'lg';
+  variant?: 'outline' | 'filled' | 'solid';
+  class?: string;
+}
+const { n, size = 'md', variant = 'outline', class: className = '', ...rest } = Astro.props;
+---
+
+<span class={`nb nb--${size} nb--${variant} ${className}`} {...rest} aria-hidden="true">{n}</span>
+
+<style>
+  .nb {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    border-radius: 999px;
+    font-family: var(--cx-font-display);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+  .nb--sm { width: 30px; height: 30px; font-size: 13px; }
+  .nb--md { width: 44px; height: 44px; font-size: 18px; }
+  .nb--lg { width: 62px; height: 62px; font-size: 26px; }
+  @media (min-width: 768px) {
+    .nb--lg { width: 76px; height: 76px; font-size: 32px; }
+  }
+
+  .nb--outline {
+    background: #fff;
+    border: 2px solid var(--phase-br, var(--cx-border-2));
+    color: var(--phase-ac, var(--cx-g600));
+  }
+  .nb--filled {
+    background: var(--phase-bg, var(--cx-cream));
+    border: 2px solid var(--phase-br, var(--cx-border-2));
+    color: var(--phase-ac, var(--cx-ink));
+  }
+  .nb--solid { background: var(--cx-grad); color: #fff; border: 2px solid transparent; }
+
+  @media (prefers-reduced-motion: reduce) { .nb { transition: none; } }
+</style>

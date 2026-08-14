@@ -1,0 +1,26 @@
+---
+import Eyebrow from './Eyebrow.astro';
+
+interface Props {
+  /** Forwarded to the root element (carries Astro's scope attribute). */
+  [key: string]: unknown;
+  eyebrow?: string;
+  title: string;
+  subhead?: string;
+  align?: 'left' | 'center';
+  class?: string;
+}
+const { eyebrow, title, subhead, align = 'left', class: className = '', ...rest } = Astro.props;
+---
+
+<header class={`sh ${align === 'center' ? 'sh--center' : ''} ${className}`} {...rest}>
+  {eyebrow && <Eyebrow text={eyebrow} />}
+  <h2 class="h2">{title}</h2>
+  {subhead && <p class="lede sh__sub">{subhead}</p>}
+</header>
+
+<style>
+  .sh { display: flex; flex-direction: column; gap: 12px; }
+  .sh--center { align-items: center; text-align: center; }
+  .sh__sub { max-width: 62ch; }
+</style>

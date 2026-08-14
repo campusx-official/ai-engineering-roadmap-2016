@@ -1,0 +1,108 @@
+Level 9 · AI Security
+
+Scope: secure LLM, RAG, and agent systems against model-specific attacks, unsafe actions, data leakage, and regulatory risk.
+
+M9.1 · AI threat model — (sessions: 1)
+
+Understand how the attack surface changes when models can process untrusted content, access private data, call tools, and take actions.
+Identify trust boundaries across prompts, retrieved data, tools, memory, model outputs, and external systems.
+Treat model-generated outputs and actions as untrusted until validated.
+Outcome: Threat-model an LLM application before adding defenses.
+
+M9.2 · Prompt injection & data exfiltration — (sessions: 3)
+
+Distinguish direct prompt injection from indirect injection hidden inside documents, web pages, emails, retrieved chunks, or tool outputs.
+Understand attacks that attempt to override instructions, manipulate tools, expose private context, or redirect an agent's objective.
+Understand the dangerous combination of untrusted input + powerful tools/private data + an exfiltration path.
+Defend using instruction/data separation, least privilege, authorization checks, restricted tools, confirmation gates, and output validation.
+Understand why prompting the model to “ignore malicious instructions” is not a sufficient security boundary.
+Outcome: Build applications that remain safe even when malicious instructions reach the model.
+
+M9.3 · Jailbreaks, guardrails & moderation — (sessions: 2)
+
+Distinguish jailbreaks from prompt injection and recognize common jailbreak patterns.
+Add input and output guardrails, moderation, validation, and policy checks.
+Understand the limitations of model-based guardrails and why multiple layers of defense are required.
+Test guardrails against adversarial and obfuscated inputs instead of only normal requests.
+Outcome: Reduce unsafe model behavior without relying on a single defensive prompt.
+
+M9.4 · Agent & tool security — (sessions: 2)
+
+Apply least privilege so agents only receive the tools and permissions required for the task.
+Separate read-only actions from consequential actions such as sending messages, modifying records, deleting data, purchasing, or executing code.
+Validate tool selection, arguments, permissions, and outputs independently of the LLM.
+Add human approval for sensitive or irreversible operations.
+Limit agent steps, runtime, cost, and tool usage to prevent runaway execution.
+Sandbox model-generated code and treat generated SQL, commands, URLs, or API calls as untrusted.
+Outcome: Give agents useful autonomy without giving them unrestricted control over real systems.
+
+M9.5 · RAG & knowledge security — (sessions: 1)
+
+Treat retrieved documents as untrusted data, not trusted instructions.
+Understand retrieval poisoning and malicious instructions hidden inside indexed documents.
+Enforce document-level permissions so users retrieve only information they are authorized to access.
+Prevent cross-user or cross-tenant data leakage from vector stores and memory systems.
+Preserve source/provenance information for retrieved content.
+Outcome: Secure the knowledge layer underneath a RAG application.
+
+M9.6 · Data privacy, PII & secrets — (sessions: 2)
+
+Identify sensitive data including PII, credentials, financial information, private conversations, and confidential business data.
+Detect, redact, mask, or minimize sensitive information before sending it to models when appropriate.
+Avoid unnecessarily storing sensitive data in prompts, logs, traces, memories, vector stores, or evaluation datasets.
+Understand data retention, deletion, residency, access control, and third-party model-provider considerations.
+Protect secrets so they are never unnecessarily exposed to the model.
+Outcome: Minimize the amount of sensitive information exposed throughout an AI system.
+
+M9.7 · Red teaming AI systems — (sessions: 2)
+
+Build adversarial tests for prompt injection, jailbreaks, malicious documents, tool misuse, data extraction, and unsafe agent actions.
+Test RAG systems by injecting malicious content into retrievable documents.
+Test agents by attempting to make them exceed permissions, misuse tools, reveal secrets, or enter loops.
+Turn discovered vulnerabilities into permanent security regression tests.
+Track measures such as attack-success rate, sensitive-data leakage, and unsafe-action rate where useful.
+Outcome: Test defenses adversarially instead of assuming they work.
+
+M9.8 · Responsible AI & governance — (sessions: 1)
+
+Understand core concerns around hallucination, bias/fairness, transparency, accountability, and human oversight.
+Document intended use, known limitations, important risks, evaluations, and human-control mechanisms.
+Understand the practical implications of relevant regulations such as the EU AI Act and India's DPDP framework.
+Maintain auditability through model/prompt versions, logs, approvals, and evaluation records.
+Outcome: Recognize when an AI application creates governance or compliance obligations.
+M9.9 · Capstone: Red-Team & Secure an Agentic RAG App — (sessions: 1)
+
+Take an application built in earlier levels and attack it using:
+
+direct and indirect prompt injection,
+malicious retrieved documents,
+jailbreak attempts,
+private-data extraction,
+tool misuse,
+unauthorized actions.
+
+Then add:
+
+least-privilege tools,
+permission checks,
+guardrails,
+PII/secrets protection,
+approval gates,
+sandboxing,
+security regression tests.
+
+Final result: an AI system designed to remain safe even when the model makes a bad decision or receives malicious input.
+
+Level 9 completion outcome
+
+By the end of this level, you should be able to:
+
+Threat-model LLM, RAG, and agent applications.
+Defend against direct and indirect prompt injection.
+Implement practical guardrails and moderation.
+Secure agent tools using least privilege and human approval.
+Protect RAG systems against malicious or unauthorized knowledge.
+Protect PII, secrets, and user data.
+Red-team AI systems and turn attacks into regression tests.
+Understand the basic governance obligations surrounding production AI.
+Design around the principle that the model itself is not a security boundary.

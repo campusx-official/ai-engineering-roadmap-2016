@@ -1,0 +1,54 @@
+---
+interface Props {
+  /** Forwarded to the root element (carries Astro's scope attribute). */
+  [key: string]: unknown;
+  as?: 'div' | 'article' | 'section' | 'li';
+  tone?: 'white' | 'cream' | 'violet' | 'phase';
+  pad?: 'sm' | 'md' | 'lg';
+  interactive?: boolean;
+  class?: string;
+}
+const {
+  as: Tag = 'div',
+  tone = 'white',
+  pad = 'md',
+  interactive = false,
+  class: className = '',
+  ...rest
+} = Astro.props;
+---
+
+<Tag class={`card card--${tone} card--${pad} ${interactive ? 'card--i' : ''} ${className}`} {...rest}>
+  <slot />
+</Tag>
+
+<style>
+  .card {
+    background: #fff;
+    border: 1px solid var(--cx-border);
+    border-radius: var(--cx-r-card);
+    box-shadow: var(--cx-shadow-card);
+  }
+  .card--cream { background: var(--cx-cream); }
+  .card--violet { background: var(--cx-violet-bg); border-color: var(--p-violet-br); }
+  .card--phase { background: var(--phase-bg, var(--cx-cream)); border-color: var(--phase-br, var(--cx-border)); }
+
+  .card--sm { padding: 18px; }
+  .card--md { padding: 24px; }
+  .card--lg { padding: 28px; }
+  @media (min-width: 768px) {
+    .card--md { padding: 28px; }
+    .card--lg { padding: 40px; }
+  }
+
+  .card--i { transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease; }
+  .card--i:hover {
+    box-shadow: var(--cx-shadow-card-hover);
+    border-color: var(--phase-br, var(--cx-border-2));
+    transform: translateY(-2px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card--i { transition: box-shadow 0.2s ease, border-color 0.2s ease; }
+    .card--i:hover { transform: none; }
+  }
+</style>

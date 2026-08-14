@@ -1,0 +1,44 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  /** Forwarded to the root element (carries Astro's scope attribute). */
+  [key: string]: unknown;
+  value: string | number;
+  label: string;
+  icon?: string;
+  class?: string;
+}
+const { value, label, icon, class: className = '', ...rest } = Astro.props;
+---
+
+<div class={`stat ${className}`} {...rest}>
+  {icon && <Icon name={icon} size={18} class="stat__ico" />}
+  <div class="stat__body">
+    <span class="stat__value">{value}</span>
+    <span class="stat__label">{label}</span>
+  </div>
+</div>
+
+<style>
+  .stat { display: flex; align-items: flex-start; gap: 11px; }
+  .stat__ico { color: var(--cx-purple); margin-top: 5px; flex: none; }
+  .stat__body { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+  .stat__value {
+    font-family: var(--cx-font-display);
+    font-weight: 700;
+    font-size: 26px;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--cx-ink);
+    font-variant-numeric: tabular-nums;
+  }
+  @media (min-width: 768px) { .stat__value { font-size: 30px; } }
+  .stat__label {
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
+</style>

@@ -1,0 +1,81 @@
+Level 4 · Embeddings, Semantic Search & Vector Databases
+
+Scope: build the retrieval layer that RAG depends on — ingestion, chunking, embeddings, vector search, and hybrid retrieval.
+
+M4.1 · Data ingestion & document processing — (sessions: 2)
+
+Extract content from common sources such as PDFs, HTML, DOCX, and structured documents; understand when OCR is required.
+Clean and normalize messy text while preserving useful document structure and metadata.
+Handle duplicate documents, document updates, and incremental re-indexing.
+Outcome: Convert a real-world document collection into clean, structured data ready for retrieval.
+
+M4.2 · Chunking strategies — (sessions: 2)
+
+Understand why documents must usually be split before embedding and retrieval.
+Apply fixed-size, recursive, structural, and semantic chunking.
+Reason about chunk size, overlap, boundaries, and metadata and how they affect retrieval quality.
+Understand the trade-off between small precise chunks and larger context-rich chunks.
+Outcome: Choose a sensible chunking strategy based on document structure and query type.
+
+M4.3 · Embeddings fundamentals — (sessions: 2)
+
+Understand embeddings as vector representations that capture semantic relationships between text.
+Generate embeddings for documents and queries using an embedding model.
+Understand dimensions, embedding model choice, multilingual/domain performance, cost, and latency trade-offs.
+Understand that embeddings from different models/vector spaces generally cannot be mixed directly.
+Outcome: Select and use an embedding model appropriate for a retrieval task.
+
+M4.4 · Similarity & semantic search — (sessions: 2)
+
+Understand cosine similarity, dot product, and Euclidean distance and how they are used to compare vectors.
+Build a simple semantic-search system from scratch: query → embedding → similarity → top-k results.
+Understand the difference between semantic similarity and exact keyword matching.
+Explore common failure cases such as exact names, IDs, numbers, and rare terminology.
+Outcome: Build semantic search without relying on a vector database and understand exactly what the database will later automate.
+
+M4.5 · Vector databases & ANN search — (sessions: 3)
+
+Store embeddings, documents, IDs, and metadata in a vector database such as pgvector or Qdrant.
+Perform top-k vector search with metadata filtering.
+Understand why brute-force search becomes expensive at scale and why Approximate Nearest Neighbor (ANN) search exists.
+Build intuition for HNSW and IVF and their speed ↔ memory ↔ recall trade-offs without going deep into implementation mathematics.
+Understand indexing, updates, deletes, and basic operational considerations.
+Outcome: Build and query a scalable vector-search index over a real corpus.
+
+M4.6 · Sparse & hybrid retrieval — (sessions: 2)
+
+Understand traditional lexical retrieval and BM25, and why keyword search can outperform embeddings for some queries.
+Compare sparse/BM25 retrieval with dense/vector retrieval.
+Combine dense and sparse results using hybrid retrieval and techniques such as Reciprocal Rank Fusion (RRF).
+Understand when hybrid retrieval helps, especially for queries containing names, technical terms, IDs, numbers, and exact phrases.
+Outcome: Choose between dense, sparse, and hybrid retrieval rather than defaulting to vector search for every problem.
+
+M4.7 · Retrieval evaluation — (sessions: 1)
+
+Create a small set of queries with known relevant documents/chunks.
+Understand top-k retrieval and calculate Recall@k.
+Compare chunking strategies, embedding models, retrieval methods, and k using the same evaluation set.
+Understand why retrieval quality should be measured independently before adding an LLM generator.
+Outcome: Evaluate whether a retrieval system actually finds the information users need.
+
+M4.8 · Capstone: Build a Hybrid Search Engine — (sessions: 1)
+
+Ingest and clean a real document corpus, preserve useful metadata, chunk the documents, generate embeddings, and index them in a vector database.
+Implement dense search + BM25 + hybrid retrieval, including metadata filters where useful.
+Create a small evaluation dataset and compare approaches using Recall@k.
+Deploy a simple search API/UI that returns the most relevant chunks for a user query.
+Final result: a measurable retrieval system ready to become the retrieval component of a RAG application.
+Level 4 completion outcome
+
+By the end of this level, you should be able to:
+
+Convert messy documents into retrieval-ready data.
+Choose and tune an appropriate chunking strategy.
+Understand and generate embeddings.
+Build semantic search from first principles.
+Use vector databases and understand ANN search conceptually.
+Use metadata filtering effectively.
+Understand BM25 and lexical retrieval.
+Build dense, sparse, and hybrid retrieval systems.
+Measure retrieval quality using Recall@k.
+Improve retrieval based on evidence rather than intuition.

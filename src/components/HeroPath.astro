@@ -1,0 +1,183 @@
+---
+/**
+ * Hero visual: the six phases as a ladder, so the shape of the journey lands
+ * before a single paragraph is read.
+ */
+import Icon from './Icon.astro';
+import { phases, getLevel, totalSessions, levels } from '../data/levels';
+
+const rows = phases.map((p) => ({
+  ...p,
+  sessions: p.levels.reduce((n, l) => n + (getLevel(l)?.totalSessions ?? 0), 0),
+}));
+const maxSessions = Math.max(...rows.map((r) => r.sessions));
+---
+
+<div class="hp">
+  <div class="hp__head">
+    <span class="mono-label">The shape of the path</span>
+    <span class="hp__total">{levels.length} levels · {totalSessions} sessions</span>
+  </div>
+
+  <ol class="hp__rows" role="list">
+    {
+      rows.map((row, i) => (
+        <li class="hp__row" data-phase={row.id}>
+          <span class="hp__rail">
+            <span class="hp__dot" />
+          </span>
+
+          <span class="hp__body">
+            <span class="hp__top">
+              <Icon name={row.icon} size={14} class="hp__ico" />
+              <span class="hp__name">{row.name}</span>
+              <span class="hp__levels">
+                {row.levels.map((n) => (
+                  <a class="hp__chip" href={`/level/${n}/`} data-track="hero_level_chip" data-track-data={String(n)}>
+                    {n}
+                  </a>
+                ))}
+              </span>
+            </span>
+            <span class="hp__bar">
+              <span class="hp__fill" style={`width:${Math.round((row.sessions / maxSessions) * 100)}%`} />
+            </span>
+          </span>
+
+          <span class="hp__count">{row.sessions}</span>
+        </li>
+      ))
+    }
+  </ol>
+
+  <p class="hp__foot">
+    <Icon name="arrow-down" size={13} />
+    <span>Each phase assumes the one above it</span>
+  </p>
+</div>
+
+<style>
+  .hp {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 22px;
+    background: #fff;
+    border: 1px solid var(--cx-border);
+    border-radius: var(--cx-r-card);
+    box-shadow: 0 18px 46px rgba(15, 15, 20, 0.07);
+  }
+  @media (min-width: 768px) { .hp { padding: 26px 28px; } }
+
+  .hp__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--cx-border);
+  }
+  .hp__total {
+    font-family: var(--cx-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .hp__rows { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+
+  .hp__row {
+    display: grid;
+    grid-template-columns: 20px 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding-block: 9px;
+  }
+
+  /* continuous rail down the left, colour-changing per phase */
+  .hp__rail {
+    position: relative;
+    align-self: stretch;
+    display: grid;
+    place-items: center;
+  }
+  .hp__rail::before {
+    content: '';
+    position: absolute;
+    top: -9px;
+    bottom: -9px;
+    width: 3px;
+    border-radius: 3px;
+    background: var(--phase-br);
+  }
+  .hp__row:first-child .hp__rail::before { top: 4px; }
+  .hp__row:last-child .hp__rail::before { bottom: 4px; }
+
+  .hp__dot {
+    position: relative;
+    width: 11px;
+    height: 11px;
+    border-radius: 999px;
+    background: var(--phase-ac);
+    box-shadow: 0 0 0 3.5px #fff;
+  }
+
+  .hp__body { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .hp__top { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .hp__ico { color: var(--phase-ac); flex: none; }
+
+  .hp__name {
+    font-family: var(--cx-font-display);
+    font-weight: 700;
+    font-size: 14.5px;
+    letter-spacing: -0.01em;
+    color: var(--cx-ink);
+    white-space: nowrap;
+  }
+
+  .hp__levels { display: flex; gap: 3px; margin-left: auto; }
+  .hp__chip {
+    display: grid;
+    place-items: center;
+    min-width: 20px;
+    height: 20px;
+    padding-inline: 5px;
+    border-radius: 5px;
+    background: var(--phase-bg);
+    border: 1px solid var(--phase-br);
+    color: var(--phase-ac);
+    font-family: var(--cx-font-mono);
+    font-size: 10.5px;
+    font-variant-numeric: tabular-nums;
+    transition: background-color 0.16s ease;
+  }
+  .hp__chip:hover { background: var(--phase-ac); color: #fff; }
+
+  .hp__bar { height: 5px; border-radius: 999px; background: var(--cx-gray); overflow: hidden; }
+  .hp__fill { display: block; height: 100%; border-radius: 999px; background: var(--phase-ac); opacity: 0.75; }
+
+  .hp__count {
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    color: var(--cx-g500);
+    font-variant-numeric: tabular-nums;
+    align-self: center;
+  }
+
+  .hp__foot {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding-top: 13px;
+    border-top: 1px solid var(--cx-border);
+    font-family: var(--cx-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
+
+  @media (prefers-reduced-motion: reduce) { .hp__chip { transition: none; } }
+</style>

@@ -1,0 +1,120 @@
+---
+/**
+ * Sticky mini-map for level pages: where you are, every other level one tap
+ * away, and the complete/undo toggle. Wired up in src/scripts/app.ts.
+ */
+import Icon from './Icon.astro';
+import ProgressDots from './ProgressDots.astro';
+import type { Level } from '../data/levels';
+
+interface Props { level: Level; }
+const { level } = Astro.props;
+---
+
+<div class="slnav no-print" data-phase={level.phase}>
+  <div class="wrap slnav__inner">
+    <a class="slnav__here" href="/#map" title="Back to the map">
+      <Icon name="chevron-left" size={16} />
+      <span class="slnav__n">L{level.number}</span>
+      <span class="slnav__title">{level.title}</span>
+    </a>
+
+    <ProgressDots variant="nav" current={level.number} class="slnav__dots" />
+
+    <button
+      type="button"
+      class="slnav__done"
+      data-complete-toggle
+      data-level={level.number}
+      aria-pressed="false"
+    >
+      <Icon name="check" size={15} strokeWidth={3} class="slnav__done-ico" />
+      <span class="slnav__done-text">Mark complete</span>
+    </button>
+  </div>
+</div>
+
+<style>
+  .slnav {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--cx-border);
+  }
+
+  .slnav__inner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-block: 9px;
+  }
+
+  .slnav__here {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex: none;
+    max-width: 210px;
+    color: var(--cx-g600);
+    transition: color 0.16s ease;
+  }
+  .slnav__here:hover { color: var(--cx-purple); }
+
+  .slnav__n {
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--phase-ac);
+    padding: 2px 7px;
+    border-radius: 5px;
+    background: var(--phase-bg);
+    border: 1px solid var(--phase-br);
+  }
+  .slnav__title {
+    font-family: var(--cx-font-display);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+    color: var(--cx-ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  /* the mini-map hides below 560px, which leaves room for the title instead */
+  @media (max-width: 400px) { .slnav__title { display: none; } }
+
+  .slnav__dots { flex: 1 1 auto; min-width: 0; }
+  @media (max-width: 560px) { .slnav__dots { display: none; } }
+
+  .slnav__done {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    flex: none;
+    padding: 8px 15px;
+    border-radius: 999px;
+    border: 1px solid var(--cx-border);
+    background: #fff;
+    color: var(--cx-g600);
+    font-family: var(--cx-font-body);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.16s ease;
+  }
+  .slnav__done:hover { border-color: var(--cx-green-ink); color: var(--cx-green-ink); }
+  .slnav__done .slnav__done-ico { opacity: 0.45; }
+
+  .slnav__done[aria-pressed='true'] {
+    background: var(--cx-green-bg);
+    border-color: var(--cx-green-ink);
+    color: var(--cx-green-ink);
+  }
+  .slnav__done[aria-pressed='true'] .slnav__done-ico { opacity: 1; }
+
+  @media (max-width: 420px) { .slnav__done-text { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .slnav__done, .slnav__here { transition: none; } }
+</style>

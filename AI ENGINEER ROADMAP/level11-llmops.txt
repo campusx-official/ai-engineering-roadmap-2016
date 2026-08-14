@@ -1,0 +1,106 @@
+Level 11 · LLMOps: From Development to Production
+Scope: Launch, test, watch, and protect Large Language Model apps in the real world while managing changing outputs, prompt updates, and the special behaviors of RAG and Agent systems.
+
+
+M11.1 · Foundations of LLMOps — (sessions: 1)
+Define exactly what LLMOps is: the organized process of building, testing, watching, and running Large Language Model applications in the real world.
+Explain why LLMOps is its own special field and how it is different from regular MLOps.
+Compare Model LLMOps (which means training, fine-tuning, and hosting raw AI models) with Application LLMOps (which means building and running useful apps on top of existing AI models).
+Look at the Model LLMOps lifecycle—gathering huge amounts of data, updating model weights, and managing massive servers—and understand why we chose to focus on Application LLMOps instead, since most teams today build apps rather than make their own models from scratch.
+Map the complete journey of an LLM app from early building stages to putting it live and watching its performance.
+Show how the daily running of a RAG app is different from an Agentic app.
+Give a big-picture view of the whole LLMOps toolkit, including how we access models, check quality, track errors, keep things safe, and update code automatically.
+Understand the two main projects (a RAG app and an Agentic app) that we will build and manage during this course.
+Outcome: Understand the full journey of an LLM application and the complete LLMOps toolkit before writing any code.
+
+
+M11.2 · Application development — (sessions: 1)
+Build a RAG app that reads documents, breaks them into pieces, stores them, and connects them to an LLM to answer questions.
+Build an Agent app that uses tools, plans steps, remembers past actions, and works on its own.
+Use basic tools like LangChain for RAG, LangGraph for Agents, Chroma for storage, and OpenAI or Anthropic models.
+Outcome: Set up the basic RAG and Agent apps that we will improve and put online in later steps.
+
+
+
+
+
+
+
+M11.3 · Evaluation — (sessions: 3)
+Create test question-answer pairs automatically using DeepEval instead of typing them out by hand.
+Run a full test on both apps and save the starting scores in MLflow before changing any code.
+Score the RAG app on how truthful and exact it is using AI-as-a-judge tools.
+Score the Agent app on whether it picks the right tools, finishes the job, and takes logical steps.
+Set up automatic alarms to catch if new changes break the app.
+Outcome: Measure the quality of your LLM apps automatically without needing humans to check every answer.
+
+
+M11.4 · Experiment tracking & prompt versioning — (sessions: 2)
+Save and manage different versions of prompts using Langfuse so apps can pull them when running.
+Label prompt versions for different stages like testing and live production.
+Keep track of RAG settings (like chunk size) and Agent settings (like tools) as recorded MLflow experiments.
+Track Metrics and artifacts along with the parameters.
+Compare different prompt versions side-by-side in a dashboard to see how changes affect the output.
+Outcome: Keep a clear, organized history of your prompts and app settings so you can easily repeat success.
+
+
+
+M11.5 · Guardrails & output safety — (sessions: 2)
+Look at different safety tools like Guardrails AI, NeMo Guardrails
+Force the LLM to give answers in a strict format and automatically ask again if it gets it wrong using Guardrails AI.
+Add checkers to block bad user inputs and stop prompt injection attacks.
+Add checkers to stop the LLM from making things up, going off-topic, or leaking private data.
+Put strict limits on Agent apps to check tool inputs and stop the agent from getting stuck in endless loops.
+Outcome: Check and fix inputs and outputs to make sure the LLM app is safe and reliable before users see the results.
+M11.6 · Application serving & containerization — (sessions: 3)
+Move the app logic from simple scripts into a strong, real-world FastAPI backend.
+Turn Streamlit into just a screen that talks to the FastAPI backend.
+Send answers word-by-word in real time (streaming) so users do not have to wait for the whole reply.
+Create an application frontend using Streamlit which handles user queries
+Pack the frontend and backend into Docker containers and connect them using Docker Compose.
+Hide passwords and API keys safely inside the containers using .env files.
+Outcome: Upgrade the apps into a fast, streaming, and easily movable container setup.
+
+M11.7 · CI/CD with GitHub Actions — (sessions: 2)
+Build automatic pipelines in GitHub Actions that use your tests as a strict door to production.
+Run the DeepEval tests automatically every time you push new code.
+Stop the release instantly if any test score falls below your set limits.
+Build effective gates to apply regression testing on new versions
+Build Docker images with clear version tags only after all tests pass.
+Upload the safe and tested Docker images to Docker Hub.
+Outcome: Automate your testing and building steps so only high-quality code goes live.
+
+M11.8 · Deployment on AWS — (sessions: 3)
+Set up AWS EC2 servers to run LLM workloads, installing Docker and the right access roles.
+Automate the release process using AWS CodeDeploy to pull new Docker images and swap them safely.
+Set up a Load Balancer to manage traffic and make sure the word-by-word streaming works smoothly.
+Add Auto Scaling to automatically add more servers when busy and remove them when quiet.
+Store sensitive API keys securely in the cloud using AWS Secrets Manager.
+Outcome: Launch your packed apps on AWS with automatic updates, traffic management, and scaling.
+
+M11.9 · Post-deployment monitoring — (sessions: 3)
+Set up Prometheus on a special server to gather health data from all your running machines.
+Watch computer health stats like CPU, memory, and network usage using Node Exporter.
+Track app stats like the number of requests, LLM calls, and tokens used.
+Build simple Grafana dashboards to see the health of your servers, app traffic, and LLM behavior in one place.
+Set up alarms in Grafana to warn you if servers get too busy or fail to scale.
+Monitor logs, latency and token costs for each of your inputs through tracing.
+Run frequent online evaluations over your app.
+Outcome: Keep a close watch on your live AWS setup, covering both the computer health and app speed.
+
+M11.11 · Capstone: LLMOps Project — (sessions: 4)
+Choose an Agent app and show off the whole LLMOps process from start to finish.
+Build around core LLMOps steps: app building, tracking settings, automatic testing, live watching, safety checkers, Docker packing, auto-releases, AWS hosting, and Grafana dashboards.
+For this project, follow the path: build →  test → track → secure → pack → launch → watch.
+Outcome: Show a fully launched, watched, and safe Agent app built from the ground up.
+
+
+Level 11 completion outcome
+By the end of this level, you should be able to:
+Build LLM apps and move them into real-world container setups.
+Manage different prompt versions and track settings easily.
+Test RAG and Agent apps thoroughly without needing perfect human answers.
+Force exact output formats and block bad inputs or data leaks.
+Make automatic pipelines that test your app before letting it go live.
+Launch, balance traffic, and automatically grow your LLM servers on AWS.
+Watch your instance health, app speed, and LLM costs continuously in the real world.

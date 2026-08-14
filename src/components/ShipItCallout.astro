@@ -1,0 +1,176 @@
+---
+/**
+ * The level's capstone, pulled out of the module list and given amber weight so
+ * it reads as the deliverable rather than another row.
+ */
+import Icon from './Icon.astro';
+import SessionMeter from './SessionMeter.astro';
+import { markTerms, trimTrailingPunctuation } from '../lib/objective';
+import type { Module } from '../data/levels';
+
+interface Props {
+  module: Module;
+  levelNumber: number;
+}
+const { module, levelNumber } = Astro.props;
+
+/* Some capstones are written with their own structure ("Option A · …",
+   "Capstone requirements", lines ending in a colon). Those lines are rendered
+   as sub-headings rather than bullets — formatting only, wording untouched. */
+const isHeading = (t: string) =>
+  /^Option\s+[A-Z]\b/i.test(t) || (/:$/.test(t) && t.length < 40);
+
+const items = module.objectives.map((o) => {
+  const heading = isHeading(o.text);
+  /* A heading loses its colon (it is set in uppercase mono); a full sentence
+     keeps it, because there the colon is introducing the lines beneath. */
+  const text = heading ? o.text.replace(/:$/, '') : trimTrailingPunctuation(o.text);
+  return { text, html: markTerms(text), heading };
+});
+
+/* Long capstone briefs (L6 runs to 20 lines) split into two columns. */
+const twoCol = items.filter((i) => !i.heading).length > 8;
+---
+
+<aside class="ship" aria-labelledby={`ship-${levelNumber}`}>
+  <div class="ship__head">
+    <span class="ship__badge"><Icon name="flag" size={16} /></span>
+    <div class="ship__headings">
+      <p class="ship__eyebrow">Ship it · Level {levelNumber} capstone</p>
+      <h3 class="ship__title" id={`ship-${levelNumber}`}>{module.name}</h3>
+    </div>
+    {module.sessionCount !== null && (
+      <div class="ship__meter">
+        <SessionMeter count={module.sessionCount} size="sm" showLabel={false} />
+        <span class="ship__count">{module.sessionCount}</span>
+      </div>
+    )}
+  </div>
+
+  {items.length > 0 && (
+    <ul class={`ship__list ${twoCol ? 'ship__list--2' : ''}`} role="list">
+      {items.map((item) =>
+        item.heading ? (
+          <li class="ship__heading">{item.text}</li>
+        ) : (
+          <li class="ship__item">
+            <Icon name="corner-down-right" size={14} class="ship__tick" />
+            <span set:html={item.html} />
+          </li>
+        ),
+      )}
+    </ul>
+  )}
+
+  {(module.finalResult || module.outcome) && (
+    <p class="ship__result">
+      <Icon name="package-check" size={16} />
+      <span>{module.finalResult ?? module.outcome}</span>
+    </p>
+  )}
+</aside>
+
+<style>
+  .ship {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 22px;
+    border-radius: var(--cx-r-card);
+    background: var(--p-amber-bg);
+    border: 1px solid var(--p-amber-br);
+    /* amber left accent — distinct from the phase colour of the body */
+    box-shadow: inset 4px 0 0 var(--p-amber-ac);
+  }
+  @media (min-width: 768px) { .ship { padding: 30px 32px; gap: 18px; } }
+
+  .ship__head { display: flex; align-items: flex-start; gap: 13px; }
+
+  .ship__badge {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    flex: none;
+    border-radius: 10px;
+    background: var(--p-amber-ac);
+    color: #fff;
+  }
+
+  .ship__headings { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+
+  .ship__eyebrow {
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--p-amber-ac);
+  }
+  .ship__title {
+    font-size: clamp(19px, 3vw, 25px);
+    letter-spacing: -0.02em;
+    color: #713f12;
+  }
+
+  .ship__meter { display: none; align-items: center; gap: 8px; margin-left: auto; padding-top: 6px; }
+  @media (min-width: 640px) { .ship__meter { display: flex; } }
+  .ship__meter :global(.meter__seg.is-on) { background: var(--p-amber-ac); opacity: 1; }
+  .ship__meter :global(.meter__seg) { background: rgba(180, 83, 9, 0.22); }
+  .ship__meter :global(.meter__track) { width: 60px; max-width: 60px; }
+  .ship__count {
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--p-amber-ac);
+  }
+
+  .ship__list { margin: 0; padding: 0; list-style: none; column-gap: 40px; }
+  @media (min-width: 1000px) {
+    .ship__list--2 { columns: 2; }
+  }
+
+  .ship__item {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+    gap: 9px;
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    margin-bottom: 9px;
+    max-width: 74ch;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: #78350f;
+  }
+  .ship__item :global(.term) { font-weight: 600; color: #713f12; white-space: nowrap; }
+  .ship__tick { color: var(--p-amber-ac); margin-top: 4px; opacity: 0.8; }
+
+  .ship__heading {
+    break-inside: avoid;
+    break-after: avoid;
+    margin-top: 8px;
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--p-amber-ac);
+  }
+  .ship__heading:first-child { margin-top: 0; }
+
+  .ship__result {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid var(--p-amber-br);
+    font-size: 14.5px;
+    line-height: 1.6;
+    font-weight: 500;
+    color: #713f12;
+  }
+  .ship__result :global(svg) { flex: none; margin-top: 2px; color: var(--p-amber-ac); }
+</style>

@@ -1,0 +1,85 @@
+---
+import Icon from './Icon.astro';
+import { CAMPUSX_ONE_URL, CAMPUSX_URL } from '../data/courses';
+import { levels, totalSessions, totalModules } from '../data/levels';
+const year = new Date().getFullYear();
+---
+
+<footer class="ftr no-print">
+  <div class="wrap ftr__inner">
+    <div class="ftr__brand">
+      <span class="ftr__mark"><Icon name="route" size={18} /></span>
+      <div>
+        <p class="ftr__title">AI Engineering Roadmap</p>
+        <p class="ftr__sub">
+          {levels.length} levels · {totalModules} modules · {totalSessions} sessions
+        </p>
+      </div>
+    </div>
+
+    <nav class="ftr__links" aria-label="Footer">
+      <a href="/#map">The map</a>
+      <a href="/start/">How it works</a>
+      <a href={CAMPUSX_URL} target="_blank" rel="noopener noreferrer">CampusX</a>
+      <a
+        href={CAMPUSX_ONE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-track="campusx_cta_click"
+        data-track-data="footer"
+      >CampusX One</a>
+    </nav>
+
+    <p class="ftr__legal">© {year} CampusX. Built as a learning map, not a syllabus to rush.</p>
+  </div>
+</footer>
+
+<style>
+  .ftr { border-top: 1px solid var(--cx-border); background: var(--cx-cream); }
+  .ftr__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding-block: 44px;
+  }
+  @media (min-width: 860px) {
+    .ftr__inner { flex-direction: row; align-items: center; justify-content: space-between; gap: 32px; }
+  }
+
+  .ftr__brand { display: flex; align-items: center; gap: 12px; }
+  .ftr__mark {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    flex: none;
+    border-radius: 11px;
+    background: var(--cx-grad);
+    color: #fff;
+  }
+  .ftr__title {
+    font-family: var(--cx-font-display);
+    font-weight: 700;
+    font-size: 15.5px;
+    letter-spacing: -0.02em;
+  }
+  .ftr__sub {
+    font-family: var(--cx-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
+
+  .ftr__links { display: flex; flex-wrap: wrap; gap: 10px 24px; }
+  .ftr__links a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--cx-g600);
+    transition: color 0.16s ease;
+  }
+  .ftr__links a:hover { color: var(--cx-purple); }
+
+  .ftr__legal { font-size: 13px; color: var(--cx-g500); }
+  @media (min-width: 860px) { .ftr__legal { max-width: 260px; text-align: right; } }
+</style>

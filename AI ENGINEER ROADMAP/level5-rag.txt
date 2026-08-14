@@ -1,0 +1,89 @@
+Level 5 · RAG
+
+Scope: ground LLMs in external knowledge, improve retrieval quality, and learn the major RAG architectures used beyond a naive retrieve-and-generate pipeline.
+
+M5.1 · RAG architecture & when to use it — (sessions: 1)
+
+Understand the core pipeline: query → retrieve → assemble context → generate answer.
+Understand what RAG solves: private knowledge, frequently changing information, large knowledge bases, and source-grounded answers.
+Know when not to use RAG: when the model already knows enough, the task is purely transformational, or the required knowledge can simply fit in context.
+Distinguish retrieval failure from generation failure.
+Outcome: Decide whether a problem genuinely needs RAG.
+
+M5.2 · Baseline RAG from scratch — (sessions: 2)
+
+Build a complete RAG pipeline manually using the retrieval system from Level 4.
+Retrieve top-k chunks, assemble them into the prompt, and generate an answer grounded in the retrieved context.
+Design prompts that instruct the model to answer from supplied evidence and avoid unsupported claims.
+Handle cases where retrieval returns weak, irrelevant, or insufficient context.
+Understand the effect of k, chunk ordering, and total context size on answer quality.
+Outcome: Build a working RAG application without hiding the mechanics behind a framework.
+
+M5.3 · Reranking — (sessions: 2)
+
+Understand the two-stage pattern: retrieve many candidates → rerank → send the best chunks to the LLM.
+Use cross-encoder or dedicated reranking models to reorder retrieved chunks.
+Understand why reranking can improve relevance while adding latency and cost.
+Compare retrieval with and without reranking and understand when reranking provides little benefit.
+Outcome: Improve the quality of context sent to the LLM without simply increasing the number of retrieved chunks.
+
+M5.4 · Query transformation & RAG-Fusion — (sessions: 2)
+
+Understand why the user's original question is not always the best retrieval query.
+Apply query rewriting, query expansion, multi-query retrieval, and HyDE.
+Understand RAG-Fusion: generate multiple queries, retrieve for each, and combine rankings using techniques such as Reciprocal Rank Fusion.
+Use multiple retrieval queries for ambiguous, multi-faceted, or poorly phrased questions.
+Understand the trade-off between improved retrieval and additional LLM calls, latency, and cost.
+Avoid query transformation when baseline retrieval already performs well.
+Outcome: Transform difficult user questions into better retrieval queries.
+
+M5.5 · Grounding, citations & abstention — (sessions: 1)
+
+Generate answers grounded in retrieved evidence rather than unsupported model knowledge.
+Attach claims to their supporting documents/chunks and produce useful source citations.
+Understand that having citations is not the same as being grounded; the cited source must actually support the claim.
+Detect insufficient evidence and respond with an appropriate “I don't know / insufficient information” instead of forcing an answer.
+Keep retrieved evidence and model-generated synthesis clearly distinguishable.
+Outcome: Produce answers that are traceable to evidence and can abstain when the evidence is insufficient.
+
+M5.6 · RAG variants & advanced patterns — (sessions: 3)
+
+Understand the progression from Naive RAG → Advanced RAG → adaptive/self-correcting RAG architectures.
+Learn Self-RAG: retrieval is performed when needed and the model reflects on retrieved evidence and its generated response.
+Learn CRAG (Corrective RAG): evaluate retrieved evidence and trigger corrective retrieval when the initial results are weak.
+Learn Adaptive RAG: dynamically decide whether retrieval is required and which retrieval strategy should be used.
+Understand iterative RAG, where retrieval and generation repeat until enough evidence has been gathered.
+Understand multi-hop RAG, where answering requires several retrieval steps or combining evidence from multiple sources.
+Learn Graph RAG: represent entities and relationships as a graph and retrieve/summarize information using graph structure rather than relying purely on vector similarity.
+Build intuition for when Graph RAG is useful: highly connected knowledge, entity relationships, global questions, and information spread across many documents.
+Compare advanced approaches on quality, complexity, latency, cost, and failure mode addressed rather than assuming more advanced RAG is always better.
+Outcome: Recognize major RAG variants and choose an architecture based on why baseline RAG is failing.
+
+M5.7 · RAG with frameworks — (sessions: 1)
+
+Rebuild the manually created RAG pipeline using LlamaIndex or LangChain.
+Work with framework abstractions for ingestion, indexes, retrievers, rerankers, query engines, and citations.
+Implement common RAG improvements such as reranking and query transformation using framework components.
+Compare the framework implementation with the hand-built version on control, development speed, debugging, and complexity.
+Outcome: Use RAG frameworks productively while still understanding the retrieval and generation mechanics underneath them.
+M5.8 · Capstone: Deploy an Advanced RAG Application — (sessions: 1)
+Build a document Q&A application over a real corpus with ingestion, chunking, retrieval, generation, citations, and abstention.
+Establish a baseline RAG pipeline and add at least one meaningful improvement such as reranking, query transformation, RAG-Fusion, hybrid retrieval, or an advanced RAG variant.
+Handle weak retrieval and insufficient evidence gracefully.
+Track latency, token usage, and cost across the pipeline.
+Deploy the application as an API or simple user interface.
+Final result: a complete RAG application that goes substantially beyond a basic retrieve → stuff context → generate demo.
+Level 5 completion outcome
+
+By the end of this level, you should be able to:
+
+Decide when RAG is and is not the right architecture.
+Build a complete RAG pipeline from scratch.
+Understand how retrieval quality affects generation quality.
+Improve retrieved context using reranking.
+Improve difficult retrieval queries using rewriting, HyDE, multi-query retrieval, and RAG-Fusion.
+Generate grounded answers with citations and appropriate abstention.
+Explain and distinguish Naive RAG, Self-RAG, CRAG, Adaptive RAG, iterative RAG, multi-hop RAG, and Graph RAG.
+Choose an advanced RAG architecture based on the failure mode of the baseline system.
+Use RAG frameworks without treating them as black boxes.
+Deploy a production-style RAG application.

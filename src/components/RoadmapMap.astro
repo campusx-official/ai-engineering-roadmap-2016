@@ -1,0 +1,107 @@
+---
+/**
+ * The signature screen: the full 15-level path, banded into 6 phases.
+ */
+import PhaseBand from './PhaseBand.astro';
+import ProgressDots from './ProgressDots.astro';
+import Icon from './Icon.astro';
+import { phases, levels, totalSessions } from '../data/levels';
+---
+
+<div class="map">
+  <div class="map__legend no-print">
+    <div class="map__legend-head">
+      <span class="mono-label">The whole path</span>
+      <span class="map__legend-meta">{levels.length} levels · {totalSessions} sessions</span>
+    </div>
+    <ProgressDots variant="strip" />
+    <ul class="map__keys" role="list">
+      {
+        phases.map((p) => (
+          <li class="map__key" data-phase={p.id}>
+            <span class="map__swatch" />
+            <span class="map__key-name">{p.name}</span>
+            <span class="map__key-range">
+              {p.levels[0]}–{p.levels[p.levels.length - 1]}
+            </span>
+          </li>
+        ))
+      }
+      <li class="map__key map__key--done">
+        <span class="map__swatch map__swatch--done"><Icon name="check" size={10} strokeWidth={4} /></span>
+        <span class="map__key-name">Completed by you</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="map__bands">
+    {phases.map((phase, i) => (
+      <PhaseBand phase={phase} index={i} isLast={i === phases.length - 1} />
+    ))}
+  </div>
+</div>
+
+<style>
+  .map { display: flex; flex-direction: column; gap: 40px; }
+
+  .map__legend {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 20px;
+    background: var(--cx-gray);
+    border: 1px solid var(--cx-border-2);
+    border-radius: var(--cx-r-card);
+  }
+  @media (min-width: 768px) { .map__legend { padding: 24px 28px; } }
+
+  .map__legend-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .map__legend-meta {
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .map__keys {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    margin: 2px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .map__key { display: flex; align-items: center; gap: 7px; }
+  .map__swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 4px;
+    background: var(--phase-bg, var(--cx-cream));
+    border: 1.5px solid var(--phase-ac, var(--cx-g400));
+    flex: none;
+  }
+  .map__swatch--done {
+    display: grid;
+    place-items: center;
+    background: var(--cx-green-bg);
+    border-color: var(--cx-green-ink);
+    color: var(--cx-green-ink);
+  }
+  .map__key-name { font-size: 13px; color: var(--cx-g700); font-weight: 500; }
+  .map__key-range {
+    font-family: var(--cx-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    color: var(--cx-g500);
+  }
+
+  .map__bands { display: flex; flex-direction: column; }
+</style>

@@ -1,0 +1,319 @@
+---
+/**
+ * One module in the level's module map: icon + name + session meter, with the
+ * objectives folded behind a native <details> so the page stays skimmable and
+ * the expander works without JavaScript.
+ */
+import Icon from './Icon.astro';
+import SessionMeter from './SessionMeter.astro';
+import { renderObjective } from '../lib/objective';
+import type { Module } from '../data/levels';
+
+interface Props {
+  module: Module;
+  index: number;
+  levelNumber: number;
+}
+const { module, index, levelNumber } = Astro.props;
+
+// Objectives that sat under a "Session N · …" sub-heading keep that grouping.
+const groups: { label?: string; items: string[] }[] = [];
+for (const o of module.objectives) {
+  const last = groups[groups.length - 1];
+  if (last && last.label === o.group) last.items.push(o.text);
+  else groups.push({ label: o.group, items: [o.text] });
+}
+const objectiveCount = module.objectives.length;
+---
+
+<details
+  class="mod"
+  data-module={module.id}
+  data-track-expand="module_expand"
+  data-track-data={`${levelNumber}:${module.id}`}
+>
+  <summary class="mod__summary">
+    <span class="mod__idx">{String(index + 1).padStart(2, '0')}</span>
+
+    <span class="mod__ico-wrap">
+      <Icon name={module.icon} size={17} />
+    </span>
+
+    <span class="mod__main">
+      <span class="mod__name">
+        {module.name}
+        {module.isGap && <span class="mod__gap" title="Flagged as a gap in the source curriculum">gap</span>}
+      </span>
+      <span class="mod__id">{module.id}</span>
+    </span>
+
+    <span class="mod__meter">
+      <SessionMeter count={module.sessionCount} size="sm" showLabel={false} />
+      <span class="mod__count">
+        {module.sessionCount === null ? '—' : module.sessionCount}
+      </span>
+    </span>
+
+    <Icon name="chevron-down" size={18} class="mod__chev" />
+  </summary>
+
+  <div class="mod__body">
+    {
+      groups.map((g) => (
+        <>
+          {g.label && <p class="mod__group">{g.label}</p>}
+          <ul class="mod__list" role="list">
+            {g.items.map((t) => {
+              const { lead, rest } = renderObjective(t);
+              return (
+                <li class="mod__item">
+                  <Icon name="check" size={13} class="mod__tick" />
+                  <span class="mod__text">
+                    {lead && <b class="mod__lead" set:html={lead} />}
+                    <span class="mod__rest" set:html={rest} />
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </>
+      ))
+    }
+
+    {objectiveCount === 0 && (
+      <p class="mod__empty">The source file lists no objectives for this module.</p>
+    )}
+
+    {module.mentalModel && (
+      <p class="mod__aside mod__aside--model">
+        <Icon name="brain" size={15} />
+        <span><b>Mental model</b> · {module.mentalModel}</span>
+      </p>
+    )}
+
+    {module.tryIt && (
+      <p class="mod__aside mod__aside--try">
+        <Icon name="beaker" size={15} />
+        <span><b>Try it</b> · {module.tryIt}</span>
+      </p>
+    )}
+
+    {module.outcome && (
+      <p class="mod__aside mod__aside--out">
+        <Icon name="target" size={15} />
+        <span><b>Outcome</b> · {module.outcome}</span>
+      </p>
+    )}
+
+    {module.finalResult && (
+      <p class="mod__aside mod__aside--out">
+        <Icon name="flag" size={15} />
+        <span><b>Final result</b> · {module.finalResult}</span>
+      </p>
+    )}
+
+    {module.notes.length > 0 && (
+      <ul class="mod__notes" role="list">
+        {module.notes.map((n) => <li>{n}</li>)}
+      </ul>
+    )}
+  </div>
+</details>
+
+<style>
+  .mod {
+    border-bottom: 1px solid var(--cx-border);
+    background: #fff;
+  }
+  .mod:first-of-type { border-top: 1px solid var(--cx-border); }
+
+  .mod__summary {
+    display: grid;
+    grid-template-columns: auto auto 1fr auto auto;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 4px;
+    cursor: pointer;
+    list-style: none;
+    transition: background-color 0.16s ease;
+  }
+  .mod__summary::-webkit-details-marker { display: none; }
+  .mod__summary:hover { background: var(--cx-gray); }
+  .mod__summary:focus-visible { outline-offset: -3px; }
+
+  .mod__idx {
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    color: var(--cx-g500);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+  }
+  @media (max-width: 520px) { .mod__idx { display: none; } }
+
+  .mod__ico-wrap {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    flex: none;
+    border-radius: 10px;
+    background: var(--phase-bg);
+    border: 1px solid var(--phase-br);
+    color: var(--phase-ac);
+  }
+
+  .mod__main { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .mod__name {
+    font-family: var(--cx-font-display);
+    font-weight: 700;
+    font-size: 15.5px;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    color: var(--cx-ink);
+  }
+  @media (min-width: 768px) { .mod__name { font-size: 17px; } }
+
+  .mod__gap {
+    display: inline-block;
+    margin-left: 7px;
+    padding: 1px 7px;
+    vertical-align: middle;
+    border-radius: 999px;
+    background: var(--p-amber-bg);
+    border: 1px solid var(--p-amber-br);
+    color: var(--p-amber-ac);
+    font-family: var(--cx-font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .mod__id {
+    font-family: var(--cx-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    color: var(--cx-g500);
+  }
+
+  .mod__meter { display: flex; align-items: center; gap: 9px; }
+  .mod__meter :global(.meter__track) { width: 54px; max-width: 54px; }
+  @media (max-width: 640px) { .mod__meter :global(.meter) { display: none; } }
+
+  .mod__count {
+    font-family: var(--cx-font-mono);
+    font-size: 12px;
+    color: var(--cx-g600);
+    font-variant-numeric: tabular-nums;
+    min-width: 12px;
+    text-align: right;
+  }
+
+  .mod__chev { color: var(--cx-g500); transition: transform 0.2s ease; flex: none; }
+  .mod[open] .mod__chev { transform: rotate(180deg); }
+
+  /* ----- expanded body ----- */
+  .mod__body {
+    padding: 4px 16px 24px;
+    padding-left: 62px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  @media (max-width: 520px) { .mod__body { padding-left: 12px; } }
+
+  .mod__group {
+    font-family: var(--cx-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--phase-ac);
+    margin-top: 6px;
+  }
+
+  /* Two columns on wide screens: keeps the measure near 55ch instead of the
+     110–130ch a single full-width column produces. Multi-column (not grid) so
+     reading order stays top-to-bottom within a column. */
+  .mod__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    column-gap: 44px;
+  }
+  @media (min-width: 1040px) {
+    .mod__list { columns: 2; }
+  }
+
+  .mod__item {
+    display: grid;
+    grid-template-columns: 16px 1fr;
+    gap: 9px;
+    /* multi-column must not slice an objective across the gutter */
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    margin-bottom: 13px;
+    max-width: 68ch;
+    font-size: 14.5px;
+    line-height: 1.62;
+    color: var(--cx-g600);
+  }
+  .mod__item:last-child { margin-bottom: 0; }
+
+  .mod__tick { color: var(--phase-ac); margin-top: 5px; opacity: 0.55; }
+
+  .mod__text { min-width: 0; }
+  /* the clause before a colon/semicolon, where the source has one */
+  .mod__lead { font-weight: 600; color: var(--cx-ink); }
+  .mod__lead + .mod__rest { display: inline; }
+
+  /* scan anchors: concrete tool and protocol names */
+  .mod__text :global(.term) {
+    font-weight: 600;
+    color: var(--cx-g700);
+    white-space: nowrap;
+  }
+
+  .mod__empty { font-size: 14px; color: var(--cx-g500); font-style: italic; }
+
+  .mod__aside {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin-top: 4px;
+    padding: 11px 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.55;
+    max-width: 92ch;
+    background: var(--cx-gray);
+    border: 1px solid var(--cx-border-2);
+    color: var(--cx-g700);
+  }
+  .mod__aside :global(svg) { flex: none; margin-top: 3px; }
+  .mod__aside b { font-weight: 600; color: var(--cx-ink); }
+
+  .mod__aside--out { background: var(--cx-green-bg); border-color: #a7f3d0; color: #065f46; }
+  .mod__aside--out :global(svg) { color: var(--cx-green-ink); }
+  .mod__aside--out b { color: #065f46; }
+
+  .mod__aside--try { background: var(--p-amber-bg); border-color: var(--p-amber-br); color: var(--p-amber-ac); }
+  .mod__aside--try b { color: var(--p-amber-ac); }
+
+  .mod__aside--model { background: var(--p-violet-bg); border-color: var(--p-violet-br); color: var(--p-violet-ac); }
+  .mod__aside--model b { color: var(--p-violet-ac); }
+
+  .mod__notes {
+    margin: 2px 0 0;
+    padding-left: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--cx-g500);
+    font-style: italic;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mod__chev, .mod__summary { transition: none; }
+  }
+</style>
