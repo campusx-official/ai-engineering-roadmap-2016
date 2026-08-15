@@ -28,6 +28,7 @@ const TERMS = [
   'Graph RAG', 'Adaptive RAG', 'RAG', 'Recall@k', 'Precision@k', 'MRR',
   // evals & ops
   'DeepEval', 'RAGAS', 'Langfuse', 'Phoenix', 'MLflow', 'LLM-as-a-Judge', 'BLEU', 'ROUGE',
+  'MMLU-Pro', 'MMLU', 'TruthfulQA', 'AGIEval', 'GPQA', 'SimpleQA', 'Text-to-SQL',
   'F1', 'CI/CD', 'CI', 'vLLM', 'TTFT', 'KV', 'SLA',
   'GitHub Actions', 'Docker Compose', 'Docker Hub', 'Streamlit', 'Chroma',
   'Prometheus', 'Grafana', 'Node Exporter', 'Guardrails AI', 'NeMo Guardrails',

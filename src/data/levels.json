@@ -2,7 +2,7 @@
   "generatedFrom": "./AI ENGINEER ROADMAP",
   "totalLevels": 15,
   "totalSessions": 235,
-  "totalModules": 136,
+  "totalModules": 135,
   "phases": [
     {
       "id": "foundations",
@@ -2431,79 +2431,80 @@
               "text": "After learning the primitives, implement the same small agent in several frameworks and understand what each one abstracts."
             },
             {
-              "text": "LangGraph"
+              "text": "Low-level graph/state-based orchestration for long-running, stateful agents.",
+              "group": "LangGraph"
             },
             {
-              "text": "Low-level graph/state-based orchestration for long-running, stateful agents."
+              "text": "Strong fit when explicit control flow, persistence, loops, and human-in-the-loop behavior matter.",
+              "group": "LangGraph"
             },
             {
-              "text": "Strong fit when explicit control flow, persistence, loops, and human-in-the-loop behavior matter."
+              "text": "Build agents using Google's open-source ADK and explore its agent, session/state, tools, multi-agent, deployment, and A2A-related abstractions.",
+              "group": "Google Agent Development Kit (ADK)"
             },
             {
-              "text": "Google Agent Development Kit (ADK)"
+              "text": "Understand its emphasis on building, debugging, evaluating, and deploying agent systems rather than merely wrapping an LLM call.",
+              "group": "Google Agent Development Kit (ADK)"
             },
             {
-              "text": "Build agents using Google's open-source ADK and explore its agent, session/state, tools, multi-agent, deployment, and A2A-related abstractions."
+              "text": "Build agents and collaborative Crews, and understand Flows for more controlled workflow-style orchestration.",
+              "group": "CrewAI"
             },
             {
-              "text": "Understand its emphasis on building, debugging, evaluating, and deploying agent systems rather than merely wrapping an LLM call."
+              "text": "Explore role-based multi-agent patterns and compare them with explicit graph orchestration.",
+              "group": "CrewAI"
             },
             {
-              "text": "CrewAI"
+              "text": "Build Agents, Teams, and Workflows and understand the distinction between agent autonomy, team coordination, and deterministic workflows.",
+              "group": "Agno"
             },
             {
-              "text": "Build agents and collaborative Crews, and understand Flows for more controlled workflow-style orchestration."
+              "text": "Explore its production/runtime layer and how agent systems can be exposed as services.",
+              "group": "Agno"
             },
             {
-              "text": "Explore role-based multi-agent patterns and compare them with explicit graph orchestration."
+              "text": "Build code-first agents using tools, handoffs, sessions, guardrails, tracing, and specialist agents.",
+              "group": "OpenAI Agents SDK"
             },
             {
-              "text": "Agno"
+              "text": "Compare a lightweight SDK-style agent loop with graph-oriented or multi-agent-first frameworks.",
+              "group": "OpenAI Agents SDK"
             },
             {
-              "text": "Build Agents, Teams, and Workflows and understand the distinction between agent autonomy, team coordination, and deterministic workflows."
+              "text": "abstraction level,",
+              "group": "Compare them on"
             },
             {
-              "text": "Explore its production/runtime layer and how agent systems can be exposed as services."
+              "text": "control over execution,",
+              "group": "Compare them on"
             },
             {
-              "text": "OpenAI Agents SDK"
+              "text": "state/persistence,",
+              "group": "Compare them on"
             },
             {
-              "text": "Build code-first agents using tools, handoffs, sessions, guardrails, tracing, and specialist agents."
+              "text": "multi-agent support,",
+              "group": "Compare them on"
             },
             {
-              "text": "Compare a lightweight SDK-style agent loop with graph-oriented or multi-agent-first frameworks."
+              "text": "tool integrations,",
+              "group": "Compare them on"
             },
             {
-              "text": "Compare them on"
+              "text": "MCP/A2A support,",
+              "group": "Compare them on"
             },
             {
-              "text": "abstraction level,"
+              "text": "debugging/observability,",
+              "group": "Compare them on"
             },
             {
-              "text": "control over execution,"
+              "text": "deployment,",
+              "group": "Compare them on"
             },
             {
-              "text": "state/persistence,"
-            },
-            {
-              "text": "multi-agent support,"
-            },
-            {
-              "text": "tool integrations,"
-            },
-            {
-              "text": "MCP/A2A support,"
-            },
-            {
-              "text": "debugging/observability,"
-            },
-            {
-              "text": "deployment,"
-            },
-            {
-              "text": "vendor/model flexibility."
+              "text": "vendor/model flexibility.",
+              "group": "Compare them on"
             }
           ],
           "notes": [],
@@ -2931,347 +2932,402 @@
     {
       "number": 8,
       "slug": "level-8",
-      "title": "LLM Evals",
+      "title": "LLM Evaluations",
       "sourceFile": "level8-llm-evals.txt",
-      "scope": "prove that an LLM system actually works, understand where it fails, and prevent quality regressions. Evaluate models, RAG pipelines, and agents using reproducible test sets instead of demos and intuition.",
+      "scope": "Design, execute, and automate comprehensive evaluations for Large Language Models and AI applications to ensure quality, safety, and reliability in production environments.",
       "prereqStated": null,
       "phase": "trust",
       "icon": "flask-conical",
       "modules": [
         {
           "id": "M8.1",
-          "name": "Eval-driven development",
+          "name": "Introduction to LLM evaluations",
           "sessionCount": 1,
-          "icon": "repeat",
+          "icon": "book-open",
           "objectives": [
             {
-              "text": "Understand why traditional unit tests are not enough for probabilistic LLM systems."
+              "text": "Understand the pitfalls of “vibe testing” by examining real-world failure case studies like Air Canada."
             },
             {
-              "text": "Treat evals as a continuous engineering loop: define behavior → measure → inspect failures → improve → measure again."
+              "text": "Navigate the differences between deterministic software testing and probabilistic LLM systems."
             },
             {
-              "text": "Distinguish offline evals from online/production evaluation."
+              "text": "Distinguish between evaluating core foundation model capabilities and testing complete application workflows."
             },
             {
-              "text": "Understand the different evaluation targets: model → component → workflow → complete application."
-            },
-            {
-              "text": "Define success criteria before changing prompts, models, retrieval logic, or architecture."
+              "text": "Implement an end-to-end evaluation process covering task definition, criteria, datasets, execution, analysis, and iteration."
             }
           ],
           "notes": [],
           "isCapstone": false,
           "isGap": false,
-          "outcome": "Make system changes based on measured quality rather than intuition."
+          "outcome": "Understand the foundational need for and workflow of LLM evaluations compared to traditional software testing."
         },
         {
           "id": "M8.2",
-          "name": "Golden datasets & test-case design",
-          "sessionCount": 2,
-          "icon": "clipboard-check",
-          "objectives": [
-            {
-              "text": "Build representative test cases containing input, expected behavior, reference answer/context where appropriate, and metadata."
-            },
-            {
-              "text": "Cover normal cases, edge cases, known failures, ambiguous inputs, and adversarial cases."
-            },
-            {
-              "text": "Create test cases manually as well as from production failures, user feedback, and sampled real-world interactions."
-            },
-            {
-              "text": "Organize examples by task type, difficulty, language, query category, or other useful dimensions."
-            },
-            {
-              "text": "Version datasets alongside prompts, models, and application changes."
-            },
-            {
-              "text": "Avoid repeatedly optimizing against a tiny fixed dataset until it stops representing real usage."
-            }
-          ],
-          "notes": [],
-          "isCapstone": false,
-          "isGap": false,
-          "outcome": "Build and maintain a golden dataset that represents the real behavior your application needs to handle."
-        },
-        {
-          "id": "M8.3",
-          "name": "Metrics & evaluation methods",
-          "sessionCount": 2,
+          "name": "Evaluation methods & paradigms",
+          "sessionCount": 1,
           "icon": "ruler",
           "objectives": [
+            {
+              "text": "Categorize evaluation execution mechanisms into Programmatic, Human, and LLM-as-a-Judge approaches."
+            },
             {
               "text": "Understand reference-based vs reference-free evaluation."
             },
             {
-              "text": "Use deterministic metrics where possible: exact match, accuracy, precision, recall, F1, execution success, schema validity, and task-specific programmatic checks."
+              "text": "Determine when a Golden Dataset answer key is required versus when evaluation can rely entirely on LLM judgment."
             },
             {
-              "text": "Use semantic similarity when correct answers can have different wording."
-            },
-            {
-              "text": "Understand BLEU/ROUGE and why lexical overlap alone is often insufficient for modern LLM applications."
-            },
-            {
-              "text": "Distinguish objectively measurable behaviors from subjective qualities such as helpfulness, completeness, style, and coherence."
-            },
-            {
-              "text": "Choose metrics based on the task instead of searching for one universal LLM-quality score."
-            },
-            {
-              "text": "Combine several complementary metrics when application quality has multiple dimensions."
+              "text": "Choose the appropriate evaluation method based on whether the target behavior is deterministic, semantic, subjective, or operational."
             }
           ],
           "notes": [],
           "isCapstone": false,
           "isGap": false,
-          "outcome": "Choose the simplest reliable evaluation method for the behavior being measured."
+          "outcome": "Select the appropriate evaluation execution method and paradigm for a given LLM testing scenario."
+        },
+        {
+          "id": "M8.3",
+          "name": "Offline vs online evaluations",
+          "sessionCount": 2,
+          "icon": "arrow-left-right",
+          "objectives": [
+            {
+              "text": "Use offline evaluation suites for pre-release testing, version comparison, experimentation, and preventing performance regression."
+            },
+            {
+              "text": "Identify post-deployment production risks including unexpected inputs, emergent systematic failures, changing user behavior, and data drift."
+            },
+            {
+              "text": "Differentiate automatically captured system metrics such as latency, token usage, and errors from LLM-computed quality metrics such as hallucination or relevance."
+            },
+            {
+              "text": "Implement a continuous online evaluation pipeline through production logging, sampling, dashboarding, and alerting."
+            },
+            {
+              "text": "Feed important production failures back into the offline evaluation dataset."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Design a dual-layer evaluation strategy that catches regressions before release and monitors quality after deployment."
         },
         {
           "id": "M8.4",
-          "name": "LLM-as-a-Judge",
-          "sessionCount": 3,
-          "icon": "gavel",
+          "name": "Model evaluations & benchmarking",
+          "sessionCount": 1,
+          "icon": "chart-column",
           "objectives": [
             {
-              "text": "Use LLMs to evaluate qualities that are difficult to measure using deterministic code."
+              "text": "Explore core LLM capabilities such as knowledge, reasoning, mathematics, coding, instruction following, long-context understanding, multimodal capability, safety, and tool use."
             },
             {
-              "text": "Design clear criteria, rubrics, scoring scales, and judge prompts."
+              "text": "Analyze the anatomy of a benchmark through its dataset, prompts, run configuration, scoring method, and result aggregation."
             },
             {
-              "text": "Implement binary pass/fail, pointwise scoring, and pairwise comparison."
+              "text": "Understand how public leaderboards compare foundation models."
             },
             {
-              "text": "Understand when pairwise comparison is more reliable than assigning absolute scores."
-            },
-            {
-              "text": "Use reference answers or source context when the evaluation criterion requires them."
-            },
-            {
-              "text": "Calibrate judge outputs against human-labelled examples."
-            },
-            {
-              "text": "Understand common judge failure modes such as position bias, verbosity bias, self-preference, inconsistent scoring, and weak rubric interpretation."
-            },
-            {
-              "text": "Improve judge reliability using explicit rubrics, structured outputs, randomized ordering, and repeated evaluation where appropriate."
-            },
-            {
-              "text": "Keep the evaluated system and the judge logically separate; avoid blindly trusting a model to evaluate itself."
+              "text": "Identify benchmark pitfalls including data contamination, score saturation, benchmark overfitting, and configuration gaming."
             }
           ],
           "notes": [],
           "isCapstone": false,
           "isGap": false,
-          "outcome": "Build an LLM judge whose behavior has been validated rather than assuming judge scores are automatically trustworthy."
+          "outcome": "Critically assess public LLM benchmarks and understand how core model capabilities are formally measured."
         },
         {
           "id": "M8.5",
-          "name": "RAG evaluations",
-          "sessionCount": 2,
-          "icon": "search-check",
+          "name": "The evolution of knowledge benchmarks",
+          "sessionCount": 1,
+          "icon": "trending-up",
           "objectives": [
             {
-              "text": "Evaluate RAG at the retriever, generator, and end-to-end pipeline levels."
+              "text": "Trace the progression from benchmarks such as MMLU and TruthfulQA toward harder tests of knowledge and factual reliability."
             },
             {
-              "text": "Measure retrieval quality using metrics such as Recall@k, Precision@k, MRR, and contextual relevance where appropriate."
+              "text": "Understand the use of human exams in benchmarks such as AGIEval to compare human and model capabilities."
             },
             {
-              "text": "Evaluate generated answers using faithfulness/groundedness, answer relevance, correctness, and citation support."
+              "text": "Explore harder benchmarks such as GPQA, MMLU-Pro, SimpleQA, and Humanity's Last Exam."
             },
             {
-              "text": "Understand contextual precision and contextual recall and how they differ from ordinary document-level retrieval metrics."
-            },
-            {
-              "text": "Diagnose whether a poor final answer came from retrieval failure → poor context → generator failure."
-            },
-            {
-              "text": "Evaluate the generator independently when useful by supplying known-good context and measuring whether it answers faithfully and relevantly."
-            },
-            {
-              "text": "Compare changes such as chunking, embedding model, k, reranking, query transformation, and prompting using the same test set."
-            },
-            {
-              "text": "Use frameworks such as DeepEval and RAGAS while understanding what their metrics are actually computing."
+              "text": "Understand why benchmarks continually become harder as frontier models saturate older datasets."
             }
           ],
           "notes": [],
           "isCapstone": false,
           "isGap": false,
-          "outcome": "Evaluate individual RAG components separately and determine which part of the pipeline is responsible for poor quality."
+          "outcome": "Understand the progression of knowledge benchmarks and select appropriate tests for increasingly capable models."
         },
         {
           "id": "M8.6",
-          "name": "Agent evaluations",
-          "sessionCount": 2,
-          "icon": "bot",
+          "name": "Custom model evaluations",
+          "sessionCount": 1,
+          "icon": "crosshair",
           "objectives": [
             {
-              "text": "Understand why evaluating only the final response is insufficient for agentic systems."
+              "text": "Move beyond public benchmarks and evaluate models on the actual task your application needs to solve."
             },
             {
-              "text": "Evaluate task completion, trajectory quality, tool selection, tool arguments, tool-result usage, and stopping behavior."
+              "text": "Use leaderboards and aggregation platforms to shortlist candidate models based on capability, latency, context, and cost."
             },
             {
-              "text": "Check whether the agent chose the correct tools and used them in an appropriate order."
+              "text": "Build a custom evaluation dataset for a real task such as Text-to-SQL."
             },
             {
-              "text": "Detect unnecessary tool calls, repeated actions, loops, incorrect handoffs, and failed recovery attempts."
+              "text": "Compare shortlisted models using the same inputs, prompts, parameters, and scoring criteria."
             },
             {
-              "text": "Evaluate whether the agent successfully adapts when a tool fails, information is missing, or intermediate results are unexpected."
+              "text": "Estimate API usage and token costs and use techniques such as prompt caching where appropriate."
             },
             {
-              "text": "Measure both outcome quality and execution efficiency."
-            },
-            {
-              "text": "Track operational dimensions such as latency, token usage, tool-call count, number of steps, and total cost."
+              "text": "Select the model that offers the best task-specific quality / latency / cost trade-off, rather than simply choosing the highest-ranked general model."
             }
           ],
           "notes": [],
           "isCapstone": false,
           "isGap": false,
-          "outcome": "Determine not just whether an agent succeeded, but whether it followed a reliable and efficient trajectory."
+          "outcome": "Evaluate and select the most capable and cost-effective foundation model for a specific application."
         },
         {
           "id": "M8.7",
-          "name": "Observability & tracing",
+          "name": "Building an eval suite & regression testing",
           "sessionCount": 2,
-          "icon": "activity",
+          "icon": "list-checks",
           "objectives": [
             {
-              "text": "Trace complete LLM executions containing prompts, model calls, retrieval, tools, retries, agent steps, and final responses."
+              "text": "Structure evaluations across component level, pipeline level, and application level depending on what is being tested."
             },
             {
-              "text": "Capture the actual inputs and outputs at every important step in a multi-stage application."
+              "text": "Maintain versioned test cases, evaluation configurations, prompts, models, and results."
             },
             {
-              "text": "Track operational metrics such as latency, TTFT, token usage, cost, errors, retries, and tool-call frequency."
+              "text": "Track experiments and compare new versions against established baselines."
             },
             {
-              "text": "Use observability platforms such as Langfuse or Phoenix to inspect complex runs."
+              "text": "Build automated CI/CD quality gates so changes cannot ship when important metrics regress."
             },
             {
-              "text": "Connect evaluation failures back to the exact traces that produced them."
+              "text": "Create a self-improving loop by adding edge cases and failures discovered in production back into the offline golden dataset."
             },
             {
-              "text": "Debug failures by inspecting what context the model received, what was retrieved, which tools were called, and what those tools returned."
-            },
-            {
-              "text": "Identify which step is responsible for unexpected cost or latency."
-            },
-            {
-              "text": "Understand the distinction between evals for measuring quality and tracing for understanding why a particular run behaved the way it did."
+              "text": "Track quality together with latency and cost so improvements in one area do not silently damage another."
             }
           ],
           "notes": [],
           "isCapstone": false,
           "isGap": false,
-          "outcome": "Reconstruct and debug the execution of a complex LLM system rather than treating it as a black box."
+          "outcome": "Build an automated evaluation suite that prevents regressions and improves continuously from real-world usage."
         },
         {
           "id": "M8.8",
-          "name": "Regression testing & evals in CI",
-          "sessionCount": 1,
-          "icon": "git-pull-request",
+          "name": "RAG Evals",
+          "sessionCount": 5,
+          "icon": "search-check",
           "objectives": [
             {
-              "text": "Convert important evaluation examples into a permanent regression suite."
+              "text": "Evaluate a RAG system at component, pipeline, application, and safety levels, rather than treating it as one black-box system."
             },
             {
-              "text": "Automatically run evals when prompts, models, retrieval logic, tools, or application code change."
+              "text": "Evaluate the retriever independently to determine whether it finds the information required to answer the question.",
+              "group": "Component-level evaluation"
             },
             {
-              "text": "Compare candidate versions against an existing baseline."
+              "text": "Diagnose cases where the retriever completely misses the relevant context or retrieves excessive irrelevant/noisy chunks.",
+              "group": "Component-level evaluation"
             },
             {
-              "text": "Define acceptable quality thresholds and prevent changes from shipping when important metrics regress."
+              "text": "Measure retrieval effectiveness using metrics such as Contextual Recall, Contextual Precision, Recall@k, and other ranking-aware metrics where appropriate.",
+              "group": "Component-level evaluation"
             },
             {
-              "text": "Track quality alongside latency and cost so an accuracy improvement does not silently make the application prohibitively slow or expensive."
+              "text": "Generate or curate relevant chunks and ideal answers for a Golden Dataset through hand-authoring, LLM-assisted generation, or tools such as DeepEval's synthetic-data generators.",
+              "group": "Component-level evaluation"
             },
             {
-              "text": "Separate lightweight CI evals from larger and more expensive evaluation suites."
+              "text": "Evaluate the generator independently by providing known-good context and checking whether it produces faithful and relevant answers.",
+              "group": "Component-level evaluation"
+            },
+            {
+              "text": "Detect unfaithful claims, irrelevant answers, missing information, and misuse of provided context.",
+              "group": "Component-level evaluation"
+            },
+            {
+              "text": "Implement component tests using frameworks such as DeepEval or RAGAS while understanding what each metric actually measures.",
+              "group": "Component-level evaluation"
+            },
+            {
+              "text": "Evaluate the complete retrieval → context → generation pipeline.",
+              "group": "Pipeline-level evaluation"
+            },
+            {
+              "text": "Measure the RAG Triad:",
+              "group": "Pipeline-level evaluation"
+            },
+            {
+              "text": "Contextual Relevancy",
+              "group": "Pipeline-level evaluation"
+            },
+            {
+              "text": "Faithfulness",
+              "group": "Pipeline-level evaluation"
+            },
+            {
+              "text": "Answer Relevance",
+              "group": "Pipeline-level evaluation"
+            },
+            {
+              "text": "Understand how individually strong components can still interact poorly when connected.",
+              "group": "Pipeline-level evaluation"
+            },
+            {
+              "text": "Diagnose cases such as high retrieval precision but low overall contextual relevance or poor downstream answers.",
+              "group": "Pipeline-level evaluation"
+            },
+            {
+              "text": "Determine whether the root failure lies in retrieval, assembled context, or generation.",
+              "group": "Pipeline-level evaluation"
+            },
+            {
+              "text": "Evaluate the RAG system from the actual user's perspective rather than only testing internal components.",
+              "group": "Application-level evaluation"
+            },
+            {
+              "text": "Measure whether the final answer is factually correct given the available evidence.",
+              "group": "Application-level evaluation"
+            },
+            {
+              "text": "Evaluate completeness: does the answer address all important parts of the user's request?",
+              "group": "Application-level evaluation"
+            },
+            {
+              "text": "Evaluate application-specific requirements such as tone, style, persona, format, citation behavior, and instruction following.",
+              "group": "Application-level evaluation"
+            },
+            {
+              "text": "Track operational metrics including latency, token usage, cost per query, and error rates alongside quality.",
+              "group": "Application-level evaluation"
+            },
+            {
+              "text": "Evaluate whether the system produces harmful, illegal, dangerous, biased, or otherwise disallowed responses.",
+              "group": "Safety evaluation for RAG"
+            },
+            {
+              "text": "Test whether sensitive PII such as contact details, credentials, or payment information is appropriately protected or redacted.",
+              "group": "Safety evaluation for RAG"
+            },
+            {
+              "text": "Test direct and indirect prompt injection, including malicious instructions hidden inside retrieved documents.",
+              "group": "Safety evaluation for RAG"
+            },
+            {
+              "text": "Test jailbreak attempts intended to bypass application guardrails.",
+              "group": "Safety evaluation for RAG"
+            },
+            {
+              "text": "Evaluate whether retrieved malicious or misleading content can manipulate the model into leaking data or ignoring application instructions.",
+              "group": "Safety evaluation for RAG"
             }
           ],
           "notes": [],
           "isCapstone": false,
           "isGap": false,
-          "outcome": "Treat LLM quality as a release criterion rather than something manually checked after deployment."
+          "outcome": "Evaluate a RAG application comprehensively across retrieval quality, generator behavior, pipeline interaction, user-facing quality, operational performance, and safety."
         },
         {
           "id": "M8.9",
-          "name": "Production evals & feedback loops",
-          "sessionCount": 1,
-          "icon": "refresh-cw",
+          "name": "Agent Evals",
+          "sessionCount": 3,
+          "icon": "bot",
           "objectives": [
             {
-              "text": "Sample real production interactions and evaluate them continuously."
+              "text": "Evaluate agentic systems at the level of decision-making, trajectories, tool usage, task completion, recovery, and safety."
             },
             {
-              "text": "Use explicit user feedback, implicit behavior, support issues, and observed failures to discover gaps in the offline test set."
+              "text": "Understand why evaluating only the final answer is insufficient when an agent autonomously decides how to complete a task.",
+              "group": "Agent behavior & trajectory evaluation"
             },
             {
-              "text": "Monitor quality across prompt versions, models, user segments, and application changes."
+              "text": "Evaluate whether the agent chooses the correct tool for a given situation.",
+              "group": "Agent behavior & trajectory evaluation"
             },
             {
-              "text": "Add important production failures back into the golden dataset."
+              "text": "Test whether the agent generates accurate and properly formatted tool arguments.",
+              "group": "Agent behavior & trajectory evaluation"
             },
             {
-              "text": "Understand the continuous loop: production failure → new eval case → fix → regression test → redeploy."
+              "text": "Evaluate the sequence of actions taken by the agent and whether the trajectory is appropriate for the task.",
+              "group": "Agent behavior & trajectory evaluation"
             },
             {
-              "text": "Combine offline evals with production signals rather than assuming either is sufficient on its own."
+              "text": "Detect unnecessary tool calls, redundant actions, loops, incorrect ordering, and premature termination.",
+              "group": "Agent behavior & trajectory evaluation"
+            },
+            {
+              "text": "Measure overall task-completion success rate for complex multi-step user requests.",
+              "group": "Agent behavior & trajectory evaluation"
+            },
+            {
+              "text": "Introduce tool failures, malformed results, unavailable services, missing information, and unexpected intermediate states.",
+              "group": "Failure recovery"
+            },
+            {
+              "text": "Evaluate whether the agent notices failure and chooses an appropriate recovery strategy.",
+              "group": "Failure recovery"
+            },
+            {
+              "text": "Test whether it can retry, select an alternative tool, revise its plan, or escalate appropriately.",
+              "group": "Failure recovery"
+            },
+            {
+              "text": "Measure successful recovery rather than only measuring success in ideal conditions.",
+              "group": "Failure recovery"
+            },
+            {
+              "text": "Test whether agents attempt unauthorized or destructive actions.",
+              "group": "Agent safety evaluation"
+            },
+            {
+              "text": "Evaluate human-approval gates and permission boundaries around consequential actions.",
+              "group": "Agent safety evaluation"
+            },
+            {
+              "text": "Test agent resistance to direct and indirect prompt injections designed to hijack its tool usage.",
+              "group": "Agent safety evaluation"
+            },
+            {
+              "text": "Attempt to manipulate an agent into revealing secrets, exceeding permissions, or using tools outside the intended scope.",
+              "group": "Agent safety evaluation"
+            },
+            {
+              "text": "Use relevant cybersecurity benchmarks where appropriate to assess dangerous capabilities such as exploitation, reverse engineering, or other high-risk computer-use behavior.",
+              "group": "Agent safety evaluation"
+            },
+            {
+              "text": "Track both outcome quality and execution efficiency through steps, latency, tool calls, token usage, and cost.",
+              "group": "Agent safety evaluation"
             }
           ],
           "notes": [],
           "isCapstone": false,
           "isGap": false,
-          "outcome": "Build an evaluation system that becomes more representative as the application encounters real-world usage."
-        },
-        {
-          "id": "M8.10",
-          "name": "Capstone: CI-Gated Evaluation Suite",
-          "sessionCount": 1,
-          "icon": "flag",
-          "objectives": [
-            {
-              "text": "Choose an existing RAG or agent application from earlier levels."
-            },
-            {
-              "text": "Create a versioned golden dataset containing representative examples, edge cases, and known failures."
-            },
-            {
-              "text": "Implement a combination of programmatic metrics, semantic metrics, and LLM-as-a-judge where appropriate."
-            },
-            {
-              "text": "Add component-level evaluation for retrieval/tool use in addition to evaluating the final output."
-            },
-            {
-              "text": "Track quality, latency, token usage, and cost."
-            },
-            {
-              "text": "Add tracing so failed eval cases can be inspected at the execution level."
-            },
-            {
-              "text": "Integrate the suite into CI and define a threshold where a meaningful quality regression causes the PR/build to fail."
-            },
-            {
-              "text": "Feed future production failures back into the suite."
-            }
-          ],
-          "notes": [],
-          "isCapstone": true,
-          "isGap": false,
-          "finalResult": "an application where changes cannot ship merely because a few manual demos still look good."
+          "outcome": "Systematically evaluate whether an agent makes good decisions, uses tools correctly, completes tasks efficiently, recovers from failures, and remains within its security boundaries."
         }
       ],
       "stack": [
         {
-          "label": "structured outputs",
+          "label": "SQL",
+          "kind": "concept"
+        },
+        {
+          "label": "prompt caching",
+          "kind": "concept"
+        },
+        {
+          "label": "prompt injection",
           "kind": "concept"
         },
         {
@@ -3279,15 +3335,7 @@
           "kind": "concept"
         },
         {
-          "label": "embeddings",
-          "kind": "concept"
-        },
-        {
           "label": "Recall@k",
-          "kind": "concept"
-        },
-        {
-          "label": "reranking",
           "kind": "concept"
         },
         {
@@ -3307,12 +3355,72 @@
           "kind": "concept"
         },
         {
-          "label": "Langfuse",
-          "kind": "tool"
+          "label": "MMLU",
+          "kind": "concept"
         },
         {
-          "label": "Phoenix",
-          "kind": "tool"
+          "label": "MMLU-Pro",
+          "kind": "concept"
+        },
+        {
+          "label": "TruthfulQA",
+          "kind": "concept"
+        },
+        {
+          "label": "AGIEval",
+          "kind": "concept"
+        },
+        {
+          "label": "GPQA",
+          "kind": "concept"
+        },
+        {
+          "label": "SimpleQA",
+          "kind": "concept"
+        },
+        {
+          "label": "Humanity's Last Exam",
+          "kind": "concept"
+        },
+        {
+          "label": "RAG Triad",
+          "kind": "concept"
+        },
+        {
+          "label": "contextual recall",
+          "kind": "concept"
+        },
+        {
+          "label": "contextual precision",
+          "kind": "concept"
+        },
+        {
+          "label": "contextual relevancy",
+          "kind": "concept"
+        },
+        {
+          "label": "faithfulness",
+          "kind": "concept"
+        },
+        {
+          "label": "answer relevance",
+          "kind": "concept"
+        },
+        {
+          "label": "golden dataset",
+          "kind": "concept"
+        },
+        {
+          "label": "Text-to-SQL",
+          "kind": "concept"
+        },
+        {
+          "label": "jailbreaks",
+          "kind": "concept"
+        },
+        {
+          "label": "data drift",
+          "kind": "concept"
         },
         {
           "label": "tracing",
@@ -3323,35 +3431,36 @@
           "kind": "concept"
         },
         {
-          "label": "F1",
+          "label": "guardrails",
           "kind": "concept"
         },
         {
-          "label": "MRR",
+          "label": "PII",
           "kind": "concept"
         },
         {
-          "label": "BLEU/ROUGE",
+          "label": "drift detection",
           "kind": "concept"
         }
       ],
-      "project": "M8.10",
+      "project": null,
       "totalSessions": 17,
       "statedSessions": null,
       "completionOutcomes": [
-        "Design representative golden datasets and maintain them over time.",
-        "Choose between deterministic, semantic, reference-based, and reference-free evaluation methods.",
-        "Build and calibrate LLM-as-a-judge evaluators.",
-        "Evaluate RAG retrieval, generation, and the complete pipeline separately.",
-        "Evaluate agent outcomes, trajectories, tool usage, and recovery behavior.",
-        "Trace complex LLM applications and diagnose failures from their execution history.",
-        "Measure quality alongside latency, token usage, and cost.",
-        "Build permanent regression suites.",
-        "Run quality checks automatically as part of CI.",
-        "Use production feedback to continuously improve evaluation coverage.",
-        "Practice eval-driven development as the default way to improve an AI system."
+        "Design end-to-end evaluation workflows for both offline testing and online production monitoring.",
+        "Choose between programmatic, human, reference-based, reference-free, and LLM-as-a-Judge evaluation methods.",
+        "Understand and critically interpret public LLM benchmarks.",
+        "Build custom model evaluations for specific application tasks.",
+        "Create versioned evaluation suites and automated regression testing.",
+        "Evaluate RAG systems across retriever, generator, pipeline, application, operational, and safety dimensions.",
+        "Measure RAG metrics such as contextual recall, contextual precision, contextual relevance, faithfulness, and answer relevance.",
+        "Evaluate agents across tool selection, argument correctness, trajectories, task completion, recovery, efficiency, and safety.",
+        "Build production feedback loops that continuously enrich offline evaluation datasets.",
+        "Use evaluations as an engineering system for improving AI applications rather than as a one-time benchmark exercise."
       ],
-      "todos": []
+      "todos": [
+        "No capstone/ship-it module found."
+      ]
     },
     {
       "number": 9,
@@ -3642,6 +3751,10 @@
           "kind": "concept"
         },
         {
+          "label": "jailbreaks",
+          "kind": "concept"
+        },
+        {
           "label": "tracing",
           "kind": "concept"
         },
@@ -3728,7 +3841,7 @@
           "id": "M10.2",
           "name": "Context & knowledge architecture",
           "sessionCount": 2,
-          "icon": "smartphone",
+          "icon": "network",
           "objectives": [
             {
               "text": "Decide what knowledge should come from model knowledge, prompt/context, RAG, memory, or external tools."
@@ -3942,82 +4055,96 @@
               "text": "Whiteboard several systems end-to-end and defend the choices."
             },
             {
-              "text": "Customer-support copilot"
+              "text": "Design around:",
+              "group": "Customer-support copilot"
             },
             {
-              "text": "Design around:"
+              "text": "RAG and fresh knowledge,",
+              "group": "Customer-support copilot"
             },
             {
-              "text": "RAG and fresh knowledge,"
+              "text": "citations,",
+              "group": "Customer-support copilot"
             },
             {
-              "text": "citations,"
+              "text": "model routing,",
+              "group": "Customer-support copilot"
             },
             {
-              "text": "model routing,"
+              "text": "caching,",
+              "group": "Customer-support copilot"
             },
             {
-              "text": "caching,"
+              "text": "escalation to humans,",
+              "group": "Customer-support copilot"
             },
             {
-              "text": "escalation to humans,"
+              "text": "latency and cost constraints.",
+              "group": "Customer-support copilot"
             },
             {
-              "text": "latency and cost constraints."
+              "text": "Design around:",
+              "group": "Coding assistant"
             },
             {
-              "text": "Coding assistant"
+              "text": "large codebase context,",
+              "group": "Coding assistant"
             },
             {
-              "text": "Design around:"
+              "text": "retrieval,",
+              "group": "Coding assistant"
             },
             {
-              "text": "large codebase context,"
+              "text": "tool/code execution,",
+              "group": "Coding assistant"
             },
             {
-              "text": "retrieval,"
+              "text": "model selection,",
+              "group": "Coding assistant"
             },
             {
-              "text": "tool/code execution,"
+              "text": "sandboxing,",
+              "group": "Coding assistant"
             },
             {
-              "text": "model selection,"
+              "text": "long-running tasks.",
+              "group": "Coding assistant"
             },
             {
-              "text": "sandboxing,"
+              "text": "Design around:",
+              "group": "Deep research agent"
             },
             {
-              "text": "long-running tasks."
+              "text": "search and retrieval,",
+              "group": "Deep research agent"
             },
             {
-              "text": "Deep research agent"
+              "text": "planning,",
+              "group": "Deep research agent"
             },
             {
-              "text": "Design around:"
+              "text": "parallel tool calls,",
+              "group": "Deep research agent"
             },
             {
-              "text": "search and retrieval,"
+              "text": "context management,",
+              "group": "Deep research agent"
             },
             {
-              "text": "planning,"
+              "text": "long-running execution,",
+              "group": "Deep research agent"
             },
             {
-              "text": "parallel tool calls,"
+              "text": "citations,",
+              "group": "Deep research agent"
             },
             {
-              "text": "context management,"
+              "text": "cost budgets and failure recovery.",
+              "group": "Deep research agent"
             },
             {
-              "text": "long-running execution,"
-            },
-            {
-              "text": "citations,"
-            },
-            {
-              "text": "cost budgets and failure recovery."
-            },
-            {
-              "text": "For each case, reason about requirements → baseline → architecture → bottlenecks → failure modes → scaling → trade-offs."
+              "text": "For each case, reason about requirements → baseline → architecture → bottlenecks → failure modes → scaling → trade-offs.",
+              "group": "Deep research agent"
             }
           ],
           "notes": [],

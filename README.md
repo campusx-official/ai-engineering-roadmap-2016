@@ -24,7 +24,7 @@ AI ENGINEER ROADMAP/level*.txt
     →  npm run parse  →  src/data/levels.json  →  src/data/levels.ts (typed)  →  pages
 ```
 
-Currently parsed: **15 levels · 136 modules · 235 sessions**.
+Currently parsed: **15 levels · 135 modules · 235 sessions**.
 
 The parser extracts, per level: `title`, `scope`, `modules[]` (id, name, `sessionCount`,
 `objectives[]`, `outcome`, `tryIt`, `mentalModel`, `finalResult`, `notes[]`), `stack[]`,
@@ -37,13 +37,13 @@ Three things worth knowing:
   source file. The presentational liberties are limited to: capitalising the first letter
   of the `Scope:` line (`sentence()`), dropping a trailing comma from list fragments, and
   dropping the trailing colon from the three capstone lines that render as sub-headings
-  (all in `src/lib/objective.ts`). `npm run verify` asserts that all 732 objectives still
+  (all in `src/lib/objective.ts`). `npm run verify` asserts that all 729 objectives still
   appear verbatim in the built HTML.
 - **Gaps are surfaced, not filled.** If a field is missing, the level gets an entry in
   `todos[]`, the parser prints it on every build, and the affected section is omitted
   rather than faked. Level pages also carry the TODOs as an HTML comment for maintainers.
-  Known real gaps in the source: L1 has no capstone; the L3 capstone states no
-  session count.
+  Known real gaps in the source: L1 and L8 have no capstone (those pages simply
+  omit the ship-it section); the L3 capstone states no session count.
 - **`stack[]` is extracted, not authored.** A tag is emitted only when its pattern
   actually occurs in that level's text (`STACK_VOCAB` in the parser). Add vocabulary
   there; do not hand-write tags into the data. Each tag carries a `kind`: membership of
@@ -59,6 +59,13 @@ Three things worth knowing:
 Icons are assigned by keyword rules (`MODULE_ICON_RULES`), most-specific first, so a
 level about agents doesn't render eleven identical robot icons. Every module resolves to
 a real Lucide icon — `Icon.astro` throws at build time on an unknown name.
+
+Objectives can be grouped under sub-headings. The parser recognises both the explicit
+`Session N · …` form and bare headings like `Component-level evaluation`, detected as
+short capitalised lines carrying no terminal punctuation (objectives are always full
+sentences). A line ending in a colon opens a list whose short items are *not* headings —
+that guard is what keeps the RAG Triad's "Contextual Relevancy / Faithfulness / Answer
+Relevance" as items rather than three empty sections.
 
 ### Editing content
 

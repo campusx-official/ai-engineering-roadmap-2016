@@ -1,126 +1,141 @@
-Level 8 · LLM Evals
+Level 8 · LLM Evaluations
 
-Scope: prove that an LLM system actually works, understand where it fails, and prevent quality regressions. Evaluate models, RAG pipelines, and agents using reproducible test sets instead of demos and intuition.
+Scope: Design, execute, and automate comprehensive evaluations for Large Language Models and AI applications to ensure quality, safety, and reliability in production environments.
 
-M8.1 · Eval-driven development — (sessions: 1)
+M8.1 · Introduction to LLM evaluations — (sessions: 1)
+Understand the pitfalls of “vibe testing” by examining real-world failure case studies like Air Canada.
+Navigate the differences between deterministic software testing and probabilistic LLM systems.
+Distinguish between evaluating core foundation model capabilities and testing complete application workflows.
+Implement an end-to-end evaluation process covering task definition, criteria, datasets, execution, analysis, and iteration.
 
-Understand why traditional unit tests are not enough for probabilistic LLM systems.
-Treat evals as a continuous engineering loop: define behavior → measure → inspect failures → improve → measure again.
-Distinguish offline evals from online/production evaluation.
-Understand the different evaluation targets: model → component → workflow → complete application.
-Define success criteria before changing prompts, models, retrieval logic, or architecture.
-Outcome: Make system changes based on measured quality rather than intuition.
+Outcome: Understand the foundational need for and workflow of LLM evaluations compared to traditional software testing.
 
-M8.2 · Golden datasets & test-case design — (sessions: 2)
-
-Build representative test cases containing input, expected behavior, reference answer/context where appropriate, and metadata.
-Cover normal cases, edge cases, known failures, ambiguous inputs, and adversarial cases.
-Create test cases manually as well as from production failures, user feedback, and sampled real-world interactions.
-Organize examples by task type, difficulty, language, query category, or other useful dimensions.
-Version datasets alongside prompts, models, and application changes.
-Avoid repeatedly optimizing against a tiny fixed dataset until it stops representing real usage.
-Outcome: Build and maintain a golden dataset that represents the real behavior your application needs to handle.
-
-M8.3 · Metrics & evaluation methods — (sessions: 2)
-
+M8.2 · Evaluation methods & paradigms — (sessions: 1)
+Categorize evaluation execution mechanisms into Programmatic, Human, and LLM-as-a-Judge approaches.
 Understand reference-based vs reference-free evaluation.
-Use deterministic metrics where possible: exact match, accuracy, precision, recall, F1, execution success, schema validity, and task-specific programmatic checks.
-Use semantic similarity when correct answers can have different wording.
-Understand BLEU/ROUGE and why lexical overlap alone is often insufficient for modern LLM applications.
-Distinguish objectively measurable behaviors from subjective qualities such as helpfulness, completeness, style, and coherence.
-Choose metrics based on the task instead of searching for one universal LLM-quality score.
-Combine several complementary metrics when application quality has multiple dimensions.
-Outcome: Choose the simplest reliable evaluation method for the behavior being measured.
+Determine when a Golden Dataset answer key is required versus when evaluation can rely entirely on LLM judgment.
+Choose the appropriate evaluation method based on whether the target behavior is deterministic, semantic, subjective, or operational.
 
-M8.4 · LLM-as-a-Judge — (sessions: 3)
+Outcome: Select the appropriate evaluation execution method and paradigm for a given LLM testing scenario.
 
-Use LLMs to evaluate qualities that are difficult to measure using deterministic code.
-Design clear criteria, rubrics, scoring scales, and judge prompts.
-Implement binary pass/fail, pointwise scoring, and pairwise comparison.
-Understand when pairwise comparison is more reliable than assigning absolute scores.
-Use reference answers or source context when the evaluation criterion requires them.
-Calibrate judge outputs against human-labelled examples.
-Understand common judge failure modes such as position bias, verbosity bias, self-preference, inconsistent scoring, and weak rubric interpretation.
-Improve judge reliability using explicit rubrics, structured outputs, randomized ordering, and repeated evaluation where appropriate.
-Keep the evaluated system and the judge logically separate; avoid blindly trusting a model to evaluate itself.
-Outcome: Build an LLM judge whose behavior has been validated rather than assuming judge scores are automatically trustworthy.
+M8.3 · Offline vs online evaluations — (sessions: 2)
+Use offline evaluation suites for pre-release testing, version comparison, experimentation, and preventing performance regression.
+Identify post-deployment production risks including unexpected inputs, emergent systematic failures, changing user behavior, and data drift.
+Differentiate automatically captured system metrics such as latency, token usage, and errors from LLM-computed quality metrics such as hallucination or relevance.
+Implement a continuous online evaluation pipeline through production logging, sampling, dashboarding, and alerting.
+Feed important production failures back into the offline evaluation dataset.
 
-M8.5 · RAG evaluations — (sessions: 2)
+Outcome: Design a dual-layer evaluation strategy that catches regressions before release and monitors quality after deployment.
 
-Evaluate RAG at the retriever, generator, and end-to-end pipeline levels.
-Measure retrieval quality using metrics such as Recall@k, Precision@k, MRR, and contextual relevance where appropriate.
-Evaluate generated answers using faithfulness/groundedness, answer relevance, correctness, and citation support.
-Understand contextual precision and contextual recall and how they differ from ordinary document-level retrieval metrics.
-Diagnose whether a poor final answer came from retrieval failure → poor context → generator failure.
-Evaluate the generator independently when useful by supplying known-good context and measuring whether it answers faithfully and relevantly.
-Compare changes such as chunking, embedding model, k, reranking, query transformation, and prompting using the same test set.
-Use frameworks such as DeepEval and RAGAS while understanding what their metrics are actually computing.
-Outcome: Evaluate individual RAG components separately and determine which part of the pipeline is responsible for poor quality.
+M8.4 · Model evaluations & benchmarking — (sessions: 1)
+Explore core LLM capabilities such as knowledge, reasoning, mathematics, coding, instruction following, long-context understanding, multimodal capability, safety, and tool use.
+Analyze the anatomy of a benchmark through its dataset, prompts, run configuration, scoring method, and result aggregation.
+Understand how public leaderboards compare foundation models.
+Identify benchmark pitfalls including data contamination, score saturation, benchmark overfitting, and configuration gaming.
 
-M8.6 · Agent evaluations — (sessions: 2)
+Outcome: Critically assess public LLM benchmarks and understand how core model capabilities are formally measured.
 
-Understand why evaluating only the final response is insufficient for agentic systems.
-Evaluate task completion, trajectory quality, tool selection, tool arguments, tool-result usage, and stopping behavior.
-Check whether the agent chose the correct tools and used them in an appropriate order.
-Detect unnecessary tool calls, repeated actions, loops, incorrect handoffs, and failed recovery attempts.
-Evaluate whether the agent successfully adapts when a tool fails, information is missing, or intermediate results are unexpected.
-Measure both outcome quality and execution efficiency.
-Track operational dimensions such as latency, token usage, tool-call count, number of steps, and total cost.
-Outcome: Determine not just whether an agent succeeded, but whether it followed a reliable and efficient trajectory.
+M8.5 · The evolution of knowledge benchmarks — (sessions: 1)
+Trace the progression from benchmarks such as MMLU and TruthfulQA toward harder tests of knowledge and factual reliability.
+Understand the use of human exams in benchmarks such as AGIEval to compare human and model capabilities.
+Explore harder benchmarks such as GPQA, MMLU-Pro, SimpleQA, and Humanity's Last Exam.
+Understand why benchmarks continually become harder as frontier models saturate older datasets.
 
-M8.7 · Observability & tracing — (sessions: 2)
+Outcome: Understand the progression of knowledge benchmarks and select appropriate tests for increasingly capable models.
 
-Trace complete LLM executions containing prompts, model calls, retrieval, tools, retries, agent steps, and final responses.
-Capture the actual inputs and outputs at every important step in a multi-stage application.
-Track operational metrics such as latency, TTFT, token usage, cost, errors, retries, and tool-call frequency.
-Use observability platforms such as Langfuse or Phoenix to inspect complex runs.
-Connect evaluation failures back to the exact traces that produced them.
-Debug failures by inspecting what context the model received, what was retrieved, which tools were called, and what those tools returned.
-Identify which step is responsible for unexpected cost or latency.
-Understand the distinction between evals for measuring quality and tracing for understanding why a particular run behaved the way it did.
-Outcome: Reconstruct and debug the execution of a complex LLM system rather than treating it as a black box.
+M8.6 · Custom model evaluations — (sessions: 1)
+Move beyond public benchmarks and evaluate models on the actual task your application needs to solve.
+Use leaderboards and aggregation platforms to shortlist candidate models based on capability, latency, context, and cost.
+Build a custom evaluation dataset for a real task such as Text-to-SQL.
+Compare shortlisted models using the same inputs, prompts, parameters, and scoring criteria.
+Estimate API usage and token costs and use techniques such as prompt caching where appropriate.
+Select the model that offers the best task-specific quality / latency / cost trade-off, rather than simply choosing the highest-ranked general model.
 
-M8.8 · Regression testing & evals in CI — (sessions: 1)
+Outcome: Evaluate and select the most capable and cost-effective foundation model for a specific application.
 
-Convert important evaluation examples into a permanent regression suite.
-Automatically run evals when prompts, models, retrieval logic, tools, or application code change.
-Compare candidate versions against an existing baseline.
-Define acceptable quality thresholds and prevent changes from shipping when important metrics regress.
-Track quality alongside latency and cost so an accuracy improvement does not silently make the application prohibitively slow or expensive.
-Separate lightweight CI evals from larger and more expensive evaluation suites.
-Outcome: Treat LLM quality as a release criterion rather than something manually checked after deployment.
+M8.7 · Building an eval suite & regression testing — (sessions: 2)
+Structure evaluations across component level, pipeline level, and application level depending on what is being tested.
+Maintain versioned test cases, evaluation configurations, prompts, models, and results.
+Track experiments and compare new versions against established baselines.
+Build automated CI/CD quality gates so changes cannot ship when important metrics regress.
+Create a self-improving loop by adding edge cases and failures discovered in production back into the offline golden dataset.
+Track quality together with latency and cost so improvements in one area do not silently damage another.
 
-M8.9 · Production evals & feedback loops — (sessions: 1)
+Outcome: Build an automated evaluation suite that prevents regressions and improves continuously from real-world usage.
 
-Sample real production interactions and evaluate them continuously.
-Use explicit user feedback, implicit behavior, support issues, and observed failures to discover gaps in the offline test set.
-Monitor quality across prompt versions, models, user segments, and application changes.
-Add important production failures back into the golden dataset.
-Understand the continuous loop: production failure → new eval case → fix → regression test → redeploy.
-Combine offline evals with production signals rather than assuming either is sufficient on its own.
-Outcome: Build an evaluation system that becomes more representative as the application encounters real-world usage.
-M8.10 · Capstone: CI-Gated Evaluation Suite — (sessions: 1)
-Choose an existing RAG or agent application from earlier levels.
-Create a versioned golden dataset containing representative examples, edge cases, and known failures.
-Implement a combination of programmatic metrics, semantic metrics, and LLM-as-a-judge where appropriate.
-Add component-level evaluation for retrieval/tool use in addition to evaluating the final output.
-Track quality, latency, token usage, and cost.
-Add tracing so failed eval cases can be inspected at the execution level.
-Integrate the suite into CI and define a threshold where a meaningful quality regression causes the PR/build to fail.
-Feed future production failures back into the suite.
-Final result: an application where changes cannot ship merely because a few manual demos still look good.
+M8.8 · RAG Evals — (sessions: 5)
+
+Evaluate a RAG system at component, pipeline, application, and safety levels, rather than treating it as one black-box system.
+
+Component-level evaluation
+Evaluate the retriever independently to determine whether it finds the information required to answer the question.
+Diagnose cases where the retriever completely misses the relevant context or retrieves excessive irrelevant/noisy chunks.
+Measure retrieval effectiveness using metrics such as Contextual Recall, Contextual Precision, Recall@k, and other ranking-aware metrics where appropriate.
+Generate or curate relevant chunks and ideal answers for a Golden Dataset through hand-authoring, LLM-assisted generation, or tools such as DeepEval's synthetic-data generators.
+Evaluate the generator independently by providing known-good context and checking whether it produces faithful and relevant answers.
+Detect unfaithful claims, irrelevant answers, missing information, and misuse of provided context.
+Implement component tests using frameworks such as DeepEval or RAGAS while understanding what each metric actually measures.
+Pipeline-level evaluation
+Evaluate the complete retrieval → context → generation pipeline.
+Measure the RAG Triad:
+Contextual Relevancy
+Faithfulness
+Answer Relevance
+Understand how individually strong components can still interact poorly when connected.
+Diagnose cases such as high retrieval precision but low overall contextual relevance or poor downstream answers.
+Determine whether the root failure lies in retrieval, assembled context, or generation.
+Application-level evaluation
+Evaluate the RAG system from the actual user's perspective rather than only testing internal components.
+Measure whether the final answer is factually correct given the available evidence.
+Evaluate completeness: does the answer address all important parts of the user's request?
+Evaluate application-specific requirements such as tone, style, persona, format, citation behavior, and instruction following.
+Track operational metrics including latency, token usage, cost per query, and error rates alongside quality.
+Safety evaluation for RAG
+Evaluate whether the system produces harmful, illegal, dangerous, biased, or otherwise disallowed responses.
+Test whether sensitive PII such as contact details, credentials, or payment information is appropriately protected or redacted.
+Test direct and indirect prompt injection, including malicious instructions hidden inside retrieved documents.
+Test jailbreak attempts intended to bypass application guardrails.
+Evaluate whether retrieved malicious or misleading content can manipulate the model into leaking data or ignoring application instructions.
+
+Outcome: Evaluate a RAG application comprehensively across retrieval quality, generator behavior, pipeline interaction, user-facing quality, operational performance, and safety.
+
+M8.9 · Agent Evals — (sessions: 3)
+
+Evaluate agentic systems at the level of decision-making, trajectories, tool usage, task completion, recovery, and safety.
+
+Agent behavior & trajectory evaluation
+Understand why evaluating only the final answer is insufficient when an agent autonomously decides how to complete a task.
+Evaluate whether the agent chooses the correct tool for a given situation.
+Test whether the agent generates accurate and properly formatted tool arguments.
+Evaluate the sequence of actions taken by the agent and whether the trajectory is appropriate for the task.
+Detect unnecessary tool calls, redundant actions, loops, incorrect ordering, and premature termination.
+Measure overall task-completion success rate for complex multi-step user requests.
+Failure recovery
+Introduce tool failures, malformed results, unavailable services, missing information, and unexpected intermediate states.
+Evaluate whether the agent notices failure and chooses an appropriate recovery strategy.
+Test whether it can retry, select an alternative tool, revise its plan, or escalate appropriately.
+Measure successful recovery rather than only measuring success in ideal conditions.
+Agent safety evaluation
+Test whether agents attempt unauthorized or destructive actions.
+Evaluate human-approval gates and permission boundaries around consequential actions.
+Test agent resistance to direct and indirect prompt injections designed to hijack its tool usage.
+Attempt to manipulate an agent into revealing secrets, exceeding permissions, or using tools outside the intended scope.
+Use relevant cybersecurity benchmarks where appropriate to assess dangerous capabilities such as exploitation, reverse engineering, or other high-risk computer-use behavior.
+Track both outcome quality and execution efficiency through steps, latency, tool calls, token usage, and cost.
+
+Outcome: Systematically evaluate whether an agent makes good decisions, uses tools correctly, completes tasks efficiently, recovers from failures, and remains within its security boundaries.
+
 Level 8 completion outcome
 
 By the end of this level, you should be able to:
 
-Design representative golden datasets and maintain them over time.
-Choose between deterministic, semantic, reference-based, and reference-free evaluation methods.
-Build and calibrate LLM-as-a-judge evaluators.
-Evaluate RAG retrieval, generation, and the complete pipeline separately.
-Evaluate agent outcomes, trajectories, tool usage, and recovery behavior.
-Trace complex LLM applications and diagnose failures from their execution history.
-Measure quality alongside latency, token usage, and cost.
-Build permanent regression suites.
-Run quality checks automatically as part of CI.
-Use production feedback to continuously improve evaluation coverage.
-Practice eval-driven development as the default way to improve an AI system.
+Design end-to-end evaluation workflows for both offline testing and online production monitoring.
+Choose between programmatic, human, reference-based, reference-free, and LLM-as-a-Judge evaluation methods.
+Understand and critically interpret public LLM benchmarks.
+Build custom model evaluations for specific application tasks.
+Create versioned evaluation suites and automated regression testing.
+Evaluate RAG systems across retriever, generator, pipeline, application, operational, and safety dimensions.
+Measure RAG metrics such as contextual recall, contextual precision, contextual relevance, faithfulness, and answer relevance.
+Evaluate agents across tool selection, argument correctness, trajectories, task completion, recovery, efficiency, and safety.
+Build production feedback loops that continuously enrich offline evaluation datasets.
+Use evaluations as an engineering system for improving AI applications rather than as a one-time benchmark exercise.

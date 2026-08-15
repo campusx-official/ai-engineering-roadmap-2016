@@ -53,6 +53,12 @@ const MODULE_ICON_RULES = [
   [/responsib|governance|ethic|compliance|regulat/i, 'scale'],
 
   // eval sub-topics (an entire level is "evals" — split it finely)
+  [/introduction to/i, 'book-open'],
+  [/offline vs online|offline and online/i, 'arrow-left-right'],
+  [/benchmarking|anatomy of a benchmark/i, 'chart-column'],
+  [/evolution of|progression of/i, 'trending-up'],
+  [/custom model eval|custom eval/i, 'crosshair'],
+  [/eval suite|building an eval/i, 'list-checks'],
   [/eval-driven|continuous loop/i, 'repeat'],
   [/metrics? &|evaluation methods/i, 'ruler'],
   [/rag eval/i, 'search-check'],
@@ -73,7 +79,7 @@ const MODULE_ICON_RULES = [
   [/speech|\bstt\b|\btts\b/i, 'mic'],
   [/realtime voice|voice agent/i, 'audio-lines'],
   [/image generation/i, 'image'],
-  [/on-device|edge/i, 'smartphone'],
+  [/on-device|\bedge\b/i, 'smartphone'],
 
   // rag & context sub-topics
   [/rag architecture|when to use it/i, 'network'],
@@ -139,7 +145,7 @@ const MODULE_ICON_RULES = [
   [/python/i, 'terminal'],
 
   // modalities & applications
-  [/multimodal|vision|image|speech|voice|audio|realtime|on-device|edge/i, 'audio-lines'],
+  [/multimodal|vision|image|speech|voice|audio|realtime|on-device|\bedge\b/i, 'audio-lines'],
   [/research/i, 'telescope'],
   [/resume|screening|business/i, 'briefcase'],
   [/architecture|system design|pipeline|orchestrat|case stud/i, 'network'],
@@ -203,6 +209,15 @@ const STACK_VOCAB = [
   ['Modal', /\bModal\b/], ['checkpointing', /\bcheckpointing\b/i], ['human-in-the-loop', /\bhuman-in-the-loop\b/i],
   ['summarization', /\bsummariz(ation|e|ing)\b/i], ['scratchpads', /\bscratchpads?\b/i],
   ['DeepEval', /\bDeepEval\b/], ['RAGAS', /\bRAGAS\b/], ['LLM-as-a-Judge', /\bLLM-as-a-Judge\b/i],
+  ['MMLU', /\bMMLU\b(?!-)/], ['MMLU-Pro', /\bMMLU-Pro\b/], ['TruthfulQA', /\bTruthfulQA\b/],
+  ['AGIEval', /\bAGIEval\b/], ['GPQA', /\bGPQA\b/], ['SimpleQA', /\bSimpleQA\b/],
+  ["Humanity's Last Exam", /Humanity['\u2019]s Last Exam/],
+  ['RAG Triad', /\bRAG Triad\b/i], ['contextual recall', /\bContextual Recall\b/i],
+  ['contextual precision', /\bContextual Precision\b/i],
+  ['contextual relevancy', /\bContextual Relevanc(y|e)\b/i],
+  ['faithfulness', /\bfaithful(ness)?\b/i], ['answer relevance', /\bAnswer Relevance\b/i],
+  ['golden dataset', /\bGolden Dataset\b/i], ['Text-to-SQL', /\bText-to-SQL\b/i],
+  ['jailbreaks', /\bjailbreak/i], ['data drift', /\bdata drift\b/i],
   ['Langfuse', /\bLangfuse\b/], ['Phoenix', /\bPhoenix\b/], ['tracing', /\btrac(ing|es?)\b/i],
   ['CI', /\bCI\b/], ['F1', /\bF1\b/], ['MRR', /\bMRR\b/], ['BLEU/ROUGE', /\bBLEU\/ROUGE\b/],
   ['moderation', /\bmoderation\b/i], ['guardrails', /\bguardrails?\b/i], ['least privilege', /\bleast privilege\b/i],
@@ -231,6 +246,29 @@ const NAMED_CAPSTONE_RE = /^Level\s+(\d+)\s+Capstone\s*[·•]\s*(.+?)\s*$/i;
 const LEVEL_TITLE_RE = /^Level\s+(\d+)\s*[·•]\s*(.+?)\s*$/;
 const COMPLETION_RE = /^Level\s+\d+\s+completion outcome\s*$/i;
 const SESSION_SUB_RE = /^Session\s+\d+\s*[·•]\s*(.+)$/i;
+
+/**
+ * Some modules group their objectives under bare sub-headings that carry no
+ * "Session N ·" prefix ("Component-level evaluation", "Failure recovery",
+ * "Coding assistant"). Objectives in these files are always full sentences
+ * ending in a period, so a short capitalised line with no terminal punctuation
+ * is a heading rather than content.
+ *
+ * `inColonList` is the guard that makes this safe: after a line ending in a
+ * colon, short capitalised lines are the items being introduced, not headings.
+ * That is what keeps the RAG Triad's "Contextual Relevancy / Faithfulness /
+ * Answer Relevance" as list items. Arrows and middots mark flow and option
+ * lines, which are content too.
+ */
+function isBareSubheading(line, inColonList) {
+  return (
+    !inColonList &&
+    line.length <= 45 &&
+    !/[.,;:!?]$/.test(line) && // objectives are full sentences; headings are not
+    !/[→·•]/.test(line) && //     arrows and middots mark flow and option lines
+    /^[A-Z]/.test(line) //        headings are capitalised, list fragments are not
+  );
+}
 
 const LABELS = [
   ['outcome', /^Outcome:\s*/i],
@@ -285,6 +323,7 @@ function parseLevel(file, raw) {
   let cur = null;
   let inCompletion = false;
   let group = null;
+  let inColonList = false;
 
   const pushLine = (line) => {
     if (!cur) return;
@@ -292,7 +331,14 @@ function parseLevel(file, raw) {
       if (re.test(line)) { cur[key] = line.replace(re, ''); return; }
     }
     const sub = line.match(SESSION_SUB_RE);
-    if (sub) { group = sub[1]; return; }
+    if (sub) { group = sub[1]; inColonList = false; return; }
+
+    if (isBareSubheading(line, inColonList)) { group = line; return; }
+
+    // A colon opens a short list whose items must not be read as headings.
+    if (/:$/.test(line)) inColonList = true;
+    else if (/\.$/.test(line)) inColonList = false;
+
     // Everything after the module's Outcome: is commentary, not an objective.
     if (cur.outcome || cur.finalResult) cur.notes.push(line);
     else cur.objectives.push(group ? { text: line, group } : { text: line });
@@ -321,6 +367,7 @@ function parseLevel(file, raw) {
         isGap: Boolean(gap),
       };
       group = null;
+      inColonList = false;
       modules.push(cur);
       continue;
     }
@@ -337,6 +384,7 @@ function parseLevel(file, raw) {
         isGap: false,
       };
       group = null;
+      inColonList = false;
       modules.push(cur);
       continue;
     }
