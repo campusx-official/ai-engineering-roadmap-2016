@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "Visual 15-level AI Engineering roadmap for CampusX",
   "scripts": {
-    "parse": "node scripts/parse-levels.mjs",
+    "parse": "node scripts/parse-levels.mjs && node scripts/sign-topics.mjs",
     "dev": "npm run parse && astro dev",
     "build": "npm run parse && astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "verify": "node scripts/verify-text.mjs"
+    "verify": "node scripts/verify-text.mjs",
+    "topics": "node scripts/sign-topics.mjs"
   },
   "type": "module",
   "dependencies": {

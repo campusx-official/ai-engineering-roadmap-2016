@@ -111,9 +111,24 @@ reaches the `<svg>`; without that, parent components cannot colour their icons.
 
 ## Reading the objective lists
 
-The source sentences are long (median 89 chars, p90 135) and arrive as an undifferentiated
-list, which reads as a wall of text at full page width. `src/lib/objective.ts` adds
-scanning structure without touching the words:
+Each objective renders as a **short topic bullet**, with the source sentence revealed on
+click. The labels live in `src/data/topics.ts` — the one piece of authored copy in the
+level pipeline. Each condenses exactly one objective and must not add information the
+sentence does not contain; the expander puts the original one click away, so nothing is
+lost.
+
+`topics.ts` maps a module id to labels in objective order, alongside a `sig` — a hash of
+the objective text the labels were written against, written by `npm run topics`. If a
+`.txt` is edited, the signature stops matching and that module falls back to rendering
+full sentences rather than pairing labels with the wrong lines. `npm run topics` reports
+which modules are unlabelled and which have drifted.
+
+Currently 699 of 721 objectives are topic bullets. The 22 exceptions are levels 12–14,
+whose modules hold a single already-terse line each — a label there would hide a
+70-character sentence behind a 25-character bullet for no gain, so they render as plain
+bullets.
+
+Underneath, `src/lib/objective.ts` handles the expanded text:
 
 - **Two columns above 1040px**, via CSS multi-column so reading order stays vertical. This
   is the main fix — it takes the measure from ~120 characters per line down to ~55.
@@ -124,7 +139,7 @@ scanning structure without touching the words:
 - **Lead clauses emphasised** (`splitLead`) where a sentence already contains a
   "lead: detail" break. Only about 11% do, so this is a bonus rather than the structure.
 
-The same treatment is applied to the capstone brief.
+The same treatment is applied to the capstone brief, which uses the same topic bullets.
 
 ## Client JavaScript
 

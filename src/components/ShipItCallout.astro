@@ -25,7 +25,9 @@ const items = module.objectives.map((o) => {
   /* A heading loses its colon (it is set in uppercase mono); a full sentence
      keeps it, because there the colon is introducing the lines beneath. */
   const text = heading ? o.text.replace(/:$/, '') : trimTrailingPunctuation(o.text);
-  return { text, html: markTerms(text), heading };
+  /* Headings stay headings; everything else becomes a short topic with the
+     source line behind a disclosure, matching the module rows. */
+  return { text, html: markTerms(text), heading, label: heading ? undefined : o.label };
 });
 
 /* Long capstone briefs (L6 runs to 20 lines) split into two columns. */
@@ -52,6 +54,16 @@ const twoCol = items.filter((i) => !i.heading).length > 8;
       {items.map((item) =>
         item.heading ? (
           <li class="ship__heading">{item.text}</li>
+        ) : item.label ? (
+          <li class="ship__item ship__item--topic">
+            <details class="ship__topic">
+              <summary class="ship__summary">
+                <Icon name="chevron-right" size={13} class="ship__chev" />
+                <span class="ship__label">{item.label}</span>
+              </summary>
+              <p class="ship__detail" set:html={item.html} />
+            </details>
+          </li>
         ) : (
           <li class="ship__item">
             <Icon name="corner-down-right" size={14} class="ship__tick" />
@@ -144,6 +156,49 @@ const twoCol = items.filter((i) => !i.heading).length > 8;
     color: #78350f;
   }
   .ship__item :global(.term) { font-weight: 600; color: #713f12; white-space: nowrap; }
+
+  /* ----- topic bullets ----- */
+  .ship__item--topic { grid-template-columns: 1fr; margin-bottom: 3px; }
+
+  .ship__summary {
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+    padding: 4px 8px 4px 4px;
+    margin-left: -4px;
+    border-radius: 8px;
+    cursor: pointer;
+    list-style: none;
+    transition: background-color 0.14s ease;
+  }
+  .ship__summary::-webkit-details-marker { display: none; }
+  .ship__summary:hover { background: rgba(255, 255, 255, 0.6); }
+  .ship__summary:focus-visible { outline-offset: -2px; }
+
+  .ship__chev {
+    flex: none;
+    align-self: center;
+    color: var(--p-amber-ac);
+    opacity: 0.7;
+    transition: transform 0.18s ease;
+  }
+  .ship__topic[open] .ship__chev { transform: rotate(90deg); }
+
+  .ship__label { font-size: 14.5px; font-weight: 500; line-height: 1.45; color: #713f12; }
+
+  .ship__detail {
+    margin: 2px 0 9px;
+    margin-left: 5px;
+    padding-left: 19px;
+    border-left: 2px solid var(--p-amber-br);
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: #78350f;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ship__summary, .ship__chev { transition: none; }
+  }
   .ship__tick { color: var(--p-amber-ac); margin-top: 4px; opacity: 0.8; }
 
   .ship__heading {

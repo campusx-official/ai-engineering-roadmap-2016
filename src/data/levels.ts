@@ -5,6 +5,8 @@
  * source files. Nothing in the UI ever reads a .txt at runtime.
  */
 import raw from './levels.json';
+import { topics } from './topics';
+import { signature } from '../lib/sig.mjs';
 
 export type PhaseId =
   | 'foundations' | 'retrieval' | 'agentic' | 'trust' | 'production' | 'frontier';
@@ -20,6 +22,8 @@ export interface Phase {
 
 export interface Objective {
   text: string;
+  /** Authored short topic; the bullet shown before expanding. */
+  label?: string;
   /** Sub-heading the objective sat under in the source ("Session 1 · …"). */
   group?: string;
 }
@@ -69,6 +73,24 @@ export interface Level {
 
 export const phases = raw.phases as Phase[];
 export const levels = raw.levels as Level[];
+
+/**
+ * Pair each objective with its authored short label. A module is skipped
+ * whenever its source text has drifted from what the labels were written
+ * against, so a stale label can never be attached to the wrong sentence — that
+ * module simply renders full sentences until `npm run topics` is re-run.
+ */
+for (const level of levels) {
+  for (const module of level.modules) {
+    const set = topics[module.id];
+    if (!set || set.labels.length !== module.objectives.length) continue;
+    if (set.sig !== signature(module.objectives.map((o) => o.text))) continue;
+    module.objectives.forEach((o, i) => {
+      const label = set.labels[i];
+      if (label) o.label = label;
+    });
+  }
+}
 
 export const totalLevels = raw.totalLevels as number;
 export const totalSessions = raw.totalSessions as number;

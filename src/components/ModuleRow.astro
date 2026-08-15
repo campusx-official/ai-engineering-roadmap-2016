@@ -17,11 +17,11 @@ interface Props {
 const { module, index, levelNumber } = Astro.props;
 
 // Objectives that sat under a "Session N · …" sub-heading keep that grouping.
-const groups: { label?: string; items: string[] }[] = [];
+const groups: { label?: string; items: typeof module.objectives }[] = [];
 for (const o of module.objectives) {
   const last = groups[groups.length - 1];
-  if (last && last.label === o.group) last.items.push(o.text);
-  else groups.push({ label: o.group, items: [o.text] });
+  if (last && last.label === o.group) last.items.push(o);
+  else groups.push({ label: o.group, items: [o] });
 }
 const objectiveCount = module.objectives.length;
 ---
@@ -63,9 +63,25 @@ const objectiveCount = module.objectives.length;
         <>
           {g.label && <p class="mod__group">{g.label}</p>}
           <ul class="mod__list" role="list">
-            {g.items.map((t) => {
-              const { lead, rest } = renderObjective(t);
-              return (
+            {g.items.map((o) => {
+              const { lead, rest } = renderObjective(o.text);
+              /* With a label the bullet is the short topic and the source
+                 sentence sits behind a native disclosure; without one the
+                 sentence is the bullet, exactly as before. */
+              return o.label ? (
+                <li class="mod__item mod__item--topic">
+                  <details class="topic">
+                    <summary class="topic__summary">
+                      <Icon name="chevron-right" size={13} class="topic__chev" />
+                      <span class="topic__label">{o.label}</span>
+                    </summary>
+                    <p class="topic__detail">
+                      {lead && <b class="mod__lead" set:html={lead} />}
+                      <span set:html={rest} />
+                    </p>
+                  </details>
+                </li>
+              ) : (
                 <li class="mod__item">
                   <Icon name="check" size={13} class="mod__tick" />
                   <span class="mod__text">
@@ -259,6 +275,57 @@ const objectiveCount = module.objectives.length;
   .mod__item:last-child { margin-bottom: 0; }
 
   .mod__tick { color: var(--phase-ac); margin-top: 5px; opacity: 0.55; }
+
+  /* ----- topic bullets ----- */
+  /* A labelled objective is a single-column row: the topic reads as a bullet,
+     the source sentence sits underneath once expanded. */
+  .mod__item--topic { grid-template-columns: 1fr; margin-bottom: 4px; }
+
+  .topic__summary {
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+    padding: 5px 8px 5px 4px;
+    margin-left: -4px;
+    border-radius: 8px;
+    cursor: pointer;
+    list-style: none;
+    transition: background-color 0.14s ease;
+  }
+  .topic__summary::-webkit-details-marker { display: none; }
+  .topic__summary:hover { background: var(--phase-bg); }
+  .topic__summary:focus-visible { outline-offset: -2px; }
+
+  .topic__chev {
+    flex: none;
+    align-self: center;
+    color: var(--phase-ac);
+    opacity: 0.65;
+    transition: transform 0.18s ease;
+  }
+  .topic[open] .topic__chev { transform: rotate(90deg); }
+
+  .topic__label {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.45;
+    color: var(--cx-ink);
+  }
+  .topic[open] .topic__label { color: var(--phase-ac); }
+
+  .topic__detail {
+    margin: 2px 0 10px;
+    padding-left: 20px;
+    border-left: 2px solid var(--phase-br);
+    margin-left: 5px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--cx-g600);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .topic__summary, .topic__chev { transition: none; }
+  }
 
   .mod__text { min-width: 0; }
   /* the clause before a colon/semicolon, where the source has one */
