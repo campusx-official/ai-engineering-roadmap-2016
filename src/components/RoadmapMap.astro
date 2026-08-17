@@ -22,7 +22,9 @@ import { phases, levels, totalSessions } from '../data/levels';
             <span class="map__swatch" />
             <span class="map__key-name">{p.name}</span>
             <span class="map__key-range">
-              {p.levels[0]}–{p.levels[p.levels.length - 1]}
+              {p.levels.length === 1
+                ? p.levels[0]
+                : `${p.levels[0]}–${p.levels[p.levels.length - 1]}`}
             </span>
           </li>
         ))

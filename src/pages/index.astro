@@ -184,7 +184,9 @@ const howItWorks = [
               <Icon name={p.icon} size={15} />
               <span class="cta__phase-name">{p.name}</span>
               <span class="cta__phase-range">
-                L{p.levels[0]}–{p.levels[p.levels.length - 1]}
+                {p.levels.length === 1
+                  ? `L${p.levels[0]}`
+                  : `L${p.levels[0]}–${p.levels[p.levels.length - 1]}`}
               </span>
             </li>
           ))

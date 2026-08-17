@@ -72,3 +72,4 @@
 [data-phase='trust']       { --phase-bg: var(--p-amber-bg);   --phase-br: var(--p-amber-br);   --phase-ac: var(--p-amber-ac); }
 [data-phase='production']  { --phase-bg: var(--p-cyan-bg);    --phase-br: var(--p-cyan-br);    --phase-ac: var(--p-cyan-ac); }
 [data-phase='frontier']    { --phase-bg: var(--p-rose-bg);    --phase-br: var(--p-rose-br);    --phase-ac: var(--p-rose-ac); }
+[data-phase='interview']   { --phase-bg: var(--p-slate-bg);   --phase-br: var(--p-slate-br);   --phase-ac: var(--p-slate-ac); }

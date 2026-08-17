@@ -28,6 +28,7 @@ const PHASE_COLORS: Record<string, { bg: string; br: string; ac: string }> = {
   trust: { bg: '#FEF3C7', br: '#FDE68A', ac: '#B45309' },
   production: { bg: '#CFFAFE', br: '#A5F3FC', ac: '#0E7490' },
   frontier: { bg: '#FFE4E6', br: '#FECDD3', ac: '#BE123C' },
+  interview: { bg: '#F1F5F9', br: '#E2E8F0', ac: '#334155' },
 };
 
 const esc = (s: string): string =>

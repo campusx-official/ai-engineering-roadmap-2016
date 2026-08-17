@@ -1,0 +1,172 @@
+Level 14 · GenAI / AI Engineer Interview Prep
+
+Scope: convert everything learned across the roadmap into interview performance. This level does not re-teach concepts; it focuses on scenario-based questions, system-design discussions, debugging cases, trade-offs, and defending real engineering decisions under interview conditions.
+
+M14.1 · Interview strategy & role positioning — (sessions: 1)
+
+Understand how GenAI interviews have shifted from theory-heavy questioning toward system design, debugging, architecture, and production scenarios.
+Learn to read a job description and identify which roadmap areas are actually being tested instead of trying to prepare every listed tool.
+Distinguish AI Engineer, GenAI Data Scientist, and traditional Data Scientist roles by emphasis rather than treating them as completely separate disciplines.
+Understand why modern AI-engineering interviews increasingly emphasize the engineering layer: APIs, inference, LLMOps, observability, networking, cloud, reliability, and deployment.
+Practice explaining API-hosted models vs self-hosted open-weight models across capability, cost, latency, control, privacy, and operational burden.
+Build a personalized interview-preparation plan based on target role and current weaknesses.
+Outcome: Prioritize interview preparation intelligently and position your existing skillset for the role being targeted.
+
+M14.2 · Production RAG interview scenarios — (sessions: 2)
+
+Design ingestion pipelines for messy enterprise data containing complex PDFs, nested tables, diagrams, varying layouts, and continuously changing documents.
+Whiteboard a RAG system serving large numbers of concurrent users across very large document collections.
+Separate the architecture into services such as embedding, retrieval, LLM inference, ingestion, orchestration, and storage.
+Explain why application/orchestration services should often remain stateless while persistent state belongs in databases, object stores, vector databases, graph databases, caches, or search indexes.
+Reason about production infrastructure around RAG:
+asynchronous messaging and queues,
+service fallbacks,
+object/vector/graph/search storage,
+observability and SLAs,
+networking and IAM,
+secrets and encryption,
+CI/CD and deployment.
+Practice debugging scenarios such as: “The RAG system worked well for a week and then quality dropped. How would you investigate?”
+Isolate failures across ingestion, retrieval, generation, data changes, model changes, and infrastructure.
+Outcome: Whiteboard and defend a production-scale RAG architecture rather than describing a demo-level retriever → LLM pipeline.
+
+M14.3 · Agentic AI interview scenarios — (sessions: 2)
+
+Design an agentic system for a concrete business task involving planning, tools, memory, and multi-step execution.
+Defend the choice between a deterministic workflow and an autonomous agent.
+Reason about tools, MCP integrations, memory, and multi-agent architectures under realistic constraints.
+Handle common interview failure scenarios:
+runaway loops,
+poor tool selection,
+tool failures,
+nondeterministic trajectories,
+excessive token/cost usage,
+context degradation,
+overly powerful tool permissions.
+Design human-in-the-loop checkpoints and guardrails for consequential actions.
+Debug an agent from its trajectory when it succeeds in testing but fails under production conditions.
+Explain when not to introduce multi-agent or autonomous behavior.
+Outcome: Design and defend an agent architecture while reasoning explicitly about autonomy, cost, reliability, recovery, and blast radius.
+
+Note: the source marks this session as reconstructed because the original Session 3 transcript was not provided, so these topics are inferred from the series plan rather than directly transcribed.
+
+M14.4 · Fine-tuning & model adaptation interviews — (sessions: 1)
+
+Make the prompt vs RAG vs fine-tuning decision from a concrete product brief.
+Explain when fine-tuning creates meaningful value and when it adds unnecessary training and deployment complexity.
+Discuss LoRA, QLoRA, PEFT, and quantization in terms of engineering trade-offs rather than only definitions.
+Reason about deploying a fine-tuned open-weight model: serving architecture, GPU requirements, inference optimization, latency, and cost.
+Practice the debugging case: “The fine-tuned model performed well before deployment, but production accuracy dropped. What do you investigate?”
+Consider training data, formatting, distribution shift, evaluation regressions, inference configuration, serving changes, and quantization artifacts.
+Outcome: Defend a model-adaptation strategy and systematically debug performance degradation after deployment.
+
+M14.5 · LLMOps & production debugging interviews — (sessions: 2)
+
+Diagnose production incidents involving model APIs, self-hosted inference, retrieval services, queues, caches, rate limits, and downstream tools.
+Reason through latency spikes, provider outages, cost explosions, capacity limits, and degraded model quality.
+Discuss fallback strategies, graceful degradation, retries, load balancing, and autoscaling.
+Interpret monitoring signals such as latency, throughput, error rates, token usage, cost, retrieval quality, and eval scores.
+Explain what should trigger an alert and what requires rollback versus investigation.
+Practice comparing proprietary API deployment with self-hosted inference under realistic traffic and privacy constraints.
+Outcome: Demonstrate that you can operate and troubleshoot an AI system after it leaves the notebook.
+
+M14.6 · AI system-design interviews — (sessions: 2)
+
+Practice turning an ambiguous product requirement into explicit assumptions around users, traffic, latency, quality, cost, freshness, privacy, and reliability.
+Start with the simplest viable architecture before introducing RAG, agents, fine-tuning, routing, caching, or complex infrastructure.
+Whiteboard systems using the full AI stack:
+model selection/routing,
+RAG and context,
+tools/agents,
+caches,
+databases,
+inference services,
+observability,
+evals,
+security,
+deployment.
+Explain every major trade-off rather than merely naming technologies.
+Practice system designs such as:
+enterprise support assistant,
+coding assistant,
+research agent,
+large-scale document intelligence system.
+Outcome: Run a structured AI-system-design interview from requirements through architecture, bottlenecks, failure modes, and scaling.
+
+M14.7 · Staying current without chasing hype — (sessions: 1)
+
+Build a defensible process for evaluating new models, frameworks, papers, benchmarks, and tooling.
+Separate meaningful capability/infrastructure changes from short-lived hype.
+Explain how you would evaluate a newly released model before replacing an existing production model.
+Use benchmarks → shortlist → custom evals → cost/latency comparison → controlled rollout rather than social-media consensus.
+Develop a strong answer to common interview questions such as “How do you stay current in GenAI?”
+Outcome: Demonstrate informed judgment rather than simply listing the latest tools.
+
+This reflects the source’s intended “GenAI philosophy” component, though that final session was also reconstructed because its transcript was unavailable.
+
+M14.8 · Project & portfolio defense — (sessions: 2)
+
+Prepare 2–3 major projects from the roadmap for deep technical questioning.
+Explain each project using:
+problem → requirements → baseline → architecture → decisions → trade-offs → failures → evals → production results.
+Be prepared to explain why you selected a particular model, retriever, agent architecture, framework, database, or deployment strategy.
+Quantify where possible: quality scores, latency, cost/query, throughput, dataset size, traffic, or improvement over baseline.
+Discuss failures and design mistakes openly and explain what you changed as a result.
+Prepare for interviewer follow-ups such as:
+“Why didn't you use RAG?”
+“Why not fine-tune?”
+“Why do you need an agent?”
+“What happens at 100× traffic?”
+“How would you reduce the cost by 50%?”
+“What breaks first?”
+Outcome: Defend projects as engineering decisions rather than merely demonstrate that they work.
+
+M14.9 · Behavioral communication for AI engineers — (sessions: 1)
+
+Communicate technical reasoning clearly without drowning the interviewer in implementation details.
+State assumptions before solving ambiguous design questions.
+Think in structured trade-offs rather than jumping directly to a tool or architecture.
+Use diagrams and whiteboards to progressively reveal a design.
+When unsure, explain how you would measure, experiment, or debug rather than bluffing.
+Structure experience-based answers around the situation, decision, implementation, result, and lessons learned.
+Outcome: Make strong technical thinking visible to the interviewer.
+M14.10 · Capstone: Full Mock GenAI Interview Loop — (sessions: 2)
+
+Simulate a complete AI-engineering interview.
+
+Round 1 · Scenario & debugging
+
+Solve rapid production scenarios such as:
+
+RAG accuracy suddenly drops.
+Agent enters an expensive loop.
+Model provider latency doubles.
+Fine-tuned model regresses after deployment.
+Prompt change improves quality but doubles cost.
+Retriever works offline but fails on real production queries.
+Round 2 · System design
+
+Receive an ambiguous product brief and:
+
+Clarify requirements → define constraints → establish baseline → design architecture → choose models → design data/context layer → handle scale → add reliability/security → define evals/monitoring → defend trade-offs.
+
+Round 3 · Project defense
+
+Present one major portfolio project and handle increasingly deep follow-up questions on architecture, alternatives, costs, failures, evals, and scaling.
+
+Final result: demonstrate that you can reason like an AI engineer under interview conditions, not merely recall AI concepts.
+
+Level 14 completion outcome
+
+By the end of this level, you should be able to:
+
+Read an AI/GenAI job description and prioritize preparation accordingly.
+Position yourself for AI Engineer, GenAI DS, or related roles.
+Whiteboard production RAG, agent, and full AI-system architectures.
+Diagnose RAG, agent, fine-tuning, inference, and production failures systematically.
+Defend prompt vs RAG vs agent vs fine-tuning decisions.
+Reason about cost, latency, scale, privacy, reliability, and operational complexity.
+Answer questions about new models/tools without relying on hype.
+Present and defend portfolio projects under deep technical questioning.
+Communicate assumptions and trade-offs clearly while whiteboarding.
+Perform a complete GenAI system-design interview from an ambiguous brief to a defensible architecture.

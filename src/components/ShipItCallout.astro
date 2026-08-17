@@ -18,7 +18,12 @@ const { module, levelNumber } = Astro.props;
    "Capstone requirements", lines ending in a colon). Those lines are rendered
    as sub-headings rather than bullets — formatting only, wording untouched. */
 const isHeading = (t: string) =>
-  /^Option\s+[A-Z]\b/i.test(t) || (/:$/.test(t) && t.length < 40);
+  /^Option\s+[A-Z]\b/i.test(t) ||
+  /^Round\s+\d+\b/i.test(t) ||
+  /* A short colon-terminated line labels the items beneath it — unless it ends
+     on a conjunction ("…product brief and:"), where it is the opening half of a
+     sentence and reads broken once set as an uppercase heading. */
+  (/:$/.test(t) && t.length < 40 && !/\b(and|or|but|then)\s*:$/i.test(t));
 
 const items = module.objectives.map((o) => {
   const heading = isHeading(o.text);

@@ -26,6 +26,7 @@ const PHASES = [
   { id: 'trust',       name: 'Evaluation & Trust', levels: [7, 8],        theme: 'evals, security',                             color: 'amber',   icon: 'shield-check' },
   { id: 'production',  name: 'Production',         levels: [9, 10],       theme: 'system design, LLMOps',                       color: 'cyan',    icon: 'server' },
   { id: 'frontier',    name: 'Frontier & Proof',   levels: [11, 12, 13],  theme: 'multimodal, fine-tuning, projects',           color: 'rose',    icon: 'sparkles' },
+  { id: 'interview',   name: 'Interview',          levels: [14],          theme: 'positioning, scenarios, mock loops',           color: 'slate',   icon: 'handshake' },
 ];
 
 /* One Lucide icon per level. Chosen to match the level's subject; the icon set
@@ -34,6 +35,7 @@ const LEVEL_ICONS = {
   0: 'terminal', 1: 'brain', 2: 'plug', 3: 'message-square-code', 4: 'library-big',
   5: 'bot', 6: 'layout-panel-left', 7: 'flask-conical', 8: 'shield-half', 9: 'network',
   10: 'gauge', 11: 'audio-lines', 12: 'sliders-horizontal', 13: 'trophy',
+  14: 'briefcase-business',
 };
 
 /* Keyword -> Lucide icon for module rows. First match wins, so the list runs
@@ -51,6 +53,14 @@ const MODULE_ICON_RULES = [
   [/privacy|\bpii\b|secrets|data privacy/i, 'lock'],
   [/threat model|security|secure/i, 'shield'],
   [/responsib|governance|ethic|compliance|regulat/i, 'scale'],
+
+  // interview level: these read as "<topic> interview scenarios", so they must
+  // be matched before the topic rules claim them
+  [/interview strategy|role positioning/i, 'compass'],
+  [/llmops & production debugging|production debugging/i, 'activity'],
+  [/staying current|chasing hype/i, 'newspaper'],
+  [/portfolio defense|project & portfolio/i, 'presentation'],
+  [/behavioral communication|communication for/i, 'speech'],
 
   // eval sub-topics (an entire level is "evals" — split it finely)
   [/introduction to/i, 'book-open'],
@@ -153,7 +163,7 @@ const MODULE_ICON_RULES = [
   [/multimodal|vision|image|speech|voice|audio|realtime|on-device|\bedge\b/i, 'audio-lines'],
   [/research/i, 'telescope'],
   [/resume|screening|business/i, 'briefcase'],
-  [/architecture|system design|pipeline|orchestrat|case stud/i, 'network'],
+  [/architecture|system.design|pipeline|orchestrat|case stud/i, 'network'],
   [/workflow|multi-step/i, 'workflow'],
 
   [/capabilit(y|ies) & failure|failure modes/i, 'triangle-alert'],
@@ -196,7 +206,7 @@ const STACK_VOCAB = [
   ['Pydantic', /\bPydantic\b/], ['FastAPI', /\bFastAPI\b/], ['HTTP/REST', /\bREST\b/], ['JSON', /\bJSON\b/],
   ['OpenAPI', /\bOpenAPI\b/], ['PostgreSQL', /\bPostgreSQL\b/], ['SQL', /\bSQL\b/], ['Git', /\bGit\b/],
   ['GitHub', /\bGitHub\b/], ['Docker', /\bDocker\b/], ['curl', /\bcurl\b/], ['Postman', /\bPostman\b/],
-  ['Bruno', /\bBruno\b/], ['async/await', /async ?\/ ?await|\basynchronous\b/],
+  ['Bruno', /\bBruno\b/], ['async', /\basync\b|\basynchronous\b/i],
   ['OpenAI SDK', /\bOpenAI\/Anthropic SDKs\b|\bOpenAI SDK\b/], ['Anthropic SDK', /\bOpenAI\/Anthropic SDKs\b/],
   ['LangChain', /\bLangChain\b/], ['LangGraph', /\bLangGraph\b/], ['LlamaIndex', /\bLlamaIndex\b/],
   ['DSPy', /\bDSPy\b/], ['streaming', /\bstream(ing|ed)?\b/i], ['tool calling', /\btool.calling\b|\bfunction \/ tool calling\b/i],
@@ -445,7 +455,7 @@ const files = readdirSync(dir)
 const levels = files.map((f) => parseLevel(f, readFileSync(join(dir, f), 'utf8')))
   .sort((a, b) => a.number - b.number);
 
-const expected = Array.from({ length: 14 }, (_, i) => i);
+const expected = Array.from({ length: 15 }, (_, i) => i);
 const missing = expected.filter((n) => !levels.some((l) => l.number === n));
 if (missing.length) throw new Error(`Missing level files for: ${missing.join(', ')}`);
 
