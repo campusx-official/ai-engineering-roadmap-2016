@@ -69,7 +69,13 @@ export interface Book {
 }
 
 export const booksByLevel: Record<number, Book[]> = {
-  9: [{ title: 'AI Engineering', author: 'Chip Huyen' }],
+  9: [
+    {
+      title: 'AI Engineering',
+      author: 'Chip Huyen',
+      url: 'https://www.amazon.in/AI-Engineering-Building-Applications-Foundation/dp/9355426666',
+    },
+  ],
 };
 
 export const booksFor = (level: number): Book[] => booksByLevel[level] ?? [];
