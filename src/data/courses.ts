@@ -48,7 +48,6 @@ export const coursesByLevel: Record<number, Course[]> = {
   8: [{ title: 'LLM Guardrails', status: 'soon' }],
   9: [{ title: 'AI System Design', status: 'soon' }],
   10: [{ title: 'LLMOps', status: 'soon' }],
-  11: [{ title: 'DLCV', status: 'live' }],
   14: [{ title: 'AI Engineer Interview Prep', status: 'live' }],
 };
 
