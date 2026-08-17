@@ -26,10 +26,7 @@ export const coursesByLevel: Record<number, Course[]> = {
     { title: 'Advanced FastAPI', status: 'live' },
     { title: 'Flask', status: 'live' },
   ],
-  1: [
-    { title: 'GenAI using Gemini', status: 'live' },
-    { title: 'Prompt Engineering', status: 'live' },
-  ],
+  1: [{ title: 'LLM 101', status: 'soon' }],
   3: [{ title: 'Prompt Engineering', status: 'live' }],
   4: [{ title: 'Advanced RAG', status: 'live' }],
   5: [
