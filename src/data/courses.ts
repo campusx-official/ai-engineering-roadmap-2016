@@ -39,6 +39,7 @@ export const coursesByLevel: Record<number, Course[]> = {
     { title: 'CrewAI', status: 'live' },
     { title: 'Agno', status: 'live' },
     { title: 'MCP', status: 'live', note: 'notes' },
+    { title: 'Building AI Agents using Google ADK', status: 'soon' },
   ],
   6: [{ title: 'Context Engineering', status: 'soon' }],
   7: [{ title: 'LLM Evaluations', status: 'soon' }],
