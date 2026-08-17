@@ -1,35 +1,35 @@
-Level 13 · Fine-Tuning
+Level 12 · Fine-Tuning
 
 Scope: the prompt-vs-RAG-vs-fine-tune call, and a small tune when an eval justifies it.
 
-M13.1 · Should you fine-tune? — (sessions: 1)
+M12.1 · Should you fine-tune? — (sessions: 1)
 
 Make the tradeoff honestly; identify the narrow cases where FT wins.
 
-M13.2 · Data curation for fine-tuning — (sessions: 2)
+M12.2 · Data curation for fine-tuning — (sessions: 2)
 
 Build and format high-quality training data (most of the real work).
 
-M13.3 · SFT & LoRA/QLoRA — (sessions: 3)
+M12.3 · SFT & LoRA/QLoRA — (sessions: 3)
 
 Run a LoRA/QLoRA tune with PEFT (Unsloth/Axolotl) and set hyperparameters.
 
-M13.4 · Preference tuning: DPO — (sessions: 2)
+M12.4 · Preference tuning: DPO — (sessions: 2)
 
 Build preference data and run DPO; know when it's warranted.
 
-M13.5 · Reinforcement fine-tuning (RFT) — (sessions: 1)
+M12.5 · Reinforcement fine-tuning (RFT) — (sessions: 1)
 
 Explain reward-based tuning intuition and its use cases.
 
-M13.6 · Distillation — (sessions: 1)
+M12.6 · Distillation — (sessions: 1)
 
 Distill a large model into a small one for cost/latency wins.
 
-M13.7 · Evaluating fine-tunes — (sessions: 1)
+M12.7 · Evaluating fine-tunes — (sessions: 1)
 
-Measure before/after on Level-8 evals and catch regressions.
+Measure before/after on Level-7 evals and catch regressions.
 
-M13.8 · Capstone: a LoRA that beats a prompted baseline — (sessions: 1)
+M12.8 · Capstone: a LoRA that beats a prompted baseline — (sessions: 1)
 
 Ship a tune with the eval numbers, before and after, as proof.

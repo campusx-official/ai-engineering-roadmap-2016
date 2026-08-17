@@ -1,8 +1,8 @@
-Level 8 · LLM Evaluations
+Level 7 · LLM Evaluations
 
 Scope: Design, execute, and automate comprehensive evaluations for Large Language Models and AI applications to ensure quality, safety, and reliability in production environments.
 
-M8.1 · Introduction to LLM evaluations — (sessions: 1)
+M7.1 · Introduction to LLM evaluations — (sessions: 1)
 Understand the pitfalls of “vibe testing” by examining real-world failure case studies like Air Canada.
 Navigate the differences between deterministic software testing and probabilistic LLM systems.
 Distinguish between evaluating core foundation model capabilities and testing complete application workflows.
@@ -10,7 +10,7 @@ Implement an end-to-end evaluation process covering task definition, criteria, d
 
 Outcome: Understand the foundational need for and workflow of LLM evaluations compared to traditional software testing.
 
-M8.2 · Evaluation methods & paradigms — (sessions: 1)
+M7.2 · Evaluation methods & paradigms — (sessions: 1)
 Categorize evaluation execution mechanisms into Programmatic, Human, and LLM-as-a-Judge approaches.
 Understand reference-based vs reference-free evaluation.
 Determine when a Golden Dataset answer key is required versus when evaluation can rely entirely on LLM judgment.
@@ -18,7 +18,7 @@ Choose the appropriate evaluation method based on whether the target behavior is
 
 Outcome: Select the appropriate evaluation execution method and paradigm for a given LLM testing scenario.
 
-M8.3 · Offline vs online evaluations — (sessions: 2)
+M7.3 · Offline vs online evaluations — (sessions: 2)
 Use offline evaluation suites for pre-release testing, version comparison, experimentation, and preventing performance regression.
 Identify post-deployment production risks including unexpected inputs, emergent systematic failures, changing user behavior, and data drift.
 Differentiate automatically captured system metrics such as latency, token usage, and errors from LLM-computed quality metrics such as hallucination or relevance.
@@ -27,7 +27,7 @@ Feed important production failures back into the offline evaluation dataset.
 
 Outcome: Design a dual-layer evaluation strategy that catches regressions before release and monitors quality after deployment.
 
-M8.4 · Model evaluations & benchmarking — (sessions: 1)
+M7.4 · Model evaluations & benchmarking — (sessions: 1)
 Explore core LLM capabilities such as knowledge, reasoning, mathematics, coding, instruction following, long-context understanding, multimodal capability, safety, and tool use.
 Analyze the anatomy of a benchmark through its dataset, prompts, run configuration, scoring method, and result aggregation.
 Understand how public leaderboards compare foundation models.
@@ -35,7 +35,7 @@ Identify benchmark pitfalls including data contamination, score saturation, benc
 
 Outcome: Critically assess public LLM benchmarks and understand how core model capabilities are formally measured.
 
-M8.5 · The evolution of knowledge benchmarks — (sessions: 1)
+M7.5 · The evolution of knowledge benchmarks — (sessions: 1)
 Trace the progression from benchmarks such as MMLU and TruthfulQA toward harder tests of knowledge and factual reliability.
 Understand the use of human exams in benchmarks such as AGIEval to compare human and model capabilities.
 Explore harder benchmarks such as GPQA, MMLU-Pro, SimpleQA, and Humanity's Last Exam.
@@ -43,7 +43,7 @@ Understand why benchmarks continually become harder as frontier models saturate 
 
 Outcome: Understand the progression of knowledge benchmarks and select appropriate tests for increasingly capable models.
 
-M8.6 · Custom model evaluations — (sessions: 1)
+M7.6 · Custom model evaluations — (sessions: 1)
 Move beyond public benchmarks and evaluate models on the actual task your application needs to solve.
 Use leaderboards and aggregation platforms to shortlist candidate models based on capability, latency, context, and cost.
 Build a custom evaluation dataset for a real task such as Text-to-SQL.
@@ -53,7 +53,7 @@ Select the model that offers the best task-specific quality / latency / cost tra
 
 Outcome: Evaluate and select the most capable and cost-effective foundation model for a specific application.
 
-M8.7 · Building an eval suite & regression testing — (sessions: 2)
+M7.7 · Building an eval suite & regression testing — (sessions: 2)
 Structure evaluations across component level, pipeline level, and application level depending on what is being tested.
 Maintain versioned test cases, evaluation configurations, prompts, models, and results.
 Track experiments and compare new versions against established baselines.
@@ -63,7 +63,7 @@ Track quality together with latency and cost so improvements in one area do not 
 
 Outcome: Build an automated evaluation suite that prevents regressions and improves continuously from real-world usage.
 
-M8.8 · RAG Evals — (sessions: 5)
+M7.8 · RAG Evals — (sessions: 5)
 
 Evaluate a RAG system at component, pipeline, application, and safety levels, rather than treating it as one black-box system.
 
@@ -99,7 +99,7 @@ Evaluate whether retrieved malicious or misleading content can manipulate the mo
 
 Outcome: Evaluate a RAG application comprehensively across retrieval quality, generator behavior, pipeline interaction, user-facing quality, operational performance, and safety.
 
-M8.9 · Agent Evals — (sessions: 3)
+M7.9 · Agent Evals — (sessions: 3)
 
 Evaluate agentic systems at the level of decision-making, trajectories, tool usage, task completion, recovery, and safety.
 
@@ -125,7 +125,7 @@ Track both outcome quality and execution efficiency through steps, latency, tool
 
 Outcome: Systematically evaluate whether an agent makes good decisions, uses tools correctly, completes tasks efficiently, recovers from failures, and remains within its security boundaries.
 
-Level 8 completion outcome
+Level 7 completion outcome
 
 By the end of this level, you should be able to:
 

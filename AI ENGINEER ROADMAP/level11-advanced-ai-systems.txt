@@ -1,36 +1,36 @@
-Level 12 · Advanced AI Systems (Multimodal)
+Level 11 · Advanced AI Systems (Multimodal)
 
 Scope: work across modalities and at the current shippable frontier.
 
-M12.1 · Multimodal foundations — (sessions: 1)
+M11.1 · Multimodal foundations — (sessions: 1)
 
 Explain, intuitively, how multimodal models fuse text with other modalities.
 
-M12.2 · Vision & document understanding — (sessions: 3)
+M11.2 · Vision & document understanding — (sessions: 3)
 
 Do image Q&A and document/PDF understanding, including charts and tables.
 Build visual RAG.
 
-M12.3 · Speech: STT & TTS — (sessions: 2)
+M11.3 · Speech: STT & TTS — (sessions: 2)
 
 Build speech-to-text (Whisper) and text-to-speech (Kokoro) pipelines.
 
-M12.4 · Realtime voice agents — (sessions: 3)
+M11.4 · Realtime voice agents — (sessions: 3)
 
 Use a realtime API with turn-taking, interruption, and low latency.
 
-M12.5 · Image generation — (sessions: 1)
+M11.5 · Image generation — (sessions: 1)
 
 Use generation models and controllable-generation techniques.
 
-M12.6 · Deep research agents — (sessions: 2)
+M11.6 · Deep research agents — (sessions: 2)
 
 Build long-horizon research and synthesis into structured reports.
 
-M12.7 · On-device / edge — (sessions: 1)
+M11.7 · On-device / edge — (sessions: 1)
 
 Run small quantized models locally and reason about the tradeoffs.
 
-M12.8 · Capstone: voice agent or multimodal pipeline — (sessions: 1)
+M11.8 · Capstone: voice agent or multimodal pipeline — (sessions: 1)
 
 Ship one end-to-end multimodal build.

@@ -1,6 +1,6 @@
 {
   "generatedFrom": "./AI ENGINEER ROADMAP",
-  "totalLevels": 15,
+  "totalLevels": 14,
   "totalSessions": 235,
   "totalModules": 135,
   "phases": [
@@ -21,10 +21,9 @@
       "id": "retrieval",
       "name": "Retrieval",
       "levels": [
-        4,
-        5
+        4
       ],
-      "theme": "embeddings/vector, RAG",
+      "theme": "embeddings, vector search, RAG",
       "color": "blue",
       "icon": "search"
     },
@@ -32,8 +31,8 @@
       "id": "agentic",
       "name": "Agentic",
       "levels": [
-        6,
-        7
+        5,
+        6
       ],
       "theme": "agents, context engineering",
       "color": "emerald",
@@ -43,8 +42,8 @@
       "id": "trust",
       "name": "Evaluation & Trust",
       "levels": [
-        8,
-        9
+        7,
+        8
       ],
       "theme": "evals, security",
       "color": "amber",
@@ -54,8 +53,8 @@
       "id": "production",
       "name": "Production",
       "levels": [
-        10,
-        11
+        9,
+        10
       ],
       "theme": "system design, LLMOps",
       "color": "cyan",
@@ -65,9 +64,9 @@
       "id": "frontier",
       "name": "Frontier & Proof",
       "levels": [
+        11,
         12,
-        13,
-        14
+        13
       ],
       "theme": "multimodal, fine-tuning, projects",
       "color": "rose",
@@ -1521,12 +1520,12 @@
     {
       "number": 4,
       "slug": "level-4",
-      "title": "Embeddings, Semantic Search & Vector Databases",
-      "sourceFile": "level4-embeddings-and-vector-dbs.txt",
-      "scope": "build the retrieval layer that RAG depends on — ingestion, chunking, embeddings, vector search, and hybrid retrieval.",
+      "title": "RAG",
+      "sourceFile": "level4-rag.txt",
+      "scope": "build the retrieval layer that RAG depends on — ingestion, chunking, embeddings, vector search, and hybrid retrieval — then ground LLMs in external knowledge, improve retrieval quality, and learn the major RAG architectures used beyond a naive retrieve-and-generate pipeline.",
       "prereqStated": null,
       "phase": "retrieval",
-      "icon": "vector-square",
+      "icon": "library-big",
       "modules": [
         {
           "id": "M4.1",
@@ -1601,7 +1600,7 @@
           "id": "M4.4",
           "name": "Similarity & semantic search",
           "sessionCount": 2,
-          "icon": "vector-square",
+          "icon": "radar",
           "objectives": [
             {
               "text": "Understand cosine similarity, dot product, and Euclidean distance and how they are used to compare vectors."
@@ -1625,7 +1624,7 @@
           "id": "M4.5",
           "name": "Vector databases & ANN search",
           "sessionCount": 3,
-          "icon": "vector-square",
+          "icon": "database",
           "objectives": [
             {
               "text": "Store embeddings, documents, IDs, and metadata in a vector database such as pgvector or Qdrant."
@@ -1652,7 +1651,7 @@
           "id": "M4.6",
           "name": "Sparse & hybrid retrieval",
           "sessionCount": 2,
-          "icon": "flask-conical",
+          "icon": "blend",
           "objectives": [
             {
               "text": "Understand traditional lexical retrieval and BM25, and why keyword search can outperform embeddings for some queries."
@@ -1719,9 +1718,239 @@
           "isCapstone": true,
           "isGap": false,
           "finalResult": "a measurable retrieval system ready to become the retrieval component of a RAG application."
+        },
+        {
+          "id": "M4.9",
+          "name": "RAG architecture & when to use it",
+          "sessionCount": 1,
+          "icon": "network",
+          "objectives": [
+            {
+              "text": "Understand the core pipeline: query → retrieve → assemble context → generate answer."
+            },
+            {
+              "text": "Understand what RAG solves: private knowledge, frequently changing information, large knowledge bases, and source-grounded answers."
+            },
+            {
+              "text": "Know when not to use RAG: when the model already knows enough, the task is purely transformational, or the required knowledge can simply fit in context."
+            },
+            {
+              "text": "Distinguish retrieval failure from generation failure."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Decide whether a problem genuinely needs RAG."
+        },
+        {
+          "id": "M4.10",
+          "name": "Baseline RAG from scratch",
+          "sessionCount": 2,
+          "icon": "hammer",
+          "objectives": [
+            {
+              "text": "Build a complete RAG pipeline manually using the retrieval system built earlier in this level."
+            },
+            {
+              "text": "Retrieve top-k chunks, assemble them into the prompt, and generate an answer grounded in the retrieved context."
+            },
+            {
+              "text": "Design prompts that instruct the model to answer from supplied evidence and avoid unsupported claims."
+            },
+            {
+              "text": "Handle cases where retrieval returns weak, irrelevant, or insufficient context."
+            },
+            {
+              "text": "Understand the effect of k, chunk ordering, and total context size on answer quality."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Build a working RAG application without hiding the mechanics behind a framework."
+        },
+        {
+          "id": "M4.11",
+          "name": "Reranking",
+          "sessionCount": 2,
+          "icon": "arrow-down-up",
+          "objectives": [
+            {
+              "text": "Understand the two-stage pattern: retrieve many candidates → rerank → send the best chunks to the LLM."
+            },
+            {
+              "text": "Use cross-encoder or dedicated reranking models to reorder retrieved chunks."
+            },
+            {
+              "text": "Understand why reranking can improve relevance while adding latency and cost."
+            },
+            {
+              "text": "Compare retrieval with and without reranking and understand when reranking provides little benefit."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Improve the quality of context sent to the LLM without simply increasing the number of retrieved chunks."
+        },
+        {
+          "id": "M4.12",
+          "name": "Query transformation & RAG-Fusion",
+          "sessionCount": 2,
+          "icon": "shuffle",
+          "objectives": [
+            {
+              "text": "Understand why the user's original question is not always the best retrieval query."
+            },
+            {
+              "text": "Apply query rewriting, query expansion, multi-query retrieval, and HyDE."
+            },
+            {
+              "text": "Understand RAG-Fusion: generate multiple queries, retrieve for each, and combine rankings using techniques such as Reciprocal Rank Fusion."
+            },
+            {
+              "text": "Use multiple retrieval queries for ambiguous, multi-faceted, or poorly phrased questions."
+            },
+            {
+              "text": "Understand the trade-off between improved retrieval and additional LLM calls, latency, and cost."
+            },
+            {
+              "text": "Avoid query transformation when baseline retrieval already performs well."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Transform difficult user questions into better retrieval queries."
+        },
+        {
+          "id": "M4.13",
+          "name": "Grounding, citations & abstention",
+          "sessionCount": 1,
+          "icon": "quote",
+          "objectives": [
+            {
+              "text": "Generate answers grounded in retrieved evidence rather than unsupported model knowledge."
+            },
+            {
+              "text": "Attach claims to their supporting documents/chunks and produce useful source citations."
+            },
+            {
+              "text": "Understand that having citations is not the same as being grounded; the cited source must actually support the claim."
+            },
+            {
+              "text": "Detect insufficient evidence and respond with an appropriate “I don't know / insufficient information” instead of forcing an answer."
+            },
+            {
+              "text": "Keep retrieved evidence and model-generated synthesis clearly distinguishable."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Produce answers that are traceable to evidence and can abstain when the evidence is insufficient."
+        },
+        {
+          "id": "M4.14",
+          "name": "RAG variants & advanced patterns",
+          "sessionCount": 3,
+          "icon": "git-fork",
+          "objectives": [
+            {
+              "text": "Understand the progression from Naive RAG → Advanced RAG → adaptive/self-correcting RAG architectures."
+            },
+            {
+              "text": "Learn Self-RAG: retrieval is performed when needed and the model reflects on retrieved evidence and its generated response."
+            },
+            {
+              "text": "Learn CRAG (Corrective RAG): evaluate retrieved evidence and trigger corrective retrieval when the initial results are weak."
+            },
+            {
+              "text": "Learn Adaptive RAG: dynamically decide whether retrieval is required and which retrieval strategy should be used."
+            },
+            {
+              "text": "Understand iterative RAG, where retrieval and generation repeat until enough evidence has been gathered."
+            },
+            {
+              "text": "Understand multi-hop RAG, where answering requires several retrieval steps or combining evidence from multiple sources."
+            },
+            {
+              "text": "Learn Graph RAG: represent entities and relationships as a graph and retrieve/summarize information using graph structure rather than relying purely on vector similarity."
+            },
+            {
+              "text": "Build intuition for when Graph RAG is useful: highly connected knowledge, entity relationships, global questions, and information spread across many documents."
+            },
+            {
+              "text": "Compare advanced approaches on quality, complexity, latency, cost, and failure mode addressed rather than assuming more advanced RAG is always better."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Recognize major RAG variants and choose an architecture based on why baseline RAG is failing."
+        },
+        {
+          "id": "M4.15",
+          "name": "RAG with frameworks",
+          "sessionCount": 1,
+          "icon": "boxes",
+          "objectives": [
+            {
+              "text": "Rebuild the manually created RAG pipeline using LlamaIndex or LangChain."
+            },
+            {
+              "text": "Work with framework abstractions for ingestion, indexes, retrievers, rerankers, query engines, and citations."
+            },
+            {
+              "text": "Implement common RAG improvements such as reranking and query transformation using framework components."
+            },
+            {
+              "text": "Compare the framework implementation with the hand-built version on control, development speed, debugging, and complexity."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Use RAG frameworks productively while still understanding the retrieval and generation mechanics underneath them."
+        },
+        {
+          "id": "M4.16",
+          "name": "Capstone: Deploy an Advanced RAG Application",
+          "sessionCount": 1,
+          "icon": "flag",
+          "objectives": [
+            {
+              "text": "Build a document Q&A application over a real corpus with ingestion, chunking, retrieval, generation, citations, and abstention."
+            },
+            {
+              "text": "Establish a baseline RAG pipeline and add at least one meaningful improvement such as reranking, query transformation, RAG-Fusion, hybrid retrieval, or an advanced RAG variant."
+            },
+            {
+              "text": "Handle weak retrieval and insufficient evidence gracefully."
+            },
+            {
+              "text": "Track latency, token usage, and cost across the pipeline."
+            },
+            {
+              "text": "Deploy the application as an API or simple user interface."
+            }
+          ],
+          "notes": [],
+          "isCapstone": true,
+          "isGap": false,
+          "finalResult": "a complete RAG application that goes substantially beyond a basic retrieve → stuff context → generate demo."
         }
       ],
       "stack": [
+        {
+          "label": "LangChain",
+          "kind": "tool"
+        },
+        {
+          "label": "LlamaIndex",
+          "kind": "tool"
+        },
         {
           "label": "OCR",
           "kind": "concept"
@@ -1769,278 +1998,6 @@
         {
           "label": "Recall@k",
           "kind": "concept"
-        }
-      ],
-      "project": "M4.8",
-      "totalSessions": 15,
-      "statedSessions": null,
-      "completionOutcomes": [
-        "Convert messy documents into retrieval-ready data.",
-        "Choose and tune an appropriate chunking strategy.",
-        "Understand and generate embeddings.",
-        "Build semantic search from first principles.",
-        "Use vector databases and understand ANN search conceptually.",
-        "Use metadata filtering effectively.",
-        "Understand BM25 and lexical retrieval.",
-        "Build dense, sparse, and hybrid retrieval systems.",
-        "Measure retrieval quality using Recall@k.",
-        "Improve retrieval based on evidence rather than intuition."
-      ],
-      "todos": []
-    },
-    {
-      "number": 5,
-      "slug": "level-5",
-      "title": "RAG",
-      "sourceFile": "level5-rag.txt",
-      "scope": "ground LLMs in external knowledge, improve retrieval quality, and learn the major RAG architectures used beyond a naive retrieve-and-generate pipeline.",
-      "prereqStated": null,
-      "phase": "retrieval",
-      "icon": "library-big",
-      "modules": [
-        {
-          "id": "M5.1",
-          "name": "RAG architecture & when to use it",
-          "sessionCount": 1,
-          "icon": "network",
-          "objectives": [
-            {
-              "text": "Understand the core pipeline: query → retrieve → assemble context → generate answer."
-            },
-            {
-              "text": "Understand what RAG solves: private knowledge, frequently changing information, large knowledge bases, and source-grounded answers."
-            },
-            {
-              "text": "Know when not to use RAG: when the model already knows enough, the task is purely transformational, or the required knowledge can simply fit in context."
-            },
-            {
-              "text": "Distinguish retrieval failure from generation failure."
-            }
-          ],
-          "notes": [],
-          "isCapstone": false,
-          "isGap": false,
-          "outcome": "Decide whether a problem genuinely needs RAG."
-        },
-        {
-          "id": "M5.2",
-          "name": "Baseline RAG from scratch",
-          "sessionCount": 2,
-          "icon": "hammer",
-          "objectives": [
-            {
-              "text": "Build a complete RAG pipeline manually using the retrieval system from Level 4."
-            },
-            {
-              "text": "Retrieve top-k chunks, assemble them into the prompt, and generate an answer grounded in the retrieved context."
-            },
-            {
-              "text": "Design prompts that instruct the model to answer from supplied evidence and avoid unsupported claims."
-            },
-            {
-              "text": "Handle cases where retrieval returns weak, irrelevant, or insufficient context."
-            },
-            {
-              "text": "Understand the effect of k, chunk ordering, and total context size on answer quality."
-            }
-          ],
-          "notes": [],
-          "isCapstone": false,
-          "isGap": false,
-          "outcome": "Build a working RAG application without hiding the mechanics behind a framework."
-        },
-        {
-          "id": "M5.3",
-          "name": "Reranking",
-          "sessionCount": 2,
-          "icon": "arrow-down-up",
-          "objectives": [
-            {
-              "text": "Understand the two-stage pattern: retrieve many candidates → rerank → send the best chunks to the LLM."
-            },
-            {
-              "text": "Use cross-encoder or dedicated reranking models to reorder retrieved chunks."
-            },
-            {
-              "text": "Understand why reranking can improve relevance while adding latency and cost."
-            },
-            {
-              "text": "Compare retrieval with and without reranking and understand when reranking provides little benefit."
-            }
-          ],
-          "notes": [],
-          "isCapstone": false,
-          "isGap": false,
-          "outcome": "Improve the quality of context sent to the LLM without simply increasing the number of retrieved chunks."
-        },
-        {
-          "id": "M5.4",
-          "name": "Query transformation & RAG-Fusion",
-          "sessionCount": 2,
-          "icon": "shuffle",
-          "objectives": [
-            {
-              "text": "Understand why the user's original question is not always the best retrieval query."
-            },
-            {
-              "text": "Apply query rewriting, query expansion, multi-query retrieval, and HyDE."
-            },
-            {
-              "text": "Understand RAG-Fusion: generate multiple queries, retrieve for each, and combine rankings using techniques such as Reciprocal Rank Fusion."
-            },
-            {
-              "text": "Use multiple retrieval queries for ambiguous, multi-faceted, or poorly phrased questions."
-            },
-            {
-              "text": "Understand the trade-off between improved retrieval and additional LLM calls, latency, and cost."
-            },
-            {
-              "text": "Avoid query transformation when baseline retrieval already performs well."
-            }
-          ],
-          "notes": [],
-          "isCapstone": false,
-          "isGap": false,
-          "outcome": "Transform difficult user questions into better retrieval queries."
-        },
-        {
-          "id": "M5.5",
-          "name": "Grounding, citations & abstention",
-          "sessionCount": 1,
-          "icon": "quote",
-          "objectives": [
-            {
-              "text": "Generate answers grounded in retrieved evidence rather than unsupported model knowledge."
-            },
-            {
-              "text": "Attach claims to their supporting documents/chunks and produce useful source citations."
-            },
-            {
-              "text": "Understand that having citations is not the same as being grounded; the cited source must actually support the claim."
-            },
-            {
-              "text": "Detect insufficient evidence and respond with an appropriate “I don't know / insufficient information” instead of forcing an answer."
-            },
-            {
-              "text": "Keep retrieved evidence and model-generated synthesis clearly distinguishable."
-            }
-          ],
-          "notes": [],
-          "isCapstone": false,
-          "isGap": false,
-          "outcome": "Produce answers that are traceable to evidence and can abstain when the evidence is insufficient."
-        },
-        {
-          "id": "M5.6",
-          "name": "RAG variants & advanced patterns",
-          "sessionCount": 3,
-          "icon": "git-fork",
-          "objectives": [
-            {
-              "text": "Understand the progression from Naive RAG → Advanced RAG → adaptive/self-correcting RAG architectures."
-            },
-            {
-              "text": "Learn Self-RAG: retrieval is performed when needed and the model reflects on retrieved evidence and its generated response."
-            },
-            {
-              "text": "Learn CRAG (Corrective RAG): evaluate retrieved evidence and trigger corrective retrieval when the initial results are weak."
-            },
-            {
-              "text": "Learn Adaptive RAG: dynamically decide whether retrieval is required and which retrieval strategy should be used."
-            },
-            {
-              "text": "Understand iterative RAG, where retrieval and generation repeat until enough evidence has been gathered."
-            },
-            {
-              "text": "Understand multi-hop RAG, where answering requires several retrieval steps or combining evidence from multiple sources."
-            },
-            {
-              "text": "Learn Graph RAG: represent entities and relationships as a graph and retrieve/summarize information using graph structure rather than relying purely on vector similarity."
-            },
-            {
-              "text": "Build intuition for when Graph RAG is useful: highly connected knowledge, entity relationships, global questions, and information spread across many documents."
-            },
-            {
-              "text": "Compare advanced approaches on quality, complexity, latency, cost, and failure mode addressed rather than assuming more advanced RAG is always better."
-            }
-          ],
-          "notes": [],
-          "isCapstone": false,
-          "isGap": false,
-          "outcome": "Recognize major RAG variants and choose an architecture based on why baseline RAG is failing."
-        },
-        {
-          "id": "M5.7",
-          "name": "RAG with frameworks",
-          "sessionCount": 1,
-          "icon": "search",
-          "objectives": [
-            {
-              "text": "Rebuild the manually created RAG pipeline using LlamaIndex or LangChain."
-            },
-            {
-              "text": "Work with framework abstractions for ingestion, indexes, retrievers, rerankers, query engines, and citations."
-            },
-            {
-              "text": "Implement common RAG improvements such as reranking and query transformation using framework components."
-            },
-            {
-              "text": "Compare the framework implementation with the hand-built version on control, development speed, debugging, and complexity."
-            }
-          ],
-          "notes": [],
-          "isCapstone": false,
-          "isGap": false,
-          "outcome": "Use RAG frameworks productively while still understanding the retrieval and generation mechanics underneath them."
-        },
-        {
-          "id": "M5.8",
-          "name": "Capstone: Deploy an Advanced RAG Application",
-          "sessionCount": 1,
-          "icon": "flag",
-          "objectives": [
-            {
-              "text": "Build a document Q&A application over a real corpus with ingestion, chunking, retrieval, generation, citations, and abstention."
-            },
-            {
-              "text": "Establish a baseline RAG pipeline and add at least one meaningful improvement such as reranking, query transformation, RAG-Fusion, hybrid retrieval, or an advanced RAG variant."
-            },
-            {
-              "text": "Handle weak retrieval and insufficient evidence gracefully."
-            },
-            {
-              "text": "Track latency, token usage, and cost across the pipeline."
-            },
-            {
-              "text": "Deploy the application as an API or simple user interface."
-            }
-          ],
-          "notes": [],
-          "isCapstone": true,
-          "isGap": false,
-          "finalResult": "a complete RAG application that goes substantially beyond a basic retrieve → stuff context → generate demo."
-        }
-      ],
-      "stack": [
-        {
-          "label": "LangChain",
-          "kind": "tool"
-        },
-        {
-          "label": "LlamaIndex",
-          "kind": "tool"
-        },
-        {
-          "label": "chunking",
-          "kind": "concept"
-        },
-        {
-          "label": "hybrid retrieval",
-          "kind": "concept"
-        },
-        {
-          "label": "RRF",
-          "kind": "concept"
         },
         {
           "label": "reranking",
@@ -2079,10 +2036,20 @@
           "kind": "concept"
         }
       ],
-      "project": "M5.8",
-      "totalSessions": 13,
+      "project": "M4.8",
+      "totalSessions": 28,
       "statedSessions": null,
       "completionOutcomes": [
+        "Convert messy documents into retrieval-ready data.",
+        "Choose and tune an appropriate chunking strategy.",
+        "Understand and generate embeddings.",
+        "Build semantic search from first principles.",
+        "Use vector databases and understand ANN search conceptually.",
+        "Use metadata filtering effectively.",
+        "Understand BM25 and lexical retrieval.",
+        "Build dense, sparse, and hybrid retrieval systems.",
+        "Measure retrieval quality using Recall@k.",
+        "Improve retrieval based on evidence rather than intuition.",
         "Decide when RAG is and is not the right architecture.",
         "Build a complete RAG pipeline from scratch.",
         "Understand how retrieval quality affects generation quality.",
@@ -2097,17 +2064,17 @@
       "todos": []
     },
     {
-      "number": 6,
-      "slug": "level-6",
+      "number": 5,
+      "slug": "level-5",
       "title": "AI Agents",
-      "sourceFile": "level6-agents.txt",
+      "sourceFile": "level5-agents.txt",
       "scope": "build systems where models can decide what to do next, use tools, maintain state, recover from failures, and collaborate with other agents. Planning · tools · MCP · memory · multi-agent · LangGraph.",
       "prereqStated": null,
       "phase": "agentic",
       "icon": "bot",
       "modules": [
         {
-          "id": "M6.1",
+          "id": "M5.1",
           "name": "What is an agent?",
           "sessionCount": 1,
           "icon": "book-open",
@@ -2134,7 +2101,7 @@
           "outcome": "Decide whether a problem genuinely requires an agent."
         },
         {
-          "id": "M6.2",
+          "id": "M5.2",
           "name": "ReAct, planning & reflection",
           "sessionCount": 2,
           "icon": "route",
@@ -2167,7 +2134,7 @@
           "outcome": "Build an agent capable of solving a multi-step task without hard-coding its exact execution path."
         },
         {
-          "id": "M6.3",
+          "id": "M5.3",
           "name": "Tools for agents",
           "sessionCount": 2,
           "icon": "wrench",
@@ -2200,7 +2167,7 @@
           "outcome": "Give an agent useful capabilities without giving it uncontrolled access to the underlying application."
         },
         {
-          "id": "M6.4",
+          "id": "M5.4",
           "name": "MCP (Model Context Protocol)",
           "sessionCount": 3,
           "icon": "plug-zap",
@@ -2233,7 +2200,7 @@
           "outcome": "Build a reusable MCP integration that can expose a real system to compatible AI applications."
         },
         {
-          "id": "M6.5",
+          "id": "M5.5",
           "name": "Memory basics",
           "sessionCount": 2,
           "icon": "save",
@@ -2269,7 +2236,7 @@
           "outcome": "Build an agent that remembers relevant information during and across interactions."
         },
         {
-          "id": "M6.6",
+          "id": "M5.6",
           "name": "Multi-agent architectures",
           "sessionCount": 3,
           "icon": "users",
@@ -2317,7 +2284,7 @@
           "outcome": "Design multi-agent systems only when decomposition or specialization actually justifies the additional complexity."
         },
         {
-          "id": "M6.7",
+          "id": "M5.7",
           "name": "Building agents with LangGraph",
           "sessionCount": 3,
           "icon": "git-branch",
@@ -2359,7 +2326,7 @@
           "outcome": "Build a controllable, stateful, resumable agent with explicit execution logic."
         },
         {
-          "id": "M6.8",
+          "id": "M5.8",
           "name": "Sandboxed execution",
           "sessionCount": 1,
           "icon": "terminal",
@@ -2386,7 +2353,7 @@
           "outcome": "Give an agent code-execution capabilities without exposing the host system unnecessarily."
         },
         {
-          "id": "M6.9",
+          "id": "M5.9",
           "name": "Agent reliability, UX & failure recovery",
           "sessionCount": 2,
           "icon": "life-buoy",
@@ -2422,7 +2389,7 @@
           "outcome": "Build agents that fail predictably, recover gracefully, and keep the user informed and in control."
         },
         {
-          "id": "M6.10",
+          "id": "M5.10",
           "name": "Agent frameworks & libraries",
           "sessionCount": 2,
           "icon": "boxes",
@@ -2513,7 +2480,7 @@
           "outcome": "Understand the agent-framework landscape and choose a framework based on architecture rather than popularity."
         },
         {
-          "id": "M6.11",
+          "id": "M5.11",
           "name": "Capstone: Build a Production-Style Agent",
           "sessionCount": 1,
           "icon": "flag",
@@ -2656,7 +2623,7 @@
           "kind": "concept"
         }
       ],
-      "project": "M6.11",
+      "project": "M5.11",
       "totalSessions": 22,
       "statedSessions": null,
       "completionOutcomes": [
@@ -2678,17 +2645,17 @@
       "todos": []
     },
     {
-      "number": 7,
-      "slug": "level-7",
+      "number": 6,
+      "slug": "level-6",
       "title": "Context Engineering",
-      "sourceFile": "level7-context-engineering.txt",
+      "sourceFile": "level6-context-engineering.txt",
       "scope": "manage the model’s limited context window deliberately — decide what enters, what stays, what gets compressed, and what gets moved outside.",
       "prereqStated": null,
       "phase": "agentic",
       "icon": "layout-panel-left",
       "modules": [
         {
-          "id": "M7.1",
+          "id": "M6.1",
           "name": "The context window as a resource",
           "sessionCount": 1,
           "icon": "gauge",
@@ -2712,7 +2679,7 @@
           "outcome": "Diagnose when model degradation is really a context-management problem."
         },
         {
-          "id": "M7.2",
+          "id": "M6.2",
           "name": "Context selection & assembly",
           "sessionCount": 2,
           "icon": "list-filter",
@@ -2739,7 +2706,7 @@
           "outcome": "Construct the smallest useful context for the current model decision."
         },
         {
-          "id": "M7.3",
+          "id": "M6.3",
           "name": "Compression & compaction",
           "sessionCount": 2,
           "icon": "archive",
@@ -2766,7 +2733,7 @@
           "outcome": "Reduce context size without losing task-critical information."
         },
         {
-          "id": "M7.4",
+          "id": "M6.4",
           "name": "Memory & state offloading",
           "sessionCount": 2,
           "icon": "save",
@@ -2793,7 +2760,7 @@
           "outcome": "Build systems that do not require the entire task history to remain inside the model’s context."
         },
         {
-          "id": "M7.5",
+          "id": "M6.5",
           "name": "Long-context strategies",
           "sessionCount": 1,
           "icon": "scroll-text",
@@ -2817,7 +2784,7 @@
           "outcome": "Choose an appropriate strategy for very long documents, conversations, and agent runs."
         },
         {
-          "id": "M7.6",
+          "id": "M6.6",
           "name": "Tool context management",
           "sessionCount": 1,
           "icon": "wrench",
@@ -2844,7 +2811,7 @@
           "outcome": "Keep tool-heavy agents coherent without letting their action history overwhelm the context."
         },
         {
-          "id": "M7.7",
+          "id": "M6.7",
           "name": "Context caching & efficiency",
           "sessionCount": 1,
           "icon": "database-zap",
@@ -2871,13 +2838,13 @@
           "outcome": "Make large-context applications more efficient without sacrificing quality."
         },
         {
-          "id": "M7.8",
+          "id": "M6.8",
           "name": "Capstone: Context-Managed Long-Horizon Agent",
           "sessionCount": 1,
           "icon": "flag",
           "objectives": [
             {
-              "text": "Take a tool-using agent from Level 6 and run it through a long task where naive context accumulation causes degradation."
+              "text": "Take a tool-using agent from Level 5 and run it through a long task where naive context accumulation causes degradation."
             },
             {
               "text": "Define an explicit context budget and dynamically decide what to keep, retrieve, compress, offload, or discard."
@@ -2912,7 +2879,7 @@
           "kind": "concept"
         }
       ],
-      "project": "M7.8",
+      "project": "M6.8",
       "totalSessions": 11,
       "statedSessions": null,
       "completionOutcomes": [
@@ -2930,17 +2897,17 @@
       "todos": []
     },
     {
-      "number": 8,
-      "slug": "level-8",
+      "number": 7,
+      "slug": "level-7",
       "title": "LLM Evaluations",
-      "sourceFile": "level8-llm-evals.txt",
+      "sourceFile": "level7-llm-evals.txt",
       "scope": "Design, execute, and automate comprehensive evaluations for Large Language Models and AI applications to ensure quality, safety, and reliability in production environments.",
       "prereqStated": null,
       "phase": "trust",
       "icon": "flask-conical",
       "modules": [
         {
-          "id": "M8.1",
+          "id": "M7.1",
           "name": "Introduction to LLM evaluations",
           "sessionCount": 1,
           "icon": "book-open",
@@ -2964,7 +2931,7 @@
           "outcome": "Understand the foundational need for and workflow of LLM evaluations compared to traditional software testing."
         },
         {
-          "id": "M8.2",
+          "id": "M7.2",
           "name": "Evaluation methods & paradigms",
           "sessionCount": 1,
           "icon": "ruler",
@@ -2988,7 +2955,7 @@
           "outcome": "Select the appropriate evaluation execution method and paradigm for a given LLM testing scenario."
         },
         {
-          "id": "M8.3",
+          "id": "M7.3",
           "name": "Offline vs online evaluations",
           "sessionCount": 2,
           "icon": "arrow-left-right",
@@ -3015,7 +2982,7 @@
           "outcome": "Design a dual-layer evaluation strategy that catches regressions before release and monitors quality after deployment."
         },
         {
-          "id": "M8.4",
+          "id": "M7.4",
           "name": "Model evaluations & benchmarking",
           "sessionCount": 1,
           "icon": "chart-column",
@@ -3039,7 +3006,7 @@
           "outcome": "Critically assess public LLM benchmarks and understand how core model capabilities are formally measured."
         },
         {
-          "id": "M8.5",
+          "id": "M7.5",
           "name": "The evolution of knowledge benchmarks",
           "sessionCount": 1,
           "icon": "trending-up",
@@ -3063,7 +3030,7 @@
           "outcome": "Understand the progression of knowledge benchmarks and select appropriate tests for increasingly capable models."
         },
         {
-          "id": "M8.6",
+          "id": "M7.6",
           "name": "Custom model evaluations",
           "sessionCount": 1,
           "icon": "crosshair",
@@ -3093,7 +3060,7 @@
           "outcome": "Evaluate and select the most capable and cost-effective foundation model for a specific application."
         },
         {
-          "id": "M8.7",
+          "id": "M7.7",
           "name": "Building an eval suite & regression testing",
           "sessionCount": 2,
           "icon": "list-checks",
@@ -3123,7 +3090,7 @@
           "outcome": "Build an automated evaluation suite that prevents regressions and improves continuously from real-world usage."
         },
         {
-          "id": "M8.8",
+          "id": "M7.8",
           "name": "RAG Evals",
           "sessionCount": 5,
           "icon": "search-check",
@@ -3238,7 +3205,7 @@
           "outcome": "Evaluate a RAG application comprehensively across retrieval quality, generator behavior, pipeline interaction, user-facing quality, operational performance, and safety."
         },
         {
-          "id": "M8.9",
+          "id": "M7.9",
           "name": "Agent Evals",
           "sessionCount": 3,
           "icon": "bot",
@@ -3463,17 +3430,17 @@
       ]
     },
     {
-      "number": 9,
-      "slug": "level-9",
+      "number": 8,
+      "slug": "level-8",
       "title": "AI Security",
-      "sourceFile": "level9-ai-security.txt",
+      "sourceFile": "level8-ai-security.txt",
       "scope": "secure LLM, RAG, and agent systems against model-specific attacks, unsafe actions, data leakage, and regulatory risk.",
       "prereqStated": null,
       "phase": "trust",
       "icon": "shield-half",
       "modules": [
         {
-          "id": "M9.1",
+          "id": "M8.1",
           "name": "AI threat model",
           "sessionCount": 1,
           "icon": "shield",
@@ -3494,7 +3461,7 @@
           "outcome": "Threat-model an LLM application before adding defenses."
         },
         {
-          "id": "M9.2",
+          "id": "M8.2",
           "name": "Prompt injection & data exfiltration",
           "sessionCount": 3,
           "icon": "bug",
@@ -3521,7 +3488,7 @@
           "outcome": "Build applications that remain safe even when malicious instructions reach the model."
         },
         {
-          "id": "M9.3",
+          "id": "M8.3",
           "name": "Jailbreaks, guardrails & moderation",
           "sessionCount": 2,
           "icon": "bug",
@@ -3545,7 +3512,7 @@
           "outcome": "Reduce unsafe model behavior without relying on a single defensive prompt."
         },
         {
-          "id": "M9.4",
+          "id": "M8.4",
           "name": "Agent & tool security",
           "sessionCount": 2,
           "icon": "shield",
@@ -3575,7 +3542,7 @@
           "outcome": "Give agents useful autonomy without giving them unrestricted control over real systems."
         },
         {
-          "id": "M9.5",
+          "id": "M8.5",
           "name": "RAG & knowledge security",
           "sessionCount": 1,
           "icon": "shield",
@@ -3602,7 +3569,7 @@
           "outcome": "Secure the knowledge layer underneath a RAG application."
         },
         {
-          "id": "M9.6",
+          "id": "M8.6",
           "name": "Data privacy, PII & secrets",
           "sessionCount": 2,
           "icon": "lock",
@@ -3629,7 +3596,7 @@
           "outcome": "Minimize the amount of sensitive information exposed throughout an AI system."
         },
         {
-          "id": "M9.7",
+          "id": "M8.7",
           "name": "Red teaming AI systems",
           "sessionCount": 2,
           "icon": "bug",
@@ -3656,7 +3623,7 @@
           "outcome": "Test defenses adversarially instead of assuming they work."
         },
         {
-          "id": "M9.8",
+          "id": "M8.8",
           "name": "Responsible AI & governance",
           "sessionCount": 1,
           "icon": "scale",
@@ -3680,7 +3647,7 @@
           "outcome": "Recognize when an AI application creates governance or compliance obligations."
         },
         {
-          "id": "M9.9",
+          "id": "M8.9",
           "name": "Capstone: Red-Team & Secure an Agentic RAG App",
           "sessionCount": 1,
           "icon": "flag",
@@ -3787,7 +3754,7 @@
           "kind": "concept"
         }
       ],
-      "project": "M9.9",
+      "project": "M8.9",
       "totalSessions": 15,
       "statedSessions": null,
       "completionOutcomes": [
@@ -3804,17 +3771,17 @@
       "todos": []
     },
     {
-      "number": 10,
-      "slug": "level-10",
+      "number": 9,
+      "slug": "level-9",
       "title": "AI System Design",
-      "sourceFile": "level10-ai-system-design.txt",
+      "sourceFile": "level9-ai-system-design.txt",
       "scope": "design a complete production AI application and defend every architectural choice across quality, latency, cost, reliability, and user experience.",
       "prereqStated": null,
       "phase": "production",
       "icon": "network",
       "modules": [
         {
-          "id": "M10.1",
+          "id": "M9.1",
           "name": "The AI system design framework",
           "sessionCount": 2,
           "icon": "boxes",
@@ -3838,7 +3805,7 @@
           "outcome": "Turn a product requirement into a defensible AI architecture rather than starting with a favorite technology."
         },
         {
-          "id": "M10.2",
+          "id": "M9.2",
           "name": "Context & knowledge architecture",
           "sessionCount": 2,
           "icon": "network",
@@ -3865,7 +3832,7 @@
           "outcome": "Design the knowledge layer that supplies the model with the right information at the right time."
         },
         {
-          "id": "M10.3",
+          "id": "M9.3",
           "name": "Model routing & gateways",
           "sessionCount": 2,
           "icon": "git-fork",
@@ -3894,7 +3861,7 @@
           "outcome": "Avoid designing applications around a single hard-coded model."
         },
         {
-          "id": "M10.4",
+          "id": "M9.4",
           "name": "Latency & inference optimization",
           "sessionCount": 2,
           "icon": "zap",
@@ -3926,7 +3893,7 @@
           "outcome": "Identify where an AI application is slow and choose the appropriate optimization instead of simply upgrading infrastructure."
         },
         {
-          "id": "M10.5",
+          "id": "M9.5",
           "name": "Caching architecture",
           "sessionCount": 1,
           "icon": "database-zap",
@@ -3955,7 +3922,7 @@
           "outcome": "Use caching as an architectural optimization rather than an afterthought."
         },
         {
-          "id": "M10.6",
+          "id": "M9.6",
           "name": "Reliability, guardrails & graceful degradation",
           "sessionCount": 2,
           "icon": "shield-half",
@@ -3985,7 +3952,7 @@
           "outcome": "Design a system that remains useful when individual AI components fail."
         },
         {
-          "id": "M10.7",
+          "id": "M9.7",
           "name": "AI pipeline orchestration",
           "sessionCount": 1,
           "icon": "network",
@@ -4014,7 +3981,7 @@
           "outcome": "Turn individual AI components into a coherent production system."
         },
         {
-          "id": "M10.8",
+          "id": "M9.8",
           "name": "Monitoring, feedback & continuous improvement",
           "sessionCount": 1,
           "icon": "activity",
@@ -4046,7 +4013,7 @@
           "outcome": "Design AI products that improve from real-world usage rather than remaining static after launch."
         },
         {
-          "id": "M10.9",
+          "id": "M9.9",
           "name": "AI system design case studies",
           "sessionCount": 2,
           "icon": "network",
@@ -4153,7 +4120,7 @@
           "outcome": "Defend architectural decisions rather than merely draw boxes and arrows."
         },
         {
-          "id": "M10.10",
+          "id": "M9.10",
           "name": "Capstone: AI System Design Document",
           "sessionCount": 1,
           "icon": "flag",
@@ -4260,7 +4227,7 @@
           "kind": "concept"
         }
       ],
-      "project": "M10.10",
+      "project": "M9.10",
       "totalSessions": 16,
       "statedSessions": null,
       "completionOutcomes": [
@@ -4279,17 +4246,17 @@
       "todos": []
     },
     {
-      "number": 11,
-      "slug": "level-11",
+      "number": 10,
+      "slug": "level-10",
       "title": "LLMOps: From Development to Production",
-      "sourceFile": "level11-llmops.txt",
+      "sourceFile": "level10-llmops.txt",
       "scope": "Launch, test, watch, and protect Large Language Model apps in the real world while managing changing outputs, prompt updates, and the special behaviors of RAG and Agent systems.",
       "prereqStated": null,
       "phase": "production",
       "icon": "gauge",
       "modules": [
         {
-          "id": "M11.1",
+          "id": "M10.1",
           "name": "Foundations of LLMOps",
           "sessionCount": 1,
           "icon": "book-open",
@@ -4325,7 +4292,7 @@
           "outcome": "Understand the full journey of an LLM application and the complete LLMOps toolkit before writing any code."
         },
         {
-          "id": "M11.2",
+          "id": "M10.2",
           "name": "Application development",
           "sessionCount": 1,
           "icon": "hammer",
@@ -4346,7 +4313,7 @@
           "outcome": "Set up the basic RAG and Agent apps that we will improve and put online in later steps."
         },
         {
-          "id": "M11.3",
+          "id": "M10.3",
           "name": "Evaluation",
           "sessionCount": 3,
           "icon": "flask-conical",
@@ -4373,7 +4340,7 @@
           "outcome": "Measure the quality of your LLM apps automatically without needing humans to check every answer."
         },
         {
-          "id": "M11.4",
+          "id": "M10.4",
           "name": "Experiment tracking & prompt versioning",
           "sessionCount": 2,
           "icon": "git-compare",
@@ -4400,7 +4367,7 @@
           "outcome": "Keep a clear, organized history of your prompts and app settings so you can easily repeat success."
         },
         {
-          "id": "M11.5",
+          "id": "M10.5",
           "name": "Guardrails & output safety",
           "sessionCount": 2,
           "icon": "shield-half",
@@ -4427,7 +4394,7 @@
           "outcome": "Check and fix inputs and outputs to make sure the LLM app is safe and reliable before users see the results."
         },
         {
-          "id": "M11.6",
+          "id": "M10.6",
           "name": "Application serving & containerization",
           "sessionCount": 3,
           "icon": "container",
@@ -4457,7 +4424,7 @@
           "outcome": "Upgrade the apps into a fast, streaming, and easily movable container setup."
         },
         {
-          "id": "M11.7",
+          "id": "M10.7",
           "name": "CI/CD with GitHub Actions",
           "sessionCount": 2,
           "icon": "infinity",
@@ -4487,7 +4454,7 @@
           "outcome": "Automate your testing and building steps so only high-quality code goes live."
         },
         {
-          "id": "M11.8",
+          "id": "M10.8",
           "name": "Deployment on AWS",
           "sessionCount": 3,
           "icon": "cloud-upload",
@@ -4514,7 +4481,7 @@
           "outcome": "Launch your packed apps on AWS with automatic updates, traffic management, and scaling."
         },
         {
-          "id": "M11.9",
+          "id": "M10.9",
           "name": "Post-deployment monitoring",
           "sessionCount": 3,
           "icon": "activity",
@@ -4547,7 +4514,7 @@
           "outcome": "Keep a close watch on your live AWS setup, covering both the computer health and app speed."
         },
         {
-          "id": "M11.11",
+          "id": "M10.11",
           "name": "Capstone: LLMOps Project",
           "sessionCount": 4,
           "icon": "flag",
@@ -4690,7 +4657,7 @@
           "kind": "tool"
         }
       ],
-      "project": "M11.11",
+      "project": "M10.11",
       "totalSessions": 24,
       "statedSessions": null,
       "completionOutcomes": [
@@ -4705,17 +4672,17 @@
       "todos": []
     },
     {
-      "number": 12,
-      "slug": "level-12",
+      "number": 11,
+      "slug": "level-11",
       "title": "Advanced AI Systems (Multimodal)",
-      "sourceFile": "level12-advanced-ai-systems.txt",
+      "sourceFile": "level11-advanced-ai-systems.txt",
       "scope": "work across modalities and at the current shippable frontier.",
       "prereqStated": null,
       "phase": "frontier",
       "icon": "audio-lines",
       "modules": [
         {
-          "id": "M12.1",
+          "id": "M11.1",
           "name": "Multimodal foundations",
           "sessionCount": 1,
           "icon": "shapes",
@@ -4729,7 +4696,7 @@
           "isGap": false
         },
         {
-          "id": "M12.2",
+          "id": "M11.2",
           "name": "Vision & document understanding",
           "sessionCount": 3,
           "icon": "eye",
@@ -4746,7 +4713,7 @@
           "isGap": false
         },
         {
-          "id": "M12.3",
+          "id": "M11.3",
           "name": "Speech: STT & TTS",
           "sessionCount": 2,
           "icon": "mic",
@@ -4760,7 +4727,7 @@
           "isGap": false
         },
         {
-          "id": "M12.4",
+          "id": "M11.4",
           "name": "Realtime voice agents",
           "sessionCount": 3,
           "icon": "audio-lines",
@@ -4774,7 +4741,7 @@
           "isGap": false
         },
         {
-          "id": "M12.5",
+          "id": "M11.5",
           "name": "Image generation",
           "sessionCount": 1,
           "icon": "image",
@@ -4788,7 +4755,7 @@
           "isGap": false
         },
         {
-          "id": "M12.6",
+          "id": "M11.6",
           "name": "Deep research agents",
           "sessionCount": 2,
           "icon": "telescope",
@@ -4802,7 +4769,7 @@
           "isGap": false
         },
         {
-          "id": "M12.7",
+          "id": "M11.7",
           "name": "On-device / edge",
           "sessionCount": 1,
           "icon": "smartphone",
@@ -4816,7 +4783,7 @@
           "isGap": false
         },
         {
-          "id": "M12.8",
+          "id": "M11.8",
           "name": "Capstone: voice agent or multimodal pipeline",
           "sessionCount": 1,
           "icon": "flag",
@@ -4860,24 +4827,24 @@
           "kind": "concept"
         }
       ],
-      "project": "M12.8",
+      "project": "M11.8",
       "totalSessions": 14,
       "statedSessions": null,
       "completionOutcomes": [],
       "todos": []
     },
     {
-      "number": 13,
-      "slug": "level-13",
+      "number": 12,
+      "slug": "level-12",
       "title": "Fine-Tuning",
-      "sourceFile": "level13-fine-tuning.txt",
+      "sourceFile": "level12-fine-tuning.txt",
       "scope": "the prompt-vs-RAG-vs-fine-tune call, and a small tune when an eval justifies it.",
       "prereqStated": null,
       "phase": "frontier",
       "icon": "sliders-horizontal",
       "modules": [
         {
-          "id": "M13.1",
+          "id": "M12.1",
           "name": "Should you fine-tune?",
           "sessionCount": 1,
           "icon": "circle-question-mark",
@@ -4891,7 +4858,7 @@
           "isGap": false
         },
         {
-          "id": "M13.2",
+          "id": "M12.2",
           "name": "Data curation for fine-tuning",
           "sessionCount": 2,
           "icon": "file-text",
@@ -4905,7 +4872,7 @@
           "isGap": false
         },
         {
-          "id": "M13.3",
+          "id": "M12.3",
           "name": "SFT & LoRA/QLoRA",
           "sessionCount": 3,
           "icon": "sliders-horizontal",
@@ -4919,7 +4886,7 @@
           "isGap": false
         },
         {
-          "id": "M13.4",
+          "id": "M12.4",
           "name": "Preference tuning: DPO",
           "sessionCount": 2,
           "icon": "thumbs-up",
@@ -4933,7 +4900,7 @@
           "isGap": false
         },
         {
-          "id": "M13.5",
+          "id": "M12.5",
           "name": "Reinforcement fine-tuning (RFT)",
           "sessionCount": 1,
           "icon": "award",
@@ -4947,7 +4914,7 @@
           "isGap": false
         },
         {
-          "id": "M13.6",
+          "id": "M12.6",
           "name": "Distillation",
           "sessionCount": 1,
           "icon": "shrink",
@@ -4961,13 +4928,13 @@
           "isGap": false
         },
         {
-          "id": "M13.7",
+          "id": "M12.7",
           "name": "Evaluating fine-tunes",
           "sessionCount": 1,
           "icon": "flask-conical",
           "objectives": [
             {
-              "text": "Measure before/after on Level-8 evals and catch regressions."
+              "text": "Measure before/after on Level-7 evals and catch regressions."
             }
           ],
           "notes": [],
@@ -4975,7 +4942,7 @@
           "isGap": false
         },
         {
-          "id": "M13.8",
+          "id": "M12.8",
           "name": "Capstone: a LoRA that beats a prompted baseline",
           "sessionCount": 1,
           "icon": "flag",
@@ -5027,30 +4994,30 @@
           "kind": "concept"
         }
       ],
-      "project": "M13.8",
+      "project": "M12.8",
       "totalSessions": 12,
       "statedSessions": null,
       "completionOutcomes": [],
       "todos": []
     },
     {
-      "number": 14,
-      "slug": "level-14",
+      "number": 13,
+      "slug": "level-13",
       "title": "Projects",
-      "sourceFile": "level14-projects.txt",
+      "sourceFile": "level13-projects.txt",
       "scope": "proof, not concepts. Portfolio builds that compose earlier levels. Ship 3–5 public.",
       "prereqStated": null,
       "phase": "frontier",
       "icon": "trophy",
       "modules": [
         {
-          "id": "P14.1",
+          "id": "P13.1",
           "name": "Document Q&A platform",
           "sessionCount": 3,
           "icon": "messages-square",
           "objectives": [
             {
-              "text": "Compose L4–L5 with FastAPI and a retrieval eval; deploy publicly."
+              "text": "Compose L4 with FastAPI and a retrieval eval; deploy publicly."
             }
           ],
           "notes": [],
@@ -5058,7 +5025,7 @@
           "isGap": false
         },
         {
-          "id": "P14.2",
+          "id": "P13.2",
           "name": "Resume ↔ JD screening agent",
           "sessionCount": 2,
           "icon": "briefcase",
@@ -5072,13 +5039,13 @@
           "isGap": false
         },
         {
-          "id": "P14.3",
+          "id": "P13.3",
           "name": "Multi-agent research report system",
           "sessionCount": 3,
           "icon": "users",
           "objectives": [
             {
-              "text": "Show LangGraph orchestration and state management (L6)."
+              "text": "Show LangGraph orchestration and state management (L5)."
             }
           ],
           "notes": [],
@@ -5086,7 +5053,7 @@
           "isGap": false
         },
         {
-          "id": "P14.4",
+          "id": "P13.4",
           "name": "MCP server for a real tool",
           "sessionCount": 2,
           "icon": "plug-zap",
@@ -5100,13 +5067,13 @@
           "isGap": false
         },
         {
-          "id": "P14.5",
+          "id": "P13.5",
           "name": "Monitored production API",
           "sessionCount": 2,
           "icon": "activity",
           "objectives": [
             {
-              "text": "Tell the ops story: routing, fallback, cost caps, tracing (L11)."
+              "text": "Tell the ops story: routing, fallback, cost caps, tracing (L10)."
             }
           ],
           "notes": [],
@@ -5114,13 +5081,13 @@
           "isGap": false
         },
         {
-          "id": "P14.6",
+          "id": "P13.6",
           "name": "Voice or multimodal build",
           "sessionCount": 3,
           "icon": "audio-lines",
           "objectives": [
             {
-              "text": "Ship a realtime voice agent or a vision pipeline (L12)."
+              "text": "Ship a realtime voice agent or a vision pipeline (L11)."
             }
           ],
           "notes": [],
@@ -5128,7 +5095,7 @@
           "isGap": false
         },
         {
-          "id": "P14.7",
+          "id": "P13.7",
           "name": "Portfolio & positioning",
           "sessionCount": 1,
           "icon": "flag",

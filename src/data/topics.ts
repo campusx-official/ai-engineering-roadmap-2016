@@ -381,27 +381,26 @@ export const topics: Record<string, TopicSet> = {
     'Deploying a search API or UI',
   ] },
 
-  /* ---------------------------------------------------------------- level 5 */
-  'M5.1': { sig: '6779fd7f', labels: [
+  'M4.9': { sig: '6779fd7f', labels: [
     'The core RAG pipeline',
     'What RAG solves',
     'When not to use RAG',
     'Retrieval failure vs generation failure',
   ] },
-  'M5.2': { sig: 'b1b819f2', labels: [
+  'M4.10': { sig: '00f28e73', labels: [
     'Building the pipeline by hand',
     'Retrieve, assemble, generate',
     'Prompting for grounded answers',
     'Handling weak or missing context',
     'The effect of k and chunk ordering',
   ] },
-  'M5.3': { sig: 'eaf01646', labels: [
+  'M4.11': { sig: 'eaf01646', labels: [
     'Retrieve many, rerank, send the best',
     'Cross-encoder & reranking models',
     'Relevance gained, latency added',
     'When reranking adds little',
   ] },
-  'M5.4': { sig: '850d377d', labels: [
+  'M4.12': { sig: '850d377d', labels: [
     'Why the user question is a poor query',
     'Rewriting, expansion, multi-query & HyDE',
     'RAG-Fusion',
@@ -409,14 +408,14 @@ export const topics: Record<string, TopicSet> = {
     'The extra calls it costs',
     'When to skip transformation',
   ] },
-  'M5.5': { sig: '5706e473', labels: [
+  'M4.13': { sig: '5706e473', labels: [
     'Answering from evidence',
     'Attaching claims to sources',
     'Citations are not grounding',
     'Abstaining on insufficient evidence',
     'Keeping evidence and synthesis distinct',
   ] },
-  'M5.6': { sig: '8072a42f', labels: [
+  'M4.14': { sig: '8072a42f', labels: [
     'Naive → Advanced → adaptive RAG',
     'Self-RAG',
     'CRAG (Corrective RAG)',
@@ -427,13 +426,13 @@ export const topics: Record<string, TopicSet> = {
     'When Graph RAG is useful',
     'Choosing by failure mode, not novelty',
   ] },
-  'M5.7': { sig: 'a9f10b29', labels: [
+  'M4.15': { sig: 'a9f10b29', labels: [
     'Rebuilding with LlamaIndex or LangChain',
     'Indexes, retrievers & query engines',
     'Framework reranking & query transforms',
     'Framework vs hand-built',
   ] },
-  'M5.8': { sig: 'edf7066d', labels: [
+  'M4.16': { sig: 'edf7066d', labels: [
     'A document Q&A app end to end',
     'A baseline plus one real improvement',
     'Degrading gracefully on weak evidence',
@@ -441,15 +440,15 @@ export const topics: Record<string, TopicSet> = {
     'Deploying as an API or UI',
   ] },
 
-  /* ---------------------------------------------------------------- level 6 */
-  'M6.1': { sig: 'a07f93fe', labels: [
+  /* ---------------------------------------------------------------- level 5 */
+  'M5.1': { sig: 'a07f93fe', labels: [
     'The agent loop',
     'Call vs chain vs workflow vs agent',
     'Where agents are useful',
     'When a workflow is better',
     'The components of an agent',
   ] },
-  'M6.2': { sig: '1392f418', labels: [
+  'M5.2': { sig: '1392f418', labels: [
     'The ReAct pattern',
     'Writing the loop by hand first',
     'Step-by-step vs plan-first',
@@ -458,7 +457,7 @@ export const topics: Record<string, TopicSet> = {
     'Stopping conditions & loop protection',
     'What planning costs',
   ] },
-  'M6.3': { sig: '0295084e', labels: [
+  'M5.3': { sig: '0295084e', labels: [
     'From tool calling to agentic tool use',
     'Designing tools for agents',
     'Improving selection & arguments',
@@ -467,7 +466,7 @@ export const topics: Record<string, TopicSet> = {
     'Limiting tool-result size',
     'Read-only vs consequential tools',
   ] },
-  'M6.4': { sig: '1faac979', labels: [
+  'M5.4': { sig: '1faac979', labels: [
     'Why MCP exists',
     'Host → client → server',
     'Tool calling vs MCP',
@@ -476,7 +475,7 @@ export const topics: Record<string, TopicSet> = {
     'Building and connecting a client',
     'Permissions & untrusted servers',
   ] },
-  'M6.5': { sig: '7e490706', labels: [
+  'M5.5': { sig: '7e490706', labels: [
     'History, state, short- & long-term memory',
     'Short-term memory',
     'Long-term memory',
@@ -486,7 +485,7 @@ export const topics: Record<string, TopicSet> = {
     'Trimming & summarizing growth',
     'Offloading comes later',
   ] },
-  'M6.6': { sig: '2db54875', labels: [
+  'M5.6': { sig: '2db54875', labels: [
     'Why more than one agent',
     'Common patterns',
     'Orchestrator → workers',
@@ -500,7 +499,7 @@ export const topics: Record<string, TopicSet> = {
     'A2A vs MCP',
     'When one strong agent is better',
   ] },
-  'M6.7': { sig: '86786a68', labels: [
+  'M5.7': { sig: '86786a68', labels: [
     'What LangGraph is for',
     'State, nodes & edges',
     'Building nodes',
@@ -512,14 +511,14 @@ export const topics: Record<string, TopicSet> = {
     'Inspecting state to debug',
     'When a graph beats a loop',
   ] },
-  'M6.8': { sig: '3358d0a6', labels: [
+  'M5.8': { sig: '3358d0a6', labels: [
     'Why generated code must not run in-process',
     'Sandboxes: E2B, Modal & containers',
     'Restricting filesystem, network & time',
     'Capturing output safely',
     'Reducing the blast radius',
   ] },
-  'M6.9': { sig: 'cadee931', labels: [
+  'M5.9': { sig: 'cadee931', labels: [
     'Common agent failures',
     'Step, time, retry & cost budgets',
     'Idempotent operations',
@@ -529,7 +528,7 @@ export const topics: Record<string, TopicSet> = {
     'Cancel, pause, resume, redirect',
     'Understandable without exposing reasoning',
   ] },
-  'M6.10': { sig: '1549029b', labels: [
+  'M5.10': { sig: '1549029b', labels: [
     'One agent, several frameworks',
     'Graph-based, stateful orchestration',
     'Where explicit control flow wins',
@@ -551,7 +550,7 @@ export const topics: Record<string, TopicSet> = {
     'Deployment',
     'Vendor & model flexibility',
   ] },
-  'M6.11': { sig: '91c7e99b', labels: [
+  'M5.11': { sig: '91c7e99b', labels: [
     'Choosing a substantial project',
     'Option A · Research agent',
     'What to build',
@@ -573,55 +572,55 @@ export const topics: Record<string, TopicSet> = {
     'One framework, explained from first principles',
   ] },
 
-  /* ---------------------------------------------------------------- level 7 */
-  'M7.1': { sig: '9af4ab38', labels: [
+  /* ---------------------------------------------------------------- level 6 */
+  'M6.1': { sig: '9af4ab38', labels: [
     'Context as a budget',
     'Context rot & lost-in-the-middle',
     'Inspecting what actually enters',
     'Allocating the budget',
   ] },
-  'M7.2': { sig: 'c7b9e007', labels: [
+  'M6.2': { sig: 'c7b9e007', labels: [
     'Assembling the window deliberately',
     'Always present, retrieved, or excluded',
     'Prioritising what matters',
     'Ordering so sources stay distinguishable',
     'Cutting redundant & stale context',
   ] },
-  'M7.3': { sig: '965ae9b9', labels: [
+  'M6.3': { sig: '965ae9b9', labels: [
     'Summarizing history without losing goals',
     'Compacting large tool outputs',
     'Rolling & hierarchical summaries',
     'Preserving exact structured data',
     'Reduction vs information loss',
   ] },
-  'M7.4': { sig: 'd289f95f', labels: [
+  'M6.4': { sig: 'd289f95f', labels: [
     'Scratchpads, files & external stores',
     'Active context vs stored context',
     'Persisting plans & progress',
     'Note-taking agents',
     'Remembering vs freeing space',
   ] },
-  'M7.5': { sig: '89833536', labels: [
+  'M6.5': { sig: '89833536', labels: [
     'Why big windows do not solve it',
     'Managing lost-in-the-middle',
     'Stuffing vs retrieval vs summarization',
     'More context or better context',
   ] },
-  'M7.6': { sig: '9ab842a0', labels: [
+  'M6.6': { sig: '9ab842a0', labels: [
     'Tool definitions compete for space',
     'Exposing only relevant tools',
     'Filtering large tool outputs',
     'Keeping full results externally',
     'Stopping observation build-up',
   ] },
-  'M7.7': { sig: '6bacddf4', labels: [
+  'M6.7': { sig: '6bacddf4', labels: [
     'The cost of resending static context',
     'Structuring for cache hits',
     'Stable context vs changing state',
     'Cutting redundant tokens',
     'Measuring cache utilization',
   ] },
-  'M7.8': { sig: '001ea74e', labels: [
+  'M6.8': { sig: 'a3b43dcd', labels: [
     'A long task that degrades naively',
     'An explicit context budget',
     'Compaction, offloading & retrieval',
@@ -629,26 +628,26 @@ export const topics: Record<string, TopicSet> = {
     'Managed vs keep-everything comparison',
   ] },
 
-  /* ---------------------------------------------------------------- level 9 */
-  'M9.1': { sig: 'f1190dbb', labels: [
+  /* ---------------------------------------------------------------- level 8 */
+  'M8.1': { sig: 'f1190dbb', labels: [
     'How the attack surface changes',
     'Trust boundaries',
     'Model output is untrusted',
   ] },
-  'M9.2': { sig: '12304a9a', labels: [
+  'M8.2': { sig: '12304a9a', labels: [
     'Direct vs indirect injection',
     'What injection attacks attempt',
     'Untrusted input + tools + an exit path',
     'Layered defences',
     'Why "ignore malicious instructions" fails',
   ] },
-  'M9.3': { sig: '1c88c2e5', labels: [
+  'M8.3': { sig: '1c88c2e5', labels: [
     'Jailbreaks vs injection',
     'Input & output guardrails',
     'Why one layer is not enough',
     'Testing against obfuscated input',
   ] },
-  'M9.4': { sig: '6557da52', labels: [
+  'M8.4': { sig: '6557da52', labels: [
     'Least privilege for agents',
     'Read-only vs consequential actions',
     'Validating tool use outside the LLM',
@@ -656,34 +655,34 @@ export const topics: Record<string, TopicSet> = {
     'Step, runtime & cost limits',
     'Sandboxing generated code',
   ] },
-  'M9.5': { sig: 'b9b21e23', labels: [
+  'M8.5': { sig: 'b9b21e23', labels: [
     'Retrieved documents are data, not instructions',
     'Retrieval poisoning',
     'Document-level permissions',
     'Preventing cross-tenant leakage',
     'Preserving provenance',
   ] },
-  'M9.6': { sig: 'f26a66ab', labels: [
+  'M8.6': { sig: 'f26a66ab', labels: [
     'Identifying sensitive data',
     'Redaction & minimization',
     'Keeping PII out of logs & traces',
     'Retention, deletion & residency',
     'Protecting secrets from the model',
   ] },
-  'M9.7': { sig: '83956ade', labels: [
+  'M8.7': { sig: '83956ade', labels: [
     'Building adversarial test suites',
     'Attacking RAG through the corpus',
     'Attacking agents through their tools',
     'Vulnerabilities become regression tests',
     'Attack-success & leakage rates',
   ] },
-  'M9.8': { sig: '7c6e2ef9', labels: [
+  'M8.8': { sig: '7c6e2ef9', labels: [
     'Bias, transparency & human oversight',
     'Documenting use, limits & risks',
     'The EU AI Act & India\'s DPDP',
     'Auditability',
   ] },
-  'M9.9': { sig: '9d97764e', labels: [
+  'M8.9': { sig: '9d97764e', labels: [
     'Attack an app you already built',
     'Direct & indirect prompt injection',
     'Malicious retrieved documents',
@@ -701,28 +700,28 @@ export const topics: Record<string, TopicSet> = {
     'Security regression tests',
   ] },
 
-  /* --------------------------------------------------------------- level 10 */
-  'M10.1': { sig: '8105b2a8', labels: [
+  /* --------------------------------------------------------------- level 9 */
+  'M9.1': { sig: '8105b2a8', labels: [
     'Starting from requirements & constraints',
     'Prompting, RAG, agents or fine-tuning',
     'Quality ↔ latency ↔ cost',
     'Baseline before sophistication',
   ] },
-  'M10.2': { sig: 'd0d671de', labels: [
+  'M9.2': { sig: 'd0d671de', labels: [
     'Where knowledge should come from',
     'The full context pipeline',
     'Combining retrieval approaches',
     'Freshness, access control & provenance',
     'Retrieved dynamically or held in context',
   ] },
-  'M10.3': { sig: '615f6eb0', labels: [
+  'M9.3': { sig: '615f6eb0', labels: [
     'What a model gateway does',
     'Routing on task, cost & risk',
     'Model cascades',
     'Provider fallbacks & quality risk',
     'Centralising auth, limits & tracking',
   ] },
-  'M10.4': { sig: '1779b4dc', labels: [
+  'M9.4': { sig: '1779b4dc', labels: [
     'Breaking latency into components',
     'Streaming for perceived latency',
     'Parallelising independent work',
@@ -730,14 +729,14 @@ export const topics: Record<string, TopicSet> = {
     'Context reduction & batching',
     'Throughput & utilization at scale',
   ] },
-  'M10.5': { sig: 'e4fe42de', labels: [
+  'M9.5': { sig: 'e4fe42de', labels: [
     'The four caches in an AI system',
     'What is safe to cache',
     'Semantic caching',
     'Freshness vs latency & cost',
     'Measuring the hit rate',
   ] },
-  'M10.6': { sig: '7fe430be', labels: [
+  'M9.6': { sig: '7fe430be', labels: [
     'Designing for every failure',
     'Timeouts, circuit breakers & queues',
     'Guardrails at system boundaries',
@@ -745,14 +744,14 @@ export const topics: Record<string, TopicSet> = {
     'Human approval for high-risk actions',
     'Service-level expectations',
   ] },
-  'M10.7': { sig: 'b49bf278', labels: [
+  'M9.7': { sig: 'b49bf278', labels: [
     'The end-to-end flow',
     'Deterministic vs model-delegated decisions',
     'Sync, async, queued or long-running',
     'Avoiding unnecessary agentic complexity',
     'Component boundaries',
   ] },
-  'M10.8': { sig: 'bd0501b9', labels: [
+  'M9.8': { sig: 'bd0501b9', labels: [
     'Wiring evals & feedback into production',
     'What to monitor',
     'Explicit & implicit feedback',
@@ -760,7 +759,7 @@ export const topics: Record<string, TopicSet> = {
     'Versioning for traceable regressions',
     'Deploy → observe → improve → redeploy',
   ] },
-  'M10.9': { sig: 'ed7a49cf', labels: [
+  'M9.9': { sig: 'ed7a49cf', labels: [
     'Whiteboard and defend the choices',
     'Design around',
     'RAG & fresh knowledge',
@@ -786,7 +785,7 @@ export const topics: Record<string, TopicSet> = {
     'Cost budgets & failure recovery',
     'Requirements → architecture → trade-offs',
   ] },
-  'M10.10': { sig: 'f587e0a6', labels: [
+  'M9.10': { sig: 'f587e0a6', labels: [
     'A complete design document',
     'Requirements & success criteria',
     'Expected traffic & constraints',
@@ -804,8 +803,8 @@ export const topics: Record<string, TopicSet> = {
     'A diagram and the rejected alternatives',
   ] },
 
-  /* --------------------------------------------------------------- level 11 */
-  'M11.1': { sig: 'd4d5181f', labels: [
+  /* --------------------------------------------------------------- level 10 */
+  'M10.1': { sig: 'd4d5181f', labels: [
     'What LLMOps is',
     'LLMOps vs MLOps',
     'Model LLMOps vs Application LLMOps',
@@ -815,33 +814,33 @@ export const topics: Record<string, TopicSet> = {
     'The LLMOps toolkit',
     'The two projects you will build',
   ] },
-  'M11.2': { sig: '34bb0914', labels: [
+  'M10.2': { sig: '34bb0914', labels: [
     'Building the RAG app',
     'Building the Agent app',
     'LangChain, LangGraph & Chroma',
   ] },
-  'M11.3': { sig: '426718e1', labels: [
+  'M10.3': { sig: '426718e1', labels: [
     'Synthetic test pairs with DeepEval',
     'Baseline scores in MLflow',
     'Scoring the RAG app',
     'Scoring the Agent app',
     'Alarms for quality regressions',
   ] },
-  'M11.4': { sig: 'd6c7083f', labels: [
+  'M10.4': { sig: 'd6c7083f', labels: [
     'Prompt versions in Langfuse',
     'Labelling versions per stage',
     'Settings as MLflow experiments',
     'Metrics & artifacts alongside parameters',
     'Comparing versions in a dashboard',
   ] },
-  'M11.5': { sig: 'ce981026', labels: [
+  'M10.5': { sig: 'ce981026', labels: [
     'Guardrails AI & NeMo Guardrails',
     'Enforcing strict output formats',
     'Blocking bad input & prompt injection',
     'Stopping hallucination & data leaks',
     'Limits on agent tool use & loops',
   ] },
-  'M11.6': { sig: 'bab6a2b7', labels: [
+  'M10.6': { sig: 'bab6a2b7', labels: [
     'Moving logic into a FastAPI backend',
     'Streamlit as a thin frontend',
     'Streaming responses',
@@ -849,7 +848,7 @@ export const topics: Record<string, TopicSet> = {
     'Docker Compose for both services',
     'Secrets in .env inside containers',
   ] },
-  'M11.7': { sig: '1dbbeb52', labels: [
+  'M10.7': { sig: '1dbbeb52', labels: [
     'Pipelines that gate production',
     'Running DeepEval on every push',
     'Blocking releases below threshold',
@@ -857,14 +856,14 @@ export const topics: Record<string, TopicSet> = {
     'Tagged images built after tests pass',
     'Publishing to Docker Hub',
   ] },
-  'M11.8': { sig: 'ed85c868', labels: [
+  'M10.8': { sig: 'ed85c868', labels: [
     'EC2 servers for LLM workloads',
     'Automated releases with CodeDeploy',
     'Load balancing with streaming',
     'Auto Scaling',
     'Keys in AWS Secrets Manager',
   ] },
-  'M11.9': { sig: '162abe44', labels: [
+  'M10.9': { sig: '162abe44', labels: [
     'Prometheus for health data',
     'Machine health with Node Exporter',
     'Application & LLM usage stats',
@@ -873,14 +872,14 @@ export const topics: Record<string, TopicSet> = {
     'Tracing logs, latency & token cost',
     'Frequent online evaluations',
   ] },
-  'M11.11': { sig: '1c41596f', labels: [
+  'M10.11': { sig: '1c41596f', labels: [
     'Choosing an Agent app',
     'Every LLMOps step end to end',
     'Build → test → track → secure → launch',
   ] },
 
-  /* ---------------------------------------------------------------- level 8 */
-  'M8.1': {
+  /* ---------------------------------------------------------------- level 7 */
+  'M7.1': {
     sig: '3027570c',
     labels: [
       'Pitfalls of vibe testing',
@@ -889,7 +888,7 @@ export const topics: Record<string, TopicSet> = {
       'The end-to-end evaluation workflow',
     ],
   },
-  'M8.2': {
+  'M7.2': {
     sig: '3730c8ab',
     labels: [
       'Programmatic, human & LLM-as-a-Judge',
@@ -898,7 +897,7 @@ export const topics: Record<string, TopicSet> = {
       'Matching method to behaviour',
     ],
   },
-  'M8.3': {
+  'M7.3': {
     sig: '0e9ca43e',
     labels: [
       'Offline suites for pre-release testing',
@@ -908,7 +907,7 @@ export const topics: Record<string, TopicSet> = {
       'Feeding failures back offline',
     ],
   },
-  'M8.4': {
+  'M7.4': {
     sig: 'c0880f9e',
     labels: [
       'Core LLM capabilities',
@@ -917,7 +916,7 @@ export const topics: Record<string, TopicSet> = {
       'Benchmark pitfalls',
     ],
   },
-  'M8.5': {
+  'M7.5': {
     sig: '5d24da86',
     labels: [
       'From MMLU to harder knowledge tests',
@@ -926,7 +925,7 @@ export const topics: Record<string, TopicSet> = {
       'Why benchmarks keep getting harder',
     ],
   },
-  'M8.6': {
+  'M7.6': {
     sig: '9ff2f9f8',
     labels: [
       'Evaluating on your actual task',
@@ -937,7 +936,7 @@ export const topics: Record<string, TopicSet> = {
       'Quality / latency / cost trade-off',
     ],
   },
-  'M8.7': {
+  'M7.7': {
     sig: '04987a37',
     labels: [
       'Component, pipeline & application levels',
@@ -948,7 +947,7 @@ export const topics: Record<string, TopicSet> = {
       'Quality alongside latency & cost',
     ],
   },
-  'M8.8': {
+  'M7.8': {
     sig: 'cef6cdf0',
     labels: [
       'Four levels of RAG evaluation',
@@ -979,7 +978,7 @@ export const topics: Record<string, TopicSet> = {
       'Poisoned retrieval content',
     ],
   },
-  'M8.9': {
+  'M7.9': {
     sig: '9d3b1e93',
     labels: [
       'Six dimensions of agent evaluation',

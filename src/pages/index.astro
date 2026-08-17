@@ -14,13 +14,14 @@ import {
   phases,
   totalSessions,
   totalModules,
-  capstoneOf,
+  capstonesOf,
   phaseOfLevel,
 } from '../data/levels';
 
-const ships = levels
-  .map((l) => ({ level: l, capstone: capstoneOf(l) }))
-  .filter((x) => x.capstone !== null);
+/* One card per ship-it module — the merged RAG level ships two. */
+const ships = levels.flatMap((level) =>
+  capstonesOf(level).map((capstone) => ({ level, capstone })),
+);
 
 const howItWorks = [
   {
@@ -138,7 +139,7 @@ const howItWorks = [
             <li class="ships__item reveal" data-phase={level.phase}>
               <a href={`/level/${level.number}/#ship`} data-track="ship_click" data-track-data={String(level.number)}>
                 <span class="ships__lvl">L{level.number}</span>
-                <span class="ships__name">{capstone!.name.replace(/^Capstone:\s*/i, '')}</span>
+                <span class="ships__name">{capstone.name.replace(/^Capstone:\s*/i, '')}</span>
                 <span class="ships__phase">{phaseOfLevel(level.number).name}</span>
               </a>
             </li>

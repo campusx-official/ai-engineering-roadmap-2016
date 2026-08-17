@@ -23,7 +23,7 @@ const PAGES = [
   ['home', '/'],
   ['level0', '/level/0/'],
   ['level6', '/level/6/'],
-  ['level14', '/level/14/'],
+  ['level13', '/level/13/'],   // the last level; update if the sequence changes
   ['start', '/start/'],
   ['404', '/this-page-does-not-exist/'],
 ];

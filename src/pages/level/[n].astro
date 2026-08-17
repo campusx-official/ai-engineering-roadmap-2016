@@ -16,7 +16,7 @@ import {
   levels,
   phases,
   phaseOfLevel,
-  capstoneOf,
+  capstonesOf,
   conceptsOf,
   toolsOf,
   teachingModules,
@@ -39,7 +39,7 @@ const { level } = Astro.props;
 
 const phase = phaseOfLevel(level.number);
 const phaseIndex = phases.findIndex((p) => p.id === phase.id);
-const capstone = capstoneOf(level);
+const capstones = capstonesOf(level);
 const modules = teachingModules(level);
 const courses = coursesFor(level.number);
 const concepts = conceptsOf(level);
@@ -193,10 +193,12 @@ const description = `Level ${level.number} of the CampusX AI Engineering Roadmap
     )}
 
     <!-- ───────────────── ship it ───────────────── -->
-    {capstone && (
+    {capstones.length > 0 && (
       <section class="section lsec lsec--tight" id="ship">
-        <div class="wrap">
-          <ShipItCallout module={capstone} levelNumber={level.number} />
+        <div class="wrap ship-stack">
+          {capstones.map((c) => (
+            <ShipItCallout module={c} levelNumber={level.number} />
+          ))}
         </div>
       </section>
     )}
@@ -363,6 +365,8 @@ const description = `Level ${level.number} of the CampusX AI Engineering Roadmap
     text-transform: uppercase;
     color: var(--cx-g500);
   }
+
+  .ship-stack { display: flex; flex-direction: column; gap: 16px; }
 
   /* ---------- stack ---------- */
   .stack__cols {

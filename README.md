@@ -24,7 +24,8 @@ AI ENGINEER ROADMAP/level*.txt
     →  npm run parse  →  src/data/levels.json  →  src/data/levels.ts (typed)  →  pages
 ```
 
-Currently parsed: **15 levels · 135 modules · 235 sessions**.
+Currently parsed: **14 levels · 135 modules · 235 sessions**. Levels 4 and 5 were merged
+into a single RAG level, so the sequence runs 0–13 with no gap.
 
 The parser extracts, per level: `title`, `scope`, `modules[]` (id, name, `sessionCount`,
 `objectives[]`, `outcome`, `tryIt`, `mentalModel`, `finalResult`, `notes[]`), `stack[]`,
@@ -42,8 +43,9 @@ Three things worth knowing:
 - **Gaps are surfaced, not filled.** If a field is missing, the level gets an entry in
   `todos[]`, the parser prints it on every build, and the affected section is omitted
   rather than faked. Level pages also carry the TODOs as an HTML comment for maintainers.
-  Known real gaps in the source: L1 and L8 have no capstone (those pages simply
-  omit the ship-it section); the L3 capstone states no session count.
+  Known real gaps in the source: L1 and L7 have no capstone (those pages simply
+  omit the ship-it section); the L3 capstone states no session count. L4 has two, and
+  renders a callout for each.
 - **`stack[]` is extracted, not authored.** A tag is emitted only when its pattern
   actually occurs in that level's text (`STACK_VOCAB` in the parser). Add vocabulary
   there; do not hand-write tags into the data. Each tag carries a `kind`: membership of
@@ -123,7 +125,7 @@ the objective text the labels were written against, written by `npm run topics`.
 full sentences rather than pairing labels with the wrong lines. `npm run topics` reports
 which modules are unlabelled and which have drifted.
 
-Currently 699 of 721 objectives are topic bullets. The 22 exceptions are levels 12–14,
+Currently 699 of 721 objectives are topic bullets. The 22 exceptions are levels 11–13,
 whose modules hold a single already-terse line each — a label there would hide a
 70-character sentence behind a 25-character bullet for no gain, so they render as plain
 bullets.

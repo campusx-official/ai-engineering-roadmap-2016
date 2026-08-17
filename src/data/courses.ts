@@ -31,21 +31,21 @@ export const coursesByLevel: Record<number, Course[]> = {
     { title: 'Prompt Engineering', status: 'live' },
   ],
   3: [{ title: 'Prompt Engineering', status: 'live' }],
-  5: [{ title: 'Advanced RAG', status: 'live' }],
-  6: [
+  4: [{ title: 'Advanced RAG', status: 'live' }],
+  5: [
     { title: 'LangGraph', status: 'live', note: 'notes' },
     { title: 'CrewAI', status: 'live' },
     { title: 'Agno', status: 'live' },
     { title: 'MCP', status: 'live', note: 'notes' },
   ],
-  7: [{ title: 'Context Engineering', status: 'soon' }],
-  8: [{ title: 'LLM Evaluations', status: 'soon' }],
-  9: [{ title: 'LLM Guardrails', status: 'soon' }],
-  11: [
+  6: [{ title: 'Context Engineering', status: 'soon' }],
+  7: [{ title: 'LLM Evaluations', status: 'soon' }],
+  8: [{ title: 'LLM Guardrails', status: 'soon' }],
+  10: [
     { title: 'LLMOps', status: 'soon' },
     { title: 'Docker', status: 'live' },
   ],
-  12: [{ title: 'DLCV', status: 'live' }],
+  11: [{ title: 'DLCV', status: 'live' }],
 };
 
 export const coursesFor = (level: number): Course[] => coursesByLevel[level] ?? [];

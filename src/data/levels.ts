@@ -108,15 +108,19 @@ export const phaseOfLevel = (n: number): Phase =>
 export const capstoneOf = (level: Level): Module | null =>
   level.modules.find((m) => m.id === level.project) ?? null;
 
+/** Every ship-it module. The merged RAG level carries two. */
+export const capstonesOf = (level: Level): Module[] =>
+  level.modules.filter((m) => m.isCapstone);
+
 export const conceptsOf = (level: Level): StackTag[] =>
   level.stack.filter((t) => t.kind === 'concept');
 
 export const toolsOf = (level: Level): StackTag[] =>
   level.stack.filter((t) => t.kind === 'tool');
 
-/** Modules minus the capstone — the capstone gets its own callout. */
+/** Modules minus the capstones — those get their own callouts. */
 export const teachingModules = (level: Level): Module[] =>
-  level.modules.filter((m) => m.id !== level.project);
+  level.modules.filter((m) => !m.isCapstone);
 
 export const prevLevel = (n: number) => getLevel(n - 1) ?? null;
 export const nextLevel = (n: number) => getLevel(n + 1) ?? null;

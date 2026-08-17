@@ -1,8 +1,8 @@
-Level 7 · Context Engineering
+Level 6 · Context Engineering
 
 Scope: manage the model’s limited context window deliberately — decide what enters, what stays, what gets compressed, and what gets moved outside.
 
-M7.1 · The context window as a resource — (sessions: 1)
+M6.1 · The context window as a resource — (sessions: 1)
 
 Treat context as a limited budget rather than “more is always better.”
 Understand context rot, distraction, conflicting context, lost-in-the-middle, and token/cost growth.
@@ -10,7 +10,7 @@ Inspect what actually enters the model’s window and identify which parts are u
 Allocate rough budgets across instructions, conversation history, retrieval, memory, tools, and working state.
 Outcome: Diagnose when model degradation is really a context-management problem.
 
-M7.2 · Context selection & assembly — (sessions: 2)
+M6.2 · Context selection & assembly — (sessions: 2)
 
 Assemble instructions + conversation history + retrieved knowledge + memory + tool definitions/results + application state deliberately.
 Decide what should be always present, dynamically retrieved, summarized, or excluded.
@@ -19,7 +19,7 @@ Order and structure context so instructions, evidence, memory, and user data rem
 Avoid redundant, stale, contradictory, or irrelevant context.
 Outcome: Construct the smallest useful context for the current model decision.
 
-M7.3 · Compression & compaction — (sessions: 2)
+M6.3 · Compression & compaction — (sessions: 2)
 
 Summarize growing conversation history while preserving goals, constraints, decisions, and unresolved work.
 Compact large tool outputs before feeding them back into the model.
@@ -28,7 +28,7 @@ Preserve exact structured information separately when summarization could lose i
 Understand the trade-off between context reduction and information loss.
 Outcome: Reduce context size without losing task-critical information.
 
-M7.4 · Memory & state offloading — (sessions: 2)
+M6.4 · Memory & state offloading — (sessions: 2)
 
 Move information outside the active window using scratchpads, files, databases, memory stores, task state, and working notes.
 Distinguish active context from information that can be stored externally and retrieved later.
@@ -37,7 +37,7 @@ Build note-taking agents that write useful information externally and recall it 
 Understand the distinction between memory for remembering and offloading for freeing context space.
 Outcome: Build systems that do not require the entire task history to remain inside the model’s context.
 
-M7.5 · Long-context strategies — (sessions: 1)
+M6.5 · Long-context strategies — (sessions: 1)
 
 Understand why large context windows do not eliminate context-engineering problems.
 Manage lost-in-the-middle using better positioning, selective retrieval, and context restructuring.
@@ -45,7 +45,7 @@ Compare full-context stuffing, retrieval-over-history, summarization, hierarchic
 Decide when to give the model more context versus retrieve only the relevant parts.
 Outcome: Choose an appropriate strategy for very long documents, conversations, and agent runs.
 
-M7.6 · Tool context management — (sessions: 1)
+M6.6 · Tool context management — (sessions: 1)
 
 Understand that tool definitions and tool results also compete for context-window space.
 Dynamically expose only the tools relevant to the current task where possible.
@@ -54,7 +54,7 @@ Keep full tool results externally and retrieve details again when required.
 Prevent long agent loops from accumulating unnecessary observations and tool output.
 Outcome: Keep tool-heavy agents coherent without letting their action history overwhelm the context.
 
-M7.7 · Context caching & efficiency — (sessions: 1)
+M6.7 · Context caching & efficiency — (sessions: 1)
 
 Understand how repeatedly sending large static contexts affects cost and latency.
 Structure stable instructions and reusable context to benefit from prompt/context caching where supported.
@@ -62,14 +62,14 @@ Separate stable context from rapidly changing task state.
 Reduce redundant tokens while preserving useful information.
 Measure token usage, cache utilization, latency, and cost rather than optimizing blindly.
 Outcome: Make large-context applications more efficient without sacrificing quality.
-M7.8 · Capstone: Context-Managed Long-Horizon Agent — (sessions: 1)
-Take a tool-using agent from Level 6 and run it through a long task where naive context accumulation causes degradation.
+M6.8 · Capstone: Context-Managed Long-Horizon Agent — (sessions: 1)
+Take a tool-using agent from Level 5 and run it through a long task where naive context accumulation causes degradation.
 Define an explicit context budget and dynamically decide what to keep, retrieve, compress, offload, or discard.
 Add history compaction, external state, selective memory retrieval, and tool-output compression.
 Preserve the original goal, constraints, completed work, and pending tasks across a long execution.
 Compare the context-managed version against a naive “keep everything” implementation on coherence, token usage, latency, and cost.
 Final result: an agent that stays useful across a long, tool-heavy session because its context is actively managed.
-Level 7 completion outcome
+Level 6 completion outcome
 
 By the end of this level, you should be able to:
 

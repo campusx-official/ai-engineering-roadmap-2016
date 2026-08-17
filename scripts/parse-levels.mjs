@@ -21,19 +21,19 @@ const CONTENT_DIRS = [join(root, 'AI ENGINEER ROADMAP'), root];
 
 const PHASES = [
   { id: 'foundations', name: 'Foundations',        levels: [0, 1, 2, 3],  theme: 'software, LLM 101, orchestration, prompting', color: 'violet',  icon: 'blocks' },
-  { id: 'retrieval',   name: 'Retrieval',          levels: [4, 5],        theme: 'embeddings/vector, RAG',                      color: 'blue',    icon: 'search' },
-  { id: 'agentic',     name: 'Agentic',            levels: [6, 7],        theme: 'agents, context engineering',                 color: 'emerald', icon: 'bot' },
-  { id: 'trust',       name: 'Evaluation & Trust', levels: [8, 9],        theme: 'evals, security',                             color: 'amber',   icon: 'shield-check' },
-  { id: 'production',  name: 'Production',         levels: [10, 11],      theme: 'system design, LLMOps',                       color: 'cyan',    icon: 'server' },
-  { id: 'frontier',    name: 'Frontier & Proof',   levels: [12, 13, 14],  theme: 'multimodal, fine-tuning, projects',           color: 'rose',    icon: 'sparkles' },
+  { id: 'retrieval',   name: 'Retrieval',          levels: [4],           theme: 'embeddings, vector search, RAG',              color: 'blue',    icon: 'search' },
+  { id: 'agentic',     name: 'Agentic',            levels: [5, 6],        theme: 'agents, context engineering',                 color: 'emerald', icon: 'bot' },
+  { id: 'trust',       name: 'Evaluation & Trust', levels: [7, 8],        theme: 'evals, security',                             color: 'amber',   icon: 'shield-check' },
+  { id: 'production',  name: 'Production',         levels: [9, 10],       theme: 'system design, LLMOps',                       color: 'cyan',    icon: 'server' },
+  { id: 'frontier',    name: 'Frontier & Proof',   levels: [11, 12, 13],  theme: 'multimodal, fine-tuning, projects',           color: 'rose',    icon: 'sparkles' },
 ];
 
 /* One Lucide icon per level. Chosen to match the level's subject; the icon set
    is fixed (Lucide, one weight) per the brand guardrails. */
 const LEVEL_ICONS = {
-  0: 'terminal', 1: 'brain', 2: 'plug', 3: 'message-square-code', 4: 'vector-square',
-  5: 'library-big', 6: 'bot', 7: 'layout-panel-left', 8: 'flask-conical', 9: 'shield-half',
-  10: 'network', 11: 'gauge', 12: 'audio-lines', 13: 'sliders-horizontal', 14: 'trophy',
+  0: 'terminal', 1: 'brain', 2: 'plug', 3: 'message-square-code', 4: 'library-big',
+  5: 'bot', 6: 'layout-panel-left', 7: 'flask-conical', 8: 'shield-half', 9: 'network',
+  10: 'gauge', 11: 'audio-lines', 12: 'sliders-horizontal', 13: 'trophy',
 };
 
 /* Keyword -> Lucide icon for module rows. First match wins, so the list runs
@@ -82,6 +82,11 @@ const MODULE_ICON_RULES = [
   [/on-device|\bedge\b/i, 'smartphone'],
 
   // rag & context sub-topics
+  [/rag with frameworks/i, 'boxes'],
+  [/similarity & semantic|semantic search/i, 'radar'],
+  [/vector database|ann search/i, 'database'],
+  [/sparse & hybrid|hybrid retrieval/i, 'blend'],
+  [/retrieval evaluation/i, 'flask-conical'],
   [/rag architecture|when to use it/i, 'network'],
   [/baseline rag|from scratch/i, 'hammer'],
   [/rag variants|advanced patterns/i, 'git-fork'],
@@ -398,7 +403,10 @@ function parseLevel(file, raw) {
      no longer render it, so a missing section is not a defect worth flagging. */
 
   const capstone = modules.find((m) => m.isCapstone) || null;
-  if (!capstone && number !== 14) todos.push('No capstone/ship-it module found.');
+  /* A projects level is entirely P-prefixed builds, so it has no separate
+     capstone — detected structurally rather than by hardcoding its number. */
+  const isProjectsLevel = modules.length > 0 && modules.every((m) => m.id.startsWith('P'));
+  if (!capstone && !isProjectsLevel) todos.push('No capstone/ship-it module found.');
 
   const totalSessions = modules.reduce((n, m) => n + (m.sessionCount || 0), 0);
 
@@ -437,7 +445,7 @@ const files = readdirSync(dir)
 const levels = files.map((f) => parseLevel(f, readFileSync(join(dir, f), 'utf8')))
   .sort((a, b) => a.number - b.number);
 
-const expected = Array.from({ length: 15 }, (_, i) => i);
+const expected = Array.from({ length: 14 }, (_, i) => i);
 const missing = expected.filter((n) => !levels.some((l) => l.number === n));
 if (missing.length) throw new Error(`Missing level files for: ${missing.join(', ')}`);
 
