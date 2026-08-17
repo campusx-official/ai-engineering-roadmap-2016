@@ -46,6 +46,7 @@ export const coursesByLevel: Record<number, Course[]> = {
   6: [{ title: 'Context Engineering', status: 'soon' }],
   7: [{ title: 'LLM Evaluations', status: 'soon' }],
   8: [{ title: 'LLM Guardrails', status: 'soon' }],
+  9: [{ title: 'AI System Design', status: 'soon' }],
   10: [
     { title: 'LLMOps', status: 'soon' },
     { title: 'Docker', status: 'live' },
@@ -54,3 +55,21 @@ export const coursesByLevel: Record<number, Course[]> = {
 };
 
 export const coursesFor = (level: number): Course[] => coursesByLevel[level] ?? [];
+
+/**
+ * Recommended reading. Deliberately separate from `Course`: these are not
+ * CampusX catalog items, so they must not carry the "On CampusX One" label or
+ * link to the pricing page. `url` is optional — a reference with no link still
+ * renders, just without the outbound affordance.
+ */
+export interface Book {
+  title: string;
+  author: string;
+  url?: string;
+}
+
+export const booksByLevel: Record<number, Book[]> = {
+  9: [{ title: 'AI Engineering', author: 'Chip Huyen' }],
+};
+
+export const booksFor = (level: number): Book[] => booksByLevel[level] ?? [];

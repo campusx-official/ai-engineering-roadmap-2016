@@ -11,7 +11,7 @@ import CourseCard from '../../components/CourseCard.astro';
 import LevelNav from '../../components/LevelNav.astro';
 import StickyLevelNav from '../../components/StickyLevelNav.astro';
 import Button from '../../components/Button.astro';
-import { coursesFor, CAMPUSX_ONE_URL } from '../../data/courses';
+import { coursesFor, booksFor, CAMPUSX_ONE_URL } from '../../data/courses';
 import {
   levels,
   phases,
@@ -42,6 +42,7 @@ const phaseIndex = phases.findIndex((p) => p.id === phase.id);
 const capstones = capstonesOf(level);
 const modules = teachingModules(level);
 const courses = coursesFor(level.number);
+const books = booksFor(level.number);
 const concepts = conceptsOf(level);
 const tools = toolsOf(level);
 const prev = prevLevel(level.number);
@@ -223,6 +224,36 @@ const description = `Level ${level.number} of the CampusX AI Engineering Roadmap
               <li><CourseCard course={c} levelNumber={level.number} /></li>
             ))}
           </ul>
+        )}
+
+        {books.length > 0 && (
+          <div class="reading">
+            <h3 class="reading__label">
+              <Icon name="book-marked" size={14} />
+              <span>Further reading</span>
+            </h3>
+            <ul class="reading__list" role="list">
+              {books.map((book) => {
+                const Tag = book.url ? 'a' : 'div';
+                return (
+                  <li>
+                    <Tag
+                      class="reading__item"
+                      href={book.url}
+                      target={book.url ? '_blank' : undefined}
+                      rel={book.url ? 'noopener noreferrer' : undefined}
+                      data-track={book.url ? 'reading_click' : undefined}
+                      data-track-data={book.url ? `${level.number}:${book.title}` : undefined}
+                    >
+                      <span class="reading__title">{book.title}</span>
+                      <span class="reading__author">{book.author}</span>
+                      {book.url && <Icon name="arrow-up-right" size={14} class="reading__go" />}
+                    </Tag>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         )}
 
         <div class="courses__cta">
@@ -423,6 +454,50 @@ const description = `Level ${level.number} of the CampusX AI Engineering Roadmap
   @media (min-width: 1000px) { .courses__grid { grid-template-columns: repeat(3, 1fr); } }
 
   .courses__cta { margin-top: 22px; }
+
+  /* ---------- further reading ---------- */
+  /* Visually quieter than a course card: this is a pointer to someone else's
+     work, not a CampusX catalog item. */
+  .reading { margin-top: 26px; }
+
+  .reading__label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
+
+  .reading__list { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none; }
+
+  .reading__item {
+    display: flex;
+    align-items: baseline;
+    gap: 9px;
+    padding: 11px 16px;
+    border: 1px dashed var(--cx-border-2);
+    border-radius: var(--cx-r-card-sm);
+    background: var(--cx-gray);
+  }
+  a.reading__item { transition: border-color 0.18s ease, background-color 0.18s ease; }
+  a.reading__item:hover { border-color: var(--cx-purple); background: #fff; }
+
+  .reading__title {
+    font-family: var(--cx-font-display);
+    font-weight: 700;
+    font-size: 14.5px;
+    letter-spacing: -0.01em;
+    color: var(--cx-ink);
+  }
+  .reading__author { font-size: 13px; color: var(--cx-g600); }
+  .reading__go { align-self: center; color: var(--cx-g500); }
+
+  @media (prefers-reduced-motion: reduce) { a.reading__item { transition: none; } }
 
   .lnav-section { padding-top: 12px; padding-bottom: 72px; }
 </style>
