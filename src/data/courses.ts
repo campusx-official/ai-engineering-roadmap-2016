@@ -40,7 +40,7 @@ export const coursesByLevel: Record<number, Course[]> = {
     { title: 'Agno', status: 'live' },
     { title: 'MCP', status: 'live', note: 'notes' },
     { title: 'Building Multi-Agent Systems', status: 'soon' },
-    { title: 'Building AI Agents using Google ADK', status: 'soon' },
+    { title: 'AI Agents using Google ADK', status: 'soon' },
     { title: 'Memory in LLMs', status: 'soon' },
   ],
   6: [{ title: 'Context Engineering', status: 'soon' }],
