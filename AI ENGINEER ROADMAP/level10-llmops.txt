@@ -76,6 +76,8 @@ Automate the release process using AWS CodeDeploy to pull new Docker images and 
 Set up a Load Balancer to manage traffic and make sure the word-by-word streaming works smoothly.
 Add Auto Scaling to automatically add more servers when busy and remove them when quiet.
 Store sensitive API keys securely in the cloud using AWS Secrets Manager.
+Compare this self-managed path with deploying the same app against a managed platform such as Bedrock, Vertex AI, or Azure AI Foundry, where identity, networking, and the model endpoint are provided for you.
+Plan capacity on a managed platform: request quota increases, choose between on-demand and provisioned throughput, and watch the token limits that throttle you before your servers do.
 Outcome: Launch your packed apps on AWS with automatic updates, traffic management, and scaling.
 
 M10.9 · Post-deployment monitoring — (sessions: 3)

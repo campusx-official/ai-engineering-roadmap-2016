@@ -24,7 +24,7 @@ AI ENGINEER ROADMAP/level*.txt
     →  npm run parse  →  src/data/levels.json  →  src/data/levels.ts (typed)  →  pages
 ```
 
-Currently parsed: **15 levels · 146 modules · 256 sessions**, running 0–14. Levels 4 and 5
+Currently parsed: **16 levels · 160 modules · 278 sessions**, running 0–15. Levels 4 and 5
 were merged into a single RAG level; Interview Prep was added as level 14 and is the only
 member of a seventh phase.
 

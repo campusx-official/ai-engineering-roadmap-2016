@@ -1,8 +1,8 @@
 {
   "generatedFrom": "./AI ENGINEER ROADMAP",
-  "totalLevels": 15,
-  "totalSessions": 264,
-  "totalModules": 152,
+  "totalLevels": 16,
+  "totalSessions": 282,
+  "totalModules": 162,
   "phases": [
     {
       "id": "foundations",
@@ -54,9 +54,10 @@
       "name": "Production",
       "levels": [
         9,
-        10
+        10,
+        11
       ],
-      "theme": "system design, LLMOps",
+      "theme": "system design, LLMOps, managed platforms",
       "color": "cyan",
       "icon": "server"
     },
@@ -64,9 +65,9 @@
       "id": "frontier",
       "name": "Frontier & Proof",
       "levels": [
-        11,
         12,
-        13
+        13,
+        14
       ],
       "theme": "multimodal, fine-tuning, projects",
       "color": "rose",
@@ -76,7 +77,7 @@
       "id": "interview",
       "name": "Interview",
       "levels": [
-        14
+        15
       ],
       "theme": "positioning, scenarios, mock loops",
       "color": "slate",
@@ -840,6 +841,9 @@
               "text": "Understand open-weight models through self-hosting, privacy, customization, infrastructure requirements, and operational complexity."
             },
             {
+              "text": "Understand the third path between them: managed platforms such as AWS Bedrock, Google Vertex AI, and Azure AI Foundry serve both closed and open-weight models inside your own cloud account, and inference providers host open weights for you without any hardware of your own."
+            },
+            {
               "text": "Learn other useful distinctions: small vs large, dense vs Mixture-of-Experts, general-purpose vs specialized, reasoning vs non-reasoning, and text-only vs multimodal."
             },
             {
@@ -919,7 +923,7 @@
               "text": "Modalities: Do you need text, images, audio, or video?"
             },
             {
-              "text": "Privacy & deployment: Can you use an external API, or do you require self-hosting?"
+              "text": "Privacy & deployment: Can you use an external API, do you need a managed platform inside your own cloud, or do you require self-hosting?"
             },
             {
               "text": "Product features: Do you require structured outputs, function calling, tools, streaming, or caching?"
@@ -968,6 +972,10 @@
         {
           "label": "GPQA",
           "kind": "concept"
+        },
+        {
+          "label": "AWS",
+          "kind": "tool"
         },
         {
           "label": "SFT",
@@ -3754,6 +3762,9 @@
               "text": "Understand data retention, deletion, residency, access control, and third-party model-provider considerations."
             },
             {
+              "text": "Use the controls that make regulated deployments possible: private connectivity to the model endpoint, no public egress, and contractual zero-retention or no-training terms."
+            },
+            {
               "text": "Protect secrets so they are never unnecessarily exposed to the model."
             }
           ],
@@ -4640,6 +4651,12 @@
             },
             {
               "text": "Store sensitive API keys securely in the cloud using AWS Secrets Manager."
+            },
+            {
+              "text": "Compare this self-managed path with deploying the same app against a managed platform such as Bedrock, Vertex AI, or Azure AI Foundry, where identity, networking, and the model endpoint are provided for you."
+            },
+            {
+              "text": "Plan capacity on a managed platform: request quota increases, choose between on-demand and provisioned throughput, and watch the token limits that throttle you before your servers do."
             }
           ],
           "notes": [],
@@ -4841,15 +4858,511 @@
     {
       "number": 11,
       "slug": "level-11",
+      "title": "Managed AI Platforms",
+      "sourceFile": "level11-managed-platforms.txt",
+      "scope": "Ship an AI application on the platforms teams actually buy — a cloud provider's managed platform, an open-weight hosting provider, or a router spanning several — and know which parts to hand over and which to keep.",
+      "prereqStated": "Level 9 (system design), Level 10 (LLMOps)",
+      "phase": "production",
+      "icon": "cloud-cog",
+      "modules": [
+        {
+          "id": "M11.1",
+          "name": "The three ways to consume a model",
+          "sessionCount": 1,
+          "icon": "git-fork",
+          "objectives": [
+            {
+              "text": "Understand the three paths an organization can take: a provider's public API, a managed platform inside its own cloud account, or open weights it hosts itself or through an inference provider."
+            },
+            {
+              "text": "Recognize that open weights no longer imply operating GPUs, since managed platforms and inference providers serve the same open models on demand."
+            },
+            {
+              "text": "Understand why most regulated organizations cannot use a public API directly, and why that constraint decides architecture long before quality does."
+            },
+            {
+              "text": "Compare the three paths on identity, data handling, region, capacity, price per token, operational effort, and how quickly new models reach you."
+            },
+            {
+              "text": "Understand where a managed platform sits relative to the model gateway pattern: it can be your gateway, sit behind one, or be one provider among several that a gateway routes to."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "tryIt": "Take an application you have already built against a public API and list every component that would change if the same app had to run inside a cloud account.",
+          "mentalModel": "One application, three consumption paths → public API · managed platform in your cloud · open weights you or a provider host",
+          "outcome": "Place any AI workload on the right consumption path and defend the choice with reasons other than familiarity."
+        },
+        {
+          "id": "M11.2",
+          "name": "Platform anatomy: Bedrock, Vertex AI & Azure AI Foundry",
+          "sessionCount": 2,
+          "icon": "layout-grid",
+          "objectives": [
+            {
+              "text": "Understand the shape all three share: a catalog of closed and open-weight models, one endpoint style, one identity system, one network boundary, and one bill.",
+              "group": "What a managed platform gives you"
+            },
+            {
+              "text": "Read a platform's model catalog the way you read a model card, noting which providers are offered, which regions carry them, and which versions are pinned or retired.",
+              "group": "What a managed platform gives you"
+            },
+            {
+              "text": "Understand how invocation differs from a provider SDK, including the platform's own request format, its converse-style unified API, and the provider-native passthrough where one exists.",
+              "group": "What a managed platform gives you"
+            },
+            {
+              "text": "Recognize the platform-specific vocabulary for the same ideas, so a Bedrock, Vertex AI, or Azure AI Foundry document reads as a variation rather than a new subject.",
+              "group": "What a managed platform gives you"
+            },
+            {
+              "text": "Call a hosted model on one platform from application code and confirm the response, usage, and cost reporting you get back.",
+              "group": "Working on one platform"
+            },
+            {
+              "text": "Compare the same prompt across two models in the same catalog without changing how you authenticate, network, or bill.",
+              "group": "Working on one platform"
+            },
+            {
+              "text": "Understand what the platform does not give you: prompt quality, retrieval design, evaluation depth, and product behavior remain yours.",
+              "group": "Working on one platform"
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "tryIt": "Run one prompt against a closed model and an open-weight model in the same catalog, and compare quality, latency, and price per thousand tokens.",
+          "outcome": "Work confidently on at least one managed platform and map its concepts onto the other two."
+        },
+        {
+          "id": "M11.3",
+          "name": "Identity, networking & tenancy",
+          "sessionCount": 2,
+          "icon": "key-round",
+          "objectives": [
+            {
+              "text": "Replace API keys with cloud identity: roles, service accounts, and workload identity that grant a service the right to invoke a model.",
+              "group": "Identity and access"
+            },
+            {
+              "text": "Apply least privilege to model access, scoping which models, regions, and actions an application or team may use.",
+              "group": "Identity and access"
+            },
+            {
+              "text": "Understand how platform access is audited, and why an audit trail of who invoked which model matters in regulated environments.",
+              "group": "Identity and access"
+            },
+            {
+              "text": "Reach a model over private connectivity so requests never traverse the public internet, and understand what that buys you and what it costs.",
+              "group": "Network boundary and tenancy"
+            },
+            {
+              "text": "Design tenant isolation on a shared platform: separate accounts or projects, scoped credentials, per-tenant keys, and retrieval that cannot cross a tenant boundary.",
+              "group": "Network boundary and tenancy"
+            },
+            {
+              "text": "Understand encryption and key management options, including customer-managed keys for data at rest.",
+              "group": "Network boundary and tenancy"
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "tryIt": "Invoke a model from a private network path with no public egress, then verify from the logs that the request never left the account.",
+          "outcome": "Deploy an AI workload whose identity, network path, and tenant boundaries would survive a security review."
+        },
+        {
+          "id": "M11.4",
+          "name": "Regions, residency & compliance",
+          "sessionCount": 1,
+          "icon": "scale",
+          "objectives": [
+            {
+              "text": "Understand that a model exists in specific regions, and that the region you are permitted to use often decides which models you may design around."
+            },
+            {
+              "text": "Plan for data residency requirements, including Indian data-localization expectations and the sector rules that sit above them."
+            },
+            {
+              "text": "Understand retention and training terms in writing: what the platform logs, for how long, who can see it, and whether your data may be used to improve a model."
+            },
+            {
+              "text": "Connect these controls to the governance work of Level 8, where residency, deletion, and third-party processing were named as requirements."
+            },
+            {
+              "text": "Handle the common case where the model you want is unavailable in your required region, through cross-region reasoning, a different model, or an exception you can document."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "State, for a given workload, exactly where the data goes, where it is processed, how long it is kept, and under whose terms."
+        },
+        {
+          "id": "M11.5",
+          "name": "Capacity, quotas & cost",
+          "sessionCount": 2,
+          "icon": "gauge",
+          "objectives": [
+            {
+              "text": "Distinguish on-demand capacity from provisioned or reserved throughput, and understand why committed capacity changes both price and rate limits.",
+              "group": "Capacity"
+            },
+            {
+              "text": "Read the quota model of a platform: requests per minute, tokens per minute, concurrent requests, and per-model limits that differ by region.",
+              "group": "Capacity"
+            },
+            {
+              "text": "Plan for burst traffic with queueing, backpressure, and batch endpoints instead of assuming the platform will absorb a spike.",
+              "group": "Capacity"
+            },
+            {
+              "text": "Request and defend a quota increase with traffic evidence, since capacity is an approval process rather than a setting.",
+              "group": "Capacity"
+            },
+            {
+              "text": "Model cost per request end to end, including input and output tokens, retrieval calls, and any managed component you invoke along the way.",
+              "group": "Cost"
+            },
+            {
+              "text": "Attribute cost to a project, team, or tenant using the platform's own tagging and billing views, which a shared API key cannot do.",
+              "group": "Cost"
+            },
+            {
+              "text": "Set budgets and alerts so a runaway agent loop is caught by spend monitoring rather than by the monthly invoice.",
+              "group": "Cost"
+            },
+            {
+              "text": "Compare on-demand, committed, and self-hosted economics at your actual volume rather than at the volume in the pricing example.",
+              "group": "Cost"
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "tryIt": "Take a week of real traffic and price it three ways: on-demand, committed capacity, and open weights on your own inference.",
+          "outcome": "Size capacity and forecast spend for a real workload, and know at what volume each pricing model wins."
+        },
+        {
+          "id": "M11.6",
+          "name": "Open-weight model platforms",
+          "sessionCount": 2,
+          "icon": "server-cog",
+          "objectives": [
+            {
+              "text": "Understand the spectrum between calling an API and operating hardware: model hubs, serverless inference providers, GPU compute platforms, and your own servers.",
+              "group": "Where open weights actually run"
+            },
+            {
+              "text": "Use a model hub such as Hugging Face to find open-weight models, read their cards, check licences and gated access, and judge whether a checkpoint is trustworthy.",
+              "group": "Where open weights actually run"
+            },
+            {
+              "text": "Call an open-weight model through a serverless inference provider such as Together, Fireworks, Groq, or Replicate, where you pay per token and never see a GPU.",
+              "group": "Where open weights actually run"
+            },
+            {
+              "text": "Understand what a GPU compute platform such as Modal, Baseten, or RunPod adds: you bring the serving stack and they schedule, scale, and bill the hardware.",
+              "group": "Where open weights actually run"
+            },
+            {
+              "text": "Serve a model yourself with vLLM, TGI, or Ollama, and understand continuous batching, KV-cache reuse, and why a naive request loop wastes most of a GPU.",
+              "group": "Where open weights actually run"
+            },
+            {
+              "text": "Compare per-token pricing with per-GPU-hour pricing, and find the utilization point at which renting hardware becomes cheaper than paying per token.",
+              "group": "Choosing and paying for open-weight serving"
+            },
+            {
+              "text": "Understand cold starts and scale-to-zero, and why a deployment that idles cheaply may answer its first request slowly.",
+              "group": "Choosing and paying for open-weight serving"
+            },
+            {
+              "text": "Size hardware for a model from parameter count, precision, quantization, and KV-cache growth with context length, since memory decides which GPU you need.",
+              "group": "Choosing and paying for open-weight serving"
+            },
+            {
+              "text": "Understand what hosting open weights gives you — predictable cost at volume, data that never leaves your boundary, and full control of versions — and what it asks of you in return.",
+              "group": "Choosing and paying for open-weight serving"
+            },
+            {
+              "text": "Evaluate an open-weight model against a closed one on your own task before assuming that either is obviously better.",
+              "group": "Choosing and paying for open-weight serving"
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "tryIt": "Serve one small open-weight model three ways — a serverless provider, a GPU platform, and locally — and compare setup effort, latency, and the cost of a thousand requests.",
+          "mentalModel": "Open weights are a ladder: someone else's API → someone else's GPUs → your GPUs",
+          "outcome": "Run an open-weight model on the right rung of the hosting ladder and justify the choice on cost, latency, control, and effort."
+        },
+        {
+          "id": "M11.7",
+          "name": "Model routers & LLM gateways",
+          "sessionCount": 2,
+          "icon": "route",
+          "objectives": [
+            {
+              "text": "Understand a gateway as one endpoint in front of many providers: it holds the credentials, accepts one request format, and hides which model actually served the request.",
+              "group": "What a router is for"
+            },
+            {
+              "text": "Compare hosted routers such as OpenRouter and Portkey with self-hosted proxies such as LiteLLM, and with the routing built into cloud platforms and framework gateways.",
+              "group": "What a router is for"
+            },
+            {
+              "text": "Route by rule — task type, cost ceiling, context length, latency target, region, or risk — and fail over automatically when a provider errors or throttles.",
+              "group": "What a router is for"
+            },
+            {
+              "text": "Use a gateway's spend controls: virtual keys per team or per feature, budgets, quotas, and per-key rate limits that stop one client exhausting shared capacity.",
+              "group": "What a router is for"
+            },
+            {
+              "text": "Get one view of usage, latency, errors, and cost across every provider instead of stitching separate dashboards together.",
+              "group": "What a router is for"
+            },
+            {
+              "text": "Understand the failure mode you have introduced, since a gateway now sits on the critical path and needs its own availability, timeouts, and a bypass plan.",
+              "group": "Operating a router"
+            },
+            {
+              "text": "Handle the provider differences a gateway cannot hide: tool-calling formats, structured-output support, token limits, and prompts that behave differently on each model.",
+              "group": "Operating a router"
+            },
+            {
+              "text": "Cache at the gateway, both exact-match and semantic, and decide which requests must never be answered from a cache.",
+              "group": "Operating a router"
+            },
+            {
+              "text": "Decide when a router earns its place — several providers, several teams, or spend worth governing — and when one provider and a client library is the honest answer.",
+              "group": "Operating a router"
+            },
+            {
+              "text": "Keep evals in the loop, because a routing rule change swaps the model answering your users without a single line of application code changing.",
+              "group": "Operating a router"
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "tryIt": "Put a router in front of two providers, force the primary to fail, and confirm the fallback answers inside your latency budget.",
+          "outcome": "Run model traffic through a router that gives you failover, spend control, and one view of usage, without pretending that providers are interchangeable."
+        },
+        {
+          "id": "M11.8",
+          "name": "Managed building blocks: build or buy",
+          "sessionCount": 3,
+          "icon": "blocks",
+          "objectives": [
+            {
+              "text": "Understand managed retrieval offerings such as knowledge bases and enterprise search, which package ingestion, chunking, embedding, and retrieval behind a configuration.",
+              "group": "Retrieval and agents"
+            },
+            {
+              "text": "Compare a managed knowledge base with the retrieval stack you built in Level 4 on control over chunking, retrieval tuning, evaluation depth, and cost at your corpus size.",
+              "group": "Retrieval and agents"
+            },
+            {
+              "text": "Understand managed agent and workflow runtimes, and what they assume about tools, memory, and orchestration compared with the agents you built in Level 5.",
+              "group": "Retrieval and agents"
+            },
+            {
+              "text": "Understand managed guardrails for content filtering, topic restriction, and sensitive-data redaction, and where they sit relative to your own checks.",
+              "group": "Safety, evaluation and adaptation"
+            },
+            {
+              "text": "Understand managed evaluation offerings and judge whether their metrics answer the questions your eval suite from Level 7 was built to answer.",
+              "group": "Safety, evaluation and adaptation"
+            },
+            {
+              "text": "Understand managed fine-tuning and distillation, including which base models can be adapted, where the resulting weights live, and whether you can take them with you.",
+              "group": "Safety, evaluation and adaptation"
+            },
+            {
+              "text": "Decide each layer separately, since adopting a managed retrieval service does not commit you to managed agents, guardrails, or evaluation.",
+              "group": "Deciding, layer by layer"
+            },
+            {
+              "text": "Judge each candidate on control, transparency, evaluation depth, cost at your volume, and how much of the behavior you must be able to explain to an auditor.",
+              "group": "Deciding, layer by layer"
+            },
+            {
+              "text": "Measure the portability cost before adopting: a prompt moves between providers in minutes, while a knowledge base, agent, or guardrail configuration usually does not.",
+              "group": "Deciding, layer by layer"
+            },
+            {
+              "text": "Recognize the honest cases for buying: a small team, a standard use case, a compliance deadline, or a workload whose quality bar the managed component already clears.",
+              "group": "Deciding, layer by layer"
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "tryIt": "Rebuild one component of an existing application on a managed equivalent, then compare quality, cost, and how much control you gave up.",
+          "mentalModel": "Buy the plumbing you cannot differentiate on, build the layer your product is judged by",
+          "outcome": "Make a defensible build-or-buy call for every layer of an AI system instead of adopting or rejecting managed services wholesale."
+        },
+        {
+          "id": "M11.9",
+          "name": "Portability, lock-in & migration",
+          "sessionCount": 2,
+          "icon": "arrow-left-right",
+          "objectives": [
+            {
+              "text": "Separate what is portable from what is not: prompts, evals, and application code travel easily, while managed indexes, agent definitions, and platform-specific APIs do not.",
+              "group": "Designing for exit"
+            },
+            {
+              "text": "Keep an abstraction between application code and provider so a model swap is a configuration change rather than a rewrite.",
+              "group": "Designing for exit"
+            },
+            {
+              "text": "Understand the real costs of lock-in beyond price: model availability, feature pace, negotiating position, and the work of proving a new platform is safe.",
+              "group": "Designing for exit"
+            },
+            {
+              "text": "Plan a migration between platforms or providers as an evaluation exercise, re-running your eval suite before, during, and after the move.",
+              "group": "Moving"
+            },
+            {
+              "text": "Handle catalog lag and platform-side deprecation, since managed catalogs trail the frontier and retire versions on their own schedule.",
+              "group": "Moving"
+            },
+            {
+              "text": "Run two platforms in parallel where the workload justifies it, using a gateway to route by capability, region, cost, or availability.",
+              "group": "Moving"
+            },
+            {
+              "text": "Understand multi-cloud honestly: it buys resilience and leverage, and it costs duplicated evaluation, duplicated security review, and duplicated operational knowledge.",
+              "group": "Moving"
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Adopt a platform without being trapped by it, and move a workload between platforms without discovering the coupling too late."
+        },
+        {
+          "id": "M11.10",
+          "name": "Capstone: deploy on a managed platform",
+          "sessionCount": 1,
+          "icon": "flag",
+          "objectives": [
+            {
+              "text": "Take an application you built in an earlier level and redeploy it against a managed platform, keeping the behavior and changing the plumbing."
+            },
+            {
+              "text": "Authenticate through cloud identity with least-privilege access to a named set of models, and remove the provider API key from the application entirely."
+            },
+            {
+              "text": "Route model traffic over a private network path, and record where the data is processed, how long it is retained, and under which terms."
+            },
+            {
+              "text": "Replace at least one hand-built component with a managed equivalent, and keep at least one hand-built because you can defend why."
+            },
+            {
+              "text": "Re-run your evaluation suite on the migrated system and report what changed in quality, latency, and cost."
+            },
+            {
+              "text": "Route the application's model calls through a gateway with a working fallback, or state why direct calls to one provider are enough at your scale."
+            },
+            {
+              "text": "Size capacity for your expected traffic, set a budget alert, and state the volume at which a different pricing model would win."
+            },
+            {
+              "text": "Write a one-page platform decision record: the workload, the constraints, the path chosen, the components bought and built, and the exit plan."
+            }
+          ],
+          "notes": [],
+          "isCapstone": true,
+          "isGap": false,
+          "finalResult": "the same application, running where a regulated employer could actually run it, with the identity, network, residency, capacity, cost, and portability decisions written down."
+        }
+      ],
+      "stack": [
+        {
+          "label": "tool calling",
+          "kind": "concept"
+        },
+        {
+          "label": "chunking",
+          "kind": "concept"
+        },
+        {
+          "label": "embeddings",
+          "kind": "concept"
+        },
+        {
+          "label": "Modal",
+          "kind": "tool"
+        },
+        {
+          "label": "guardrails",
+          "kind": "concept"
+        },
+        {
+          "label": "least privilege",
+          "kind": "concept"
+        },
+        {
+          "label": "model gateway",
+          "kind": "concept"
+        },
+        {
+          "label": "vLLM",
+          "kind": "tool"
+        },
+        {
+          "label": "quantization",
+          "kind": "concept"
+        },
+        {
+          "label": "KV cache",
+          "kind": "concept"
+        },
+        {
+          "label": "distillation",
+          "kind": "concept"
+        }
+      ],
+      "project": "M11.10",
+      "totalSessions": 18,
+      "statedSessions": 18,
+      "completionOutcomes": [
+        "Place a workload on the right consumption path among a public API, a managed platform, and open weights you or a provider host.",
+        "Work on at least one managed platform and read the other two as variations rather than new subjects.",
+        "Replace API keys with cloud identity and scope model access with least privilege.",
+        "Reach a model over a private network path and explain what that guarantees.",
+        "Isolate tenants on shared infrastructure, including retrieval that cannot cross a tenant boundary.",
+        "State where data is processed, how long it is retained, and whether it may be used for training.",
+        "Plan around regional model availability and data-residency requirements.",
+        "Size on-demand versus provisioned capacity and defend a quota increase with traffic evidence.",
+        "Attribute spend per project, team, or tenant, and catch runaway cost with budgets and alerts.",
+        "Place an open-weight model on the right rung of the hosting ladder, from a serverless provider to your own GPUs.",
+        "Compare per-token and per-GPU-hour economics and find the volume at which each one wins.",
+        "Run model traffic through a router with failover, spend controls, and one view of usage across providers.",
+        "Decide build or buy for retrieval, agents, guardrails, evaluation, and fine-tuning, layer by layer.",
+        "Measure the portability cost of a managed component before adopting it.",
+        "Migrate a workload between platforms with your eval suite as the safety net.",
+        "Deploy an existing application inside a cloud account in a form a regulated employer could accept."
+      ],
+      "todos": []
+    },
+    {
+      "number": 12,
+      "slug": "level-12",
       "title": "Multimodal 101: Beyond Text",
-      "sourceFile": "level11-multimodal-101.txt",
+      "sourceFile": "level12-multimodal-101.txt",
       "scope": "Build a strong mental model of how models handle images, audio, and video, why they fail differently from text models, and how to choose and use the right model when a task stops being text-only.",
       "prereqStated": "Level 1 (LLM 101), Level 2 (orchestration), Level 4 (RAG)",
       "phase": "frontier",
       "icon": "audio-lines",
       "modules": [
         {
-          "id": "M11.1",
+          "id": "M12.1",
           "name": "Beyond text: what a multimodal model is",
           "sessionCount": 1,
           "icon": "shapes",
@@ -4881,7 +5394,7 @@
           "outcome": "Explain to someone what a multimodal model actually is, and tell whether a given product is using a native model or a pipeline stitched together around a text model."
         },
         {
-          "id": "M11.2",
+          "id": "M12.2",
           "name": "Vision: how images become tokens",
           "sessionCount": 1,
           "icon": "grid-2x2",
@@ -4912,7 +5425,7 @@
           "outcome": "Predict roughly what an image will cost in tokens and choose a resolution and cropping strategy instead of uploading whatever the camera produced."
         },
         {
-          "id": "M11.3",
+          "id": "M12.3",
           "name": "Vision: capabilities & failure modes",
           "sessionCount": 1,
           "icon": "eye",
@@ -4943,7 +5456,7 @@
           "outcome": "Predict which visual tasks a model will handle unaided and which need cropping, higher resolution, or a verification step before you can ship them."
         },
         {
-          "id": "M11.4",
+          "id": "M12.4",
           "name": "Vision: documents, charts & visual RAG",
           "sessionCount": 3,
           "icon": "scan-text",
@@ -5017,7 +5530,7 @@
           "outcome": "Build a document pipeline that reads real-world PDFs and scans, extracts validated fields, and answers questions with a citation back to the page it used."
         },
         {
-          "id": "M11.5",
+          "id": "M12.5",
           "name": "Vision: image & video generation",
           "sessionCount": 2,
           "icon": "image",
@@ -5067,7 +5580,7 @@
           "outcome": "Produce and iteratively control generated images, and judge whether a generation task is worth its cost in review time and rights risk."
         },
         {
-          "id": "M11.6",
+          "id": "M12.6",
           "name": "Audio: how sound becomes tokens",
           "sessionCount": 1,
           "icon": "audio-waveform",
@@ -5098,7 +5611,7 @@
           "outcome": "Choose between a transcription pipeline and an audio-native model for a given task, and explain what each choice costs you in fidelity, latency, and money."
         },
         {
-          "id": "M11.7",
+          "id": "M12.7",
           "name": "Audio: speech to text & text to speech",
           "sessionCount": 2,
           "icon": "mic",
@@ -5152,7 +5665,7 @@
           "outcome": "Build a speech pipeline that transcribes real recordings and speaks generated text back, with a clear view of where accuracy and latency are lost."
         },
         {
-          "id": "M11.8",
+          "id": "M12.8",
           "name": "Audio: realtime voice agents",
           "sessionCount": 3,
           "icon": "audio-lines",
@@ -5226,7 +5739,7 @@
           "outcome": "Ship a voice agent that holds a natural conversation: it knows when you stopped talking, it can be interrupted, and it keeps silence short enough to feel human."
         },
         {
-          "id": "M11.9",
+          "id": "M12.9",
           "name": "Cross-modal search & retrieval",
           "sessionCount": 1,
           "icon": "vector-square",
@@ -5258,7 +5771,7 @@
           "outcome": "Decide when a task needs cross-modal retrieval and build a small image-and-text search over your own collection."
         },
         {
-          "id": "M11.10",
+          "id": "M12.10",
           "name": "Choosing a multimodal model",
           "sessionCount": 1,
           "icon": "git-fork",
@@ -5282,6 +5795,9 @@
               "text": "Treat privacy as a harder constraint here, because voices, faces, and scanned documents carry consent and data-residency obligations that plain text often does not."
             },
             {
+              "text": "Consider managed speech, vision, and document services from the cloud platforms alongside general multimodal models, since a narrow managed service is often cheaper and more accurate at one job."
+            },
+            {
               "text": "Shortlist two or three candidates, then test them on your own images, recordings, and documents before committing, exactly as you would for a text model."
             }
           ],
@@ -5291,7 +5807,7 @@
           "outcome": "Choose a model for a multimodal task on modality support, cost per unit, latency, and privacy, verified against your own examples."
         },
         {
-          "id": "M11.11",
+          "id": "M12.11",
           "name": "Deep research & long-horizon scenarios",
           "sessionCount": 2,
           "icon": "telescope",
@@ -5344,7 +5860,7 @@
           "outcome": "Run a long-horizon research task that produces a cited, structured report whose claims a reader can check individually."
         },
         {
-          "id": "M11.12",
+          "id": "M12.12",
           "name": "On-device & edge modalities",
           "sessionCount": 1,
           "icon": "smartphone",
@@ -5372,7 +5888,7 @@
           "outcome": "Decide which parts of a multimodal system belong on the user's device and accept the quality trade knowingly."
         },
         {
-          "id": "M11.13",
+          "id": "M12.13",
           "name": "Capstone: ship a multimodal build",
           "sessionCount": 1,
           "icon": "flag",
@@ -5463,7 +5979,7 @@
           "kind": "concept"
         }
       ],
-      "project": "M11.13",
+      "project": "M12.13",
       "totalSessions": 20,
       "statedSessions": 20,
       "completionOutcomes": [
@@ -5484,17 +6000,17 @@
       "todos": []
     },
     {
-      "number": 12,
-      "slug": "level-12",
+      "number": 13,
+      "slug": "level-13",
       "title": "Fine-Tuning",
-      "sourceFile": "level12-fine-tuning.txt",
+      "sourceFile": "level13-fine-tuning.txt",
       "scope": "the prompt-vs-RAG-vs-fine-tune call, and a small tune when an eval justifies it.",
       "prereqStated": null,
       "phase": "frontier",
       "icon": "sliders-horizontal",
       "modules": [
         {
-          "id": "M12.1",
+          "id": "M13.1",
           "name": "Should you fine-tune?",
           "sessionCount": 1,
           "icon": "circle-question-mark",
@@ -5508,7 +6024,7 @@
           "isGap": false
         },
         {
-          "id": "M12.2",
+          "id": "M13.2",
           "name": "Data curation for fine-tuning",
           "sessionCount": 2,
           "icon": "file-text",
@@ -5522,7 +6038,7 @@
           "isGap": false
         },
         {
-          "id": "M12.3",
+          "id": "M13.3",
           "name": "SFT & LoRA/QLoRA",
           "sessionCount": 3,
           "icon": "sliders-horizontal",
@@ -5536,7 +6052,7 @@
           "isGap": false
         },
         {
-          "id": "M12.4",
+          "id": "M13.4",
           "name": "Preference tuning: DPO",
           "sessionCount": 2,
           "icon": "thumbs-up",
@@ -5550,7 +6066,7 @@
           "isGap": false
         },
         {
-          "id": "M12.5",
+          "id": "M13.5",
           "name": "Reinforcement fine-tuning (RFT)",
           "sessionCount": 1,
           "icon": "award",
@@ -5564,7 +6080,7 @@
           "isGap": false
         },
         {
-          "id": "M12.6",
+          "id": "M13.6",
           "name": "Distillation",
           "sessionCount": 1,
           "icon": "shrink",
@@ -5578,7 +6094,7 @@
           "isGap": false
         },
         {
-          "id": "M12.7",
+          "id": "M13.7",
           "name": "Evaluating fine-tunes",
           "sessionCount": 1,
           "icon": "flask-conical",
@@ -5592,7 +6108,7 @@
           "isGap": false
         },
         {
-          "id": "M12.8",
+          "id": "M13.8",
           "name": "Capstone: a LoRA that beats a prompted baseline",
           "sessionCount": 1,
           "icon": "flag",
@@ -5644,24 +6160,24 @@
           "kind": "concept"
         }
       ],
-      "project": "M12.8",
+      "project": "M13.8",
       "totalSessions": 12,
       "statedSessions": null,
       "completionOutcomes": [],
       "todos": []
     },
     {
-      "number": 13,
-      "slug": "level-13",
+      "number": 14,
+      "slug": "level-14",
       "title": "Projects",
-      "sourceFile": "level13-projects.txt",
+      "sourceFile": "level14-projects.txt",
       "scope": "proof, not concepts. Portfolio builds that compose earlier levels. Ship 3–5 public.",
       "prereqStated": null,
       "phase": "frontier",
       "icon": "trophy",
       "modules": [
         {
-          "id": "P13.1",
+          "id": "P14.1",
           "name": "Document Q&A platform",
           "sessionCount": 3,
           "icon": "messages-square",
@@ -5675,7 +6191,7 @@
           "isGap": false
         },
         {
-          "id": "P13.2",
+          "id": "P14.2",
           "name": "Resume ↔ JD screening agent",
           "sessionCount": 2,
           "icon": "briefcase",
@@ -5689,7 +6205,7 @@
           "isGap": false
         },
         {
-          "id": "P13.3",
+          "id": "P14.3",
           "name": "Multi-agent research report system",
           "sessionCount": 3,
           "icon": "users",
@@ -5703,7 +6219,7 @@
           "isGap": false
         },
         {
-          "id": "P13.4",
+          "id": "P14.4",
           "name": "MCP server for a real tool",
           "sessionCount": 2,
           "icon": "plug-zap",
@@ -5717,7 +6233,7 @@
           "isGap": false
         },
         {
-          "id": "P13.5",
+          "id": "P14.5",
           "name": "Monitored production API",
           "sessionCount": 2,
           "icon": "activity",
@@ -5731,13 +6247,13 @@
           "isGap": false
         },
         {
-          "id": "P13.6",
+          "id": "P14.6",
           "name": "Voice or multimodal build",
           "sessionCount": 3,
           "icon": "audio-lines",
           "objectives": [
             {
-              "text": "Ship a realtime voice agent or a vision pipeline (L11)."
+              "text": "Ship a realtime voice agent or a vision pipeline (L12)."
             }
           ],
           "notes": [],
@@ -5745,7 +6261,7 @@
           "isGap": false
         },
         {
-          "id": "P13.7",
+          "id": "P14.7",
           "name": "Portfolio & positioning",
           "sessionCount": 1,
           "icon": "flag",
@@ -5796,17 +6312,17 @@
       "todos": []
     },
     {
-      "number": 14,
-      "slug": "level-14",
+      "number": 15,
+      "slug": "level-15",
       "title": "GenAI / AI Engineer Interview Prep",
-      "sourceFile": "level14-interview-prep.txt",
+      "sourceFile": "level15-interview-prep.txt",
       "scope": "convert everything learned across the roadmap into interview performance. This level does not re-teach concepts; it focuses on scenario-based questions, system-design discussions, debugging cases, trade-offs, and defending real engineering decisions under interview conditions.",
       "prereqStated": null,
       "phase": "interview",
       "icon": "briefcase-business",
       "modules": [
         {
-          "id": "M14.1",
+          "id": "M15.1",
           "name": "Interview strategy & role positioning",
           "sessionCount": 1,
           "icon": "compass",
@@ -5836,7 +6352,7 @@
           "outcome": "Prioritize interview preparation intelligently and position your existing skillset for the role being targeted."
         },
         {
-          "id": "M14.2",
+          "id": "M15.2",
           "name": "Production RAG interview scenarios",
           "sessionCount": 2,
           "icon": "search",
@@ -5890,7 +6406,7 @@
           "outcome": "Whiteboard and defend a production-scale RAG architecture rather than describing a demo-level retriever → LLM pipeline."
         },
         {
-          "id": "M14.3",
+          "id": "M15.3",
           "name": "Agentic AI interview scenarios",
           "sessionCount": 2,
           "icon": "bot",
@@ -5946,7 +6462,7 @@
           "outcome": "Design and defend an agent architecture while reasoning explicitly about autonomy, cost, reliability, recovery, and blast radius."
         },
         {
-          "id": "M14.4",
+          "id": "M15.4",
           "name": "Fine-tuning & model adaptation interviews",
           "sessionCount": 1,
           "icon": "sliders-horizontal",
@@ -5976,7 +6492,7 @@
           "outcome": "Defend a model-adaptation strategy and systematically debug performance degradation after deployment."
         },
         {
-          "id": "M14.5",
+          "id": "M15.5",
           "name": "LLMOps & production debugging interviews",
           "sessionCount": 2,
           "icon": "activity",
@@ -6006,7 +6522,7 @@
           "outcome": "Demonstrate that you can operate and troubleshoot an AI system after it leaves the notebook."
         },
         {
-          "id": "M14.6",
+          "id": "M15.6",
           "name": "AI system-design interviews",
           "sessionCount": 2,
           "icon": "network",
@@ -6051,6 +6567,9 @@
               "text": "deployment."
             },
             {
+              "text": "Design under enterprise constraints where a public API is not allowed, and defend a managed platform or self-hosted deployment on identity, residency, capacity, and cost."
+            },
+            {
               "text": "Explain every major trade-off rather than merely naming technologies."
             },
             {
@@ -6075,7 +6594,7 @@
           "outcome": "Run a structured AI-system-design interview from requirements through architecture, bottlenecks, failure modes, and scaling."
         },
         {
-          "id": "M14.7",
+          "id": "M15.7",
           "name": "Staying current without chasing hype",
           "sessionCount": 1,
           "icon": "newspaper",
@@ -6104,7 +6623,7 @@
           "outcome": "Demonstrate informed judgment rather than simply listing the latest tools."
         },
         {
-          "id": "M14.8",
+          "id": "M15.8",
           "name": "Project & portfolio defense",
           "sessionCount": 2,
           "icon": "presentation",
@@ -6155,7 +6674,7 @@
           "outcome": "Defend projects as engineering decisions rather than merely demonstrate that they work."
         },
         {
-          "id": "M14.9",
+          "id": "M15.9",
           "name": "Behavioral communication for AI engineers",
           "sessionCount": 1,
           "icon": "speech",
@@ -6185,7 +6704,7 @@
           "outcome": "Make strong technical thinking visible to the interviewer."
         },
         {
-          "id": "M14.10",
+          "id": "M15.10",
           "name": "Capstone: Full Mock GenAI Interview Loop",
           "sessionCount": 2,
           "icon": "flag",
@@ -6281,7 +6800,7 @@
           "kind": "tool"
         }
       ],
-      "project": "M14.10",
+      "project": "M15.10",
       "totalSessions": 16,
       "statedSessions": null,
       "completionOutcomes": [

@@ -24,9 +24,9 @@ const PHASES = [
   { id: 'retrieval',   name: 'Retrieval',          levels: [4],           theme: 'embeddings, vector search, RAG',              color: 'blue',    icon: 'search' },
   { id: 'agentic',     name: 'Agentic',            levels: [5, 6],        theme: 'agents, context engineering',                 color: 'emerald', icon: 'bot' },
   { id: 'trust',       name: 'Evaluation & Trust', levels: [7, 8],        theme: 'evals, security',                             color: 'amber',   icon: 'shield-check' },
-  { id: 'production',  name: 'Production',         levels: [9, 10],       theme: 'system design, LLMOps',                       color: 'cyan',    icon: 'server' },
-  { id: 'frontier',    name: 'Frontier & Proof',   levels: [11, 12, 13],  theme: 'multimodal, fine-tuning, projects',           color: 'rose',    icon: 'sparkles' },
-  { id: 'interview',   name: 'Interview',          levels: [14],          theme: 'positioning, scenarios, mock loops',           color: 'slate',   icon: 'handshake' },
+  { id: 'production',  name: 'Production',         levels: [9, 10, 11],   theme: 'system design, LLMOps, managed platforms',    color: 'cyan',    icon: 'server' },
+  { id: 'frontier',    name: 'Frontier & Proof',   levels: [12, 13, 14],  theme: 'multimodal, fine-tuning, projects',           color: 'rose',    icon: 'sparkles' },
+  { id: 'interview',   name: 'Interview',          levels: [15],          theme: 'positioning, scenarios, mock loops',           color: 'slate',   icon: 'handshake' },
 ];
 
 /* One Lucide icon per level. Chosen to match the level's subject; the icon set
@@ -34,8 +34,8 @@ const PHASES = [
 const LEVEL_ICONS = {
   0: 'terminal', 1: 'brain', 2: 'plug', 3: 'message-square-code', 4: 'library-big',
   5: 'bot', 6: 'layout-panel-left', 7: 'flask-conical', 8: 'shield-half', 9: 'network',
-  10: 'gauge', 11: 'audio-lines', 12: 'sliders-horizontal', 13: 'trophy',
-  14: 'briefcase-business',
+  10: 'gauge', 11: 'cloud-cog', 12: 'audio-lines', 13: 'sliders-horizontal', 14: 'trophy',
+  15: 'briefcase-business',
 };
 
 /* Keyword -> Lucide icon for module rows. First match wins, so the list runs
@@ -112,6 +112,16 @@ const MODULE_ICON_RULES = [
   // ops & delivery (must precede the broad deploy/test rules below)
   [/ci\/cd/i, 'infinity'],
   [/containeriz|application serving/i, 'container'],
+  [/three ways to consume|consumption path/i, 'git-fork'],
+  [/platform anatomy|bedrock|vertex ai|azure ai foundry/i, 'layout-grid'],
+  [/identity, networking|tenancy/i, 'key-round'],
+  [/regions?, residency|residency & compliance/i, 'globe-lock'],
+  [/capacity, quotas|quotas? & cost/i, 'gauge'],
+  [/open-weight model platform|inference provider/i, 'server-cog'],
+  [/model routers?|llm gateway/i, 'route'],
+  [/managed building blocks|build or buy/i, 'blocks'],
+  [/portability|lock-in|migration/i, 'arrow-left-right'],
+  [/managed ai platform|managed platform/i, 'cloud-cog'],
   [/\baws\b|deployment on/i, 'cloud-upload'],
   [/experiment tracking/i, 'git-compare'],
   [/application development|app development/i, 'hammer'],
@@ -460,7 +470,7 @@ const files = readdirSync(dir)
 const levels = files.map((f) => parseLevel(f, readFileSync(join(dir, f), 'utf8')))
   .sort((a, b) => a.number - b.number);
 
-const expected = Array.from({ length: 15 }, (_, i) => i);
+const expected = Array.from({ length: 16 }, (_, i) => i);
 const missing = expected.filter((n) => !levels.some((l) => l.number === n));
 if (missing.length) throw new Error(`Missing level files for: ${missing.join(', ')}`);
 

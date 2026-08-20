@@ -84,6 +84,7 @@ Outcome: Predict which tasks are naturally well suited to LLMs and which require
 M1.10 · Understanding the Model Landscape — sessions: 1
 Understand closed/API models through trade-offs involving frontier capability, convenience, infrastructure, privacy, vendor dependence, and control.
 Understand open-weight models through self-hosting, privacy, customization, infrastructure requirements, and operational complexity.
+Understand the third path between them: managed platforms such as AWS Bedrock, Google Vertex AI, and Azure AI Foundry serve both closed and open-weight models inside your own cloud account, and inference providers host open weights for you without any hardware of your own.
 Learn other useful distinctions: small vs large, dense vs Mixture-of-Experts, general-purpose vs specialized, reasoning vs non-reasoning, and text-only vs multimodal.
 Internalize the core principle: there is no universally best LLM; the best model depends on the workload.
 Understand that a model's knowledge stops at its training cutoff, and that anything newer has to arrive through context, retrieval, or tools.
@@ -110,7 +111,7 @@ Latency: How quickly does it respond?
 Cost: What will each request cost at your expected usage?
 Context: Can it accommodate the required input?
 Modalities: Do you need text, images, audio, or video?
-Privacy & deployment: Can you use an external API, or do you require self-hosting?
+Privacy & deployment: Can you use an external API, do you need a managed platform inside your own cloud, or do you require self-hosting?
 Product features: Do you require structured outputs, function calling, tools, streaming, or caching?
 Learn to critically read model cards, benchmark tables, pricing pages, context-window specifications, and API documentation.
 Understand why benchmark scores alone should not determine model selection.

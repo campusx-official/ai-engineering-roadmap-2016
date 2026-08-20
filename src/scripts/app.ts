@@ -4,8 +4,32 @@
  * static page if this never executes.
  */
 
-const STORE_KEY = 'cxr.progress.v1';
-const TOTAL_LEVELS = 15;
+const STORE_KEY = 'cxr.progress.v2';
+const LEGACY_KEY = 'cxr.progress.v1';
+const TOTAL_LEVELS = 16;
+
+/* Managed AI Platforms was inserted as level 11, shifting every level above it
+ * up by one. Progress is stored as level numbers, so a v1 record has to be
+ * remapped once or a learner's completed levels would silently point at
+ * different subjects. The v1 key is left in place as a fallback. */
+const LEGACY_INSERTED_AT = 11;
+
+function migrateLegacyProgress(): void {
+  try {
+    if (localStorage.getItem(STORE_KEY) !== null) return;
+    const legacy = localStorage.getItem(LEGACY_KEY);
+    if (legacy === null) return;
+    const parsed: unknown = JSON.parse(legacy);
+    if (!Array.isArray(parsed)) return;
+    const shifted = parsed
+      .filter((n): n is number => Number.isInteger(n) && n >= 0)
+      .map((n) => (n >= LEGACY_INSERTED_AT ? n + 1 : n));
+    localStorage.setItem(STORE_KEY, JSON.stringify([...new Set(shifted)].sort((a, b) => a - b)));
+  } catch {
+    /* storage unavailable or corrupted — progress is a nicety */
+  }
+}
+migrateLegacyProgress();
 
 /* ------------------------------------------------------------------ */
 /* analytics                                                           */

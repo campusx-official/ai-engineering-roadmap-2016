@@ -1,9 +1,9 @@
-Level 11 · Multimodal 101: Beyond Text
+Level 12 · Multimodal 101: Beyond Text
 
 Goal: Build a strong mental model of how models handle images, audio, and video, why they fail differently from text models, and how to choose and use the right model when a task stops being text-only.
 Prerequisites: Level 1 (LLM 101), Level 2 (orchestration), Level 4 (RAG) · Depth: Conceptual + hands-on; no research papers or heavy mathematics · Suggested duration: 20 sessions.
 
-M11.1 · Beyond text: what a multimodal model is — (sessions: 1)
+M12.1 · Beyond text: what a multimodal model is — (sessions: 1)
 
 Understand what makes a model multimodal: images, audio, and video are converted into tokens and fed into the same transformer that already processes text.
 Distinguish a natively multimodal model, trained on mixed data from the start, from a pipeline that bolts a separate transcription, OCR, or captioning model in front of a text-only LLM.
@@ -15,7 +15,7 @@ Try: Send the same chart as an image to a natively multimodal model and as OCR-e
 Mental model: Image / audio / video → tokens → the same transformer you already understand → text out
 Outcome: Explain to someone what a multimodal model actually is, and tell whether a given product is using a native model or a pipeline stitched together around a text model.
 
-M11.2 · Vision: how images become tokens — (sessions: 1)
+M12.2 · Vision: how images become tokens — (sessions: 1)
 
 Understand how a vision encoder splits an image into a grid of patches and turns each patch into a vector the transformer can consume.
 Build intuition for why a single image can cost hundreds or thousands of tokens, and why that cost scales with resolution rather than with file size.
@@ -26,7 +26,7 @@ Understand the practical trade-off between sending one large detailed image, sev
 Try: Send the same screenshot at full resolution, at half resolution, and cropped to the region that matters, then compare token usage, cost, and answer quality.
 Outcome: Predict roughly what an image will cost in tokens and choose a resolution and cropping strategy instead of uploading whatever the camera produced.
 
-M11.3 · Vision: capabilities & failure modes — (sessions: 1)
+M12.3 · Vision: capabilities & failure modes — (sessions: 1)
 
 Understand what vision models genuinely do well: reading text in images, describing scenes, extracting named fields from documents, and interpreting charts at a coarse level.
 Understand the failure modes that repeat across models: precise counting, spatial and geometric reasoning, dense small text, and exact row-to-column alignment in tables.
@@ -37,7 +37,7 @@ Understand which safeguards apply when reliability is not enough, such as higher
 Try: Build ten test images that include a crowded shelf, a dense table, a low-resolution receipt, and a handwritten note, then score how often the model is exactly right.
 Outcome: Predict which visual tasks a model will handle unaided and which need cropping, higher resolution, or a verification step before you can ship them.
 
-M11.4 · Vision: documents, charts & visual RAG — (sessions: 3)
+M12.4 · Vision: documents, charts & visual RAG — (sessions: 3)
 
 Session 1 · Reading a document as an image
 Distinguish a digital PDF that carries its own text layer from a scan or photograph where every character has to be recovered from pixels.
@@ -61,7 +61,7 @@ Try: Take one scanned invoice and one clean digital PDF, run both through a text
 Mental model: Document → Pages → Text layer + page images → Layout & regions → Structured fields or retrievable units
 Outcome: Build a document pipeline that reads real-world PDFs and scans, extracts validated fields, and answers questions with a citation back to the page it used.
 
-M11.5 · Vision: image & video generation — (sessions: 2)
+M12.5 · Vision: image & video generation — (sessions: 2)
 
 Session 1 · How generation differs from prediction
 Understand that a generative image model starts from random noise and repeatedly removes it, rather than predicting the next token the way an LLM does.
@@ -78,7 +78,7 @@ Try: Generate the same prompt at three seeds and three aspect ratios, then edit 
 Mental model: Noise → repeated denoising guided by the prompt → image
 Outcome: Produce and iteratively control generated images, and judge whether a generation task is worth its cost in review time and rights risk.
 
-M11.6 · Audio: how sound becomes tokens — (sessions: 1)
+M12.6 · Audio: how sound becomes tokens — (sessions: 1)
 
 Understand the path from a waveform to model input: audio is sampled, converted into a spectrogram or learned audio tokens, and then treated as another token stream.
 Build intuition for audio cost and latency, where tokens accumulate per second of duration rather than per word, so silence and background noise are paid for too.
@@ -89,7 +89,7 @@ Understand common audio failure modes such as accented speech, code-switching be
 Try: Run the same 30-second clip through a speech-to-text model and through an audio-native model, and ask both what the speaker's mood was.
 Outcome: Choose between a transcription pipeline and an audio-native model for a given task, and explain what each choice costs you in fidelity, latency, and money.
 
-M11.7 · Audio: speech to text & text to speech — (sessions: 2)
+M12.7 · Audio: speech to text & text to speech — (sessions: 2)
 
 Session 1 · Speech to text
 Understand what a speech-to-text model such as Whisper produces: a transcript, optional word timestamps, and confidence signals rather than clean edited prose.
@@ -107,7 +107,7 @@ Try: Transcribe a five-minute recording that mixes Hindi and English, then read 
 Mental model: Audio → Transcript + timestamps + speakers → Text → Synthesized audio
 Outcome: Build a speech pipeline that transcribes real recordings and speaks generated text back, with a clear view of where accuracy and latency are lost.
 
-M11.8 · Audio: realtime voice agents — (sessions: 3)
+M12.8 · Audio: realtime voice agents — (sessions: 3)
 
 Session 1 · The latency budget
 Understand why a voice conversation feels broken above roughly a second of silence, and treat end-to-end latency as the primary design constraint.
@@ -131,7 +131,7 @@ Try: Build a small voice loop with speech-to-text, an LLM, and text-to-speech, t
 Mental model: User speech → VAD & endpointing → Transcript → Model → Speech, with barge-in resetting the loop
 Outcome: Ship a voice agent that holds a natural conversation: it knows when you stopped talking, it can be interrupted, and it keeps silence short enough to feel human.
 
-M11.9 · Cross-modal search & retrieval — (sessions: 1)
+M12.9 · Cross-modal search & retrieval — (sessions: 1)
 
 Understand a shared embedding space, where an image and a caption that describe the same thing land close together as vectors.
 Understand CLIP-style joint embeddings, where two encoders are trained so that matching image-text pairs are pulled together and mismatched pairs pushed apart.
@@ -143,7 +143,7 @@ Try: Build a small image index, query it in plain language, and compare the resu
 Mental model: Different modalities → one shared vector space → distance means similarity
 Outcome: Decide when a task needs cross-modal retrieval and build a small image-and-text search over your own collection.
 
-M11.10 · Choosing a multimodal model — (sessions: 1)
+M12.10 · Choosing a multimodal model — (sessions: 1)
 
 Start from the modalities themselves: list what must go in, whether text, images, audio, video, or documents, and what must come out.
 Understand how multimodal pricing works, since per-image and per-audio-minute charges sit alongside per-token pricing and cost stops being about text length alone.
@@ -151,10 +151,11 @@ Understand the context cost of images, where a single image consumes a large, re
 Compare latency expectations by modality, including time to first audio for streaming voice, where a delay is heard by the user rather than merely measured.
 Weigh API access against self-hosting for vision and speech, where open models are strong and per-minute costs at volume can outgrow the operational effort.
 Treat privacy as a harder constraint here, because voices, faces, and scanned documents carry consent and data-residency obligations that plain text often does not.
+Consider managed speech, vision, and document services from the cloud platforms alongside general multimodal models, since a narrow managed service is often cheaper and more accurate at one job.
 Shortlist two or three candidates, then test them on your own images, recordings, and documents before committing, exactly as you would for a text model.
 Outcome: Choose a model for a multimodal task on modality support, cost per unit, latency, and privacy, verified against your own examples.
 
-M11.11 · Deep research & long-horizon scenarios — (sessions: 2)
+M12.11 · Deep research & long-horizon scenarios — (sessions: 2)
 
 Session 1 · Planning a long run
 Understand what changes when a task runs for many minutes across many sources instead of resolving inside a single prompt and a single response.
@@ -171,7 +172,7 @@ Understand the characteristic failures of long-horizon runs: drifting away from 
 Try: Run the same research question twice, once with a five-minute budget and once with a thirty-minute budget, and compare what the extra time actually bought.
 Outcome: Run a long-horizon research task that produces a cited, structured report whose claims a reader can check individually.
 
-M11.12 · On-device & edge modalities — (sessions: 1)
+M12.12 · On-device & edge modalities — (sessions: 1)
 
 Understand why speech and vision suit on-device execution, since the models are small, the input is private, and the network round trip is often the slowest part.
 Understand quantization as trading numerical precision for size and speed, and recognize the tasks where that trade shows up first as degraded quality.
@@ -181,7 +182,7 @@ Choose deliberately between on-device, self-hosted, and API execution for each m
 Try: Run a small quantized speech-to-text model locally and compare its accuracy, latency, and cost against a hosted API on the same audio.
 Outcome: Decide which parts of a multimodal system belong on the user's device and accept the quality trade knowingly.
 
-M11.13 · Capstone: ship a multimodal build — (sessions: 1)
+M12.13 · Capstone: ship a multimodal build — (sessions: 1)
 
 Choose one realistic build and take it all the way: a voice agent, a document-understanding pipeline, a visual search tool, or a research-report generator.
 Combine at least two modalities in a single application so the build exercises a real cross-modal boundary rather than one model in isolation.
@@ -192,7 +193,7 @@ Document one failure you found by testing on real inputs, explaining what broke,
 Package the build so another person can run it from a README with their own inputs, their own credentials, and no help from you.
 Final result: a working multimodal application that survives real inputs, whose latency and cost you can quote, and whose limitations you can state precisely.
 
-Level 11 completion outcome
+Level 12 completion outcome
 
 By the end of this level, you should be able to:
 

@@ -1,8 +1,8 @@
-Level 14 · GenAI / AI Engineer Interview Prep
+Level 15 · GenAI / AI Engineer Interview Prep
 
 Scope: convert everything learned across the roadmap into interview performance. This level does not re-teach concepts; it focuses on scenario-based questions, system-design discussions, debugging cases, trade-offs, and defending real engineering decisions under interview conditions.
 
-M14.1 · Interview strategy & role positioning — (sessions: 1)
+M15.1 · Interview strategy & role positioning — (sessions: 1)
 
 Understand how GenAI interviews have shifted from theory-heavy questioning toward system design, debugging, architecture, and production scenarios.
 Learn to read a job description and identify which roadmap areas are actually being tested instead of trying to prepare every listed tool.
@@ -12,7 +12,7 @@ Practice explaining API-hosted models vs self-hosted open-weight models across c
 Build a personalized interview-preparation plan based on target role and current weaknesses.
 Outcome: Prioritize interview preparation intelligently and position your existing skillset for the role being targeted.
 
-M14.2 · Production RAG interview scenarios — (sessions: 2)
+M15.2 · Production RAG interview scenarios — (sessions: 2)
 
 Design ingestion pipelines for messy enterprise data containing complex PDFs, nested tables, diagrams, varying layouts, and continuously changing documents.
 Whiteboard a RAG system serving large numbers of concurrent users across very large document collections.
@@ -30,7 +30,7 @@ Practice debugging scenarios such as: “The RAG system worked well for a week a
 Isolate failures across ingestion, retrieval, generation, data changes, model changes, and infrastructure.
 Outcome: Whiteboard and defend a production-scale RAG architecture rather than describing a demo-level retriever → LLM pipeline.
 
-M14.3 · Agentic AI interview scenarios — (sessions: 2)
+M15.3 · Agentic AI interview scenarios — (sessions: 2)
 
 Design an agentic system for a concrete business task involving planning, tools, memory, and multi-step execution.
 Defend the choice between a deterministic workflow and an autonomous agent.
@@ -50,7 +50,7 @@ Outcome: Design and defend an agent architecture while reasoning explicitly abou
 
 Note: the source marks this session as reconstructed because the original Session 3 transcript was not provided, so these topics are inferred from the series plan rather than directly transcribed.
 
-M14.4 · Fine-tuning & model adaptation interviews — (sessions: 1)
+M15.4 · Fine-tuning & model adaptation interviews — (sessions: 1)
 
 Make the prompt vs RAG vs fine-tuning decision from a concrete product brief.
 Explain when fine-tuning creates meaningful value and when it adds unnecessary training and deployment complexity.
@@ -60,7 +60,7 @@ Practice the debugging case: “The fine-tuned model performed well before deplo
 Consider training data, formatting, distribution shift, evaluation regressions, inference configuration, serving changes, and quantization artifacts.
 Outcome: Defend a model-adaptation strategy and systematically debug performance degradation after deployment.
 
-M14.5 · LLMOps & production debugging interviews — (sessions: 2)
+M15.5 · LLMOps & production debugging interviews — (sessions: 2)
 
 Diagnose production incidents involving model APIs, self-hosted inference, retrieval services, queues, caches, rate limits, and downstream tools.
 Reason through latency spikes, provider outages, cost explosions, capacity limits, and degraded model quality.
@@ -70,7 +70,7 @@ Explain what should trigger an alert and what requires rollback versus investiga
 Practice comparing proprietary API deployment with self-hosted inference under realistic traffic and privacy constraints.
 Outcome: Demonstrate that you can operate and troubleshoot an AI system after it leaves the notebook.
 
-M14.6 · AI system-design interviews — (sessions: 2)
+M15.6 · AI system-design interviews — (sessions: 2)
 
 Practice turning an ambiguous product requirement into explicit assumptions around users, traffic, latency, quality, cost, freshness, privacy, and reliability.
 Start with the simplest viable architecture before introducing RAG, agents, fine-tuning, routing, caching, or complex infrastructure.
@@ -85,6 +85,7 @@ observability,
 evals,
 security,
 deployment.
+Design under enterprise constraints where a public API is not allowed, and defend a managed platform or self-hosted deployment on identity, residency, capacity, and cost.
 Explain every major trade-off rather than merely naming technologies.
 Practice system designs such as:
 enterprise support assistant,
@@ -93,7 +94,7 @@ research agent,
 large-scale document intelligence system.
 Outcome: Run a structured AI-system-design interview from requirements through architecture, bottlenecks, failure modes, and scaling.
 
-M14.7 · Staying current without chasing hype — (sessions: 1)
+M15.7 · Staying current without chasing hype — (sessions: 1)
 
 Build a defensible process for evaluating new models, frameworks, papers, benchmarks, and tooling.
 Separate meaningful capability/infrastructure changes from short-lived hype.
@@ -104,7 +105,7 @@ Outcome: Demonstrate informed judgment rather than simply listing the latest too
 
 This reflects the source’s intended “GenAI philosophy” component, though that final session was also reconstructed because its transcript was unavailable.
 
-M14.8 · Project & portfolio defense — (sessions: 2)
+M15.8 · Project & portfolio defense — (sessions: 2)
 
 Prepare 2–3 major projects from the roadmap for deep technical questioning.
 Explain each project using:
@@ -121,7 +122,7 @@ Prepare for interviewer follow-ups such as:
 “What breaks first?”
 Outcome: Defend projects as engineering decisions rather than merely demonstrate that they work.
 
-M14.9 · Behavioral communication for AI engineers — (sessions: 1)
+M15.9 · Behavioral communication for AI engineers — (sessions: 1)
 
 Communicate technical reasoning clearly without drowning the interviewer in implementation details.
 State assumptions before solving ambiguous design questions.
@@ -130,7 +131,7 @@ Use diagrams and whiteboards to progressively reveal a design.
 When unsure, explain how you would measure, experiment, or debug rather than bluffing.
 Structure experience-based answers around the situation, decision, implementation, result, and lessons learned.
 Outcome: Make strong technical thinking visible to the interviewer.
-M14.10 · Capstone: Full Mock GenAI Interview Loop — (sessions: 2)
+M15.10 · Capstone: Full Mock GenAI Interview Loop — (sessions: 2)
 
 Simulate a complete AI-engineering interview.
 
@@ -156,7 +157,7 @@ Present one major portfolio project and handle increasingly deep follow-up quest
 
 Final result: demonstrate that you can reason like an AI engineer under interview conditions, not merely recall AI concepts.
 
-Level 14 completion outcome
+Level 15 completion outcome
 
 By the end of this level, you should be able to:
 

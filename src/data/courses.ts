@@ -78,9 +78,9 @@ export const coursesByLevel: Record<number, Course[]> = {
   8: [{ title: 'LLM Guardrails', status: 'soon' }],
   9: [{ title: 'AI System Design', status: 'soon' }],
   10: [{ title: 'LLMOps', status: 'soon' }],
-  /* Level 11 is LLM 101 for the other modalities, so it maps to the same course. */
-  11: [{ title: 'LLM 101', status: 'soon' }],
-  14: [{ title: 'AI Engineer Interview Prep', status: 'live' }],
+  /* Level 12 is LLM 101 for the other modalities, so it maps to the same course. */
+  12: [{ title: 'LLM 101', status: 'soon' }],
+  15: [{ title: 'AI Engineer Interview Prep', status: 'live' }],
 };
 
 export const coursesFor = (level: number): Course[] => coursesByLevel[level] ?? [];

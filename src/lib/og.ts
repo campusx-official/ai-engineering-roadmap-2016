@@ -187,7 +187,7 @@ export function defaultImage(): Buffer {
   const inner = `
   <text x="72" y="118" font-family="JetBrains Mono" font-size="15" letter-spacing="3.4" fill="#6c5ce7">AI ENGINEERING ROADMAP</text>
 
-  <text x="72" y="196" font-family="Space Grotesk" font-weight="700" font-size="64" letter-spacing="-2" fill="#0f0f14">Fifteen levels from writing</text>
+  <text x="72" y="196" font-family="Space Grotesk" font-weight="700" font-size="64" letter-spacing="-2" fill="#0f0f14">Sixteen levels from writing</text>
   <text x="72" y="266" font-family="Space Grotesk" font-weight="700" font-size="64" letter-spacing="-2" fill="#0f0f14">software to shipping AI systems.</text>
 
   <text x="72" y="322" font-family="DM Sans" font-size="26" fill="#52525b">Not a playlist — a sequence. Every level ends with something you deploy.</text>

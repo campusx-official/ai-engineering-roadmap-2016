@@ -179,9 +179,10 @@ export const topics: Record<string, TopicSet> = {
     'Why hallucination happens',
     'Asking "how reliably?" instead of "can it?"',
   ] },
-  'M1.10': { sig: 'd322f5ff', labels: [
+  'M1.10': { sig: 'ab3bfda7', labels: [
     'Closed and API models',
     'Open-weight models',
+    'Managed platforms & hosted open weights',
     'Other useful distinctions',
     'Knowledge cutoffs',
     'Versions, snapshots & deprecations',
@@ -196,7 +197,7 @@ export const topics: Record<string, TopicSet> = {
     'What inflates published scores',
     'From leaderboard to shortlist',
   ] },
-  'M1.12': { sig: 'd8783e3e', labels: [
+  'M1.12': { sig: 'f0dd92c1', labels: [
     'Eight dimensions for model choice',
     'Capability',
     'Quality',
@@ -693,11 +694,12 @@ export const topics: Record<string, TopicSet> = {
     'Preventing cross-tenant leakage',
     'Preserving provenance',
   ] },
-  'M8.6': { sig: 'f26a66ab', labels: [
+  'M8.6': { sig: 'c2670575', labels: [
     'Identifying sensitive data',
     'Redaction & minimization',
     'Keeping PII out of logs & traces',
     'Retention, deletion & residency',
+    'Private connectivity & zero retention',
     'Protecting secrets from the model',
   ] },
   'M8.7': { sig: '83956ade', labels: [
@@ -887,12 +889,14 @@ export const topics: Record<string, TopicSet> = {
     'Tagged images built after tests pass',
     'Publishing to Docker Hub',
   ] },
-  'M10.8': { sig: 'ed85c868', labels: [
+  'M10.8': { sig: 'a1827b4a', labels: [
     'EC2 servers for LLM workloads',
     'Automated releases with CodeDeploy',
     'Load balancing with streaming',
     'Auto Scaling',
     'Keys in AWS Secrets Manager',
+    'The managed-platform alternative',
+    'Quota & provisioned capacity planning',
   ] },
   'M10.9': { sig: '162abe44', labels: [
     'Prometheus for health data',
@@ -1033,7 +1037,105 @@ export const topics: Record<string, TopicSet> = {
   },
 
   /* --------------------------------------------------------------- level 11 */
-  'M11.1': { sig: '14f3719f', labels: [
+  'M11.1': { sig: 'c1beac94', labels: [
+    'Three ways to consume a model',
+    'Open weights without running GPUs',
+    'Why regulated teams cannot use a public API',
+    'Comparing the three paths',
+    'Platform, gateway, or both',
+  ] },
+  'M11.2': { sig: 'db6465cc', labels: [
+    'The shape all three share',
+    'Reading a model catalog',
+    'Invoking through the platform',
+    'Same ideas, different vocabulary',
+    'Calling a hosted model',
+    'Swapping models inside one catalog',
+    'What the platform does not give you',
+  ] },
+  'M11.3': { sig: 'f2751807', labels: [
+    'Cloud identity instead of API keys',
+    'Least privilege for model access',
+    'Auditing who invoked what',
+    'Private connectivity, no public egress',
+    'Tenant isolation on shared infrastructure',
+    'Encryption & customer-managed keys',
+  ] },
+  'M11.4': { sig: 'bb6ba9ea', labels: [
+    'Models exist per region',
+    'Data residency & localization',
+    'Retention & training terms in writing',
+    'Connecting back to governance',
+    'When your model is not in your region',
+  ] },
+  'M11.5': { sig: '04179cb4', labels: [
+    'On-demand vs provisioned throughput',
+    'Reading the quota model',
+    'Planning for burst traffic',
+    'Defending a quota increase',
+    'Cost per request, end to end',
+    'Attributing spend per team or tenant',
+    'Budgets & runaway-cost alerts',
+    'Which pricing model wins at your volume',
+  ] },
+  'M11.6': { sig: '3edb11f2', labels: [
+    'The open-weight hosting ladder',
+    'Model hubs & checkpoint trust',
+    'Serverless inference providers',
+    'GPU compute platforms',
+    'Serving it yourself with vLLM',
+    'Per-token vs per-GPU-hour',
+    'Cold starts & scale-to-zero',
+    'Sizing hardware for a model',
+    'What hosting open weights buys',
+    'Open vs closed on your own task',
+  ] },
+  'M11.7': { sig: 'a0a62046', labels: [
+    'One endpoint, many providers',
+    'Hosted routers vs self-hosted proxies',
+    'Routing rules & automatic failover',
+    'Virtual keys, budgets & quotas',
+    'One view of usage and cost',
+    'The router is on the critical path',
+    'Differences a router cannot hide',
+    'Caching at the gateway',
+    'When a router earns its place',
+    'Routing changes who answers',
+  ] },
+  'M11.8': { sig: '83f4aadc', labels: [
+    'Managed retrieval & knowledge bases',
+    'Managed retrieval vs your own stack',
+    'Managed agent & workflow runtimes',
+    'Managed guardrails',
+    'Managed evaluation',
+    'Managed fine-tuning & distillation',
+    'Deciding layer by layer',
+    'What to judge each candidate on',
+    'Measuring the portability cost',
+    'When buying is the honest call',
+  ] },
+  'M11.9': { sig: '5f488053', labels: [
+    'What travels and what does not',
+    'Keeping an abstraction in place',
+    'The real costs of lock-in',
+    'Migration as an evaluation exercise',
+    'Catalog lag & deprecation',
+    'Running two platforms in parallel',
+    'Multi-cloud, honestly',
+  ] },
+  'M11.10': { sig: 'f497f711', labels: [
+    'Redeploy an app you already built',
+    'Cloud identity, no API key',
+    'Private path & recorded data handling',
+    'One component bought, one built',
+    'Re-run your evals after the move',
+    'A gateway with a working fallback',
+    'Capacity sizing & budget alert',
+    'A platform decision record',
+  ] },
+
+  /* --------------------------------------------------------------- level 12 */
+  'M12.1': { sig: '14f3719f', labels: [
     'What makes a model multimodal',
     'Native multimodal vs bolted-on pipeline',
     'Text as the interlingua',
@@ -1041,7 +1143,7 @@ export const topics: Record<string, TopicSet> = {
     'What "any-to-any" really means',
     'What a pipeline throws away',
   ] },
-  'M11.2': { sig: '7582eea0', labels: [
+  'M12.2': { sig: '7582eea0', labels: [
     'Patches & the vision encoder',
     'Why one image costs many tokens',
     'Tiling & detail settings',
@@ -1049,7 +1151,7 @@ export const topics: Record<string, TopicSet> = {
     'Images share the context window',
     'Full image, crops, or overview',
   ] },
-  'M11.3': { sig: 'a59b9f58', labels: [
+  'M12.3': { sig: 'a59b9f58', labels: [
     'What vision models do well',
     'Counting, space & dense tables',
     'Fabricated visual detail',
@@ -1057,7 +1159,7 @@ export const topics: Record<string, TopicSet> = {
     'Asking "how reliably?" for images',
     'Safeguards when reliability is short',
   ] },
-  'M11.4': { sig: '8c1a44ba', labels: [
+  'M12.4': { sig: '8c1a44ba', labels: [
     'Text-layer PDFs vs scans',
     'OCR vs native vision reading',
     'Layout & reading order',
@@ -1074,7 +1176,7 @@ export const topics: Record<string, TopicSet> = {
     'When plain text beats visual',
     'The token cost of page images',
   ] },
-  'M11.5': { sig: '6ff02238', labels: [
+  'M12.5': { sig: '6ff02238', labels: [
     'Denoising, not next-token prediction',
     'What a prompt controls',
     'Seeds & reproducibility',
@@ -1085,7 +1187,7 @@ export const topics: Record<string, TopicSet> = {
     'What video adds: time & motion',
     'Provenance, watermarks & rights',
   ] },
-  'M11.6': { sig: 'f4f4dde3', labels: [
+  'M12.6': { sig: 'f4f4dde3', labels: [
     'Waveform to spectrogram to tokens',
     'Cost per second, not per word',
     'Transcribe-then-prompt vs audio-native',
@@ -1093,7 +1195,7 @@ export const topics: Record<string, TopicSet> = {
     'Why audio is latency-sensitive',
     'Where speech recognition breaks',
   ] },
-  'M11.7': { sig: 'f766b031', labels: [
+  'M12.7': { sig: 'f766b031', labels: [
     'What Whisper actually returns',
     'Batch vs streaming transcription',
     'Accents, code-mixing & noise',
@@ -1105,7 +1207,7 @@ export const topics: Record<string, TopicSet> = {
     'Streaming synthesis',
     'Hosted vs local speech models',
   ] },
-  'M11.8': { sig: '3ff5c7d2', labels: [
+  'M12.8': { sig: '3ff5c7d2', labels: [
     'Latency as the design constraint',
     'Where the milliseconds go',
     'Cascaded vs speech-to-speech',
@@ -1122,7 +1224,7 @@ export const topics: Record<string, TopicSet> = {
     'What to say while waiting',
     'Reconstructing a bad call',
   ] },
-  'M11.9': { sig: '8d137ee8', labels: [
+  'M12.9': { sig: '8d137ee8', labels: [
     'A shared embedding space',
     'CLIP-style joint embeddings',
     'Searching across modalities',
@@ -1130,16 +1232,17 @@ export const topics: Record<string, TopicSet> = {
     'Where cross-modal retrieval fails',
     'Evaluating on your own collection',
   ] },
-  'M11.10': { sig: '219c7a4b', labels: [
+  'M12.10': { sig: 'f62d64cd', labels: [
     'Start from the modalities',
     'Per-image & per-minute pricing',
     'The context cost of images',
     'Latency by modality',
     'API vs self-hosting',
     'Privacy for voice, faces & scans',
+    'Managed speech, vision & document services',
     'Shortlist, then test your own data',
   ] },
-  'M11.11': { sig: 'c4b97e40', labels: [
+  'M12.11': { sig: 'c4b97e40', labels: [
     'Why long runs are different',
     'Decomposing a research question',
     'Breadth first, then depth',
@@ -1151,14 +1254,14 @@ export const topics: Record<string, TopicSet> = {
     'A report a human can audit',
     'How long runs fail',
   ] },
-  'M11.12': { sig: 'df5ab996', labels: [
+  'M12.12': { sig: 'df5ab996', labels: [
     'Why modalities suit the device',
     'Quantization & what it costs',
     'Phone & laptop hardware limits',
     'What on-device buys you',
     'On-device, self-hosted or API',
   ] },
-  'M11.13': { sig: '37a41b5c', labels: [
+  'M12.13': { sig: '37a41b5c', labels: [
     'Pick one realistic build',
     'At least two modalities',
     'Real inputs, not samples',
@@ -1168,8 +1271,8 @@ export const topics: Record<string, TopicSet> = {
     'Runnable by someone else',
   ] },
 
-  /* --------------------------------------------------------------- level 14 */
-  'M14.1': { sig: '61b06ef4', labels: [
+  /* --------------------------------------------------------------- level 15 */
+  'M15.1': { sig: '61b06ef4', labels: [
     'How GenAI interviews have shifted',
     'Reading a job description',
     'AI Engineer vs GenAI DS vs DS',
@@ -1177,7 +1280,7 @@ export const topics: Record<string, TopicSet> = {
     'API-hosted vs self-hosted models',
     'A personalized preparation plan',
   ] },
-  'M14.2': { sig: '716ba049', labels: [
+  'M15.2': { sig: '716ba049', labels: [
     'Ingestion for messy enterprise data',
     'RAG at concurrent-user scale',
     'Splitting the architecture into services',
@@ -1193,7 +1296,7 @@ export const topics: Record<string, TopicSet> = {
     '"Quality dropped after a week"',
     'Isolating the failing stage',
   ] },
-  'M14.3': { sig: '3c6b90d5', labels: [
+  'M15.3': { sig: '3c6b90d5', labels: [
     'Designing an agent for a business task',
     'Workflow or autonomous agent',
     'Tools, MCP, memory & multi-agent',
@@ -1209,7 +1312,7 @@ export const topics: Record<string, TopicSet> = {
     'Debugging an agent from its trajectory',
     'When not to go autonomous',
   ] },
-  'M14.4': { sig: '95f4547b', labels: [
+  'M15.4': { sig: '95f4547b', labels: [
     'Prompt vs RAG vs fine-tuning',
     'When fine-tuning earns its complexity',
     'LoRA, QLoRA, PEFT & quantization',
@@ -1217,7 +1320,7 @@ export const topics: Record<string, TopicSet> = {
     '"Accuracy dropped after deployment"',
     'What to investigate',
   ] },
-  'M14.5': { sig: 'ca7f9e86', labels: [
+  'M15.5': { sig: 'ca7f9e86', labels: [
     'Diagnosing production incidents',
     'Latency spikes, outages & cost explosions',
     'Fallbacks, retries & autoscaling',
@@ -1225,7 +1328,7 @@ export const topics: Record<string, TopicSet> = {
     'Alert, rollback or investigate',
     'Proprietary API vs self-hosted inference',
   ] },
-  'M14.6': { sig: 'e5cacb4b', labels: [
+  'M15.6': { sig: '3d5adb69', labels: [
     'Turning ambiguity into assumptions',
     'Simplest viable architecture first',
     'Whiteboarding the full AI stack',
@@ -1239,6 +1342,7 @@ export const topics: Record<string, TopicSet> = {
     'Evals',
     'Security',
     'Deployment',
+    'Designing under enterprise constraints',
     'Explaining trade-offs, not naming tools',
     'Systems to practise',
     'Enterprise support assistant',
@@ -1246,14 +1350,14 @@ export const topics: Record<string, TopicSet> = {
     'Research agent',
     'Large-scale document intelligence',
   ] },
-  'M14.7': { sig: '5767a661', labels: [
+  'M15.7': { sig: '5767a661', labels: [
     'A process for evaluating what is new',
     'Capability change vs hype',
     'Evaluating a newly released model',
     'Benchmarks → evals → controlled rollout',
     '"How do you stay current?"',
   ] },
-  'M14.8': { sig: '9f3acb9d', labels: [
+  'M15.8': { sig: '9f3acb9d', labels: [
     'Choosing two or three projects to defend',
     'A structure for explaining each',
     'Problem → architecture → results',
@@ -1268,7 +1372,7 @@ export const topics: Record<string, TopicSet> = {
     '"How would you halve the cost?"',
     '"What breaks first?"',
   ] },
-  'M14.9': { sig: 'c5b20ae7', labels: [
+  'M15.9': { sig: 'c5b20ae7', labels: [
     'Clarity without implementation detail',
     'Stating assumptions first',
     'Thinking in trade-offs',
@@ -1276,7 +1380,7 @@ export const topics: Record<string, TopicSet> = {
     'Measuring instead of bluffing',
     'Structuring experience-based answers',
   ] },
-  'M14.10': { sig: 'e2301605', labels: [
+  'M15.10': { sig: 'e2301605', labels: [
     'Simulate a complete interview',
     'Round 1 · Scenario & debugging',
     'Rapid production scenarios',

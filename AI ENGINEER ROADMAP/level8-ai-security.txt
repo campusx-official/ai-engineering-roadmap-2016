@@ -51,6 +51,7 @@ Identify sensitive data including PII, credentials, financial information, priva
 Detect, redact, mask, or minimize sensitive information before sending it to models when appropriate.
 Avoid unnecessarily storing sensitive data in prompts, logs, traces, memories, vector stores, or evaluation datasets.
 Understand data retention, deletion, residency, access control, and third-party model-provider considerations.
+Use the controls that make regulated deployments possible: private connectivity to the model endpoint, no public egress, and contractual zero-retention or no-training terms.
 Protect secrets so they are never unnecessarily exposed to the model.
 Outcome: Minimize the amount of sensitive information exposed throughout an AI system.
 

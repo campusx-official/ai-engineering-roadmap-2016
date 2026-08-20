@@ -1,0 +1,165 @@
+Level 11 · Managed AI Platforms
+
+Goal: Ship an AI application on the platforms teams actually buy — a cloud provider's managed platform, an open-weight hosting provider, or a router spanning several — and know which parts to hand over and which to keep.
+Prerequisites: Level 9 (system design), Level 10 (LLMOps) · Depth: Conceptual + hands-on; cloud-account access required · Suggested duration: 18 sessions.
+
+M11.1 · The three ways to consume a model — (sessions: 1)
+
+Understand the three paths an organization can take: a provider's public API, a managed platform inside its own cloud account, or open weights it hosts itself or through an inference provider.
+Recognize that open weights no longer imply operating GPUs, since managed platforms and inference providers serve the same open models on demand.
+Understand why most regulated organizations cannot use a public API directly, and why that constraint decides architecture long before quality does.
+Compare the three paths on identity, data handling, region, capacity, price per token, operational effort, and how quickly new models reach you.
+Understand where a managed platform sits relative to the model gateway pattern: it can be your gateway, sit behind one, or be one provider among several that a gateway routes to.
+Try: Take an application you have already built against a public API and list every component that would change if the same app had to run inside a cloud account.
+Mental model: One application, three consumption paths → public API · managed platform in your cloud · open weights you or a provider host
+Outcome: Place any AI workload on the right consumption path and defend the choice with reasons other than familiarity.
+
+M11.2 · Platform anatomy: Bedrock, Vertex AI & Azure AI Foundry — (sessions: 2)
+
+Session 1 · What a managed platform gives you
+Understand the shape all three share: a catalog of closed and open-weight models, one endpoint style, one identity system, one network boundary, and one bill.
+Read a platform's model catalog the way you read a model card, noting which providers are offered, which regions carry them, and which versions are pinned or retired.
+Understand how invocation differs from a provider SDK, including the platform's own request format, its converse-style unified API, and the provider-native passthrough where one exists.
+Recognize the platform-specific vocabulary for the same ideas, so a Bedrock, Vertex AI, or Azure AI Foundry document reads as a variation rather than a new subject.
+Session 2 · Working on one platform
+Call a hosted model on one platform from application code and confirm the response, usage, and cost reporting you get back.
+Compare the same prompt across two models in the same catalog without changing how you authenticate, network, or bill.
+Understand what the platform does not give you: prompt quality, retrieval design, evaluation depth, and product behavior remain yours.
+Try: Run one prompt against a closed model and an open-weight model in the same catalog, and compare quality, latency, and price per thousand tokens.
+Outcome: Work confidently on at least one managed platform and map its concepts onto the other two.
+
+M11.3 · Identity, networking & tenancy — (sessions: 2)
+
+Session 1 · Identity and access
+Replace API keys with cloud identity: roles, service accounts, and workload identity that grant a service the right to invoke a model.
+Apply least privilege to model access, scoping which models, regions, and actions an application or team may use.
+Understand how platform access is audited, and why an audit trail of who invoked which model matters in regulated environments.
+Session 2 · Network boundary and tenancy
+Reach a model over private connectivity so requests never traverse the public internet, and understand what that buys you and what it costs.
+Design tenant isolation on a shared platform: separate accounts or projects, scoped credentials, per-tenant keys, and retrieval that cannot cross a tenant boundary.
+Understand encryption and key management options, including customer-managed keys for data at rest.
+Try: Invoke a model from a private network path with no public egress, then verify from the logs that the request never left the account.
+Outcome: Deploy an AI workload whose identity, network path, and tenant boundaries would survive a security review.
+
+M11.4 · Regions, residency & compliance — (sessions: 1)
+
+Understand that a model exists in specific regions, and that the region you are permitted to use often decides which models you may design around.
+Plan for data residency requirements, including Indian data-localization expectations and the sector rules that sit above them.
+Understand retention and training terms in writing: what the platform logs, for how long, who can see it, and whether your data may be used to improve a model.
+Connect these controls to the governance work of Level 8, where residency, deletion, and third-party processing were named as requirements.
+Handle the common case where the model you want is unavailable in your required region, through cross-region reasoning, a different model, or an exception you can document.
+Outcome: State, for a given workload, exactly where the data goes, where it is processed, how long it is kept, and under whose terms.
+
+M11.5 · Capacity, quotas & cost — (sessions: 2)
+
+Session 1 · Capacity
+Distinguish on-demand capacity from provisioned or reserved throughput, and understand why committed capacity changes both price and rate limits.
+Read the quota model of a platform: requests per minute, tokens per minute, concurrent requests, and per-model limits that differ by region.
+Plan for burst traffic with queueing, backpressure, and batch endpoints instead of assuming the platform will absorb a spike.
+Request and defend a quota increase with traffic evidence, since capacity is an approval process rather than a setting.
+Session 2 · Cost
+Model cost per request end to end, including input and output tokens, retrieval calls, and any managed component you invoke along the way.
+Attribute cost to a project, team, or tenant using the platform's own tagging and billing views, which a shared API key cannot do.
+Set budgets and alerts so a runaway agent loop is caught by spend monitoring rather than by the monthly invoice.
+Compare on-demand, committed, and self-hosted economics at your actual volume rather than at the volume in the pricing example.
+Try: Take a week of real traffic and price it three ways: on-demand, committed capacity, and open weights on your own inference.
+Outcome: Size capacity and forecast spend for a real workload, and know at what volume each pricing model wins.
+
+M11.6 · Open-weight model platforms — (sessions: 2)
+
+Session 1 · Where open weights actually run
+Understand the spectrum between calling an API and operating hardware: model hubs, serverless inference providers, GPU compute platforms, and your own servers.
+Use a model hub such as Hugging Face to find open-weight models, read their cards, check licences and gated access, and judge whether a checkpoint is trustworthy.
+Call an open-weight model through a serverless inference provider such as Together, Fireworks, Groq, or Replicate, where you pay per token and never see a GPU.
+Understand what a GPU compute platform such as Modal, Baseten, or RunPod adds: you bring the serving stack and they schedule, scale, and bill the hardware.
+Serve a model yourself with vLLM, TGI, or Ollama, and understand continuous batching, KV-cache reuse, and why a naive request loop wastes most of a GPU.
+Session 2 · Choosing and paying for open-weight serving
+Compare per-token pricing with per-GPU-hour pricing, and find the utilization point at which renting hardware becomes cheaper than paying per token.
+Understand cold starts and scale-to-zero, and why a deployment that idles cheaply may answer its first request slowly.
+Size hardware for a model from parameter count, precision, quantization, and KV-cache growth with context length, since memory decides which GPU you need.
+Understand what hosting open weights gives you — predictable cost at volume, data that never leaves your boundary, and full control of versions — and what it asks of you in return.
+Evaluate an open-weight model against a closed one on your own task before assuming that either is obviously better.
+Try: Serve one small open-weight model three ways — a serverless provider, a GPU platform, and locally — and compare setup effort, latency, and the cost of a thousand requests.
+Mental model: Open weights are a ladder: someone else's API → someone else's GPUs → your GPUs
+Outcome: Run an open-weight model on the right rung of the hosting ladder and justify the choice on cost, latency, control, and effort.
+
+M11.7 · Model routers & LLM gateways — (sessions: 2)
+
+Session 1 · What a router is for
+Understand a gateway as one endpoint in front of many providers: it holds the credentials, accepts one request format, and hides which model actually served the request.
+Compare hosted routers such as OpenRouter and Portkey with self-hosted proxies such as LiteLLM, and with the routing built into cloud platforms and framework gateways.
+Route by rule — task type, cost ceiling, context length, latency target, region, or risk — and fail over automatically when a provider errors or throttles.
+Use a gateway's spend controls: virtual keys per team or per feature, budgets, quotas, and per-key rate limits that stop one client exhausting shared capacity.
+Get one view of usage, latency, errors, and cost across every provider instead of stitching separate dashboards together.
+Session 2 · Operating a router
+Understand the failure mode you have introduced, since a gateway now sits on the critical path and needs its own availability, timeouts, and a bypass plan.
+Handle the provider differences a gateway cannot hide: tool-calling formats, structured-output support, token limits, and prompts that behave differently on each model.
+Cache at the gateway, both exact-match and semantic, and decide which requests must never be answered from a cache.
+Decide when a router earns its place — several providers, several teams, or spend worth governing — and when one provider and a client library is the honest answer.
+Keep evals in the loop, because a routing rule change swaps the model answering your users without a single line of application code changing.
+Try: Put a router in front of two providers, force the primary to fail, and confirm the fallback answers inside your latency budget.
+Outcome: Run model traffic through a router that gives you failover, spend control, and one view of usage, without pretending that providers are interchangeable.
+
+M11.8 · Managed building blocks: build or buy — (sessions: 3)
+
+Session 1 · Retrieval and agents
+Understand managed retrieval offerings such as knowledge bases and enterprise search, which package ingestion, chunking, embedding, and retrieval behind a configuration.
+Compare a managed knowledge base with the retrieval stack you built in Level 4 on control over chunking, retrieval tuning, evaluation depth, and cost at your corpus size.
+Understand managed agent and workflow runtimes, and what they assume about tools, memory, and orchestration compared with the agents you built in Level 5.
+Session 2 · Safety, evaluation and adaptation
+Understand managed guardrails for content filtering, topic restriction, and sensitive-data redaction, and where they sit relative to your own checks.
+Understand managed evaluation offerings and judge whether their metrics answer the questions your eval suite from Level 7 was built to answer.
+Understand managed fine-tuning and distillation, including which base models can be adapted, where the resulting weights live, and whether you can take them with you.
+Session 3 · Deciding, layer by layer
+Decide each layer separately, since adopting a managed retrieval service does not commit you to managed agents, guardrails, or evaluation.
+Judge each candidate on control, transparency, evaluation depth, cost at your volume, and how much of the behavior you must be able to explain to an auditor.
+Measure the portability cost before adopting: a prompt moves between providers in minutes, while a knowledge base, agent, or guardrail configuration usually does not.
+Recognize the honest cases for buying: a small team, a standard use case, a compliance deadline, or a workload whose quality bar the managed component already clears.
+Try: Rebuild one component of an existing application on a managed equivalent, then compare quality, cost, and how much control you gave up.
+Mental model: Buy the plumbing you cannot differentiate on, build the layer your product is judged by
+Outcome: Make a defensible build-or-buy call for every layer of an AI system instead of adopting or rejecting managed services wholesale.
+
+M11.9 · Portability, lock-in & migration — (sessions: 2)
+
+Session 1 · Designing for exit
+Separate what is portable from what is not: prompts, evals, and application code travel easily, while managed indexes, agent definitions, and platform-specific APIs do not.
+Keep an abstraction between application code and provider so a model swap is a configuration change rather than a rewrite.
+Understand the real costs of lock-in beyond price: model availability, feature pace, negotiating position, and the work of proving a new platform is safe.
+Session 2 · Moving
+Plan a migration between platforms or providers as an evaluation exercise, re-running your eval suite before, during, and after the move.
+Handle catalog lag and platform-side deprecation, since managed catalogs trail the frontier and retire versions on their own schedule.
+Run two platforms in parallel where the workload justifies it, using a gateway to route by capability, region, cost, or availability.
+Understand multi-cloud honestly: it buys resilience and leverage, and it costs duplicated evaluation, duplicated security review, and duplicated operational knowledge.
+Outcome: Adopt a platform without being trapped by it, and move a workload between platforms without discovering the coupling too late.
+
+M11.10 · Capstone: deploy on a managed platform — (sessions: 1)
+
+Take an application you built in an earlier level and redeploy it against a managed platform, keeping the behavior and changing the plumbing.
+Authenticate through cloud identity with least-privilege access to a named set of models, and remove the provider API key from the application entirely.
+Route model traffic over a private network path, and record where the data is processed, how long it is retained, and under which terms.
+Replace at least one hand-built component with a managed equivalent, and keep at least one hand-built because you can defend why.
+Re-run your evaluation suite on the migrated system and report what changed in quality, latency, and cost.
+Route the application's model calls through a gateway with a working fallback, or state why direct calls to one provider are enough at your scale.
+Size capacity for your expected traffic, set a budget alert, and state the volume at which a different pricing model would win.
+Write a one-page platform decision record: the workload, the constraints, the path chosen, the components bought and built, and the exit plan.
+Final result: the same application, running where a regulated employer could actually run it, with the identity, network, residency, capacity, cost, and portability decisions written down.
+Level 11 completion outcome
+
+By the end of this level, you should be able to:
+
+Place a workload on the right consumption path among a public API, a managed platform, and open weights you or a provider host.
+Work on at least one managed platform and read the other two as variations rather than new subjects.
+Replace API keys with cloud identity and scope model access with least privilege.
+Reach a model over a private network path and explain what that guarantees.
+Isolate tenants on shared infrastructure, including retrieval that cannot cross a tenant boundary.
+State where data is processed, how long it is retained, and whether it may be used for training.
+Plan around regional model availability and data-residency requirements.
+Size on-demand versus provisioned capacity and defend a quota increase with traffic evidence.
+Attribute spend per project, team, or tenant, and catch runaway cost with budgets and alerts.
+Place an open-weight model on the right rung of the hosting ladder, from a serverless provider to your own GPUs.
+Compare per-token and per-GPU-hour economics and find the volume at which each one wins.
+Run model traffic through a router with failover, spend controls, and one view of usage across providers.
+Decide build or buy for retrieval, agents, guardrails, evaluation, and fine-tuning, layer by layer.
+Measure the portability cost of a managed component before adopting it.
+Migrate a workload between platforms with your eval suite as the safety net.
+Deploy an existing application inside a cloud account in a form a regulated employer could accept.

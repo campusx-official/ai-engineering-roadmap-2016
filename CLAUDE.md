@@ -6,7 +6,7 @@ Persistent brief for building the **AI Engineering Roadmap** — a public, visua
 
 ## 1. What we're building
 
-A standalone marketing-grade website that presents the AI Engineering roadmap as a **visual journey through 15 levels (0–14)**. It is a sibling to the main CampusX site — same brand, calmer/more editorial tone — and its job is to (a) orient a learner on the whole path, (b) let them drill into any level, and (c) route them to the relevant CampusX One courses.
+A standalone marketing-grade website that presents the AI Engineering roadmap as a **visual journey through 16 levels (0–15)**. It is a sibling to the main CampusX site — same brand, calmer/more editorial tone — and its job is to (a) orient a learner on the whole path, (b) let them drill into any level, and (c) route them to the relevant CampusX One courses.
 
 **North stars:** on-brand, visually led (not text-heavy), fast, and obviously sequenced. The *sequence is the product* — the design must make progression legible at a glance.
 
@@ -21,15 +21,16 @@ level0-software-fundamentals.txt      level7-llm-evals.txt
 level1-llm-101.txt                    level8-ai-security.txt
 level2-llm-orchestration.txt          level9-ai-system-design.txt
 level3-prompt-engineering.txt         level10-llmops.txt
-level4-rag.txt                        level11-multimodal-101.txt
-level5-agents.txt                     level12-fine-tuning.txt
-level6-context-engineering.txt        level13-projects.txt
-                                      level14-interview-prep.txt
+level4-rag.txt                        level11-managed-platforms.txt
+level5-agents.txt                     level12-multimodal-101.txt
+level6-context-engineering.txt        level13-fine-tuning.txt
+                                      level14-projects.txt
+                                      level15-interview-prep.txt
 ```
 
 **Expected content model per level** (parse into this shape; adapt if a file's structure differs, and flag any level that can't be parsed rather than guessing):
 
-- `number` (0–14) and `title`
+- `number` (0–15) and `title`
 - `scope` — one-line "what this level is about"
 - `outcome` — the "you can…" capability statement
 - `modules[]` — each with `name`, `sessionCount`, `objectives[]`
@@ -52,7 +53,7 @@ If a level file is prose, extract this structure from it. Keep a single `levels.
 
 ## 4. Information architecture
 
-- `/` — **Roadmap overview**: the hero map of all 15 levels, grouped into phases, plus intro, "how to use", and a primary CampusX CTA.
+- `/` — **Roadmap overview**: the hero map of all 16 levels, grouped into phases, plus intro, "how to use", and a primary CampusX CTA.
 - `/level/[n]` — **Level detail** (deep-linkable), one per level, with prev/next.
 - Optional: `/start` (a short "who this is for / how it works" explainer).
 
@@ -64,9 +65,9 @@ If a level file is prose, extract this structure from it. Keep a single `levels.
 | Retrieval | 4 | embeddings, vector search, RAG |
 | Agentic | 5–6 | agents, context engineering |
 | Evaluation & Trust | 7–8 | evals, security |
-| Production | 9–10 | system design, LLMOps |
-| Frontier & Proof | 11–13 | multimodal, fine-tuning, projects |
-| Interview | 14 | positioning, scenarios, mock loops |
+| Production | 9–11 | system design, LLMOps, managed platforms |
+| Frontier & Proof | 12–14 | multimodal, fine-tuning, projects |
+| Interview | 15 | positioning, scenarios, mock loops |
 
 ---
 
@@ -206,7 +207,7 @@ Keep each level page skimmable in ~20 seconds; depth lives behind expanders.
 ## 11. Added considerations (my additions — apply these)
 
 - **Progress tracking** — `localStorage`: mark levels complete, show a "you're on Level n" resume state and overall % on the map. (This is a real site, so browser storage is fine.)
-- **Deep-linkable + navigable** — clean `/level/[n]` routes, prev/next, and a **sticky level navigator** (mini-map) so learners never feel lost across 15 levels.
+- **Deep-linkable + navigable** — clean `/level/[n]` routes, prev/next, and a **sticky level navigator** (mini-map) so learners never feel lost across 16 levels.
 - **Sequence & prerequisites are visible** — every level states what it assumes; the map makes "don't skip" obvious. The ordering is the value proposition.
 - **Time-to-complete** — surface per-level and cumulative session counts as meters; optionally a total ("~215 sessions") on the homepage.
 - **Accessibility (WCAG AA)** — check contrast on pastel pills (darken text if needed), full keyboard nav, visible focus rings, alt text, and honor `prefers-reduced-motion` (disable scroll/flow animations).
@@ -231,7 +232,7 @@ Keep each level page skimmable in ~20 seconds; depth lives behind expanders.
 
 ## 13. Definition of done
 
-- All 15 levels parsed into typed data and rendered.
+- All 16 levels parsed into typed data and rendered.
 - Homepage map communicates the full path + phases at a glance, on mobile and desktop.
 - Every level page: header, visual module map, stack pills, ship-it callout, CampusX cross-links, prev/next.
 - Progress persists; sticky navigator works; deep links work.
