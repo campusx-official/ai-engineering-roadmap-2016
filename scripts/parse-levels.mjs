@@ -84,11 +84,15 @@ const MODULE_ICON_RULES = [
   [/data curation/i, 'file-text'],
 
   // modality sub-topics
-  [/multimodal foundations/i, 'shapes'],
+  [/multimodal foundations|beyond text/i, 'shapes'],
+  [/images? become tokens/i, 'grid-2x2'],
+  [/sound becomes tokens|audio becomes tokens/i, 'audio-waveform'],
+  [/documents?, charts|visual rag/i, 'scan-text'],
+  [/multimodal embeddings|cross-modal/i, 'vector-square'],
+  [/image generation|video generation/i, 'image'],
+  [/realtime voice|voice agent/i, 'audio-lines'],
   [/vision|document understanding/i, 'eye'],
   [/speech|\bstt\b|\btts\b/i, 'mic'],
-  [/realtime voice|voice agent/i, 'audio-lines'],
-  [/image generation/i, 'image'],
   [/on-device|\bedge\b/i, 'smartphone'],
 
   // rag & context sub-topics

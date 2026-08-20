@@ -21,7 +21,7 @@ level0-software-fundamentals.txt      level7-llm-evals.txt
 level1-llm-101.txt                    level8-ai-security.txt
 level2-llm-orchestration.txt          level9-ai-system-design.txt
 level3-prompt-engineering.txt         level10-llmops.txt
-level4-rag.txt                        level11-advanced-ai-systems.txt
+level4-rag.txt                        level11-multimodal-101.txt
 level5-agents.txt                     level12-fine-tuning.txt
 level6-context-engineering.txt        level13-projects.txt
                                       level14-interview-prep.txt

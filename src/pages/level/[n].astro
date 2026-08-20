@@ -20,6 +20,7 @@ import {
   conceptsOf,
   toolsOf,
   teachingModules,
+  getLevel,
   prevLevel,
   cumulativeSessions,
   sentence,
@@ -52,6 +53,14 @@ const cumulativePct = Math.round((cumulative / totalSessions) * 100);
 const prereq =
   level.prereqStated ??
   (prev ? `Level ${prev.number} · ${prev.title}` : null);
+
+/* A stated prerequisite can name a level other than the previous one (Level 11
+   assumes Level 1), so the link follows the level the text actually names. A
+   statement that names no level at all ("None") renders as plain text. */
+const namedLevel = level.prereqStated?.match(/Level\s+(\d+)/)?.[1];
+const prereqTarget = level.prereqStated
+  ? (namedLevel ? getLevel(Number(namedLevel)) ?? null : null)
+  : prev;
 
 const description = `Level ${level.number} of the CampusX AI Engineering Roadmap: ${level.scope}`.slice(0, 300);
 ---
@@ -112,15 +121,15 @@ const description = `Level ${level.number} of the CampusX AI Engineering Roadmap
           {prereq && (
             <div class="lh__fact lh__fact--pre">
               <span class="lh__fact-label">Assumes</span>
-              {prev ? (
-                <a class="lh__pre" href={`/level/${prev.number}/`} data-track="prereq_click" data-track-data={String(prev.number)}>
+              {prereqTarget ? (
+                <a class="lh__pre" href={`/level/${prereqTarget.number}/`} data-track="prereq_click" data-track-data={String(prereqTarget.number)}>
                   <Icon name="corner-left-up" size={14} />
                   <span>{prereq}</span>
                 </a>
               ) : (
                 <span class="lh__pre lh__pre--none">
                   <Icon name="flag-triangle-right" size={14} />
-                  <span>{prereq} — this is the start</span>
+                  <span>{prev ? prereq : `${prereq} — this is the start`}</span>
                 </span>
               )}
             </div>
