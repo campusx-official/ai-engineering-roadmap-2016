@@ -34,7 +34,7 @@ export const topics: Record<string, TopicSet> = {
     'Modules & packages',
     'Unit tests and debugging',
   ] },
-  'M0.2': { sig: '6a089c64', labels: [
+  'M0.2': { sig: 'f35bb2dd', labels: [
     'The HTTP request/response cycle',
     'Methods & idempotency',
     'Status codes',
@@ -43,7 +43,6 @@ export const topics: Record<string, TopicSet> = {
     'RESTful resource design',
     'Authentication basics',
     'Inspecting APIs with curl & Postman',
-    'Client, server & network failures',
   ] },
   'M0.3': { sig: 'e114db83', labels: [
     'Routes, parameters & response models',
@@ -57,26 +56,39 @@ export const topics: Record<string, TopicSet> = {
     'Startup, config & middleware',
     'Testing endpoints',
   ] },
-  'M0.4': { sig: 'ed9a7518', labels: [
+  'M0.4': { sig: 'bd902ef6', labels: [
     'Relational data modeling',
     'SQL with PostgreSQL',
     'Indexes & query performance',
     'Connecting a database to the app',
-    'Connections, pooling & transactions',
     'Credentials outside source code',
-    'Schema migrations',
   ] },
-  'M0.5': { sig: 'e913ef6c', labels: [
+  'M0.5': { sig: '4371fb7b', labels: [
     'Repos, commits, branches & remotes',
     'The branch → PR → merge workflow',
     'Commit messages & history',
     'Resolving merge conflicts',
     'Keeping secrets out with .gitignore',
-    'Repository structure',
     'Writing a README',
     'Code review & protected branches',
   ] },
-  'M0.6': { sig: '18955900', labels: [
+  'M0.6': { sig: '649539ae', labels: [
+    'Autocomplete → assistants → agents',
+    'AI-assisted engineering vs vibe coding',
+    'Explore, implement & debug with an agent',
+    'The verification loop',
+    'Minimum useful context',
+    'CLAUDE.md as project memory',
+    'Spec-driven development & planning',
+    'Slash commands & Skills',
+    'Skills worth building',
+    'Delegating to subagents',
+    'External systems through MCP',
+    'Hooks for deterministic checks',
+    'Plugins as capability bundles',
+    'Skills that transfer across agents',
+  ] },
+  'M0.7': { sig: '070cdb7a', labels: [
     'App vs environment vs machine',
     'Containers & images',
     'Writing and running a Dockerfile',
@@ -84,10 +96,8 @@ export const topics: Record<string, TopicSet> = {
     'Containerizing a FastAPI app',
     'Deploying to a public URL',
     'Production env vars & secrets',
-    'Diagnosing failed builds & crashes',
-    'Health checks & restarts',
   ] },
-  'M0.7': { sig: '08e22819', labels: [
+  'M0.8': { sig: 'c6958018', labels: [
     'The full no-AI stack',
     'Choosing a realistic domain',
     'REST endpoints with persistent CRUD',
@@ -97,6 +107,11 @@ export const topics: Record<string, TopicSet> = {
     'Clean repo and README',
     'Docker packaging & deployment',
     'Verifying the deployed API',
+    'Coding agent during the build',
+    'Diff review before accepting',
+    'Validating generated code',
+    'Explain it without the agent',
+    'Document one AI failure',
   ] },
 
   /* ---------------------------------------------------------------- level 1 */
@@ -111,12 +126,17 @@ export const topics: Record<string, TopicSet> = {
     'Tokenizing across languages & code',
     'Why tokens drive cost and latency',
   ] },
-  'M1.3': { sig: 'ccc1ada8', labels: [
+  'M1.3': { sig: 'f0b85210', labels: [
     'From token IDs to embeddings',
     'What parameter counts mean',
     'Why bigger is not automatically better',
     'The intuition behind attention',
     'Queries, keys, values & causal attention',
+    'Dense models',
+    'Mixture-of-Experts & routing',
+    'Total vs active parameters',
+    'What MoE changes in practice',
+    'Reading MoE model cards',
   ] },
   'M1.4': { sig: 'e74d62e5', labels: [
     'Pretraining & self-supervision',
@@ -159,13 +179,24 @@ export const topics: Record<string, TopicSet> = {
     'Why hallucination happens',
     'Asking "how reliably?" instead of "can it?"',
   ] },
-  'M1.10': { sig: 'aa9601d0', labels: [
+  'M1.10': { sig: 'd322f5ff', labels: [
     'Closed and API models',
     'Open-weight models',
     'Other useful distinctions',
+    'Knowledge cutoffs',
+    'Versions, snapshots & deprecations',
+    'Open-weight licensing',
     'There is no universally best LLM',
   ] },
-  'M1.11': { sig: 'd8783e3e', labels: [
+  'M1.11': { sig: 'f8e60aa0', labels: [
+    'What a benchmark is',
+    'Benchmarks quoted on model cards',
+    'Kinds of leaderboard',
+    'Why rank does not transfer',
+    'What inflates published scores',
+    'From leaderboard to shortlist',
+  ] },
+  'M1.12': { sig: 'd8783e3e', labels: [
     'Eight dimensions for model choice',
     'Capability',
     'Quality',

@@ -25,7 +25,6 @@ Produce, parse, validate, and manipulate JSON confidently.
 Understand RESTful resource design and design clean endpoints for a simple application.
 Understand authentication basics: API keys, bearer tokens, authorization headers, and why secrets should not be embedded in URLs or client code.
 Use tools such as curl, Postman/Bruno, or Python HTTP clients to inspect and debug APIs.
-Distinguish client-side failures, server-side failures, and network failures.
 Outcome: Read unfamiliar API documentation, construct requests manually, interpret responses, and design a sensible REST API.
 
 M0.3 · Building APIs with FastAPI — (sessions: 3)
@@ -48,9 +47,7 @@ Understand relational data modeling: tables, rows, columns, primary keys, foreig
 Use PostgreSQL and write SQL for SELECT, INSERT, UPDATE, DELETE, filtering, sorting, grouping, joins, and basic aggregations.
 Understand indexes conceptually and why query design affects performance.
 Connect PostgreSQL to a Python/FastAPI application using a database driver or ORM.
-Understand connection strings, connection pooling, transactions, commits, and rollbacks at a practical level.
 Keep database credentials outside source code and manage configuration through environment variables.
-Understand migrations conceptually so schema changes can be versioned safely.
 Outcome: Build an API whose data survives application restarts and supports real CRUD operations backed by PostgreSQL.
 
 M0.5 · Git & Collaboration — (sessions: 2)
@@ -60,12 +57,41 @@ Follow a practical workflow: branch → make changes → commit → push → pul
 Write useful commit messages and inspect history using Git tools.
 Resolve merge conflicts confidently rather than avoiding them.
 Understand .gitignore and prevent secrets, virtual environments, generated files, and local configuration from entering the repository.
-Structure repositories clearly with source code, tests, configuration, documentation, and dependency files.
 Write a README that explains what the project does, how to install it, configure it, run it, test it, and call its API.
 Understand basic collaboration concepts such as code review, pull requests, and protected main branches.
 Outcome: Hand another developer your repository and have them understand, run, and contribute to it without needing you beside them.
 
-M0.6 · Containers & Deployment — (sessions: 2)
+M0.6 · AI-Assisted Software Development — (sessions: 5)
+
+Session 1 · Agentic coding fundamentals
+Understand the progression from autocomplete, to chat-based assistants, to coding agents that can read a repository, edit code, run commands, inspect the results, and iterate.
+Distinguish AI-assisted engineering, where you direct and verify the work, from blind vibe coding, where you accept whatever is generated.
+Use a coding agent such as Claude Code to explore an unfamiliar repository, implement targeted changes, and debug existing code.
+Work the verification loop on every change: give context → generate → inspect the Git diff → test → debug → review → accept.
+
+Session 2 · Context, CLAUDE.md & planning
+Understand the finite context window and give the minimum useful context for a task instead of pointing the agent at the entire repository.
+Keep architecture, conventions, project commands, and testing instructions in a project instruction file such as CLAUDE.md, separate from temporary task context.
+Practice spec-driven development: write the requirement and the specification, then review a plan before the agent changes the repository.
+
+Session 3 · Reusable workflows: commands & Skills
+Turn prompts you retype into custom slash commands, and understand Skills as reusable capabilities with instructions, metadata, and examples that load only when needed.
+Build skills for recurring work such as code review, test generation, documentation, refactoring, and repository-specific conventions.
+
+Session 4 · Subagents & external tools
+Delegate specialized work to subagents such as a reviewer, tester, debugger, or researcher instead of forcing every responsibility into one context.
+Connect the agent to systems outside the repository through MCP (Model Context Protocol): databases, APIs, developer tools, and documentation.
+
+Session 5 · Hooks, plugins & the professional loop
+Use hooks to make formatting, linting, testing, and validation deterministic instead of asking a model to remember them.
+Understand plugins as reusable bundles that package commands, skills, hooks, agents, and integrations together.
+Understand that these skills transfer to any coding agent — Claude Code, Codex, Cursor, GitHub Copilot, Gemini CLI — because the durable parts are context, specifications, planning, delegation, automation, and verification.
+Try: Build a small multi-file application with a coding agent — spec it, plan it, add one command or Skill, one subagent, one MCP integration, and one hook, then review every diff, run the tests, and fix at least one thing the agent got wrong.
+Mental model: AI coding proficiency does not replace software engineering fundamentals. It multiplies them.
+Outcome: Use a coding agent as an engineering collaborator across exploration, implementation, debugging, refactoring, and testing, with planning and verification around every meaningful change.
+Use AI aggressively for leverage and verify aggressively for correctness: a coding agent produces plausible but incorrect code as fast as it produces correct code, and correctness, architecture, security, and maintainability stay yours.
+
+M0.7 · Containers & Deployment — (sessions: 2)
 
 Understand the practical distinction between your application, its environment, and the machine running it.
 Understand containers and images conceptually and why Docker improves reproducibility.
@@ -74,11 +100,9 @@ Understand image layers, .dockerignore, container logs, and common container sta
 Containerize a FastAPI application and connect it to its required configuration/services.
 Deploy a service to a cloud/platform provider and expose it through a publicly reachable URL.
 Configure production environment variables and secrets separately from local development.
-Read deployment logs, inspect HTTP errors, and diagnose failed builds or crashes.
-Understand basic production concepts such as health checks, process restarts, and the difference between local and deployed environments.
 Outcome: Take a service that works locally, containerize it, deploy it, and debug it when the production environment behaves differently.
 
-M0.7 · Capstone: Ship a No-AI REST Service — (sessions: 1)
+M0.8 · Capstone: Ship a No-AI REST Service — (sessions: 1)
 
 Build a complete application using Python + FastAPI + PostgreSQL + Git + Docker + deployment, with no LLM or AI dependency.
 Design a small but realistic domain such as task management, bookmarks, expense tracking, inventory, notes, or support tickets.
@@ -89,6 +113,11 @@ Add basic automated tests, configuration via environment variables, and useful a
 Maintain the project in Git with a clean repository structure and a README containing setup and usage instructions.
 Package the service with Docker and deploy it to a publicly reachable URL.
 Verify the deployed API using its OpenAPI docs, curl, or an API client.
+Use a coding agent for meaningful parts of the build; "no-AI" means the deployed product needs no LLM, not that you code without AI tools.
+Review every meaningful generated change through its Git diff before accepting it.
+Validate generated code through tests, type checking, linting, logs, and manual API calls.
+Explain the architecture and the important code paths yourself, without asking the coding agent.
+Document one case where the coding agent produced an incorrect, incomplete, insecure, over-engineered, or otherwise suboptimal solution: what it proposed, why it was wrong, how you detected it, what you changed, and the engineering lesson you took from it.
 Final result: a real service that another person can clone, run, test, call over HTTP, and inspect without any AI component hiding weak software-engineering fundamentals.
 Level 0 completion outcome
 
@@ -108,3 +137,15 @@ Containerize an application with Docker.
 Deploy a backend service to a public endpoint.
 Use logs, errors, and traces to diagnose failures.
 Ship a complete software service before an LLM enters the architecture.
+Use coding agents for implementation, debugging, refactoring, testing, documentation, and repository exploration.
+Give a coding agent the repository and task context it actually needs.
+Use project-level instruction files such as CLAUDE.md to keep an agent aligned with the project.
+Apply spec-driven development and planning before substantial AI-generated changes.
+Encode repeated coding-agent work as reusable commands and Skills.
+Delegate specialized tasks to subagents instead of overloading one context.
+Connect a coding agent to external systems through MCP.
+Use hooks and automation for deterministic engineering checks.
+Review AI-generated code systematically using diffs and automated verification.
+Detect hallucinated APIs, incorrect assumptions, security problems, architectural inconsistencies, and unnecessary complexity in generated code.
+Understand and debug your own codebase even where AI helped write it.
+Progression: Python → Async programming → HTTP/REST/JSON → FastAPI → PostgreSQL → Testing → Git collaboration → Agentic coding → Docker → Deployment → Ship a real backend.

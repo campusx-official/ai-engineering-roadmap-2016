@@ -1,7 +1,7 @@
 Level 1 · LLM 101
 
 Goal: Build a strong mental model of how LLMs work, why they behave the way they do, and how to choose and use the right model for a task.
-Prerequisites: None · Depth: Conceptual + hands-on; no research papers or heavy mathematics · Suggested duration: 13 sessions.
+Prerequisites: None · Depth: Conceptual + hands-on; no research papers or heavy mathematics · Suggested duration: 15 sessions.
 
 M1.1 · What an LLM Actually Is — sessions: 1
 Understand what a Large Language Model actually does, with next-token prediction as the core idea and generation as a repeated predict → choose → append → repeat process.
@@ -16,7 +16,7 @@ Explore tokenization of normal English, uncommon words, numbers, code, emojis, H
 Connect tokenization to API pricing, context-window consumption, output length, latency, spelling difficulties, character-counting failures, and mathematical/numerical behavior.
 Try: Compare token counts for an English paragraph, its Hindi translation, source code, and a list of numbers.
 Outcome: Explain why two texts with roughly the same number of words can have very different token counts and LLM costs.
-M1.3 · Inside an LLM: Embeddings, Attention & Transformers — sessions: 2
+M1.3 · Inside an LLM: Embeddings, Attention & Transformers — sessions: 3
 Session 1 · Tokens → Vectors
 Understand how token IDs become embeddings, what vectors represent conceptually, why concepts are represented numerically, and how representations change as they pass through transformer layers.
 Understand what model parameters are and what sizes such as 8B, 70B, and 400B+ mean.
@@ -24,6 +24,12 @@ Understand why more parameters can increase capacity, while larger does not auto
 Session 2 · Attention
 Understand attention through the intuition: a token looks at other relevant tokens in the context to build a better representation of what it means.
 Build a high-level understanding of queries, keys, values, attention scores, transformer layers, and causal attention — without matrix mathematics.
+Session 3 · Dense vs Mixture-of-Experts
+Understand a dense model, where every parameter takes part in producing every token.
+Understand a Mixture-of-Experts (MoE) model, where the feed-forward layers are split into many experts and a router selects only a few of them for each token.
+Distinguish total parameters from active parameters, and understand why an MoE model with a very large total size can cost far less to run than a dense model of the same size.
+Understand what MoE changes in practice: every expert still has to be held in memory, while the compute spent per token stays closer to that of a much smaller model.
+Read MoE descriptions on model cards, such as "8x7B" or "total vs active parameters", and know what they tell you about speed, cost, and hosting requirements.
 Try: Inspect an attention visualization for a sentence such as “The animal didn't cross the street because it was tired” and reason about what "it" should attend to.
 Mental model: Text → Tokens → Embeddings → Transformer layers + attention → Next-token probabilities
 Outcome: Explain conceptually what happens between a token entering the model and the model producing next-token probabilities.
@@ -80,8 +86,21 @@ Understand closed/API models through trade-offs involving frontier capability, c
 Understand open-weight models through self-hosting, privacy, customization, infrastructure requirements, and operational complexity.
 Learn other useful distinctions: small vs large, dense vs Mixture-of-Experts, general-purpose vs specialized, reasoning vs non-reasoning, and text-only vs multimodal.
 Internalize the core principle: there is no universally best LLM; the best model depends on the workload.
+Understand that a model's knowledge stops at its training cutoff, and that anything newer has to arrive through context, retrieval, or tools.
+Track model versions and dated snapshots, and expect deprecations: the model behind a familiar name can change or be retired, so pin a version and re-test when it moves.
+Check the license before building on an open-weight model, since permissive, restricted-use, and non-commercial terms differ in what you are allowed to ship.
 Outcome: Compare two models using meaningful architectural, capability, and deployment differences rather than relying purely on leaderboard rank.
-M1.11 · Choosing the Right Model — sessions: 1
+M1.11 · Benchmarks & Leaderboards — sessions: 1
+Understand what a benchmark is: a fixed set of tasks with a fixed scoring method, used to measure different models against the same yardstick.
+Recognize the benchmarks quoted on model cards — knowledge and reasoning tests such as MMLU and GPQA, coding tests, and mathematics tests — and know roughly what each one measures.
+Read the main kinds of leaderboard: human-preference rankings such as LMArena/Chatbot Arena, aggregated capability/cost/latency dashboards, and open-model leaderboards.
+Understand why a leaderboard rank rarely transfers to your application: different prompts, different tasks, averaged scores, and someone else's definition of a good answer.
+Understand the pitfalls that inflate published scores: data contamination, saturated benchmarks, overfitting to public test sets, and favorable run configurations.
+Use benchmarks and leaderboards for the one thing they do well — narrowing a crowded field to a shortlist — and then judge the shortlist on your own examples.
+Try: Shortlist three models from a leaderboard for a task you care about, then compare their published scores against how they perform on ten of your own examples.
+Outcome: Read benchmark tables and leaderboards without being misled by them, and turn them into a shortlist rather than a decision.
+
+M1.12 · Choosing the Right Model — sessions: 1
 
 Evaluate models across eight dimensions:
 

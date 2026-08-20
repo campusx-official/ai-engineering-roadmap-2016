@@ -1,8 +1,8 @@
 {
   "generatedFrom": "./AI ENGINEER ROADMAP",
   "totalLevels": 15,
-  "totalSessions": 251,
-  "totalModules": 145,
+  "totalSessions": 258,
+  "totalModules": 147,
   "phases": [
     {
       "id": "foundations",
@@ -162,9 +162,6 @@
             },
             {
               "text": "Use tools such as curl, Postman/Bruno, or Python HTTP clients to inspect and debug APIs."
-            },
-            {
-              "text": "Distinguish client-side failures, server-side failures, and network failures."
             }
           ],
           "notes": [],
@@ -233,13 +230,7 @@
               "text": "Connect PostgreSQL to a Python/FastAPI application using a database driver or ORM."
             },
             {
-              "text": "Understand connection strings, connection pooling, transactions, commits, and rollbacks at a practical level."
-            },
-            {
               "text": "Keep database credentials outside source code and manage configuration through environment variables."
-            },
-            {
-              "text": "Understand migrations conceptually so schema changes can be versioned safely."
             }
           ],
           "notes": [],
@@ -269,9 +260,6 @@
               "text": "Understand .gitignore and prevent secrets, virtual environments, generated files, and local configuration from entering the repository."
             },
             {
-              "text": "Structure repositories clearly with source code, tests, configuration, documentation, and dependency files."
-            },
-            {
               "text": "Write a README that explains what the project does, how to install it, configure it, run it, test it, and call its API."
             },
             {
@@ -285,6 +273,78 @@
         },
         {
           "id": "M0.6",
+          "name": "AI-Assisted Software Development",
+          "sessionCount": 5,
+          "icon": "bot-message-square",
+          "objectives": [
+            {
+              "text": "Understand the progression from autocomplete, to chat-based assistants, to coding agents that can read a repository, edit code, run commands, inspect the results, and iterate.",
+              "group": "Agentic coding fundamentals"
+            },
+            {
+              "text": "Distinguish AI-assisted engineering, where you direct and verify the work, from blind vibe coding, where you accept whatever is generated.",
+              "group": "Agentic coding fundamentals"
+            },
+            {
+              "text": "Use a coding agent such as Claude Code to explore an unfamiliar repository, implement targeted changes, and debug existing code.",
+              "group": "Agentic coding fundamentals"
+            },
+            {
+              "text": "Work the verification loop on every change: give context → generate → inspect the Git diff → test → debug → review → accept.",
+              "group": "Agentic coding fundamentals"
+            },
+            {
+              "text": "Understand the finite context window and give the minimum useful context for a task instead of pointing the agent at the entire repository.",
+              "group": "Context, CLAUDE.md & planning"
+            },
+            {
+              "text": "Keep architecture, conventions, project commands, and testing instructions in a project instruction file such as CLAUDE.md, separate from temporary task context.",
+              "group": "Context, CLAUDE.md & planning"
+            },
+            {
+              "text": "Practice spec-driven development: write the requirement and the specification, then review a plan before the agent changes the repository.",
+              "group": "Context, CLAUDE.md & planning"
+            },
+            {
+              "text": "Turn prompts you retype into custom slash commands, and understand Skills as reusable capabilities with instructions, metadata, and examples that load only when needed.",
+              "group": "Reusable workflows: commands & Skills"
+            },
+            {
+              "text": "Build skills for recurring work such as code review, test generation, documentation, refactoring, and repository-specific conventions.",
+              "group": "Reusable workflows: commands & Skills"
+            },
+            {
+              "text": "Delegate specialized work to subagents such as a reviewer, tester, debugger, or researcher instead of forcing every responsibility into one context.",
+              "group": "Subagents & external tools"
+            },
+            {
+              "text": "Connect the agent to systems outside the repository through MCP (Model Context Protocol): databases, APIs, developer tools, and documentation.",
+              "group": "Subagents & external tools"
+            },
+            {
+              "text": "Use hooks to make formatting, linting, testing, and validation deterministic instead of asking a model to remember them.",
+              "group": "Hooks, plugins & the professional loop"
+            },
+            {
+              "text": "Understand plugins as reusable bundles that package commands, skills, hooks, agents, and integrations together.",
+              "group": "Hooks, plugins & the professional loop"
+            },
+            {
+              "text": "Understand that these skills transfer to any coding agent — Claude Code, Codex, Cursor, GitHub Copilot, Gemini CLI — because the durable parts are context, specifications, planning, delegation, automation, and verification.",
+              "group": "Hooks, plugins & the professional loop"
+            }
+          ],
+          "notes": [
+            "Use AI aggressively for leverage and verify aggressively for correctness: a coding agent produces plausible but incorrect code as fast as it produces correct code, and correctness, architecture, security, and maintainability stay yours."
+          ],
+          "isCapstone": false,
+          "isGap": false,
+          "tryIt": "Build a small multi-file application with a coding agent — spec it, plan it, add one command or Skill, one subagent, one MCP integration, and one hook, then review every diff, run the tests, and fix at least one thing the agent got wrong.",
+          "mentalModel": "AI coding proficiency does not replace software engineering fundamentals. It multiplies them.",
+          "outcome": "Use a coding agent as an engineering collaborator across exploration, implementation, debugging, refactoring, and testing, with planning and verification around every meaningful change."
+        },
+        {
+          "id": "M0.7",
           "name": "Containers & Deployment",
           "sessionCount": 2,
           "icon": "ship",
@@ -309,12 +369,6 @@
             },
             {
               "text": "Configure production environment variables and secrets separately from local development."
-            },
-            {
-              "text": "Read deployment logs, inspect HTTP errors, and diagnose failed builds or crashes."
-            },
-            {
-              "text": "Understand basic production concepts such as health checks, process restarts, and the difference between local and deployed environments."
             }
           ],
           "notes": [],
@@ -323,7 +377,7 @@
           "outcome": "Take a service that works locally, containerize it, deploy it, and debug it when the production environment behaves differently."
         },
         {
-          "id": "M0.7",
+          "id": "M0.8",
           "name": "Capstone: Ship a No-AI REST Service",
           "sessionCount": 1,
           "icon": "flag",
@@ -354,6 +408,21 @@
             },
             {
               "text": "Verify the deployed API using its OpenAPI docs, curl, or an API client."
+            },
+            {
+              "text": "Use a coding agent for meaningful parts of the build; \"no-AI\" means the deployed product needs no LLM, not that you code without AI tools."
+            },
+            {
+              "text": "Review every meaningful generated change through its Git diff before accepting it."
+            },
+            {
+              "text": "Validate generated code through tests, type checking, linting, logs, and manual API calls."
+            },
+            {
+              "text": "Explain the architecture and the important code paths yourself, without asking the coding agent."
+            },
+            {
+              "text": "Document one case where the coding agent produced an incorrect, incomplete, insecure, over-engineered, or otherwise suboptimal solution: what it proposed, why it was wrong, how you detected it, what you changed, and the engineering lesson you took from it."
             }
           ],
           "notes": [],
@@ -412,6 +481,10 @@
           "kind": "tool"
         },
         {
+          "label": "GitHub",
+          "kind": "tool"
+        },
+        {
           "label": "Docker",
           "kind": "tool"
         },
@@ -432,12 +505,16 @@
           "kind": "concept"
         },
         {
+          "label": "MCP",
+          "kind": "concept"
+        },
+        {
           "label": "tracing",
           "kind": "concept"
         }
       ],
-      "project": "M0.7",
-      "totalSessions": 17,
+      "project": "M0.8",
+      "totalSessions": 22,
       "statedSessions": null,
       "completionOutcomes": [
         "Write clean, typed, modular Python and debug it systematically.",
@@ -453,7 +530,19 @@
         "Containerize an application with Docker.",
         "Deploy a backend service to a public endpoint.",
         "Use logs, errors, and traces to diagnose failures.",
-        "Ship a complete software service before an LLM enters the architecture."
+        "Ship a complete software service before an LLM enters the architecture.",
+        "Use coding agents for implementation, debugging, refactoring, testing, documentation, and repository exploration.",
+        "Give a coding agent the repository and task context it actually needs.",
+        "Use project-level instruction files such as CLAUDE.md to keep an agent aligned with the project.",
+        "Apply spec-driven development and planning before substantial AI-generated changes.",
+        "Encode repeated coding-agent work as reusable commands and Skills.",
+        "Delegate specialized tasks to subagents instead of overloading one context.",
+        "Connect a coding agent to external systems through MCP.",
+        "Use hooks and automation for deterministic engineering checks.",
+        "Review AI-generated code systematically using diffs and automated verification.",
+        "Detect hallucinated APIs, incorrect assumptions, security problems, architectural inconsistencies, and unnecessary complexity in generated code.",
+        "Understand and debug your own codebase even where AI helped write it.",
+        "Progression: Python → Async programming → HTTP/REST/JSON → FastAPI → PostgreSQL → Testing → Git collaboration → Agentic coding → Docker → Deployment → Ship a real backend."
       ],
       "todos": []
     },
@@ -517,7 +606,7 @@
         {
           "id": "M1.3",
           "name": "Inside an LLM: Embeddings, Attention & Transformers",
-          "sessionCount": 2,
+          "sessionCount": 3,
           "icon": "vector-square",
           "objectives": [
             {
@@ -539,6 +628,26 @@
             {
               "text": "Build a high-level understanding of queries, keys, values, attention scores, transformer layers, and causal attention — without matrix mathematics.",
               "group": "Attention"
+            },
+            {
+              "text": "Understand a dense model, where every parameter takes part in producing every token.",
+              "group": "Dense vs Mixture-of-Experts"
+            },
+            {
+              "text": "Understand a Mixture-of-Experts (MoE) model, where the feed-forward layers are split into many experts and a router selects only a few of them for each token.",
+              "group": "Dense vs Mixture-of-Experts"
+            },
+            {
+              "text": "Distinguish total parameters from active parameters, and understand why an MoE model with a very large total size can cost far less to run than a dense model of the same size.",
+              "group": "Dense vs Mixture-of-Experts"
+            },
+            {
+              "text": "Understand what MoE changes in practice: every expert still has to be held in memory, while the compute spent per token stays closer to that of a much smaller model.",
+              "group": "Dense vs Mixture-of-Experts"
+            },
+            {
+              "text": "Read MoE descriptions on model cards, such as \"8x7B\" or \"total vs active parameters\", and know what they tell you about speed, cost, and hosting requirements.",
+              "group": "Dense vs Mixture-of-Experts"
             }
           ],
           "notes": [],
@@ -735,6 +844,15 @@
             },
             {
               "text": "Internalize the core principle: there is no universally best LLM; the best model depends on the workload."
+            },
+            {
+              "text": "Understand that a model's knowledge stops at its training cutoff, and that anything newer has to arrive through context, retrieval, or tools."
+            },
+            {
+              "text": "Track model versions and dated snapshots, and expect deprecations: the model behind a familiar name can change or be retired, so pin a version and re-test when it moves."
+            },
+            {
+              "text": "Check the license before building on an open-weight model, since permissive, restricted-use, and non-commercial terms differ in what you are allowed to ship."
             }
           ],
           "notes": [],
@@ -744,6 +862,37 @@
         },
         {
           "id": "M1.11",
+          "name": "Benchmarks & Leaderboards",
+          "sessionCount": 1,
+          "icon": "chart-column",
+          "objectives": [
+            {
+              "text": "Understand what a benchmark is: a fixed set of tasks with a fixed scoring method, used to measure different models against the same yardstick."
+            },
+            {
+              "text": "Recognize the benchmarks quoted on model cards — knowledge and reasoning tests such as MMLU and GPQA, coding tests, and mathematics tests — and know roughly what each one measures."
+            },
+            {
+              "text": "Read the main kinds of leaderboard: human-preference rankings such as LMArena/Chatbot Arena, aggregated capability/cost/latency dashboards, and open-model leaderboards."
+            },
+            {
+              "text": "Understand why a leaderboard rank rarely transfers to your application: different prompts, different tasks, averaged scores, and someone else's definition of a good answer."
+            },
+            {
+              "text": "Understand the pitfalls that inflate published scores: data contamination, saturated benchmarks, overfitting to public test sets, and favorable run configurations."
+            },
+            {
+              "text": "Use benchmarks and leaderboards for the one thing they do well — narrowing a crowded field to a shortlist — and then judge the shortlist on your own examples."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "tryIt": "Shortlist three models from a leaderboard for a task you care about, then compare their published scores against how they perform on ten of your own examples.",
+          "outcome": "Read benchmark tables and leaderboards without being misled by them, and turn them into a shortlist rather than a decision."
+        },
+        {
+          "id": "M1.12",
           "name": "Choosing the Right Model",
           "sessionCount": 1,
           "icon": "git-fork",
@@ -813,6 +962,14 @@
           "kind": "concept"
         },
         {
+          "label": "MMLU",
+          "kind": "concept"
+        },
+        {
+          "label": "GPQA",
+          "kind": "concept"
+        },
+        {
           "label": "SFT",
           "kind": "concept"
         },
@@ -834,8 +991,8 @@
         }
       ],
       "project": null,
-      "totalSessions": 13,
-      "statedSessions": 13,
+      "totalSessions": 15,
+      "statedSessions": 15,
       "completionOutcomes": [],
       "todos": [
         "No capstone/ship-it module found."

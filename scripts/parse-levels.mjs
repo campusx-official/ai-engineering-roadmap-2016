@@ -65,7 +65,7 @@ const MODULE_ICON_RULES = [
   // eval sub-topics (an entire level is "evals" — split it finely)
   [/introduction to/i, 'book-open'],
   [/offline vs online|offline and online/i, 'arrow-left-right'],
-  [/benchmarking|anatomy of a benchmark/i, 'chart-column'],
+  [/benchmarking|anatomy of a benchmark|leaderboard/i, 'chart-column'],
   [/evolution of|progression of/i, 'trending-up'],
   [/custom model eval|custom eval/i, 'crosshair'],
   [/eval suite|building an eval/i, 'list-checks'],
@@ -154,6 +154,7 @@ const MODULE_ICON_RULES = [
   [/async|concurren|batch/i, 'split'],
 
   // engineering fundamentals
+  [/ai-assisted|coding agent|agentic coding|pair programming/i, 'bot-message-square'],
   [/\bgit\b|collaborat|version control/i, 'git-branch'],
   [/\bapi\b|http|rest|endpoint|fastapi|web:/i, 'globe'],
   [/database|\bsql\b|postgres/i, 'database'],
