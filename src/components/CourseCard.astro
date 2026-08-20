@@ -8,11 +8,12 @@ interface Props {
 }
 const { course, levelNumber } = Astro.props;
 const soon = course.status === 'soon';
+const href = course.url ?? CAMPUSX_ONE_URL;
 ---
 
 <a
   class={`cc ${soon ? 'cc--soon' : ''}`}
-  href={CAMPUSX_ONE_URL}
+  href={href}
   target="_blank"
   rel="noopener noreferrer"
   data-track="campusx_course_click"
@@ -22,7 +23,7 @@ const soon = course.status === 'soon';
   <span class="cc__body">
     <span class="cc__title">{course.title}</span>
     <span class="cc__meta">
-      {soon ? 'Coming soon' : 'On CampusX One'}
+      {soon ? 'Coming soon' : (course.source ?? 'On CampusX One')}
       {course.note && <span class="cc__note">· {course.note}</span>}
     </span>
   </span>

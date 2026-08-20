@@ -12,19 +12,49 @@ export interface Course {
   status?: 'live' | 'soon';
   /** Note shown under the title (e.g. the brief's "notes" qualifier). */
   note?: string;
+  /** Direct course link. Falls back to the CampusX One pricing page. */
+  url?: string;
+  /** Where the course lives, when it is not a CampusX One catalog item. */
+  source?: string;
 }
 
 export const CAMPUSX_ONE_URL = 'https://learnwith.campusx.in/#cxo-pricing';
 export const CAMPUSX_URL = 'https://learnwith.campusx.in/';
 
+/** Python, Git & GitHub and SQL are all covered by the DSMP 2.0 course. */
+const DSMP_URL =
+  'https://learnwith.campusx.in/courses/Data-Science-Mentorship-Program-DSMP-20-653f50d1e4b0d2eae855480a';
+
+/** The agentic-coding curriculum behind M0.6 — free, on YouTube. */
+const AGENTIC_CODING_URL =
+  'https://www.youtube.com/playlist?list=PLKnIA16_RmvaYH3poI0oJvbDF4zEvpq8W';
+
 export const coursesByLevel: Record<number, Course[]> = {
   0: [
-    { title: 'Python', status: 'live' },
-    { title: 'Git & GitHub', status: 'live' },
-    { title: 'SQL', status: 'live' },
-    { title: 'Docker', status: 'live' },
-    { title: 'Advanced FastAPI', status: 'live' },
-    { title: 'Flask', status: 'live' },
+    { title: 'Python', status: 'live', url: DSMP_URL },
+    { title: 'Git & GitHub', status: 'live', url: DSMP_URL },
+    { title: 'SQL', status: 'live', url: DSMP_URL },
+    {
+      title: 'Docker',
+      status: 'live',
+      url: 'https://learnwith.campusx.in/courses/Docker-for-Machine-Learning-68a022773f7a067efc5df47e',
+    },
+    {
+      title: 'Advanced FastAPI',
+      status: 'live',
+      url: 'https://learnwith.campusx.in/courses/FastAPI-6873cb2075f40c2715c809fe',
+    },
+    {
+      title: 'Flask',
+      status: 'live',
+      url: 'https://learnwith.campusx.in/courses/Web-and-API-Development-using-Flask-6839ae3fb109825d2ca6526d',
+    },
+    {
+      title: 'Agentic Coding using Claude Code',
+      status: 'live',
+      url: AGENTIC_CODING_URL,
+      source: 'YouTube playlist',
+    },
   ],
   1: [{ title: 'LLM 101', status: 'soon' }],
   2: [
