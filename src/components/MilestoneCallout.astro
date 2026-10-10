@@ -25,6 +25,10 @@ const { milestone, moduleNumber, anchor } = Astro.props;
     <span class="ms__dur">{dayRange(milestone.days)} · {formatMinutes(milestone.minutes)}</span>
   </div>
 
+  {milestone.build && (
+    <p class="ms__build"><b>Build</b> · {milestone.build}</p>
+  )}
+
   <div class="ms__cols">
     <div>
       <p class="ms__label">Steps</p>
@@ -39,7 +43,7 @@ const { milestone, moduleNumber, anchor } = Astro.props;
     </div>
 
     <div>
-      <p class="ms__label">You've passed when you have</p>
+      <p class="ms__label">You've passed when</p>
       <ul class="ms__pass" role="list">
         {milestone.passCriteria.map((c) => (
           <li class="ms__check">
@@ -110,6 +114,14 @@ const { milestone, moduleNumber, anchor } = Astro.props;
     white-space: nowrap;
   }
   @media (max-width: 520px) { .ms__dur { padding-top: 0; padding-left: 49px; } }
+
+  .ms__build {
+    max-width: 80ch;
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: #713f12;
+  }
+  .ms__build b { font-weight: 600; }
 
   .ms__cols { display: grid; grid-template-columns: 1fr; gap: 22px; }
   @media (min-width: 900px) { .ms__cols { grid-template-columns: 1.35fr 1fr; gap: 36px; } }

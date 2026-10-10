@@ -35,6 +35,8 @@ export interface Milestone {
   title: string;
   days: [number, number];
   minutes: number;
+  /** One line saying what gets built, shown above the steps. */
+  build?: string;
   steps: string[];
   passCriteria: string[];
   about: string;
@@ -58,6 +60,8 @@ export interface DaysModule {
   days: [number, number];
   hours: string;
   before: string;
+  /** The framework the module teaches with throughout, if it has one. */
+  builtWith?: string;
   outcome: string;
   units: Unit[];
   /** The step this module adds to the 100-day project, if it has one. */
@@ -306,6 +310,331 @@ export const hundredDaysModules: DaysModule[] = [
       },
     ],
   },
+  {
+    number: 2,
+    slug: 'building-with-llm-apis',
+    title: 'Building with LLM APIs',
+    phase: 'foundations',
+    icon: 'plug',
+    summary:
+      'Use LangChain to turn single model calls into a reliable app: conversations, streaming, structured answers, tools, multi-step chains, error handling and cost tracking.',
+    days: [7, 18],
+    hours: 'about 12 hours',
+    before:
+      'Module 1 (LLM Fundamentals), the model you chose in its milestone, and your 10 project questions.',
+    builtWith: 'LangChain',
+    outcome:
+      'Build an assistant in LangChain that holds a conversation, streams its answers, returns structured data your code can trust, uses tools safely, recovers from failures, and tells you what every request cost.',
+    coursesFromLevel: 2,
+    shortVersionOf: 2,
+    units: [
+      {
+        id: '2.1',
+        title: 'LangChain Basics and Conversations',
+        icon: 'messages-square',
+        days: [7, 7],
+        minutes: 60,
+        bullets: [
+          {
+            title: 'What LangChain is for',
+            text: 'LangChain gives you one consistent way to call models, build prompts, use tools and chain steps together, whichever provider you use.',
+          },
+          {
+            title: 'Chat models',
+            text: 'Connect to the model you chose in Module 1 through LangChain, and switch providers by changing one line.',
+          },
+          {
+            title: 'Messages and roles',
+            text: "A conversation is a list of messages: system instructions, the user's words and the assistant's earlier replies.",
+          },
+          {
+            title: 'The model has no memory',
+            text: 'Each call starts fresh, so your app must send the conversation history every time.',
+          },
+          {
+            title: 'Prompt templates',
+            text: 'Write a prompt once with placeholders, then fill them in for each request instead of building strings by hand.',
+          },
+          {
+            title: 'Keep your keys secret',
+            text: "Store API keys outside your code and never put them in anything that runs in a user's browser.",
+          },
+          {
+            title: 'Read the whole response',
+            text: 'Look at the token usage and why the answer stopped, not just the text; they tell you what it cost and whether it was cut off.',
+          },
+        ],
+        tryIt:
+          'Have a three-turn conversation using a prompt template. Then drop the history from the third call and see what the model forgets.',
+        outcome:
+          'Call any model through LangChain, keep a conversation going, and explain why the model "remembers" only what you send it.',
+      },
+      {
+        id: '2.2',
+        title: 'Streaming',
+        icon: 'zap',
+        days: [8, 8],
+        minutes: 60,
+        bullets: [
+          {
+            title: 'Show answers as they arrive',
+            text: 'Streaming sends the answer piece by piece, so users see text immediately instead of waiting.',
+          },
+          {
+            title: 'Streaming in LangChain',
+            text: 'The same model, template or chain you already built can stream with no extra setup.',
+          },
+          {
+            title: 'Perceived speed',
+            text: 'Time to first token matters more to users than total time; streaming makes an app feel faster without making it faster.',
+          },
+          {
+            title: 'Put the pieces back together',
+            text: 'Collect the streamed pieces into the full answer so you can save, check or log it.',
+          },
+          {
+            title: 'When streams break',
+            text: 'Handle a user cancelling, a dropped connection, or an answer that stops halfway.',
+          },
+        ],
+        tryIt:
+          'Ask for a long answer with and without streaming, and time when the first word appears in each case.',
+        outcome:
+          'Stream answers to the user and still end up with a complete, saved response, even when the stream is interrupted.',
+      },
+      {
+        id: '2.3',
+        title: 'Structured Outputs',
+        icon: 'braces',
+        days: [9, 10],
+        minutes: 90,
+        bullets: [
+          {
+            title: "Don't just ask for JSON",
+            text: "Asking politely for JSON fails sometimes; use LangChain's structured-output support so the model must return the shape you define.",
+          },
+          {
+            title: 'Describe the shape you want',
+            text: 'Define the fields, which are required, allowed values and nested lists as a schema, so your code knows exactly what it will get.',
+          },
+          {
+            title: 'Check before you use it',
+            text: 'Validate every structured answer before it reaches the rest of your app.',
+          },
+          {
+            title: "Valid isn't the same as correct",
+            text: 'Perfectly formatted output can still contain wrong information.',
+          },
+          {
+            title: 'Generate → check → decide',
+            text: 'When an answer fails validation, retry, ask the model to fix it, or reject it with a clear error.',
+          },
+        ],
+        tryIt:
+          'Extract name, date, amount and category from 10 messy text receipts. Count how many come back valid, and how many are valid but wrong.',
+        outcome:
+          "Get structured data from a model that your code can rely on, and handle the cases where it can't.",
+      },
+      {
+        id: '2.4',
+        title: 'Tool Calling',
+        icon: 'wrench',
+        days: [11, 12],
+        minutes: 120,
+        bullets: [
+          {
+            title: 'The model asks; your code acts',
+            text: 'The model picks a tool and fills in its inputs; your app actually runs it.',
+          },
+          {
+            title: 'Defining tools in LangChain',
+            text: 'Turn an ordinary function into a tool with a name, a description of when to use it, and typed inputs, then attach your tools to the model.',
+          },
+          {
+            title: 'The full loop',
+            text: 'User message → model asks for a tool → your code runs it → the result goes back to the model → the model gives its final answer.',
+          },
+          {
+            title: 'Matching results to requests',
+            text: 'Each tool request has an ID; send each result back with the right ID so the model knows which answer is which.',
+          },
+          {
+            title: 'More than one call',
+            text: 'Handle several tool calls in one turn, the same tool called twice, and cases where one result decides the next call.',
+          },
+          {
+            title: 'When tools fail',
+            text: 'Expect missing or invalid inputs and failing tools, and send a useful error back to the model instead of crashing.',
+          },
+          {
+            title: 'Designing good tools',
+            text: 'Use precise names, few inputs and clear descriptions; overlapping or vague tools make the model pick the wrong one.',
+          },
+          {
+            title: 'Never trust tool inputs',
+            text: 'Check every input the model provides, especially before anything that changes or deletes data.',
+          },
+          {
+            title: 'Tool descriptions are instructions',
+            text: 'The model reads them to decide what to do, so write them as carefully as a prompt.',
+          },
+        ],
+        tryIt:
+          'Give the model a weather tool and a currency tool. Ask a question that needs both, then one that needs neither, and check what it chose each time.',
+        outcome:
+          'Build the complete tool-calling loop in LangChain and give a model tools it uses correctly and safely.',
+      },
+      {
+        id: '2.5',
+        title: 'Chaining Steps Together',
+        icon: 'workflow',
+        days: [13, 13],
+        minutes: 60,
+        bullets: [
+          {
+            title: 'Beyond one call',
+            text: 'Real features often chain several model calls, tools and ordinary code together.',
+          },
+          {
+            title: 'Chains in LangChain',
+            text: 'Connect a prompt, a model and an output step into one chain you can run, stream and reuse like a single piece.',
+          },
+          {
+            title: 'Three common patterns',
+            text: 'A fixed sequence of steps, routing a request to the right path, and running parts in parallel then combining the results.',
+          },
+          {
+            title: 'When to split a task',
+            text: 'Several small, focused steps are often more reliable and easier to debug than one giant prompt.',
+          },
+          {
+            title: 'Chains vs agents',
+            text: 'In a chain your code decides the steps; in an agent the model decides. Agents come later in the track.',
+          },
+        ],
+        tryIt:
+          'Build a chain that classifies a user question by type, then routes it to a different prompt for each type.',
+        outcome: 'Design a feature as a chain of small steps, and know when that beats a single prompt.',
+      },
+      {
+        id: '2.6',
+        title: 'Handling Failures',
+        icon: 'life-buoy',
+        days: [14, 14],
+        minutes: 60,
+        bullets: [
+          {
+            title: 'What goes wrong',
+            text: 'Wrong keys, bad requests, rate limits, server errors, timeouts, inputs that are too long, and malformed answers.',
+          },
+          {
+            title: 'Retry or give up',
+            text: "Retry temporary problems like server errors and rate limits; fail immediately on problems that won't fix themselves, like a bad key.",
+          },
+          {
+            title: 'Retries in LangChain',
+            text: 'Add automatic retries to any model or chain, with a cap on attempts, and set a time limit on every call.',
+          },
+          {
+            title: 'Backup models',
+            text: 'Give a model or chain a fallback to use when it fails, knowing the backup may answer differently.',
+          },
+          {
+            title: "Don't overload the API",
+            text: "When running many requests at once, limit how many run together so you don't hit rate limits.",
+          },
+          {
+            title: 'Fail gracefully',
+            text: 'When nothing works, give the user a clear message instead of an error.',
+          },
+        ],
+        tryIt:
+          'Point your chain at a wrong model name, then at a very short timeout, and confirm each failure triggers the right retry or fallback.',
+        outcome:
+          'Make your app survive the everyday failures of model APIs without crashing or retrying forever.',
+      },
+      {
+        id: '2.7',
+        title: 'Cost, Logging and Tracing',
+        icon: 'receipt',
+        days: [15, 15],
+        minutes: 60,
+        bullets: [
+          {
+            title: 'Record every request',
+            text: 'Model, input and output tokens, time taken, retries, errors, tools used and estimated cost.',
+          },
+          {
+            title: 'Think in traces',
+            text: 'One user question can trigger several model and tool calls; tracing groups them so you can follow the whole journey.',
+          },
+          {
+            title: 'Tracing LangChain apps',
+            text: "Turn on tracing (for example with LangSmith) or hook into LangChain's callbacks to capture every step automatically.",
+          },
+          {
+            title: 'Find the problem step',
+            text: 'Use traces to see which step failed, which used the most tokens, and where the time went.',
+          },
+        ],
+        tryIt:
+          'Run your 10 project questions through your app with tracing on and produce a short report: total cost, average time per question, and the most expensive question.',
+        outcome: 'Know exactly what your app costs to run and find the slow or failing step in any request.',
+      },
+    ],
+    milestone: {
+      title: 'Your First Working Assistant',
+      days: [16, 18],
+      minutes: 180,
+      build:
+        'A chat assistant in LangChain for the document collection you picked in Module 1, using the model you chose there.',
+      steps: [
+        'Build a chat assistant that keeps the conversation going and streams its answers.',
+        'Give it a tool that lists the documents in your collection and a tool that returns the full text of one document by name.',
+        'Add one action tool that records something, such as "create a support request", which returns a structured result and checks every input before saving.',
+        'Add retries, time limits, a fallback model and a friendly message when things fail.',
+        'Turn on tracing and record tokens, time and cost for every request.',
+        'Run your 10 project questions from Module 1 through the assistant.',
+      ],
+      passCriteria: [
+        'The assistant streams answers and remembers the conversation for at least 5 turns.',
+        'It uses its tools correctly, including at least one question where the result of one tool decides the next tool call.',
+        'The action tool rejects invalid inputs instead of saving them.',
+        'A forced failure (wrong model name or very short timeout) is handled by a retry or fallback without crashing.',
+        'You have a report for your 10 questions: correct answers, cost per question and average response time.',
+        'You can explain the tool-calling loop step by step: what the model sends, what your code runs, and what goes back.',
+      ],
+      about:
+        'Your assistant reads whole documents to answer questions. Notice how many tokens that uses and what happens with long documents; fixing that is what retrieval is for, later in the track.',
+    },
+    skipped: [
+      {
+        topic: 'Calling provider APIs directly',
+        why: 'LangChain makes the same calls; learn one way well first',
+        where: [{ level: 2, href: '/level/2/#m2-1' }],
+      },
+      {
+        topic: 'Concurrency and batch processing in depth',
+        why: 'One rule covers it here: limit how many requests run at once',
+        where: [{ level: 2, href: '/level/2/#m2-8' }],
+      },
+      {
+        topic: 'Where to put retry logic',
+        why: 'A design detail that matters at larger scale',
+        where: [{ level: 2, href: '/level/2/#m2-9' }],
+      },
+      {
+        topic: 'LlamaIndex, LangGraph and DSPy',
+        why: 'Learning one framework well beats surveying four; LangGraph returns when you build agents',
+        where: [{ level: 2, href: '/level/2/#m2-11' }],
+      },
+      {
+        topic: 'Comparing orchestration frameworks',
+        why: "Useful once you've built with more than one",
+        where: [{ level: 2, href: '/level/2/#m2-11' }],
+      },
+    ],
+  },
 ];
 
 export const daysModuleHref = (m: DaysModule) => `${DAYS_BASE}/${m.slug}/`;
@@ -313,8 +642,8 @@ export const daysModuleHref = (m: DaysModule) => `${DAYS_BASE}/${m.slug}/`;
 /** "Day 1" or "Days 5–6". */
 export const dayRange = ([a, b]: [number, number]) => (a === b ? `Day ${a}` : `Days ${a}–${b}`);
 
-/** "45 min", "80 min"; whole hours read as hours. */
-export const formatMinutes = (m: number) => (m % 60 === 0 ? `${m / 60} hr` : `${m} min`);
+/** "45 min", "120 min" — always minutes, as the track is written. */
+export const formatMinutes = (m: number) => `${m} min`;
 
 /** The module that is the short version of a roadmap level. */
 export const shortVersionOfLevel = (n: number): DaysModule | undefined =>

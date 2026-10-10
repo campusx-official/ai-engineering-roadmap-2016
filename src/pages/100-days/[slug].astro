@@ -93,6 +93,13 @@ const description = `${dayRange(mod.days)} of 100 Days of AI Engineering. ${mod.
 
         <p class="lede dh__summary">{mod.summary}</p>
 
+        {mod.builtWith && (
+          <p class="dh__built">
+            <Icon name="blocks" size={15} />
+            <span>Built with <b>{mod.builtWith}</b>, used throughout this module</span>
+          </p>
+        )}
+
         <div class="dh__facts">
           <div class="dh__fact">
             <span class="dh__fact-label">Duration</span>
@@ -151,10 +158,6 @@ const description = `${dayRange(mod.days)} of 100 Days of AI Engineering. ${mod.
             />
           )}
         </div>
-        <p class="mods__hint">
-          <Icon name="chevrons-up-down" size={14} />
-          <span>Expand any unit for what it covers</span>
-        </p>
       </div>
     </section>
 
@@ -317,6 +320,22 @@ const description = `${dayRange(mod.days)} of 100 Days of AI Engineering. ${mod.
 
   .dh__summary { max-width: 62ch; }
 
+  .dh__built {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    gap: 8px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid var(--phase-br);
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--cx-g700);
+  }
+  .dh__built :global(svg) { flex: none; color: var(--phase-ac); }
+  .dh__built b { font-weight: 600; color: var(--phase-ac); }
+
   .dh__facts {
     display: grid;
     grid-template-columns: 1fr;
@@ -397,17 +416,6 @@ const description = `${dayRange(mod.days)} of 100 Days of AI Engineering. ${mod.
 
   /* ---------- units ---------- */
   .mods { border-radius: var(--cx-r-card); overflow: hidden; }
-  .mods__hint {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    margin-top: 16px;
-    font-family: var(--cx-font-mono);
-    font-size: 10.5px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--cx-g500);
-  }
 
   /* ---------- skipped ---------- */
   .skipped {
