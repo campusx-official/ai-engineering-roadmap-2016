@@ -3,18 +3,16 @@
  *
  * The .txt files are the single source of truth for all level content. Nothing
  * here invents copy: every string written to levels.json is lifted verbatim
- * from a source file, except the hand-picked stack tags from src/data/stack.ts,
- * each of which is checked against its level's text. Where a field cannot be found, the level gets an entry in
+ * from a source file. Where a field cannot be found, the level gets an entry in
  * `todos[]` instead of a plausible-looking guess.
  *
  * Run: npm run parse   (also runs automatically before dev/build)
  */
 import { readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const { stacks } = await import(pathToFileURL(join(root, 'src/data/stack.ts')).href);
 
 /* Canonical location, per CLAUDE.md §2. The repo root is kept as a fallback so
    a stray level*.txt dropped there is still picked up rather than silently
@@ -247,31 +245,6 @@ function pickModuleIcon(name) {
   return 'circle-dot';
 }
 
-/* Stack tags are hand-picked in src/data/stack.ts. Each one must name something
-   that actually occurs in its level's text, so a typo, a renamed tool or a tag
-   copied onto the wrong level fails the parse instead of reaching the page. */
-const stackProblems = [];
-
-function stackFor(number, text) {
-  const set = stacks[number];
-  if (!set) {
-    stackProblems.push(`L${number}: no entry in src/data/stack.ts`);
-    return [];
-  }
-  const tags = [];
-  for (const kind of ['tool', 'concept']) {
-    for (const entry of set[`${kind}s`]) {
-      const [label, pattern] = Array.isArray(entry)
-        ? entry
-        : [entry, new RegExp(`(?<![\\w-])${entry.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')}(?![\\w-])`, 'i')];
-      if (!pattern.test(text)) stackProblems.push(`L${number}: "${label}" does not occur in the level text`);
-      if (tags.some((t) => t.label === label)) stackProblems.push(`L${number}: "${label}" is listed twice`);
-      tags.push({ label, kind });
-    }
-  }
-  return tags;
-}
-
 function parseLevel(file, raw) {
   const lines = raw.split(/\r?\n/).map((l) => l.trim());
   const todos = [];
@@ -400,7 +373,6 @@ function parseLevel(file, raw) {
     phase: phase.id,
     icon: LEVEL_ICONS[number] || 'circle-dot',
     modules,
-    stack: stackFor(number, raw),
     project: capstone ? capstone.id : null,
     totalSessions,
     statedSessions: stated ? Number(stated[1]) : null,
@@ -432,12 +404,6 @@ const out = {
 
 mkdirSync(join(root, 'src/data'), { recursive: true });
 writeFileSync(join(root, 'src/data/levels.json'), JSON.stringify(out, null, 2));
-
-if (stackProblems.length) {
-  console.error('src/data/stack.ts NEEDS ATTENTION:');
-  for (const p of stackProblems) console.error('  ' + p);
-  process.exit(1);
-}
 
 const flagged = levels.filter((l) => l.todos.length);
 console.log(`parsed ${levels.length} levels · ${out.totalModules} modules · ${out.totalSessions} sessions`);

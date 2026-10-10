@@ -29,7 +29,7 @@ were merged into a single RAG level; Interview Prep was added as level 14 and is
 member of a seventh phase.
 
 The parser extracts, per level: `title`, `scope`, `modules[]` (id, name, `sessionCount`,
-`objectives[]`, `outcome`, `tryIt`, `mentalModel`, `finalResult`, `notes[]`), `stack[]`,
+`objectives[]`, `outcome`, `tryIt`, `mentalModel`, `finalResult`, `notes[]`),
 `project` (the capstone module id), `totalSessions` and `completionOutcomes[]`.
 `completionOutcomes` is parsed and kept in the data but is not currently rendered.
 
@@ -47,19 +47,6 @@ Three things worth knowing:
   Known real gaps in the source: L1 and L7 have no capstone (those pages simply
   omit the ship-it section); the L3 capstone states no session count. L4 has two, and
   renders a callout for each.
-- **`stack[]` is hand-picked, then checked against the source.** Each level's tags live in
-  `src/data/stack.ts`, split into **tools** (something you install, call or pay for) and
-  **concepts** (technique, protocol, format, metric, practice, regulation). Pick what a
-  learner should come away able to name or use, not every term the level mentions in
-  passing. `npm run parse` fails if a tag's term does not occur in that level's text — a
-  bare string is matched as a whole word, and a `[label, /pattern/]` pair covers wording
-  that differs ("tokenizer" for "tokenization"). Judgement calls are documented at the top
-  of the file: protocols and specs (MCP, A2A, OpenAPI) are concepts while the clients that
-  speak them (Postman, curl) are tools; training techniques (LoRA, DPO, SFT) are concepts
-  while the libraries implementing them (PEFT, Unsloth, Axolotl) are tools; SQL is a
-  concept and PostgreSQL is the tool. Levels 3, 6, 8, 9 and 15 name no products and
-  render a single full-width Concepts column.
-
 Icons are assigned by keyword rules (`MODULE_ICON_RULES`), most-specific first, so a
 level about agents doesn't render eleven identical robot icons. Every module resolves to
 a real Lucide icon — `Icon.astro` throws at build time on an unknown name.

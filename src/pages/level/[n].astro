@@ -1,7 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
-import Pill from '../../components/Pill.astro';
 import Eyebrow from '../../components/Eyebrow.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import SessionMeter from '../../components/SessionMeter.astro';
@@ -17,8 +16,6 @@ import {
   phases,
   phaseOfLevel,
   capstonesOf,
-  conceptsOf,
-  toolsOf,
   teachingModules,
   getLevel,
   cumulativeSessions,
@@ -43,8 +40,6 @@ const capstones = capstonesOf(level);
 const modules = teachingModules(level);
 const courses = coursesFor(level.number);
 const books = booksFor(level.number);
-const concepts = conceptsOf(level);
-const tools = toolsOf(level);
 const cumulative = cumulativeSessions(level.number);
 const cumulativePct = Math.round((cumulative / totalSessions) * 100);
 
@@ -157,49 +152,6 @@ const description = `Level ${level.number} of the CampusX AI Engineering Roadmap
         </p>
       </div>
     </section>
-
-    <!-- ───────────────── stack ───────────────── -->
-    {level.stack.length > 0 && (
-      <section class="section lsec lsec--tight stack">
-        <div class="wrap">
-          <SectionHeader eyebrow="Stack" title="What you touch here." class="lsec__head" />
-
-          {/* Two equal columns: what you learn, and what you install. A level
-              with only one of the two gets the full width. */}
-          <div class={`stack__cols ${concepts.length && tools.length ? '' : 'stack__cols--single'}`}>
-            {concepts.length > 0 && (
-              <div class="stack__col">
-                <h3 class="stack__label" id="concepts-h">
-                  <Icon name="lightbulb" size={14} />
-                  <span>Concepts</span>
-                  <span class="stack__count">{concepts.length}</span>
-                </h3>
-                <ul class="stack__list" aria-labelledby="concepts-h" role="list">
-                  {concepts.map((tag) => (
-                    <li><Pill tone="phase" size="md">{tag.label}</Pill></li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {tools.length > 0 && (
-              <div class="stack__col">
-                <h3 class="stack__label" id="tools-h">
-                  <Icon name="wrench" size={14} />
-                  <span>Tools</span>
-                  <span class="stack__count">{tools.length}</span>
-                </h3>
-                <ul class="stack__list" aria-labelledby="tools-h" role="list">
-                  {tools.map((tag) => (
-                    <li><Pill tone="phase" size="md">{tag.label}</Pill></li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
-    )}
 
     <!-- ───────────────── ship it ───────────────── -->
     {capstones.length > 0 && (
@@ -407,48 +359,6 @@ const description = `Level ${level.number} of the CampusX AI Engineering Roadmap
   }
 
   .ship-stack { display: flex; flex-direction: column; gap: 16px; }
-
-  /* ---------- stack ---------- */
-  .stack__cols {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-  @media (min-width: 820px) {
-    /* equal halves regardless of how many pills land in each */
-    .stack__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; }
-    .stack__cols:not(.stack__cols--single) .stack__col + .stack__col {
-      padding-left: 40px;
-      margin-left: -40px;
-      border-left: 1px solid var(--cx-border);
-    }
-    .stack__cols--single { grid-template-columns: minmax(0, 1fr); }
-  }
-
-  .stack__col { min-width: 0; }
-
-  .stack__label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 14px;
-    padding-bottom: 11px;
-    border-bottom: 1px solid var(--cx-border);
-    font-family: var(--cx-font-mono);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--phase-ac);
-  }
-  .stack__count {
-    margin-left: auto;
-    font-size: 11px;
-    color: var(--cx-g500);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .stack__list { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
 
   /* ---------- courses ---------- */
   .courses__grid {

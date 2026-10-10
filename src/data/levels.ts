@@ -45,12 +45,6 @@ export interface Module {
   isGap: boolean;
 }
 
-/** A stack tag: either something you install/call, or something you learn. */
-export interface StackTag {
-  label: string;
-  kind: 'tool' | 'concept';
-}
-
 export interface Level {
   number: number;
   slug: string;
@@ -63,7 +57,6 @@ export interface Level {
   phase: PhaseId;
   icon: string;
   modules: Module[];
-  stack: StackTag[];
   /** Module id of the ship-it capstone, if the source defines one. */
   project: string | null;
   totalSessions: number;
@@ -116,12 +109,6 @@ export const shipAnchor = (m: Module) => `ship-${m.id.toLowerCase().replace(/\./
 
 export const capstonesOf = (level: Level): Module[] =>
   level.modules.filter((m) => m.isCapstone);
-
-export const conceptsOf = (level: Level): StackTag[] =>
-  level.stack.filter((t) => t.kind === 'concept');
-
-export const toolsOf = (level: Level): StackTag[] =>
-  level.stack.filter((t) => t.kind === 'tool');
 
 /** Modules minus the capstones — those get their own callouts. */
 export const teachingModules = (level: Level): Module[] =>

@@ -34,7 +34,6 @@ level6-context-engineering.txt        level13-fine-tuning.txt
 - `scope` — one-line "what this level is about"
 - `outcome` — the "you can…" capability statement
 - `modules[]` — each with `name`, `sessionCount`, `objectives[]`
-- `stack[]` — tools/tech tags
 - `project` — the "ship it" capstone for the level
 - `totalSessions` (sum, or stated)
 
@@ -158,7 +157,7 @@ The roadmap must **read as a map, not an article**. Enforce these tactics:
 
 - **Lead every level and the homepage with a visual**, not a paragraph. Text supports the graphic, never the reverse.
 - Represent **session counts as bars/segments**, not sentences ("4 sessions" → a 4-segment meter).
-- Render **skills/stack as pastel pills**, modules as **icon + title + count rows**, objectives behind a subtle expand (don't dump all objectives as body text).
+- Render modules as **icon + title + count rows**, objectives behind a subtle expand (don't dump all objectives as body text).
 - One **Lucide icon per module and per level** — consistent set, purple or phase-colored.
 - Use the **phase colors** to band the journey so the eye groups 15 items into 6 chunks.
 - Prefer **progress meters, node maps, and timelines** over prose blocks. If a section is >3 short paragraphs of running text, redesign it as a visual.
@@ -177,10 +176,9 @@ A single connected **path/track of 15 nodes** — vertical spine on desktop-narr
 Structure, top to bottom:
 1. **Level header** — phase eyebrow, big number + title, the `you can…` outcome, total-session meter, prerequisite pointer ("assumes Level n−1").
 2. **Module map** — visual list of `ModuleRow`s (icon, name, session meter, expandable objectives).
-3. **Stack** — pastel pills.
-4. **Ship-it project** — a highlighted `ShipItCallout` (amber-accented, distinct from body).
-5. **Related CampusX courses** — cross-links (see §10).
-6. **LevelNav** — prev / next with titles, plus "back to map".
+3. **Ship-it project** — a highlighted `ShipItCallout` (amber-accented, distinct from body).
+4. **Related CampusX courses** — cross-links (see §10).
+5. **LevelNav** — prev / next with titles, plus "back to map".
 
 Keep each level page skimmable in ~20 seconds; depth lives behind expanders.
 
@@ -234,6 +232,6 @@ Keep each level page skimmable in ~20 seconds; depth lives behind expanders.
 
 - All 16 levels parsed into typed data and rendered.
 - Homepage map communicates the full path + phases at a glance, on mobile and desktop.
-- Every level page: header, visual module map, stack pills, ship-it callout, CampusX cross-links, prev/next.
+- Every level page: header, visual module map, ship-it callout, CampusX cross-links, prev/next.
 - Progress persists; sticky navigator works; deep links work.
 - On-brand, AA-accessible, fast, reduced-motion-safe, SEO-complete.
