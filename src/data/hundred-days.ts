@@ -318,8 +318,8 @@ export const hundredDaysModules: DaysModule[] = [
     icon: 'plug',
     summary:
       'Use LangChain to turn single model calls into a reliable app: conversations, streaming, structured answers, tools, multi-step chains, error handling and cost tracking.',
-    days: [7, 18],
-    hours: 'about 12 hours',
+    days: [7, 15],
+    hours: 'about 9 hours',
     before:
       'Module 1 (LLM Fundamentals), the model you chose in its milestone, and your 10 project questions.',
     builtWith: 'LangChain',
@@ -582,31 +582,6 @@ export const hundredDaysModules: DaysModule[] = [
         outcome: 'Know exactly what your app costs to run and find the slow or failing step in any request.',
       },
     ],
-    milestone: {
-      title: 'Your First Working Assistant',
-      days: [16, 18],
-      minutes: 180,
-      build:
-        'A chat assistant in LangChain for the document collection you picked in Module 1, using the model you chose there.',
-      steps: [
-        'Build a chat assistant that keeps the conversation going and streams its answers.',
-        'Give it a tool that lists the documents in your collection and a tool that returns the full text of one document by name.',
-        'Add one action tool that records something, such as "create a support request", which returns a structured result and checks every input before saving.',
-        'Add retries, time limits, a fallback model and a friendly message when things fail.',
-        'Turn on tracing and record tokens, time and cost for every request.',
-        'Run your 10 project questions from Module 1 through the assistant.',
-      ],
-      passCriteria: [
-        'The assistant streams answers and remembers the conversation for at least 5 turns.',
-        'It uses its tools correctly, including at least one question where the result of one tool decides the next tool call.',
-        'The action tool rejects invalid inputs instead of saving them.',
-        'A forced failure (wrong model name or very short timeout) is handled by a retry or fallback without crashing.',
-        'You have a report for your 10 questions: correct answers, cost per question and average response time.',
-        'You can explain the tool-calling loop step by step: what the model sends, what your code runs, and what goes back.',
-      ],
-      about:
-        'Your assistant reads whole documents to answer questions. Notice how many tokens that uses and what happens with long documents; fixing that is what retrieval is for, later in the track.',
-    },
     skipped: [
       {
         topic: 'Calling provider APIs directly',
