@@ -28,8 +28,6 @@ Add model/provider fallbacks and understand the quality risks introduced by swit
 Centralize authentication, usage tracking, retries, rate limits, and provider abstraction where appropriate.
 Outcome: Avoid designing applications around a single hard-coded model.
 
-This maps particularly closely to Huyen’s architecture step of adding a model router and gateway.
-
 M9.4 · Latency & inference optimization — (sessions: 2)
 
 Break latency into components such as retrieval, TTFT, model generation, tool calls, and network overhead.
@@ -40,8 +38,6 @@ Apply prompt/context reduction, batching, and inference-service optimizations wh
 Reason about throughput, latency, and utilization at scale.
 Outcome: Identify where an AI application is slow and choose the appropriate optimization instead of simply upgrading infrastructure.
 
-Inference performance and both model- and service-level optimization are major topics in the book’s inference optimization chapter.
-
 M9.5 · Caching architecture — (sessions: 1)
 
 Understand the different caches available in an AI system: exact-response caching, prompt/context caching, retrieval caching, and semantic caching.
@@ -50,8 +46,6 @@ Use semantic caching when different queries can reasonably share an answer.
 Understand the trade-off between freshness, quality, latency, and cost.
 Measure actual cache hit rate and savings rather than assuming caching helps.
 Outcome: Use caching as an architectural optimization rather than an afterthought.
-
-Caching is another explicit step in Huyen’s production AI architecture.
 
 M9.6 · Reliability, guardrails & graceful degradation — (sessions: 2)
 
@@ -72,8 +66,6 @@ Avoid unnecessary agentic complexity when a deterministic pipeline is sufficient
 Define clear component boundaries so individual parts can be changed, evaluated, and scaled independently.
 Outcome: Turn individual AI components into a coherent production system.
 
-Pipeline orchestration and agent patterns both appear explicitly in the book’s final architecture chapter.
-
 M9.8 · Monitoring, feedback & continuous improvement — (sessions: 1)
 
 Connect evals, traces, operational metrics, and user feedback into the production architecture.
@@ -83,8 +75,6 @@ Turn production failures and user feedback into new evaluation cases.
 Version models, prompts, retrieval configurations, and application changes so regressions can be traced.
 Understand the loop: deploy → observe → collect feedback → evaluate → improve → redeploy.
 Outcome: Design AI products that improve from real-world usage rather than remaining static after launch.
-
-Huyen’s final chapter explicitly treats monitoring/observability and user-feedback design as parts of the AI engineering architecture.
 
 M9.9 · AI system design case studies — (sessions: 2)
 

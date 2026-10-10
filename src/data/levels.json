@@ -4031,9 +4031,7 @@
               "text": "Centralize authentication, usage tracking, retries, rate limits, and provider abstraction where appropriate."
             }
           ],
-          "notes": [
-            "This maps particularly closely to Huyen’s architecture step of adding a model router and gateway."
-          ],
+          "notes": [],
           "isCapstone": false,
           "isGap": false,
           "outcome": "Avoid designing applications around a single hard-coded model."
@@ -4063,9 +4061,7 @@
               "text": "Reason about throughput, latency, and utilization at scale."
             }
           ],
-          "notes": [
-            "Inference performance and both model- and service-level optimization are major topics in the book’s inference optimization chapter."
-          ],
+          "notes": [],
           "isCapstone": false,
           "isGap": false,
           "outcome": "Identify where an AI application is slow and choose the appropriate optimization instead of simply upgrading infrastructure."
@@ -4092,9 +4088,7 @@
               "text": "Measure actual cache hit rate and savings rather than assuming caching helps."
             }
           ],
-          "notes": [
-            "Caching is another explicit step in Huyen’s production AI architecture."
-          ],
+          "notes": [],
           "isCapstone": false,
           "isGap": false,
           "outcome": "Use caching as an architectural optimization rather than an afterthought."
@@ -4151,9 +4145,7 @@
               "text": "Define clear component boundaries so individual parts can be changed, evaluated, and scaled independently."
             }
           ],
-          "notes": [
-            "Pipeline orchestration and agent patterns both appear explicitly in the book’s final architecture chapter."
-          ],
+          "notes": [],
           "isCapstone": false,
           "isGap": false,
           "outcome": "Turn individual AI components into a coherent production system."
@@ -4183,9 +4175,7 @@
               "text": "Understand the loop: deploy → observe → collect feedback → evaluate → improve → redeploy."
             }
           ],
-          "notes": [
-            "Huyen’s final chapter explicitly treats monitoring/observability and user-feedback design as parts of the AI engineering architecture."
-          ],
+          "notes": [],
           "isCapstone": false,
           "isGap": false,
           "outcome": "Design AI products that improve from real-world usage rather than remaining static after launch."
@@ -6454,9 +6444,7 @@
               "text": "Explain when not to introduce multi-agent or autonomous behavior."
             }
           ],
-          "notes": [
-            "Note: the source marks this session as reconstructed because the original Session 3 transcript was not provided, so these topics are inferred from the series plan rather than directly transcribed."
-          ],
+          "notes": [],
           "isCapstone": false,
           "isGap": false,
           "outcome": "Design and defend an agent architecture while reasoning explicitly about autonomy, cost, reliability, recovery, and blast radius."
@@ -6615,9 +6603,7 @@
               "text": "Develop a strong answer to common interview questions such as “How do you stay current in GenAI?”"
             }
           ],
-          "notes": [
-            "This reflects the source’s intended “GenAI philosophy” component, though that final session was also reconstructed because its transcript was unavailable."
-          ],
+          "notes": [],
           "isCapstone": false,
           "isGap": false,
           "outcome": "Demonstrate informed judgment rather than simply listing the latest tools."

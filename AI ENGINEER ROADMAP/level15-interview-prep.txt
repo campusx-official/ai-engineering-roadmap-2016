@@ -48,8 +48,6 @@ Debug an agent from its trajectory when it succeeds in testing but fails under p
 Explain when not to introduce multi-agent or autonomous behavior.
 Outcome: Design and defend an agent architecture while reasoning explicitly about autonomy, cost, reliability, recovery, and blast radius.
 
-Note: the source marks this session as reconstructed because the original Session 3 transcript was not provided, so these topics are inferred from the series plan rather than directly transcribed.
-
 M15.4 · Fine-tuning & model adaptation interviews — (sessions: 1)
 
 Make the prompt vs RAG vs fine-tuning decision from a concrete product brief.
@@ -102,8 +100,6 @@ Explain how you would evaluate a newly released model before replacing an existi
 Use benchmarks → shortlist → custom evals → cost/latency comparison → controlled rollout rather than social-media consensus.
 Develop a strong answer to common interview questions such as “How do you stay current in GenAI?”
 Outcome: Demonstrate informed judgment rather than simply listing the latest tools.
-
-This reflects the source’s intended “GenAI philosophy” component, though that final session was also reconstructed because its transcript was unavailable.
 
 M15.8 · Project & portfolio defense — (sessions: 2)
 
