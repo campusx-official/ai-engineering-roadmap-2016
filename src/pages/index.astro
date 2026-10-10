@@ -22,6 +22,7 @@ import {
 const ships = levels.flatMap((level) =>
   capstonesOf(level).map((capstone) => ({ level, capstone })),
 );
+const shipLevelCount = levels.filter((level) => capstonesOf(level).length > 0).length;
 
 const howItWorks = [
   {
@@ -32,19 +33,19 @@ const howItWorks = [
   {
     icon: 'layers',
     title: 'Work one level at a time',
-    body: 'Each level is modules of a few sessions each, ending in one thing you ship. The order is the point — the levels compound.',
+    body: 'Each level is modules of a few sessions each, and most end in a capstone you build. The order is the point — the levels compound.',
   },
   {
     icon: 'package-check',
     title: 'Prove it by shipping',
-    body: 'A level counts as done when its capstone runs, not when the videos are watched. Mark it complete and move on.',
+    body: 'A level counts as done when its capstone is built and you can do everything on its outcome list — not when the videos are watched. Then mark it complete and move on.',
   },
 ];
 ---
 
 <Base
   title="AI Engineering Roadmap — 16 levels from fundamentals to production | CampusX"
-  description={`A visual ${levels.length}-level path into AI engineering: software fundamentals, LLMs, RAG, agents, evals, security, system design and LLMOps — ${totalModules} modules, ${totalSessions} sessions, one capstone per level.`}
+  description={`A visual ${levels.length}-level path into AI engineering: software fundamentals, LLMs, RAG, agents, evals, security, system design and LLMOps — ${totalModules} modules, ${totalSessions} sessions, and a capstone in ${shipLevelCount} of the ${levels.length} levels.`}
   page="home"
   ogImage="/og/default.png"
 >
