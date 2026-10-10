@@ -22,11 +22,6 @@ const howItWorks = [
     body: "Some days run a little longer; that's fine.",
   },
   {
-    icon: 'folder-git-2',
-    title: 'One project.',
-    body: 'Every module builds on the same app: a docs assistant over a real document collection that becomes a deployed, evaluated, secured agent by Day 100.',
-  },
-  {
     icon: 'package-check',
     title: 'Done means measured.',
     body: 'A module is done when you can do what its outcomes say, not when the videos are watched.',
@@ -98,7 +93,7 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
   <!-- ───────────────── how ───────────────── -->
   <section class="section dsec dsec--cream">
     <div class="wrap">
-      <SectionHeader eyebrow="How it works" title="One hour, one project, measured." />
+      <SectionHeader eyebrow="How it works" title="One hour a day, measured." />
       <ol class="how" role="list">
         {howItWorks.map((step, i) => (
           <li class="how__item">
@@ -248,7 +243,7 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
     padding: 0;
     list-style: none;
   }
-  @media (min-width: 768px) { .how { grid-template-columns: repeat(3, 1fr); gap: 22px; } }
+  @media (min-width: 768px) { .how { grid-template-columns: repeat(2, 1fr); gap: 22px; } }
   .how__item {
     display: grid;
     grid-template-columns: auto 1fr;
