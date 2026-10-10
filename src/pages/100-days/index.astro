@@ -1,0 +1,539 @@
+---
+import Base from '../../layouts/Base.astro';
+import Eyebrow from '../../components/Eyebrow.astro';
+import Button from '../../components/Button.astro';
+import Icon from '../../components/Icon.astro';
+import StatBlock from '../../components/StatBlock.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import { getLevel, levels } from '../../data/levels';
+import {
+  hundredDaysModules,
+  daysModuleHref,
+  dayRange,
+  moduleOfDay,
+  TOTAL_DAYS,
+} from '../../data/hundred-days';
+
+const first = hundredDaysModules[0];
+
+const howItWorks = [
+  {
+    icon: 'clock',
+    title: 'One hour a day.',
+    body: "Some days run a little longer; that's fine.",
+  },
+  {
+    icon: 'folder-git-2',
+    title: 'One project.',
+    body: 'Every module adds a milestone to the same app: a docs assistant over a real document collection that becomes a deployed, evaluated, secured agent by Day 100.',
+  },
+  {
+    icon: 'package-check',
+    title: 'Done means measured.',
+    body: 'A module is done when its milestone works and meets its pass criteria, not when the videos are watched.',
+  },
+];
+
+/* Where the full roadmap goes deeper than this track. */
+const after = [
+  { title: 'Managed platforms and self-hosting', levels: [11] },
+  { title: 'Multimodal and voice', levels: [12] },
+  { title: 'Fine-tuning', levels: [13] },
+  { title: 'Advanced RAG and multi-agent systems', levels: [4, 5] },
+].map((a) => ({ ...a, refs: a.levels.map((n) => getLevel(n)!) }));
+
+const grid = Array.from({ length: TOTAL_DAYS }, (_, i) => {
+  const day = i + 1;
+  return { day, mod: moduleOfDay(day) };
+});
+const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
+---
+
+<Base
+  title="100 Days of AI Engineering — one project, about an hour a day | CampusX"
+  description="Build, evaluate, secure and ship one real AI app — about an hour a day for 100 days. A compressed companion to the 16-level AI Engineering Roadmap."
+  page="days_overview"
+>
+  <!-- ───────────────── hero ───────────────── -->
+  <section class="dhero">
+    <div class="wrap dhero__grid">
+      <div class="dhero__copy">
+        <Eyebrow text="A companion to the roadmap" />
+        <h1 class="h1 dhero__title">100 Days of <span class="grad-text">AI Engineering</span></h1>
+        <p class="lede dhero__lede">
+          Build, evaluate, secure and ship one real AI app — about an hour a day.
+        </p>
+        <div class="dhero__ctas">
+          <Button href={daysModuleHref(first)} variant="primary" size="lg" icon="arrow-right" track="days_cta_start">
+            Start Day 1
+          </Button>
+          <Button href="/" variant="secondary" size="lg" track="days_cta_full">
+            See the full roadmap
+          </Button>
+        </div>
+        <div class="dhero__stats">
+          <StatBlock value={TOTAL_DAYS} label="Days" icon="calendar-days" />
+          <StatBlock value="~100" label="Hours" icon="clock" />
+          <StatBlock value={1} label="Project" icon="folder-git-2" />
+        </div>
+      </div>
+
+      <!-- progress: one cell per day -->
+      <div class="dprog" data-days-progress>
+        <div class="dprog__head">
+          <p class="dprog__label">Your 100 days</p>
+          <p class="dprog__count">
+            <span data-days-count>0</span><span class="dprog__of"> / {TOTAL_DAYS} days done</span>
+          </p>
+        </div>
+        <span
+          class="dprog__bar"
+          role="progressbar"
+          aria-label="Days of 100 Days of AI Engineering complete"
+          aria-valuemin="0"
+          aria-valuemax={TOTAL_DAYS}
+          aria-valuenow="0"
+        >
+          <span class="dprog__fill" data-days-bar></span>
+        </span>
+        <ol class="dgrid" role="list" aria-label="Days 1 to 100">
+          {grid.map(({ day, mod }) =>
+            mod ? (
+              <li data-phase={mod.phase}>
+                <a
+                  class="dcell dcell--on"
+                  href={daysModuleHref(mod)}
+                  data-day-cell
+                  data-day={day}
+                  title={`Day ${day} · Module ${mod.number}: ${mod.title}`}
+                >
+                  <span class="sr-only">Day {day}, Module {mod.number}: {mod.title}</span>
+                </a>
+              </li>
+            ) : (
+              <li aria-hidden="true"><span class="dcell" data-day-cell data-day={day}></span></li>
+            ),
+          )}
+        </ol>
+        <p class="dprog__note">
+          Mark days done on each module page. Saved on this device, separately from your roadmap progress.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────── who ───────────────── -->
+  <section class="section dsec">
+    <div class="wrap wrap-narrow">
+      <div class="who">
+        <span class="who__ico"><Icon name="user-check" size={20} /></span>
+        <div class="who__body">
+          <Eyebrow text="Who it's for" />
+          <p class="who__text">
+            People who can already write basic Python, call an API and use Git, and want the core of AI
+            engineering without the full 16-level path.
+          </p>
+          <p class="who__alt">
+            Complete beginners should start with
+            <a href="/level/0/" data-track="days_level0_click">Level 0 of the full roadmap</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────── how ───────────────── -->
+  <section class="section dsec dsec--cream">
+    <div class="wrap">
+      <SectionHeader eyebrow="How it works" title="One hour, one project, measured." />
+      <ol class="how" role="list">
+        {howItWorks.map((step, i) => (
+          <li class="how__item">
+            <span class="how__ico"><Icon name={step.icon} size={19} /></span>
+            <span class="how__n">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="how__title">{step.title}</h3>
+            <p class="how__body">{step.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- ───────────────── modules ───────────────── -->
+  <section class="section dsec" aria-labelledby="mods-h">
+    <div class="wrap">
+      <SectionHeader eyebrow="The modules" title="In order, day by day." class="dsec__head" />
+      <ol class="dmods" id="mods-h" role="list">
+        {hundredDaysModules.map((m) => (
+          <li data-phase={m.phase}>
+            <a class="dmod" href={daysModuleHref(m)} data-track="days_module_click" data-track-data={String(m.number)}>
+              <span class="dmod__num">{m.number}</span>
+              <span class="dmod__ico"><Icon name={m.icon} size={18} /></span>
+              <span class="dmod__main">
+                <span class="dmod__title">{m.title}</span>
+                <span class="dmod__meta">{dayRange(m.days)} · {m.hours}</span>
+                <span class="dmod__track" aria-hidden="true">
+                  <span
+                    class="dmod__span"
+                    style={`left:${((m.days[0] - 1) / TOTAL_DAYS) * 100}%;width:${((m.days[1] - m.days[0] + 1) / TOTAL_DAYS) * 100}%`}
+                  ></span>
+                </span>
+              </span>
+              <span class="dmod__count" data-days-progress>
+                <span data-days-count data-days-range={`${m.days[0]}-${m.days[1]}`}>0</span>/{m.days[1] - m.days[0] + 1}
+              </span>
+              <Icon name="arrow-right" size={18} class="dmod__go" />
+            </a>
+          </li>
+        ))}
+      </ol>
+      {publishedThrough < TOTAL_DAYS && (
+        <p class="dmods__more">
+          <Icon name="calendar-plus" size={14} />
+          <span>Modules for Days {publishedThrough + 1}–{TOTAL_DAYS} are added here as they're published.</span>
+        </p>
+      )}
+    </div>
+  </section>
+
+  <!-- ───────────────── after ───────────────── -->
+  <section class="section dsec dsec--gray">
+    <div class="wrap">
+      <SectionHeader
+        eyebrow="After the 100 days"
+        title="Go deeper in the full roadmap."
+        subhead="This track covers the core. For deeper or specialist topics, the full roadmap picks up where it stops."
+        class="dsec__head"
+      />
+      <ul class="after" role="list">
+        {after.map((a) => (
+          <li class="after__item">
+            <span class="after__title">{a.title}</span>
+            <span class="after__links">
+              {a.refs.map((l) => (
+                <a class="after__link" href={`/level/${l.number}/`} data-phase={l.phase} data-track="days_after_click" data-track-data={String(l.number)}>
+                  Level {l.number}
+                  <Icon name="arrow-up-right" size={13} />
+                </a>
+              ))}
+            </span>
+          </li>
+        ))}
+      </ul>
+
+      <a class="back" href="/" data-track="days_full_roadmap_click">
+        <span class="back__ico"><Icon name="route" size={18} /></span>
+        <span class="back__text">
+          Want the complete path? <b>See the full {levels.length}-level roadmap.</b>
+        </span>
+        <Icon name="arrow-right" size={18} class="back__go" />
+      </a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  /* ---------- hero ---------- */
+  .dhero {
+    padding-block: 56px 48px;
+    background: linear-gradient(180deg, var(--cx-violet-bg) 0%, #fff 78%);
+  }
+  @media (min-width: 900px) { .dhero { padding-block: 80px 60px; } }
+
+  .dhero__grid { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
+  @media (min-width: 980px) { .dhero__grid { grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr); gap: 56px; } }
+
+  .dhero__copy { display: flex; flex-direction: column; gap: 20px; }
+  .dhero__title { font-size: clamp(38px, 6vw, 68px); max-width: 13ch; }
+  .dhero__lede { max-width: 44ch; }
+  .dhero__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
+
+  .dhero__stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 12px;
+    padding-top: 24px;
+    border-top: 1px solid var(--cx-border);
+  }
+
+  /* ---------- 100-day grid ---------- */
+  .dprog {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 22px;
+    background: #fff;
+    border: 1px solid var(--cx-border);
+    border-radius: var(--cx-r-card);
+    box-shadow: var(--cx-shadow-card);
+  }
+  @media (min-width: 768px) { .dprog { padding: 26px 28px; } }
+
+  .dprog__head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .dprog__label {
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cx-purple);
+  }
+  .dprog__count {
+    font-family: var(--cx-font-display);
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: -0.02em;
+    color: var(--cx-ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .dprog__of { font-family: var(--cx-font-mono); font-weight: 400; font-size: 11.5px; letter-spacing: 0.04em; color: var(--cx-g500); }
+
+  .dprog__bar { display: block; height: 6px; border-radius: 999px; background: var(--cx-border-2); overflow: hidden; }
+  .dprog__fill { display: block; width: 0; height: 100%; border-radius: 999px; background: var(--cx-grad); transition: width 0.3s ease; }
+
+  .dgrid {
+    display: grid;
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+    gap: 5px;
+    margin: 4px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .dgrid li { display: block; }
+  .dcell {
+    display: block;
+    aspect-ratio: 1;
+    border-radius: 5px;
+    border: 1px dashed var(--cx-border-2);
+    background: var(--cx-gray);
+  }
+  .dcell--on { background: var(--phase-bg); border: 1px solid var(--phase-br); transition: transform 0.14s ease; }
+  .dcell--on:hover { transform: scale(1.08); border-color: var(--phase-ac); }
+  .dcell[data-done] { background: var(--phase-ac); border-color: var(--phase-ac); }
+
+  .dprog__note { font-size: 13px; line-height: 1.5; color: var(--cx-g500); }
+
+  /* ---------- sections ---------- */
+  .dsec { padding-block: 56px; }
+  @media (min-width: 768px) { .dsec { padding-block: 68px; } }
+  .dsec--cream { background: var(--cx-cream); border-block: 1px solid var(--cx-border); }
+  .dsec--gray { background: var(--cx-gray); border-top: 1px solid var(--cx-border); }
+  .dsec__head { margin-bottom: 28px; max-width: 640px; }
+
+  /* ---------- who ---------- */
+  .who { display: flex; align-items: flex-start; gap: 16px; }
+  .who__ico {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    flex: none;
+    border-radius: 12px;
+    background: var(--cx-violet-bg);
+    border: 1px solid var(--p-violet-br);
+    color: var(--cx-purple);
+  }
+  .who__body { display: flex; flex-direction: column; gap: 10px; }
+  .who__text {
+    font-family: var(--cx-font-display);
+    font-weight: 600;
+    font-size: clamp(19px, 2.6vw, 24px);
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    color: var(--cx-ink);
+  }
+  .who__alt { font-size: 15.5px; line-height: 1.6; color: var(--cx-g600); }
+  .who__alt a { color: var(--cx-purple); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+
+  /* ---------- how ---------- */
+  .how {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin: 32px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 768px) { .how { grid-template-columns: repeat(3, 1fr); gap: 22px; } }
+  .how__item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas: 'ico n' 'title title' 'body body';
+    align-content: start;
+    gap: 10px 12px;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid var(--cx-border);
+    border-radius: var(--cx-r-card);
+  }
+  .how__ico {
+    grid-area: ico;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: var(--cx-violet-bg);
+    border: 1px solid var(--cx-border);
+    color: var(--cx-purple);
+  }
+  .how__n {
+    grid-area: n;
+    align-self: center;
+    justify-self: end;
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--cx-g500);
+  }
+  .how__title { grid-area: title; font-size: 19px; margin-top: 4px; }
+  .how__body { grid-area: body; font-size: 14.5px; line-height: 1.6; color: var(--cx-g600); }
+
+  /* ---------- modules ---------- */
+  .dmods { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; }
+  .dmod {
+    display: grid;
+    grid-template-columns: auto auto 1fr auto auto;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    background: #fff;
+    border: 1px solid var(--cx-border);
+    border-radius: var(--cx-r-card);
+    box-shadow: inset 4px 0 0 var(--phase-ac);
+    transition: border-color 0.16s ease, box-shadow 0.16s ease;
+  }
+  .dmod:hover { border-color: var(--phase-ac); box-shadow: inset 4px 0 0 var(--phase-ac), var(--cx-shadow-card-hover); }
+
+  .dmod__num {
+    font-family: var(--cx-font-display);
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: -0.03em;
+    color: var(--phase-ac);
+    min-width: 18px;
+    text-align: center;
+  }
+  .dmod__ico {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    background: var(--phase-bg);
+    border: 1px solid var(--phase-br);
+    color: var(--phase-ac);
+  }
+  @media (max-width: 520px) { .dmod__ico { display: none; } }
+
+  .dmod__main { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .dmod__title { font-family: var(--cx-font-display); font-weight: 700; font-size: 18px; letter-spacing: -0.01em; color: var(--cx-ink); }
+  .dmod__meta {
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--cx-g600);
+  }
+  .dmod__track { position: relative; display: block; height: 5px; margin-top: 4px; border-radius: 999px; background: var(--cx-border-2); }
+  .dmod__span { position: absolute; top: 0; bottom: 0; min-width: 4px; border-radius: 999px; background: var(--phase-ac); }
+
+  .dmod__count {
+    font-family: var(--cx-font-mono);
+    font-size: 12px;
+    color: var(--cx-g600);
+    font-variant-numeric: tabular-nums;
+  }
+  .dmod__go { color: var(--cx-g400); }
+  .dmod:hover .dmod__go { color: var(--phase-ac); }
+
+  .dmods__more {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    font-family: var(--cx-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
+
+  /* ---------- after ---------- */
+  .after {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 720px) { .after { grid-template-columns: repeat(2, 1fr); } }
+  .after__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 15px 18px;
+    background: #fff;
+    border: 1px solid var(--cx-border);
+    border-radius: var(--cx-r-card-sm);
+  }
+  .after__title { font-weight: 600; font-size: 15px; line-height: 1.4; color: var(--cx-ink); }
+  .after__links { display: flex; flex-wrap: wrap; gap: 6px; flex: none; }
+  .after__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--phase-bg);
+    border: 1px solid var(--phase-br);
+    color: var(--phase-ac);
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+  .after__link:hover { border-color: var(--phase-ac); }
+
+  .back {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 28px;
+    padding: 18px 20px;
+    background: #fff;
+    border: 1px solid var(--cx-border);
+    border-radius: var(--cx-r-card);
+    transition: border-color 0.16s ease;
+  }
+  .back:hover { border-color: var(--cx-purple); }
+  .back__ico {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    flex: none;
+    border-radius: 11px;
+    background: var(--cx-grad);
+    color: #fff;
+  }
+  .back__text { font-size: 15.5px; line-height: 1.45; color: var(--cx-g600); }
+  .back__text b { color: var(--cx-ink); font-weight: 600; }
+  .back__go { margin-left: auto; flex: none; color: var(--cx-purple); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dprog__fill, .dcell--on, .dmod, .back { transition: none; }
+    .dcell--on:hover { transform: none; }
+  }
+</style>

@@ -23,6 +23,7 @@ import {
   totalSessions,
   type Level,
 } from '../../data/levels';
+import { shortVersionOfLevel, daysModuleHref } from '../../data/hundred-days';
 
 export function getStaticPaths() {
   return levels.map((level) => ({
@@ -49,6 +50,9 @@ const cumulativePct = Math.round((cumulative / totalSessions) * 100);
 const prereqs = level.prerequisites
   .map((n) => getLevel(n))
   .filter((l): l is NonNullable<typeof l> => Boolean(l));
+
+/* A level with a compressed version in 100 Days of AI Engineering points to it. */
+const shortVersion = shortVersionOfLevel(level.number);
 
 const description = `Level ${level.number} of the CampusX AI Engineering Roadmap: ${level.scope}`.slice(0, 300);
 ---
@@ -90,6 +94,17 @@ const description = `Level ${level.number} of the CampusX AI Engineering Roadmap
         </div>
 
         <p class="lede lh__scope">{sentence(level.scope)}</p>
+
+        {shortVersion && (
+          <a class="lh__short" href={daysModuleHref(shortVersion)} data-track="level_short_version" data-track-data={String(level.number)}>
+            <Icon name="calendar-days" size={15} />
+            <span>
+              Short on time? Do the {shortVersion.days[1] - shortVersion.days[0] + 1}-day version in
+              <b>100 Days of AI Engineering</b>
+            </span>
+            <Icon name="arrow-right" size={14} class="lh__short-go" />
+          </a>
+        )}
 
         <div class="lh__facts">
           <div class="lh__fact">
@@ -289,6 +304,25 @@ const description = `Level ${level.number} of the CampusX AI Engineering Roadmap
   .lh__title { font-size: clamp(30px, 6vw, 62px); }
 
   .lh__scope { max-width: 62ch; }
+
+  .lh__short {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid var(--phase-br);
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--cx-g700);
+    transition: border-color 0.16s ease;
+  }
+  .lh__short :global(svg) { flex: none; color: var(--phase-ac); }
+  .lh__short b { font-weight: 600; color: var(--phase-ac); }
+  .lh__short:hover { border-color: var(--phase-ac); }
+  @media (prefers-reduced-motion: reduce) { .lh__short { transition: none; } }
 
   .lh__facts {
     display: grid;

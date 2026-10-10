@@ -107,6 +107,9 @@ export const capstoneOf = (level: Level): Module | null =>
 /** Anchor of a capstone's ship-it callout — unique even when a level has two. */
 export const shipAnchor = (m: Module) => `ship-${m.id.toLowerCase().replace(/\./g, '-')}`;
 
+/** Element id of a module row ("m1-3"), so other pages can deep-link to it. */
+export const moduleAnchor = (m: Module) => m.id.toLowerCase().replace(/\./g, '-');
+
 export const capstonesOf = (level: Level): Module[] =>
   level.modules.filter((m) => m.isCapstone);
 

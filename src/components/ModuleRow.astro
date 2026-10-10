@@ -11,14 +11,35 @@
 import Icon from './Icon.astro';
 import SessionMeter from './SessionMeter.astro';
 import { renderObjective } from '../lib/objective';
-import { shipAnchor, type Module } from '../data/levels';
+import { moduleAnchor, shipAnchor, type Module } from '../data/levels';
 
 interface Props {
   module: Module;
   index: number;
   levelNumber: number;
+  /** Replaces the session meter, e.g. "Day 2 · 80 min" on a 100 Days unit. */
+  duration?: string;
+  /** Replaces the id line ("M1.3") under the name. */
+  idLabel?: string;
+  /** Element id, so other pages can deep-link to this row. */
+  anchor?: string;
+  /** Capstone rows: where the row links to and what its id line says. */
+  capHref?: string;
+  capNote?: string;
+  /** Analytics value prefix; defaults to the level number. */
+  trackKey?: string;
 }
-const { module, index, levelNumber } = Astro.props;
+const {
+  module,
+  index,
+  levelNumber,
+  duration,
+  idLabel = module.id,
+  anchor = moduleAnchor(module),
+  capHref = `#${shipAnchor(module)}`,
+  capNote = `${module.id} · Ship it, below`,
+  trackKey = String(levelNumber),
+} = Astro.props;
 
 // Objectives that sat under a "Session N · …" sub-heading keep that grouping.
 const groups: { label?: string; items: typeof module.objectives }[] = [];
@@ -31,7 +52,7 @@ const objectiveCount = module.objectives.length;
 ---
 
 {module.isCapstone ? (
-<a class="mod mod--cap" href={`#${shipAnchor(module)}`} data-module={module.id}>
+<a class="mod mod--cap" href={capHref} data-module={module.id}>
   <span class="mod__summary">
     <span class="mod__idx">{String(index + 1).padStart(2, '0')}</span>
     <span class="mod__ico-wrap mod__ico-wrap--cap">
@@ -39,23 +60,28 @@ const objectiveCount = module.objectives.length;
     </span>
     <span class="mod__main">
       <span class="mod__name">{module.name}</span>
-      <span class="mod__id">{module.id} · Ship it, below</span>
+      <span class="mod__id">{capNote}</span>
     </span>
-    <span class="mod__meter">
-      <SessionMeter count={module.sessionCount} size="sm" showLabel={false} />
-      <span class="mod__count">
-        {module.sessionCount === null ? '—' : module.sessionCount}
+    {duration ? (
+      <span class="mod__dur">{duration}</span>
+    ) : (
+      <span class="mod__meter">
+        <SessionMeter count={module.sessionCount} size="sm" showLabel={false} />
+        <span class="mod__count">
+          {module.sessionCount === null ? '—' : module.sessionCount}
+        </span>
       </span>
-    </span>
+    )}
     <Icon name="arrow-down" size={18} class="mod__chev" />
   </span>
 </a>
 ) : (
 <details
   class="mod"
+  id={anchor}
   data-module={module.id}
   data-track-expand="module_expand"
-  data-track-data={`${levelNumber}:${module.id}`}
+  data-track-data={`${trackKey}:${module.id}`}
 >
   <summary class="mod__summary">
     <span class="mod__idx">{String(index + 1).padStart(2, '0')}</span>
@@ -69,15 +95,19 @@ const objectiveCount = module.objectives.length;
         {module.name}
         {module.isGap && <span class="mod__gap" title="Flagged as a gap in the source curriculum">gap</span>}
       </span>
-      <span class="mod__id">{module.id}</span>
+      <span class="mod__id">{idLabel}</span>
     </span>
 
-    <span class="mod__meter">
-      <SessionMeter count={module.sessionCount} size="sm" showLabel={false} />
-      <span class="mod__count">
-        {module.sessionCount === null ? '—' : module.sessionCount}
+    {duration ? (
+      <span class="mod__dur">{duration}</span>
+    ) : (
+      <span class="mod__meter">
+        <SessionMeter count={module.sessionCount} size="sm" showLabel={false} />
+        <span class="mod__count">
+          {module.sessionCount === null ? '—' : module.sessionCount}
+        </span>
       </span>
-    </span>
+    )}
 
     <Icon name="chevron-down" size={18} class="mod__chev" />
   </summary>
@@ -247,6 +277,27 @@ const objectiveCount = module.objectives.length;
   .mod__meter { display: flex; align-items: center; gap: 9px; }
   .mod__meter :global(.meter__track) { width: 54px; max-width: 54px; }
   @media (max-width: 640px) { .mod__meter :global(.meter) { display: none; } }
+
+  /* Deep links land on the row, clear of the sticky level navigator. */
+  details.mod { scroll-margin-top: 90px; }
+
+  .mod__dur {
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--cx-g600);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* On a phone the duration drops under the name instead of squeezing it. */
+  @media (max-width: 520px) {
+    .mod__summary:has(.mod__dur) { grid-template-columns: auto 1fr auto; row-gap: 4px; }
+    .mod__summary:has(.mod__dur) .mod__ico-wrap { grid-row: 1 / span 2; align-self: start; }
+    .mod__summary:has(.mod__dur) .mod__main { grid-column: 2; grid-row: 1; }
+    .mod__summary:has(.mod__dur) .mod__chev { grid-column: 3; grid-row: 1 / span 2; }
+    .mod__dur { grid-column: 2; grid-row: 2; font-size: 10.5px; }
+  }
 
   .mod__count {
     font-family: var(--cx-font-mono);

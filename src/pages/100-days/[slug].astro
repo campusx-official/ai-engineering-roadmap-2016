@@ -1,0 +1,525 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import Eyebrow from '../../components/Eyebrow.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import ModuleRow from '../../components/ModuleRow.astro';
+import MilestoneCallout from '../../components/MilestoneCallout.astro';
+import CourseCard from '../../components/CourseCard.astro';
+import Button from '../../components/Button.astro';
+import { coursesFor, CAMPUSX_ONE_URL } from '../../data/courses';
+import type { Module } from '../../data/levels';
+import {
+  hundredDaysModules,
+  daysModuleHref,
+  dayRange,
+  formatMinutes,
+  DAYS_BASE,
+  TOTAL_DAYS,
+  type DaysModule,
+  type Unit,
+} from '../../data/hundred-days';
+
+export function getStaticPaths() {
+  return hundredDaysModules.map((mod) => ({
+    params: { slug: mod.slug },
+    props: { mod },
+  }));
+}
+
+interface Props { mod: DaysModule; }
+const { mod } = Astro.props;
+
+const idx = hundredDaysModules.indexOf(mod);
+const prev = hundredDaysModules[idx - 1];
+const next = hundredDaysModules[idx + 1];
+const courses = coursesFor(mod.coursesFromLevel);
+const milestoneAnchor = `milestone-${mod.number}`;
+/* Days up to and including this module — the same meter as a level's cumulative sessions. */
+const cumulativeDays = mod.days[1];
+const cumulativePct = Math.round((cumulativeDays / TOTAL_DAYS) * 100);
+
+/* Units render through the same row as roadmap modules; this is the shape
+   that row reads. Bullet titles are the topic labels, bullet text the detail. */
+const asModule = (u: Unit): Module => ({
+  id: u.id,
+  name: u.title,
+  sessionCount: null,
+  icon: u.icon,
+  objectives: u.bullets.map((b) => ({ text: b.text, label: b.title })),
+  notes: [],
+  outcome: u.outcome,
+  tryIt: u.tryIt,
+  mentalModel: u.mentalModel,
+  isCapstone: false,
+  isGap: false,
+});
+
+const milestone = mod.milestone;
+const milestoneRow: Module | null = milestone ? {
+  id: `${mod.number}.M`,
+  name: `Project milestone: ${milestone.title}`,
+  sessionCount: null,
+  icon: 'flag',
+  objectives: [],
+  notes: [],
+  isCapstone: true,
+  isGap: false,
+} : null;
+
+const unitCount = mod.units.length;
+const title = `Module ${mod.number} · ${mod.title} — 100 Days of AI Engineering`;
+const description = `${dayRange(mod.days)} of 100 Days of AI Engineering. ${mod.summary}`.slice(0, 300);
+---
+
+<Base title={title} description={description} page="days_module">
+  <article data-phase={mod.phase}>
+    <!-- ───────────────── header ───────────────── -->
+    <header class="dh">
+      <div class="wrap dh__inner">
+        <div class="dh__crumbs">
+          <a href={`${DAYS_BASE}/`} class="dh__crumb">100 Days of AI Engineering</a>
+          <Icon name="chevron-right" size={13} />
+          <span class="dh__crumb dh__crumb--here">Module {mod.number}</span>
+        </div>
+
+        <div class="dh__top">
+          <span class="dh__num" aria-hidden="true">{mod.number}</span>
+          <div class="dh__headings">
+            <Eyebrow text={`100 Days of AI Engineering · Module ${mod.number}`} class="dh__eyebrow" />
+            <h1 class="h1 dh__title">{mod.title}</h1>
+          </div>
+        </div>
+
+        <p class="lede dh__summary">{mod.summary}</p>
+
+        <div class="dh__facts">
+          <div class="dh__fact">
+            <span class="dh__fact-label">Duration</span>
+            <span class="dh__fact-strong">{dayRange(mod.days)} · {mod.hours}</span>
+            <span class="dh__fact-value">{unitCount} units{milestone && ' and a project milestone'}</span>
+          </div>
+
+          <div class="dh__fact">
+            <span class="dh__fact-label">Cumulative</span>
+            <span class="dh__prog">
+              <span class="dh__prog-fill" style={`width:${cumulativePct}%`}></span>
+            </span>
+            <span class="dh__fact-value">{cumulativeDays} of {TOTAL_DAYS} days ({cumulativePct}%)</span>
+          </div>
+
+          <div class="dh__fact">
+            <span class="dh__fact-label">Before you start</span>
+            <span class="dh__fact-text">{mod.before}</span>
+          </div>
+        </div>
+
+        <p class="dh__outcome">
+          <Icon name="target" size={17} />
+          <span><b>By the end</b> · {mod.outcome}</span>
+        </p>
+      </div>
+    </header>
+
+    <!-- ───────────────── units ───────────────── -->
+    <section class="section dsec" aria-labelledby="units-h">
+      <div class="wrap">
+        <h2 class="dsec__label" id="units-h">
+          <Icon name="list-ordered" size={14} />
+          <span>The units</span>
+        </h2>
+        <div class="mods">
+          {mod.units.map((u, i) => (
+            <ModuleRow
+              module={asModule(u)}
+              index={i}
+              levelNumber={1}
+              duration={`${dayRange(u.days)} · ${formatMinutes(u.minutes)}`}
+              idLabel={`Unit ${u.id}`}
+              anchor={`unit-${u.id.replace(/\./g, '-')}`}
+              trackKey={`100d-${mod.number}`}
+            />
+          ))}
+          {milestone && milestoneRow && (
+            <ModuleRow
+              module={milestoneRow}
+              index={mod.units.length}
+              levelNumber={1}
+              duration={`${dayRange(milestone.days)} · ${formatMinutes(milestone.minutes)}`}
+              capHref={`#${milestoneAnchor}`}
+              capNote="Project milestone, below"
+            />
+          )}
+        </div>
+        <p class="mods__hint">
+          <Icon name="chevrons-up-down" size={14} />
+          <span>Expand any unit for what it covers</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ───────────────── milestone ───────────────── -->
+    {milestone && (
+      <section class="section dsec dsec--tight">
+        <div class="wrap">
+          <MilestoneCallout milestone={milestone} moduleNumber={mod.number} anchor={milestoneAnchor} />
+        </div>
+      </section>
+    )}
+
+    <!-- ───────────────── what we skipped ───────────────── -->
+    <section class="section dsec">
+      <div class="wrap">
+        <details class="skipped" data-track-expand="days_skipped_expand" data-track-data={String(mod.number)}>
+          <summary class="skipped__summary">
+            <Icon name="list-x" size={16} />
+            <span class="skipped__title">What we skipped, and why</span>
+            <span class="skipped__opt">Optional</span>
+            <Icon name="chevron-down" size={16} class="skipped__chev" />
+          </summary>
+          <table class="skipped__table">
+            <thead>
+              <tr><th scope="col">Topic</th><th scope="col">Why it's skipped here</th><th scope="col">Where to find it</th></tr>
+            </thead>
+            <tbody>
+              {mod.skipped.map((s) => (
+                <tr>
+                  <th scope="row">{s.topic}</th>
+                  <td data-label="Why">{s.why}</td>
+                  <td data-label="Where">
+                    Full roadmap, {s.where.length === 1 ? 'Level' : 'Levels'}{' '}
+                    {s.where.map((w, i) => (
+                      <>
+                        {i > 0 && (i === s.where.length - 1 ? ' and ' : ', ')}
+                        <a class="skipped__link" href={w.href} data-track="days_skipped_link" data-track-data={w.href}>{w.level}</a>
+                      </>
+                    ))}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </details>
+      </div>
+    </section>
+
+    <!-- ───────────────── campusx ───────────────── -->
+    <section class="section dsec courses" aria-labelledby="courses-h">
+      <div class="wrap">
+        <SectionHeader
+          eyebrow="Learn this on CampusX"
+          title="Courses that cover this module."
+          subhead="Included with CampusX One. Items marked coming soon are still in production."
+          class="dsec__head"
+        />
+        {courses.length > 0 && (
+          <ul class="courses__grid" id="courses-h" role="list">
+            {courses.map((c) => (
+              <li><CourseCard course={c} levelNumber={mod.coursesFromLevel} /></li>
+            ))}
+          </ul>
+        )}
+        <div class="courses__cta">
+          <Button
+            href={CAMPUSX_ONE_URL}
+            variant="primary"
+            external
+            track="campusx_cta_click"
+            trackData={`100d_module_${mod.number}`}
+          >
+            Open CampusX One
+          </Button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────── nav ───────────────── -->
+    <nav class="section dsec dnav no-print" aria-label="100 Days navigation">
+      <div class="wrap dnav__inner">
+        <a class="dnav__card" href={`${DAYS_BASE}/`}>
+          <Icon name="arrow-left" size={16} />
+          <span>
+            <span class="dnav__k">Back to</span>
+            <span class="dnav__t">100 Days of AI Engineering</span>
+          </span>
+        </a>
+        {prev && (
+          <a class="dnav__card" href={daysModuleHref(prev)}>
+            <Icon name="arrow-left" size={16} />
+            <span>
+              <span class="dnav__k">Module {prev.number}</span>
+              <span class="dnav__t">{prev.title}</span>
+            </span>
+          </a>
+        )}
+        {next && (
+          <a class="dnav__card dnav__card--next" href={daysModuleHref(next)}>
+            <span>
+              <span class="dnav__k">Module {next.number}</span>
+              <span class="dnav__t">{next.title}</span>
+            </span>
+            <Icon name="arrow-right" size={16} />
+          </a>
+        )}
+      </div>
+    </nav>
+  </article>
+</Base>
+
+<style>
+  /* ---------- header ---------- */
+  .dh {
+    padding-block: 40px 34px;
+    background: linear-gradient(180deg, var(--phase-bg) 0%, #fff 100%);
+  }
+  @media (min-width: 768px) { .dh { padding-block: 56px 44px; } }
+
+  .dh__inner { display: flex; flex-direction: column; gap: 18px; }
+
+  .dh__crumbs {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--cx-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
+  .dh__crumb:hover { color: var(--cx-purple); }
+  .dh__crumb--here { color: var(--phase-ac); }
+  .dh__crumb--here:hover { color: var(--phase-ac); }
+
+  .dh__top { display: flex; align-items: flex-start; gap: 16px; }
+  @media (min-width: 768px) { .dh__top { gap: 24px; align-items: center; } }
+
+  .dh__num {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 62px;
+    height: 62px;
+    border-radius: 20px;
+    background: #fff;
+    border: 2px solid var(--phase-br);
+    color: var(--phase-ac);
+    font-family: var(--cx-font-display);
+    font-weight: 700;
+    font-size: 30px;
+    letter-spacing: -0.04em;
+    box-shadow: var(--cx-shadow-card);
+  }
+  @media (min-width: 768px) { .dh__num { width: 88px; height: 88px; font-size: 42px; border-radius: 26px; } }
+
+  .dh__headings { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .dh__eyebrow { color: var(--phase-ac) !important; }
+  .dh__title { font-size: clamp(30px, 6vw, 62px); }
+
+  .dh__summary { max-width: 62ch; }
+
+  .dh__facts {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 8px;
+    padding: 18px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid var(--phase-br);
+    border-radius: var(--cx-r-card);
+  }
+  @media (min-width: 820px) {
+    .dh__facts { grid-template-columns: repeat(3, 1fr); gap: 26px; padding: 20px 24px; }
+  }
+
+  .dh__fact { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+  .dh__fact-label {
+    font-family: var(--cx-font-mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
+  .dh__fact-strong {
+    font-family: var(--cx-font-display);
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: -0.01em;
+    color: var(--cx-ink);
+  }
+  .dh__fact-value {
+    font-family: var(--cx-font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+    color: var(--cx-g700);
+    font-variant-numeric: tabular-nums;
+  }
+  .dh__fact-text { font-size: 14px; line-height: 1.5; color: var(--cx-g700); }
+
+  .dh__prog { display: block; height: 6px; border-radius: 999px; background: var(--cx-border-2); overflow: hidden; }
+  .dh__prog-fill { display: block; height: 100%; border-radius: 999px; background: var(--phase-ac); opacity: 0.85; }
+
+  .dh__outcome {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: var(--cx-green-bg);
+    border: 1px solid #a7f3d0;
+    color: #065f46;
+    font-size: 15px;
+    line-height: 1.55;
+    max-width: 92ch;
+  }
+  .dh__outcome :global(svg) { flex: none; margin-top: 3px; color: var(--cx-green-ink); }
+  .dh__outcome b { font-weight: 600; }
+
+  /* ---------- sections ---------- */
+  .dsec { padding-block: 44px; }
+  @media (min-width: 768px) { .dsec { padding-block: 56px; } }
+  .dsec--tight { padding-block: 22px; }
+  .dsec__head { margin-bottom: 26px; max-width: 640px; }
+
+  .dsec__label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
+
+  /* ---------- units ---------- */
+  .mods { border-radius: var(--cx-r-card); overflow: hidden; }
+  .mods__hint {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 16px;
+    font-family: var(--cx-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
+
+  /* ---------- skipped ---------- */
+  .skipped {
+    border: 1px dashed var(--cx-border-2);
+    border-radius: var(--cx-r-card-sm);
+    background: var(--cx-gray);
+  }
+  .skipped__summary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    cursor: pointer;
+    list-style: none;
+    color: var(--cx-g600);
+  }
+  .skipped__summary::-webkit-details-marker { display: none; }
+  .skipped__title { font-family: var(--cx-font-display); font-weight: 700; font-size: 15px; color: var(--cx-ink); }
+  .skipped__opt {
+    font-family: var(--cx-font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
+  .skipped__chev { margin-left: auto; transition: transform 0.2s ease; }
+  .skipped[open] .skipped__chev { transform: rotate(180deg); }
+
+  .skipped__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    line-height: 1.5;
+    background: #fff;
+    border-top: 1px solid var(--cx-border-2);
+    border-radius: 0 0 var(--cx-r-card-sm) var(--cx-r-card-sm);
+  }
+  .skipped__table th, .skipped__table td { padding: 11px 16px; text-align: left; vertical-align: top; }
+  .skipped__table thead th {
+    font-family: var(--cx-font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+    border-bottom: 1px solid var(--cx-border);
+  }
+  .skipped__table tbody tr + tr { border-top: 1px solid var(--cx-border); }
+  .skipped__table tbody th { font-weight: 600; color: var(--cx-ink); }
+  .skipped__table td { color: var(--cx-g600); }
+  .skipped__link {
+    font-weight: 600;
+    color: var(--phase-ac);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .skipped__link:hover { text-decoration-thickness: 2px; }
+
+  /* On a phone the three columns stack into one card per topic. */
+  @media (max-width: 640px) {
+    .skipped__table thead { display: none; }
+    .skipped__table tr { display: block; padding: 12px 16px; }
+    .skipped__table tbody th, .skipped__table td { display: block; padding: 2px 0; }
+    .skipped__table td::before {
+      content: attr(data-label) ' · ';
+      font-family: var(--cx-font-mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cx-g500);
+    }
+  }
+
+  /* ---------- courses ---------- */
+  .courses__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 620px) { .courses__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .courses__grid { grid-template-columns: repeat(3, 1fr); } }
+  .courses__cta { margin-top: 22px; }
+
+  /* ---------- nav ---------- */
+  .dnav { padding-top: 12px; padding-bottom: 72px; }
+  .dnav__inner { display: flex; flex-wrap: wrap; gap: 12px; }
+  .dnav__card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1 1 240px;
+    padding: 16px 18px;
+    background: #fff;
+    border: 1px solid var(--cx-border);
+    border-radius: var(--cx-r-card-sm);
+    color: var(--cx-g600);
+    transition: border-color 0.16s ease;
+  }
+  .dnav__card:hover { border-color: var(--cx-purple); }
+  .dnav__card--next { justify-content: flex-end; text-align: right; }
+  .dnav__card > span { display: flex; flex-direction: column; gap: 2px; }
+  .dnav__k {
+    font-family: var(--cx-font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
+  .dnav__t { font-family: var(--cx-font-display); font-weight: 700; font-size: 16px; color: var(--cx-ink); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .skipped__chev, .dnav__card { transition: none; }
+  }
+</style>

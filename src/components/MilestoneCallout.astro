@@ -1,0 +1,169 @@
+---
+/**
+ * A 100 Days project milestone: the ship-it callout's amber treatment, but the
+ * deliverable is one step of the single project rather than a standalone
+ * capstone, so it carries ordered steps and pass criteria.
+ */
+import Icon from './Icon.astro';
+import { dayRange, formatMinutes, type Milestone } from '../data/hundred-days';
+
+interface Props {
+  milestone: Milestone;
+  moduleNumber: number;
+  anchor: string;
+}
+const { milestone, moduleNumber, anchor } = Astro.props;
+---
+
+<aside class="ms" id={anchor} aria-labelledby={`${anchor}-title`}>
+  <div class="ms__head">
+    <span class="ms__badge"><Icon name="flag" size={16} /></span>
+    <div class="ms__headings">
+      <p class="ms__eyebrow">Project milestone · Module {moduleNumber}</p>
+      <h3 class="ms__title" id={`${anchor}-title`}>{milestone.title}</h3>
+    </div>
+    <span class="ms__dur">{dayRange(milestone.days)} · {formatMinutes(milestone.minutes)}</span>
+  </div>
+
+  <div class="ms__cols">
+    <div>
+      <p class="ms__label">Steps</p>
+      <ol class="ms__steps" role="list">
+        {milestone.steps.map((step, i) => (
+          <li class="ms__step">
+            <span class="ms__n">{i + 1}</span>
+            <span>{step}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    <div>
+      <p class="ms__label">You've passed when you have</p>
+      <ul class="ms__pass" role="list">
+        {milestone.passCriteria.map((c) => (
+          <li class="ms__check">
+            <Icon name="square-check" size={16} />
+            <span>{c}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <p class="ms__about">
+    <Icon name="folder-git-2" size={16} />
+    <span><b>About the project</b> · {milestone.about}</span>
+  </p>
+</aside>
+
+<style>
+  .ms {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 22px;
+    border-radius: var(--cx-r-card);
+    background: var(--p-amber-bg);
+    border: 1px solid var(--p-amber-br);
+    box-shadow: inset 4px 0 0 var(--p-amber-ac);
+    scroll-margin-top: 24px;
+  }
+  @media (min-width: 768px) { .ms { padding: 30px 32px; gap: 22px; } }
+
+  .ms__head { display: flex; align-items: flex-start; gap: 13px; flex-wrap: wrap; }
+
+  .ms__badge {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    flex: none;
+    border-radius: 10px;
+    background: var(--p-amber-ac);
+    color: #fff;
+  }
+
+  .ms__headings { display: flex; flex-direction: column; gap: 3px; min-width: 0; flex: 1 1 220px; }
+
+  .ms__eyebrow {
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--p-amber-ac);
+  }
+  .ms__title {
+    font-size: clamp(19px, 3vw, 25px);
+    letter-spacing: -0.02em;
+    color: #713f12;
+  }
+
+  .ms__dur {
+    padding-top: 6px;
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--p-amber-ac);
+    white-space: nowrap;
+  }
+  @media (max-width: 520px) { .ms__dur { padding-top: 0; padding-left: 49px; } }
+
+  .ms__cols { display: grid; grid-template-columns: 1fr; gap: 22px; }
+  @media (min-width: 900px) { .ms__cols { grid-template-columns: 1.35fr 1fr; gap: 36px; } }
+
+  .ms__label {
+    margin-bottom: 10px;
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--p-amber-ac);
+  }
+
+  .ms__steps, .ms__pass { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+  .ms__step, .ms__check {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    gap: 10px;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: #78350f;
+  }
+
+  .ms__n {
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    margin-top: 1px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid var(--p-amber-br);
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--p-amber-ac);
+  }
+
+  .ms__check :global(svg) { margin-top: 3px; color: var(--p-amber-ac); }
+
+  .ms__about {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid var(--p-amber-br);
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: #713f12;
+  }
+  .ms__about :global(svg) { flex: none; margin-top: 3px; color: var(--p-amber-ac); }
+  .ms__about b { font-weight: 600; }
+</style>
