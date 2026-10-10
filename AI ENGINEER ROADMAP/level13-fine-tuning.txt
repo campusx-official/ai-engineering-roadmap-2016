@@ -1,35 +1,163 @@
 Level 13 · Fine-Tuning
 
-Scope: the prompt-vs-RAG-vs-fine-tune call, and a small tune when an eval justifies it.
+Goal: Fine-tune a model only when prompting, retrieval, and orchestration have measurably run out, and prove with evaluation numbers that the tune was worth its data, training, and serving cost.
+Prerequisites: Level 1 (LLM 101), Level 7 (evals), Level 11 (managed platforms) · Depth: Conceptual + hands-on; one rented GPU is enough, no research mathematics · Suggested duration: 16 sessions.
 
 M13.1 · Should you fine-tune? — (sessions: 1)
 
-Make the tradeoff honestly; identify the narrow cases where FT wins.
+Decide between a better prompt, retrieval, tool use, a stronger base model, fine-tuning, or a combination, and treat fine-tuning as the most expensive option on that list.
+Understand what fine-tuning is good for: consistent behavior and style, output formats a prompt cannot hold, narrow structured tasks, shorter prompts, and specializing a smaller model.
+Understand what fine-tuning is usually not good for: teaching facts that change, which retrieval can supply fresh, and fixing a task nobody has yet defined well enough to evaluate.
+Start from a named failure mode: the prompted system fails a specific, measured way, and the failure persists after reasonable prompt and retrieval work.
+Estimate the full cost before starting, including data creation, training runs, evaluation, serving the tuned model, and retraining when the base model is replaced.
+Understand that a fine-tune ties you to one base model version, so a better base model next quarter means repeating the work rather than changing a model name.
+Try: Take one task where a prompt is struggling, spend an hour improving the prompt and adding examples, and record how much of the gap closes before any training happens.
+Mental model: Prompt → retrieval → tools → stronger model → fine-tune, climbing only when the rung below has measurably failed
+Outcome: Decide whether a task justifies fine-tuning, and state the failure it fixes, the metric that will prove it, and what the tune will cost to own.
 
 M13.2 · Data curation for fine-tuning — (sessions: 2)
 
-Build and format high-quality training data (most of the real work).
+Session 1 · Sourcing and formatting examples
+Define the behavior you want in writing before collecting data, so every example can be checked against the same specification.
+Source examples from real usage logs, expert-written demonstrations, or carefully filtered synthetic data, and understand the bias each source brings.
+Format examples in the chat template the base model was trained with, since a mismatched template silently degrades the tune and the model that serves it.
+Decide what the model should learn from each example, and mask the loss so training targets the assistant's responses rather than the prompts.
+Understand why a few hundred clean, representative examples often beat thousands of noisy ones for a narrow task.
+Session 2 · Cleaning, balancing and splitting
+Remove duplicates, contradictions, wrong labels, truncated responses, and synthetic examples that repeat the same phrasing.
+Balance common cases with the difficult and important edge cases, so the model does not learn that the easy path is always right.
+Split data into training, validation, and held-out test sets, and keep near-duplicates from leaking across the split.
+Check the data for personal information, licensed content, and anything you would not want a model to repeat word for word.
+Version the dataset alongside the training configuration, so every tuned model can be traced back to exactly what it learned from.
+Try: Write fifty examples by hand, generate fifty synthetically, then read all hundred and count how many of each you would actually keep.
+Outcome: Produce a clean, versioned, correctly formatted dataset with a held-out test set that can support an honest before-and-after comparison.
 
-M13.3 · SFT & LoRA/QLoRA — (sessions: 3)
+M13.3 · Supervised Fine-Tuning (SFT) — (sessions: 2)
 
-Run a LoRA/QLoRA tune with PEFT (Unsloth/Axolotl) and set hyperparameters.
+Session 1 · The training loop
+Understand how supervised fine-tuning nudges a pretrained or instruction-tuned model toward labelled examples by minimizing loss on the target responses.
+Learn the hyperparameters that matter first: learning rate, epochs, batch size, sequence length, and gradient accumulation.
+Understand full fine-tuning versus parameter-efficient methods, and why updating every weight is rarely necessary for a narrow task.
+Run a small SFT job with a library such as TRL and confirm that the loss falls on both training and validation data.
+Session 2 · Reading the run
+Read training and validation curves to recognize underfitting, overfitting, and an unstable run that needs a lower learning rate.
+Recognize catastrophic forgetting, where the model gains the narrow skill and loses general abilities it had before.
+Inspect sample outputs at each checkpoint rather than trusting the loss curve alone, since a lower loss does not guarantee better answers.
+Choose the checkpoint to keep from validation behavior, not from whichever epoch happened to finish last.
+Try: Train the same dataset for one, three, and eight epochs, then compare the validation curves and read ten outputs from each checkpoint.
+Mental model: Examples → loss on the target tokens → small weight updates → checkpoint chosen on validation, not on training loss
+Outcome: Run a supervised fine-tune, read its training curves, and pick a checkpoint you can defend.
 
-M13.4 · Preference tuning: DPO — (sessions: 2)
+M13.4 · LoRA & QLoRA — (sessions: 2)
 
-Build preference data and run DPO; know when it's warranted.
+Session 1 · How adapters work
+Understand LoRA as freezing the base model and training small low-rank adapter matrices that are added to selected layers.
+Understand QLoRA as loading the frozen base model in quantized form so the same tune fits on a much smaller GPU.
+Reason about the settings that matter: rank, alpha, target modules, dropout, precision, and quantization type.
+Understand the trade-off between adapter-based tuning and full-model fine-tuning on quality, memory, training time, and storage.
+Session 2 · Running a tune on one GPU
+Fine-tune an open-weight model with PEFT through tooling such as Unsloth or Axolotl, using a configuration file you can rerun exactly.
+Estimate GPU memory from parameter count, precision, sequence length, and batch size before renting hardware.
+Track each run with its dataset version, configuration, and evaluation results so experiments can be compared rather than remembered.
+Compare running the tune yourself with a managed fine-tuning service, including which base models it offers and whether you can take the weights away.
+Try: Run the same tune as LoRA at two ranks and as QLoRA, then compare peak GPU memory, training time, adapter size, and held-out score.
+Mental model: Frozen base model + small trained adapter = tuned behavior, at a fraction of the memory and storage
+Outcome: Fine-tune an open-weight model efficiently on a single GPU, with a configuration and results another engineer can reproduce.
 
-M13.5 · Reinforcement fine-tuning (RFT) — (sessions: 1)
+M13.5 · Preference tuning & DPO — (sessions: 2)
 
-Explain reward-based tuning intuition and its use cases.
+Session 1 · Preference data
+Understand the difference between demonstration data, which shows one correct answer, and preference data, which says that one answer is better than another.
+Create preference examples containing a prompt, a preferred response, and a rejected response that differ in the quality you care about.
+Collect preferences from human raters, from your own eval judges, or from production feedback, and check how often raters agree with each other.
+Avoid preference pairs that differ in irrelevant ways, such as length, which teach the model the wrong lesson.
+Session 2 · Running DPO
+Understand the intuition behind Direct Preference Optimization without reinforcement-learning mathematics: raise the likelihood of preferred answers relative to rejected ones.
+Run DPO on top of an SFT checkpoint, and understand why preference tuning usually follows supervised tuning rather than replacing it.
+Use preference tuning for qualities that are hard to write as a single correct answer, such as tone, helpfulness, refusal behavior, or concision.
+Know when SFT alone is sufficient and when preference optimization adds measurable value.
+Try: Build fifty preference pairs for a tone you want, run DPO on your SFT model, and have a blind judge compare outputs before and after.
+Outcome: Use preference data when the desired behavior is better expressed as "A is better than B", and show that it moved the metric you targeted.
 
-M13.6 · Distillation — (sessions: 1)
+M13.6 · Reinforcement Fine-Tuning (RFT) — (sessions: 1)
 
-Distill a large model into a small one for cost/latency wins.
+Understand reward-based fine-tuning, where the model's outputs are scored and training pushes it toward higher-scoring behavior.
+Distinguish RFT from SFT and preference optimization by what each one learns from: examples, comparisons, or a reward.
+Identify tasks suited to RFT, where outputs can be graded reliably and automatically, such as code that must pass tests, math with checkable answers, or structured outputs with verifiable fields.
+Understand reward design as the hard part, and recognize reward hacking, where the model optimizes the grader instead of the real objective.
+Understand why RFT is usually reached through a managed service or a specialized framework rather than built from scratch.
+Try: Write a grader for one task, then try to fool it by hand with outputs that score well but are wrong, and fix the grader before training against it.
+Mental model: Model output → grader → reward → policy update, so the grader decides what the model learns
+Outcome: Recognize when reward-based tuning is justified and write a grader that rewards the behavior you actually want.
 
-M13.7 · Evaluating fine-tunes — (sessions: 1)
+M13.7 · Distillation — (sessions: 1)
 
-Measure before/after on Level-7 evals and catch regressions.
+Understand teacher-to-student distillation: a stronger model produces outputs that train a smaller model for one narrow workload.
+Generate teacher outputs on inputs that resemble real traffic, and filter them with your evals before they become training data.
+Use distillation to trade a small amount of capability for lower cost, lower latency, and a model you can host yourself.
+Understand the risks of copying teacher mistakes and of low-diversity synthetic data that narrows what the student can handle.
+Check the teacher model's terms of use, since some providers restrict using their outputs to train competing models.
+Try: Distill a large model's answers on one task into a small open model, then compare quality, latency, and cost per thousand requests.
+Outcome: Specialize a smaller model to approximate a stronger one on a specific task, with the capability given up and the cost saved both measured.
 
-M13.8 · Capstone: a LoRA that beats a prompted baseline — (sessions: 1)
+M13.8 · Evaluating fine-tunes — (sessions: 2)
 
-Ship a tune with the eval numbers, before and after, as proof.
+Session 1 · Baselines and the held-out test
+Establish the baselines before training: the base model, the best prompted version of it, and a stronger model with the same prompt.
+Evaluate every candidate on the same held-out test set with the Level 7 evaluation framework, using the same metrics and the same judge.
+Compare quality, latency, cost per request, output consistency, and specific failure cases rather than a single aggregate score.
+Session 2 · Regressions and the decision
+Check for regressions outside the narrow capability you tuned, including general instruction-following, safety behavior, and formats the tune never saw.
+Read individual failures from the tuned model, since an average improvement can hide a new failure the base model never had.
+Compare against simpler alternatives one final time, and accept the result when a better prompt or a stronger base model wins.
+Write the decision down: what improved, by how much, what regressed, and whether the gain justifies serving and maintaining the tune.
+Try: Run the base, prompted, and tuned models through your eval suite, then add ten off-task prompts and see which model holds up.
+Outcome: Demonstrate that a fine-tune provides measurable value on the target task without unacceptable regressions elsewhere, or show convincingly that it does not.
+
+M13.9 · Serving the adapter — (sessions: 2)
+
+Session 1 · Getting the tune into production
+Choose between keeping a LoRA adapter separate from the base model and merging it into the weights, and understand what each choice means for storage, loading, and swapping.
+Save, load, and merge adapters, and confirm that the merged model reproduces the adapter's evaluation results.
+Serve the base model with one or several adapters through vLLM, where many adapters can share one base model on the same GPU.
+Export the tuned model to a quantized format for local runtimes such as Ollama, and re-run evaluation after quantization, since it can undo part of the gain.
+Host an adapter on a managed platform or a serverless inference provider that serves adapters on shared base models, and compare that with running your own GPU.
+Session 2 · Owning it in production
+Serve with exactly the chat template and tokenizer used in training, since a template mismatch is the most common reason a good tune behaves badly in production.
+Version the adapter, base model, dataset, and configuration together, and keep the previous version deployable for rollback.
+Route traffic between the base model and the tuned model through your gateway, and roll the tune out gradually while watching evaluation and production metrics.
+Measure latency and cost per request for the served tune and compare them with the prompted baseline the tune replaced.
+Plan for retraining: decide what triggers it, such as a new base model, drifting inputs, or new failure cases, and how the eval suite gates each new version.
+Try: Serve two adapters on one base model, send requests to each, then swap one for a new version without restarting the server.
+Mental model: Base model + versioned adapter + matching chat template → served behind your gateway → evaluated in production
+Outcome: Deploy a fine-tuned model behind your existing gateway with versioning, rollback, and measured latency and cost, and know when it needs retraining.
+
+M13.10 · Capstone: a LoRA that beats a prompted baseline — (sessions: 1)
+
+Choose one narrow, real task where the best prompt you can write still fails in a way you can measure.
+Write down the failure, the metric that will judge success, and the threshold the tune must clear before any training starts.
+Build the strongest prompted baseline you can, including few-shot examples and retrieval where relevant, and record its score on a held-out test set.
+Create a clean, versioned dataset with training, validation, and held-out splits that do not leak into each other.
+Run an SFT tune with LoRA or QLoRA from a configuration file someone else can rerun, and add preference tuning only if the evaluation shows a gap it can close.
+Evaluate the tuned and prompted models on the same held-out set, and report quality, latency, tokens per request, and cost per thousand requests.
+Test for regressions on prompts outside the target task, and document at least one failure the tune introduced or failed to fix.
+Serve the adapter behind an endpoint with the correct chat template, and confirm the served model reproduces the offline evaluation numbers.
+Write a one-page fine-tuning decision record: the failure, the data, the configuration, the before-and-after numbers, the cost to serve, and the retraining trigger.
+Final result: a served fine-tuned model that beats a strong prompted baseline on a stated metric, with the evaluation numbers, the regressions checked, and the cost of owning it written down.
+
+Level 13 completion outcome
+
+By the end of this level, you should be able to:
+
+Decide whether a task justifies fine-tuning, and state the measured failure it is meant to fix.
+Estimate the full cost of a fine-tune, including data, training, evaluation, serving, and retraining.
+Build a clean, versioned dataset in the base model's chat template with leak-free training, validation, and test splits.
+Run supervised fine-tuning and read training and validation curves to choose a checkpoint.
+Fine-tune an open-weight model on one GPU with LoRA or QLoRA, from a reproducible configuration.
+Choose between running a tune yourself and using a managed fine-tuning service.
+Build preference data and use DPO when the desired behavior is a comparison rather than a single answer.
+Recognize when reward-based fine-tuning is appropriate and write a grader that is hard to game.
+Distill a larger model into a smaller specialized one and measure what was gained and lost.
+Evaluate a fine-tune against strong baselines on a held-out set, and detect regressions outside the target task.
+Serve an adapter in production with the right chat template, versioning, rollback, and a gradual rollout.
+Justify a fine-tune, or reject one, with measured quality, latency, and cost.

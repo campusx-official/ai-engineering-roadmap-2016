@@ -81,6 +81,7 @@ const MODULE_ICON_RULES = [
   [/preference tuning|\bdpo\b/i, 'thumbs-up'],
   [/reinforcement fine.?tuning|\brft\b/i, 'award'],
   [/distill/i, 'shrink'],
+  [/\blora\b|qlora/i, 'layers'],
   [/data curation/i, 'file-text'],
 
   // modality sub-topics
@@ -210,7 +211,7 @@ const STACK_TOOLS = new Set([
   'Chroma', 'Docker Compose', 'Docker Hub', 'GitHub Actions', 'AWS', 'EC2',
   'CodeDeploy', 'Auto Scaling', 'Secrets Manager', 'Prometheus', 'Grafana',
   'Node Exporter', 'Guardrails AI', 'NeMo Guardrails', 'Whisper', 'Kokoro',
-  'PEFT', 'Unsloth', 'Axolotl',
+  'PEFT', 'Unsloth', 'Axolotl', 'TRL',
 ]);
 
 /* Controlled vocabulary for the stack pills. A tag is emitted ONLY if its
@@ -266,7 +267,7 @@ const STACK_VOCAB = [
   ['Whisper', /\bWhisper\b/], ['Kokoro', /\bKokoro\b/], ['STT', /\bSTT\b/], ['TTS', /\bTTS\b/],
   ['visual RAG', /\bvisual RAG\b/i], ['image generation', /\bimage generation\b/i],
   ['LoRA', /\bLoRA\b/], ['QLoRA', /\bQLoRA\b/], ['PEFT', /\bPEFT\b/], ['Unsloth', /\bUnsloth\b/],
-  ['Axolotl', /\bAxolotl\b/], ['SFT', /\bSFT\b/], ['DPO', /\bDPO\b/], ['RLHF', /\bRLHF\b/],
+  ['Axolotl', /\bAxolotl\b/], ['TRL', /\bTRL\b/], ['SFT', /\bSFT\b/], ['DPO', /\bDPO\b/], ['RLHF', /\bRLHF\b/],
   ['RFT', /\bRFT\b/], ['distillation', /\bdistill(ation|\b)/i], ['tokenization', /\btokeniz(ation|er)\b/i],
   ['attention', /\battention\b/i], ['transformers', /\btransformer\b/i],
 ];
