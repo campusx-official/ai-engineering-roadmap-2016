@@ -312,7 +312,7 @@ export const hundredDaysModules: DaysModule[] = [
     icon: 'plug',
     summary:
       'Use LangChain to turn single model calls into a reliable app: conversations, streaming, structured answers, tools, multi-step chains, error handling and cost tracking.',
-    days: [7, 15],
+    days: [6, 14],
     hours: 'about 9 hours',
     before:
       'Module 1 (LLM Fundamentals).',
@@ -325,7 +325,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '2.1',
         title: 'LangChain Basics and Conversations',
         icon: 'messages-square',
-        days: [7, 7],
+        days: [6, 6],
         minutes: 60,
         bullets: [
           {
@@ -366,7 +366,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '2.2',
         title: 'Streaming',
         icon: 'zap',
-        days: [8, 8],
+        days: [7, 7],
         minutes: 60,
         bullets: [
           {
@@ -399,7 +399,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '2.3',
         title: 'Structured Outputs',
         icon: 'braces',
-        days: [9, 10],
+        days: [8, 9],
         minutes: 90,
         bullets: [
           {
@@ -432,7 +432,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '2.4',
         title: 'Tool Calling',
         icon: 'wrench',
-        days: [11, 12],
+        days: [10, 11],
         minutes: 120,
         bullets: [
           {
@@ -481,7 +481,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '2.5',
         title: 'Chaining Steps Together',
         icon: 'workflow',
-        days: [13, 13],
+        days: [12, 12],
         minutes: 60,
         bullets: [
           {
@@ -513,7 +513,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '2.6',
         title: 'Handling Failures',
         icon: 'life-buoy',
-        days: [14, 14],
+        days: [13, 13],
         minutes: 60,
         bullets: [
           {
@@ -550,7 +550,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '2.7',
         title: 'Cost, Logging and Tracing',
         icon: 'receipt',
-        days: [15, 15],
+        days: [14, 14],
         minutes: 60,
         bullets: [
           {
@@ -611,7 +611,7 @@ export const hundredDaysModules: DaysModule[] = [
     icon: 'message-square-text',
     summary:
       'Write prompts that make your assistant reliable and predictable, and choose between prompt versions by testing them, not by gut feel.',
-    days: [19, 24],
+    days: [15, 20],
     hours: 'about 6 hours',
     before: 'Module 2 (Building with LLM APIs).',
     outcome:
@@ -623,7 +623,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '3.1',
         title: 'Anatomy of a Prompt',
         icon: 'file-text',
-        days: [19, 19],
+        days: [15, 15],
         minutes: 60,
         bullets: [
           {
@@ -655,7 +655,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '3.2',
         title: 'Zero-Shot and Few-Shot Prompting',
         icon: 'list-checks',
-        days: [20, 20],
+        days: [16, 16],
         minutes: 60,
         bullets: [
           {
@@ -688,7 +688,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '3.3',
         title: 'System Prompts and Output Control',
         icon: 'settings-2',
-        days: [21, 21],
+        days: [17, 17],
         minutes: 60,
         bullets: [
           {
@@ -725,7 +725,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '3.4',
         title: 'Reasoning and Breaking Tasks Down',
         icon: 'git-branch',
-        days: [22, 22],
+        days: [18, 18],
         minutes: 45,
         bullets: [
           {
@@ -754,7 +754,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '3.5',
         title: 'Testing and Improving Prompts',
         icon: 'flask-conical',
-        days: [23, 23],
+        days: [19, 19],
         minutes: 60,
         bullets: [
           {
@@ -786,7 +786,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '3.6',
         title: 'Versions, Cost and Caching',
         icon: 'file-clock',
-        days: [24, 24],
+        days: [20, 20],
         minutes: 30,
         bullets: [
           {
@@ -814,7 +814,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '3.7',
         title: 'Prompt Injection Basics',
         icon: 'shield-alert',
-        days: [24, 24],
+        days: [20, 20],
         minutes: 30,
         bullets: [
           {
@@ -878,7 +878,7 @@ export const hundredDaysModules: DaysModule[] = [
     icon: 'library',
     summary:
       'Give your assistant the right information at the right time: build a simple RAG system, improve it with advanced retrieval patterns, then measure which improvements actually helped.',
-    days: [26, 51],
+    days: [21, 45],
     hours: 'about 23 hours',
     before: 'Module 3 (Prompt Engineering).',
     outcome:
@@ -895,7 +895,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '4.1',
         title: 'When to Use RAG',
         icon: 'circle-question-mark',
-        days: [26, 26],
+        days: [21, 21],
         minutes: 45,
         part: 1,
         bullets: [
@@ -925,7 +925,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '4.2',
         title: 'Loading and Cleaning Documents',
         icon: 'file-input',
-        days: [27, 28],
+        days: [22, 23],
         minutes: 90,
         part: 1,
         bullets: [
@@ -955,7 +955,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '4.3',
         title: 'Chunking',
         icon: 'scissors',
-        days: [29, 29],
+        days: [24, 24],
         minutes: 60,
         part: 1,
         bullets: [
@@ -985,7 +985,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '4.4',
         title: 'Embeddings and Semantic Search',
         icon: 'scan-search',
-        days: [30, 31],
+        days: [25, 26],
         minutes: 90,
         part: 1,
         bullets: [
@@ -1023,7 +1023,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '4.5',
         title: 'Vector Databases',
         icon: 'database',
-        days: [32, 33],
+        days: [27, 28],
         minutes: 90,
         part: 1,
         bullets: [
@@ -1053,7 +1053,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '4.6',
         title: 'Your First RAG Pipeline',
         icon: 'workflow',
-        days: [34, 35],
+        days: [29, 30],
         minutes: 90,
         part: 1,
         bullets: [
@@ -1083,7 +1083,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '4.7',
         title: "Citations and Saying \"I Don't Know\"",
         icon: 'quote',
-        days: [36, 36],
+        days: [31, 31],
         minutes: 60,
         part: 1,
         bullets: [
@@ -1117,7 +1117,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '4.8',
         title: 'Keyword and Hybrid Search',
         icon: 'combine',
-        days: [38, 38],
+        days: [32, 32],
         minutes: 60,
         part: 2,
         bullets: [
@@ -1147,7 +1147,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '4.9',
         title: 'Smarter Chunks and Filters',
         icon: 'layers',
-        days: [39, 39],
+        days: [33, 33],
         minutes: 60,
         part: 2,
         bullets: [
@@ -1177,7 +1177,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '4.10',
         title: 'Reranking',
         icon: 'arrow-down-wide-narrow',
-        days: [40, 40],
+        days: [34, 34],
         minutes: 60,
         part: 2,
         bullets: [
@@ -1207,7 +1207,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '4.11',
         title: 'Query Transformation',
         icon: 'pencil-line',
-        days: [41, 41],
+        days: [35, 35],
         minutes: 60,
         part: 2,
         bullets: [
@@ -1249,7 +1249,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '4.12',
         title: 'Routing and Adaptive RAG',
         icon: 'split',
-        days: [42, 42],
+        days: [36, 36],
         minutes: 60,
         part: 2,
         bullets: [
@@ -1279,7 +1279,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '4.13',
         title: 'Self-Correcting RAG',
         icon: 'refresh-ccw',
-        days: [43, 43],
+        days: [37, 37],
         minutes: 60,
         part: 2,
         bullets: [
@@ -1313,7 +1313,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '4.14',
         title: 'Graph RAG and Choosing a Pattern',
         icon: 'network',
-        days: [44, 44],
+        days: [38, 38],
         minutes: 60,
         part: 2,
         bullets: [
@@ -1347,7 +1347,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '4.15',
         title: 'Why Evals, and Reading Your Failures',
         icon: 'search-check',
-        days: [45, 45],
+        days: [39, 39],
         minutes: 60,
         part: 3,
         bullets: [
@@ -1381,7 +1381,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '4.16',
         title: 'Test Sets and Scoring',
         icon: 'clipboard-check',
-        days: [46, 47],
+        days: [40, 41],
         minutes: 120,
         part: 3,
         bullets: [
@@ -1419,7 +1419,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '4.17',
         title: 'Measuring Retrieval',
         icon: 'target',
-        days: [48, 48],
+        days: [42, 42],
         minutes: 60,
         part: 3,
         bullets: [
@@ -1449,7 +1449,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '4.18',
         title: 'Evaluating RAG Answers',
         icon: 'list-checks',
-        days: [49, 50],
+        days: [43, 44],
         minutes: 120,
         part: 3,
         bullets: [
@@ -1491,7 +1491,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '4.19',
         title: 'Automatic Regression Tests',
         icon: 'shield-check',
-        days: [51, 51],
+        days: [45, 45],
         minutes: 60,
         part: 3,
         bullets: [
