@@ -176,92 +176,6 @@ function initProgress(): void {
 }
 
 /* ------------------------------------------------------------------ */
-/* 100 Days progress                                                   */
-/* ------------------------------------------------------------------ */
-
-/* Kept apart from the roadmap's level progress: finishing Day 6 says nothing
- * about whether Level 1 is done, and vice versa. */
-const DAYS_KEY = 'cxr.days.v1';
-const TOTAL_DAYS = 100;
-
-function readDays(): Set<number> {
-  try {
-    const parsed = JSON.parse(localStorage.getItem(DAYS_KEY) ?? '[]');
-    if (!Array.isArray(parsed)) return new Set();
-    return new Set(
-      parsed.filter((n): n is number => Number.isInteger(n) && n >= 1 && n <= TOTAL_DAYS),
-    );
-  } catch {
-    return new Set();
-  }
-}
-
-function writeDays(done: Set<number>): void {
-  try {
-    localStorage.setItem(DAYS_KEY, JSON.stringify([...done].sort((a, b) => a - b)));
-  } catch {
-    /* ignore */
-  }
-}
-
-/** `data-days-range="1-6"` scopes a counter to one module; default is all 100. */
-function rangeOf(el: HTMLElement): [number, number] {
-  const m = (el.dataset.daysRange ?? '').match(/^(\d+)-(\d+)$/);
-  return m ? [Number(m[1]), Number(m[2])] : [1, TOTAL_DAYS];
-}
-
-function applyDays(done: Set<number>): void {
-  document.querySelectorAll<HTMLElement>('[data-day-cell]').forEach((el) => {
-    el.toggleAttribute('data-done', done.has(Number(el.dataset.day)));
-  });
-
-  document.querySelectorAll<HTMLButtonElement>('[data-day-toggle]').forEach((btn) => {
-    btn.setAttribute('aria-pressed', String(done.has(Number(btn.dataset.day))));
-  });
-
-  document.querySelectorAll<HTMLElement>('[data-days-count]').forEach((el) => {
-    const [a, b] = rangeOf(el);
-    const count = [...done].filter((d) => d >= a && d <= b).length;
-    const total = b - a + 1;
-    el.textContent = String(count);
-    const bar = el.closest<HTMLElement>('[data-days-progress]');
-    if (!bar) return;
-    bar.querySelectorAll<HTMLElement>('[data-days-bar]').forEach((fill) => {
-      fill.style.width = `${Math.round((count / total) * 100)}%`;
-    });
-    const meter = bar.querySelector<HTMLElement>('[role="progressbar"]');
-    if (meter) {
-      meter.setAttribute('aria-valuenow', String(count));
-      meter.setAttribute('aria-valuetext', `${count} of ${total} days complete`);
-    }
-  });
-}
-
-function initDays(): void {
-  if (!document.querySelector('[data-day-cell], [data-day-toggle], [data-days-count]')) return;
-  let done = readDays();
-  applyDays(done);
-
-  document.querySelectorAll<HTMLButtonElement>('[data-day-toggle]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const day = Number(btn.dataset.day);
-      if (!Number.isInteger(day)) return;
-      if (done.has(day)) done.delete(day);
-      else done.add(day);
-      writeDays(done);
-      applyDays(done);
-      track(done.has(day) ? 'day_complete' : 'day_uncomplete', { day });
-    });
-  });
-
-  window.addEventListener('storage', (e) => {
-    if (e.key !== DAYS_KEY) return;
-    done = readDays();
-    applyDays(done);
-  });
-}
-
-/* ------------------------------------------------------------------ */
 /* deep links into collapsed modules                                   */
 /* ------------------------------------------------------------------ */
 
@@ -326,7 +240,6 @@ function initTracking(): void {
 
 function boot(): void {
   initProgress();
-  initDays();
   openHashTarget();
   window.addEventListener('hashchange', openHashTarget);
   initReveals();

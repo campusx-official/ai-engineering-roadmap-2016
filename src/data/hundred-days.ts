@@ -316,10 +316,6 @@ export const dayRange = ([a, b]: [number, number]) => (a === b ? `Day ${a}` : `D
 /** "45 min", "80 min"; whole hours read as hours. */
 export const formatMinutes = (m: number) => (m % 60 === 0 ? `${m / 60} hr` : `${m} min`);
 
-/** The module scheduled on a given day, if one has been published. */
-export const moduleOfDay = (day: number): DaysModule | undefined =>
-  hundredDaysModules.find((m) => m.days[0] <= day && day <= m.days[1]);
-
 /** The module that is the short version of a roadmap level. */
 export const shortVersionOfLevel = (n: number): DaysModule | undefined =>
   hundredDaysModules.find((m) => m.shortVersionOf === n);

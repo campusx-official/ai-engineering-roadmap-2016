@@ -10,7 +10,6 @@ import {
   hundredDaysModules,
   daysModuleHref,
   dayRange,
-  moduleOfDay,
   TOTAL_DAYS,
 } from '../../data/hundred-days';
 
@@ -42,10 +41,6 @@ const after = [
   { title: 'Advanced RAG and multi-agent systems', levels: [4, 5] },
 ].map((a) => ({ ...a, refs: a.levels.map((n) => getLevel(n)!) }));
 
-const grid = Array.from({ length: TOTAL_DAYS }, (_, i) => {
-  const day = i + 1;
-  return { day, mod: moduleOfDay(day) };
-});
 const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
 ---
 
@@ -76,48 +71,6 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
           <StatBlock value="~100" label="Hours" icon="clock" />
           <StatBlock value={1} label="Project" icon="folder-git-2" />
         </div>
-      </div>
-
-      <!-- progress: one cell per day -->
-      <div class="dprog" data-days-progress>
-        <div class="dprog__head">
-          <p class="dprog__label">Your 100 days</p>
-          <p class="dprog__count">
-            <span data-days-count>0</span><span class="dprog__of"> / {TOTAL_DAYS} days done</span>
-          </p>
-        </div>
-        <span
-          class="dprog__bar"
-          role="progressbar"
-          aria-label="Days of 100 Days of AI Engineering complete"
-          aria-valuemin="0"
-          aria-valuemax={TOTAL_DAYS}
-          aria-valuenow="0"
-        >
-          <span class="dprog__fill" data-days-bar></span>
-        </span>
-        <ol class="dgrid" role="list" aria-label="Days 1 to 100">
-          {grid.map(({ day, mod }) =>
-            mod ? (
-              <li data-phase={mod.phase}>
-                <a
-                  class="dcell dcell--on"
-                  href={daysModuleHref(mod)}
-                  data-day-cell
-                  data-day={day}
-                  title={`Day ${day} · Module ${mod.number}: ${mod.title}`}
-                >
-                  <span class="sr-only">Day {day}, Module {mod.number}: {mod.title}</span>
-                </a>
-              </li>
-            ) : (
-              <li aria-hidden="true"><span class="dcell" data-day-cell data-day={day}></span></li>
-            ),
-          )}
-        </ol>
-        <p class="dprog__note">
-          Mark days done on each module page. Saved on this device, separately from your roadmap progress.
-        </p>
       </div>
     </div>
   </section>
@@ -179,9 +132,6 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
                   ></span>
                 </span>
               </span>
-              <span class="dmod__count" data-days-progress>
-                <span data-days-count data-days-range={`${m.days[0]}-${m.days[1]}`}>0</span>/{m.days[1] - m.days[0] + 1}
-              </span>
               <Icon name="arrow-right" size={18} class="dmod__go" />
             </a>
           </li>
@@ -233,15 +183,6 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
 </Base>
 
 <style>
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-  }
-
   /* ---------- hero ---------- */
   .dhero {
     padding-block: 56px 48px;
@@ -249,8 +190,7 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
   }
   @media (min-width: 900px) { .dhero { padding-block: 80px 60px; } }
 
-  .dhero__grid { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
-  @media (min-width: 980px) { .dhero__grid { grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr); gap: 56px; } }
+  .dhero__grid > .dhero__copy { max-width: 720px; }
 
   .dhero__copy { display: flex; flex-direction: column; gap: 20px; }
   .dhero__title { font-size: clamp(38px, 6vw, 68px); max-width: 13ch; }
@@ -259,68 +199,13 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
 
   .dhero__stats {
     display: grid;
+    max-width: 520px;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 18px;
     margin-top: 12px;
     padding-top: 24px;
     border-top: 1px solid var(--cx-border);
   }
-
-  /* ---------- 100-day grid ---------- */
-  .dprog {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    padding: 22px;
-    background: #fff;
-    border: 1px solid var(--cx-border);
-    border-radius: var(--cx-r-card);
-    box-shadow: var(--cx-shadow-card);
-  }
-  @media (min-width: 768px) { .dprog { padding: 26px 28px; } }
-
-  .dprog__head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-  .dprog__label {
-    font-family: var(--cx-font-mono);
-    font-size: 11px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--cx-purple);
-  }
-  .dprog__count {
-    font-family: var(--cx-font-display);
-    font-weight: 700;
-    font-size: 24px;
-    letter-spacing: -0.02em;
-    color: var(--cx-ink);
-    font-variant-numeric: tabular-nums;
-  }
-  .dprog__of { font-family: var(--cx-font-mono); font-weight: 400; font-size: 11.5px; letter-spacing: 0.04em; color: var(--cx-g500); }
-
-  .dprog__bar { display: block; height: 6px; border-radius: 999px; background: var(--cx-border-2); overflow: hidden; }
-  .dprog__fill { display: block; width: 0; height: 100%; border-radius: 999px; background: var(--cx-grad); transition: width 0.3s ease; }
-
-  .dgrid {
-    display: grid;
-    grid-template-columns: repeat(10, minmax(0, 1fr));
-    gap: 5px;
-    margin: 4px 0 0;
-    padding: 0;
-    list-style: none;
-  }
-  .dgrid li { display: block; }
-  .dcell {
-    display: block;
-    aspect-ratio: 1;
-    border-radius: 5px;
-    border: 1px dashed var(--cx-border-2);
-    background: var(--cx-gray);
-  }
-  .dcell--on { background: var(--phase-bg); border: 1px solid var(--phase-br); transition: transform 0.14s ease; }
-  .dcell--on:hover { transform: scale(1.08); border-color: var(--phase-ac); }
-  .dcell[data-done] { background: var(--phase-ac); border-color: var(--phase-ac); }
-
-  .dprog__note { font-size: 13px; line-height: 1.5; color: var(--cx-g500); }
 
   /* ---------- sections ---------- */
   .dsec { padding-block: 56px; }
@@ -402,7 +287,7 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
   .dmods { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; }
   .dmod {
     display: grid;
-    grid-template-columns: auto auto 1fr auto auto;
+    grid-template-columns: auto auto 1fr auto;
     align-items: center;
     gap: 14px;
     padding: 16px 18px;
@@ -446,12 +331,6 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
   .dmod__track { position: relative; display: block; height: 5px; margin-top: 4px; border-radius: 999px; background: var(--cx-border-2); }
   .dmod__span { position: absolute; top: 0; bottom: 0; min-width: 4px; border-radius: 999px; background: var(--phase-ac); }
 
-  .dmod__count {
-    font-family: var(--cx-font-mono);
-    font-size: 12px;
-    color: var(--cx-g600);
-    font-variant-numeric: tabular-nums;
-  }
   .dmod__go { color: var(--cx-g400); }
   .dmod:hover .dmod__go { color: var(--phase-ac); }
 
@@ -533,7 +412,6 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
   .back__go { margin-left: auto; flex: none; color: var(--cx-purple); }
 
   @media (prefers-reduced-motion: reduce) {
-    .dprog__fill, .dcell--on, .dmod, .back { transition: none; }
-    .dcell--on:hover { transform: none; }
+    .dmod, .back { transition: none; }
   }
 </style>
