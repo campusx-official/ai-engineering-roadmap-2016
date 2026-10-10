@@ -47,17 +47,18 @@ Three things worth knowing:
   Known real gaps in the source: L1 and L7 have no capstone (those pages simply
   omit the ship-it section); the L3 capstone states no session count. L4 has two, and
   renders a callout for each.
-- **`stack[]` is extracted, not authored.** A tag is emitted only when its pattern
-  actually occurs in that level's text (`STACK_VOCAB` in the parser). Add vocabulary
-  there; do not hand-write tags into the data. Each tag carries a `kind`: membership of
-  `STACK_TOOLS` makes it a **tool** (something you install, call or pay for), everything
-  else is a **concept** (technique, protocol, format, metric, practice, regulation). The
-  level page renders the two as equal columns. Judgement calls are documented at
-  `STACK_TOOLS`: protocols and specs (MCP, A2A, OpenAPI) are concepts while the clients
-  that speak them (Postman, curl) are tools; training techniques (LoRA, DPO, SFT) are
-  concepts while the libraries implementing them (PEFT, Unsloth, Axolotl) are tools; SQL
-  is a concept and PostgreSQL is the tool. Five levels (1, 3, 7, 9, 10) legitimately name
-  no products at all and render a single full-width Concepts column.
+- **`stack[]` is hand-picked, then checked against the source.** Each level's tags live in
+  `src/data/stack.ts`, split into **tools** (something you install, call or pay for) and
+  **concepts** (technique, protocol, format, metric, practice, regulation). Pick what a
+  learner should come away able to name or use, not every term the level mentions in
+  passing. `npm run parse` fails if a tag's term does not occur in that level's text — a
+  bare string is matched as a whole word, and a `[label, /pattern/]` pair covers wording
+  that differs ("tokenizer" for "tokenization"). Judgement calls are documented at the top
+  of the file: protocols and specs (MCP, A2A, OpenAPI) are concepts while the clients that
+  speak them (Postman, curl) are tools; training techniques (LoRA, DPO, SFT) are concepts
+  while the libraries implementing them (PEFT, Unsloth, Axolotl) are tools; SQL is a
+  concept and PostgreSQL is the tool. Levels 3, 6, 8, 9 and 15 name no products and
+  render a single full-width Concepts column.
 
 Icons are assigned by keyword rules (`MODULE_ICON_RULES`), most-specific first, so a
 level about agents doesn't render eleven identical robot icons. Every module resolves to

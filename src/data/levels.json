@@ -446,15 +446,43 @@
           "kind": "tool"
         },
         {
-          "label": "type hints",
-          "kind": "concept"
-        },
-        {
           "label": "Pydantic",
           "kind": "tool"
         },
         {
           "label": "FastAPI",
+          "kind": "tool"
+        },
+        {
+          "label": "PostgreSQL",
+          "kind": "tool"
+        },
+        {
+          "label": "Git",
+          "kind": "tool"
+        },
+        {
+          "label": "GitHub",
+          "kind": "tool"
+        },
+        {
+          "label": "Docker",
+          "kind": "tool"
+        },
+        {
+          "label": "Postman",
+          "kind": "tool"
+        },
+        {
+          "label": "curl",
+          "kind": "tool"
+        },
+        {
+          "label": "Claude Code",
+          "kind": "tool"
+        },
+        {
+          "label": "Cursor",
           "kind": "tool"
         },
         {
@@ -470,47 +498,31 @@
           "kind": "concept"
         },
         {
-          "label": "PostgreSQL",
-          "kind": "tool"
-        },
-        {
           "label": "SQL",
           "kind": "concept"
-        },
-        {
-          "label": "Git",
-          "kind": "tool"
-        },
-        {
-          "label": "GitHub",
-          "kind": "tool"
-        },
-        {
-          "label": "Docker",
-          "kind": "tool"
-        },
-        {
-          "label": "curl",
-          "kind": "tool"
-        },
-        {
-          "label": "Postman",
-          "kind": "tool"
-        },
-        {
-          "label": "Bruno",
-          "kind": "tool"
         },
         {
           "label": "async",
           "kind": "concept"
         },
         {
-          "label": "MCP",
+          "label": "type hints",
           "kind": "concept"
         },
         {
-          "label": "tracing",
+          "label": "unit tests",
+          "kind": "concept"
+        },
+        {
+          "label": "pull requests",
+          "kind": "concept"
+        },
+        {
+          "label": "environment variables",
+          "kind": "concept"
+        },
+        {
+          "label": "agentic coding",
           "kind": "concept"
         }
       ],
@@ -946,47 +958,15 @@
       ],
       "stack": [
         {
-          "label": "streaming",
-          "kind": "concept"
+          "label": "LMArena",
+          "kind": "tool"
         },
         {
-          "label": "structured outputs",
-          "kind": "concept"
-        },
-        {
-          "label": "few-shot",
+          "label": "tokenization",
           "kind": "concept"
         },
         {
           "label": "embeddings",
-          "kind": "concept"
-        },
-        {
-          "label": "summarization",
-          "kind": "concept"
-        },
-        {
-          "label": "MMLU",
-          "kind": "concept"
-        },
-        {
-          "label": "GPQA",
-          "kind": "concept"
-        },
-        {
-          "label": "AWS",
-          "kind": "tool"
-        },
-        {
-          "label": "SFT",
-          "kind": "concept"
-        },
-        {
-          "label": "RLHF",
-          "kind": "concept"
-        },
-        {
-          "label": "tokenization",
           "kind": "concept"
         },
         {
@@ -995,6 +975,58 @@
         },
         {
           "label": "transformers",
+          "kind": "concept"
+        },
+        {
+          "label": "pretraining",
+          "kind": "concept"
+        },
+        {
+          "label": "RLHF",
+          "kind": "concept"
+        },
+        {
+          "label": "context window",
+          "kind": "concept"
+        },
+        {
+          "label": "temperature",
+          "kind": "concept"
+        },
+        {
+          "label": "top-p",
+          "kind": "concept"
+        },
+        {
+          "label": "reasoning models",
+          "kind": "concept"
+        },
+        {
+          "label": "Mixture-of-Experts",
+          "kind": "concept"
+        },
+        {
+          "label": "hallucination",
+          "kind": "concept"
+        },
+        {
+          "label": "knowledge cutoff",
+          "kind": "concept"
+        },
+        {
+          "label": "TTFT",
+          "kind": "concept"
+        },
+        {
+          "label": "benchmarks",
+          "kind": "concept"
+        },
+        {
+          "label": "model cards",
+          "kind": "concept"
+        },
+        {
+          "label": "open weights",
           "kind": "concept"
         }
       ],
@@ -1349,23 +1381,15 @@
       ],
       "stack": [
         {
-          "label": "Pydantic",
-          "kind": "tool"
-        },
-        {
-          "label": "JSON",
-          "kind": "concept"
-        },
-        {
-          "label": "async",
-          "kind": "concept"
-        },
-        {
           "label": "OpenAI SDK",
           "kind": "tool"
         },
         {
           "label": "Anthropic SDK",
+          "kind": "tool"
+        },
+        {
+          "label": "Pydantic",
           "kind": "tool"
         },
         {
@@ -1389,11 +1413,11 @@
           "kind": "concept"
         },
         {
-          "label": "tool calling",
+          "label": "structured outputs",
           "kind": "concept"
         },
         {
-          "label": "structured outputs",
+          "label": "tool calling",
           "kind": "concept"
         },
         {
@@ -1401,7 +1425,39 @@
           "kind": "concept"
         },
         {
+          "label": "conversation state",
+          "kind": "concept"
+        },
+        {
+          "label": "async",
+          "kind": "concept"
+        },
+        {
+          "label": "batching",
+          "kind": "concept"
+        },
+        {
+          "label": "retries",
+          "kind": "concept"
+        },
+        {
+          "label": "fallbacks",
+          "kind": "concept"
+        },
+        {
+          "label": "rate limits",
+          "kind": "concept"
+        },
+        {
+          "label": "token usage",
+          "kind": "concept"
+        },
+        {
           "label": "tracing",
+          "kind": "concept"
+        },
+        {
+          "label": "TTFT",
           "kind": "concept"
         }
       ],
@@ -1653,11 +1709,11 @@
       ],
       "stack": [
         {
-          "label": "JSON",
+          "label": "system prompts",
           "kind": "concept"
         },
         {
-          "label": "prompt caching",
+          "label": "zero-shot",
           "kind": "concept"
         },
         {
@@ -1665,15 +1721,35 @@
           "kind": "concept"
         },
         {
-          "label": "system prompts",
+          "label": "reasoning prompting",
+          "kind": "concept"
+        },
+        {
+          "label": "task decomposition",
+          "kind": "concept"
+        },
+        {
+          "label": "JSON output",
+          "kind": "concept"
+        },
+        {
+          "label": "schema enforcement",
+          "kind": "concept"
+        },
+        {
+          "label": "test sets",
+          "kind": "concept"
+        },
+        {
+          "label": "prompt versioning",
+          "kind": "concept"
+        },
+        {
+          "label": "prompt caching",
           "kind": "concept"
         },
         {
           "label": "prompt injection",
-          "kind": "concept"
-        },
-        {
-          "label": "guardrails",
           "kind": "concept"
         }
       ],
@@ -2119,6 +2195,14 @@
       ],
       "stack": [
         {
+          "label": "pgvector",
+          "kind": "tool"
+        },
+        {
+          "label": "Qdrant",
+          "kind": "tool"
+        },
+        {
           "label": "LangChain",
           "kind": "tool"
         },
@@ -2139,12 +2223,8 @@
           "kind": "concept"
         },
         {
-          "label": "pgvector",
-          "kind": "tool"
-        },
-        {
-          "label": "Qdrant",
-          "kind": "tool"
+          "label": "semantic search",
+          "kind": "concept"
         },
         {
           "label": "ANN",
@@ -2152,10 +2232,6 @@
         },
         {
           "label": "HNSW",
-          "kind": "concept"
-        },
-        {
-          "label": "IVF",
           "kind": "concept"
         },
         {
@@ -2187,6 +2263,14 @@
           "kind": "concept"
         },
         {
+          "label": "citations",
+          "kind": "concept"
+        },
+        {
+          "label": "abstention",
+          "kind": "concept"
+        },
+        {
           "label": "Self-RAG",
           "kind": "concept"
         },
@@ -2195,19 +2279,7 @@
           "kind": "concept"
         },
         {
-          "label": "Adaptive RAG",
-          "kind": "concept"
-        },
-        {
           "label": "Graph RAG",
-          "kind": "concept"
-        },
-        {
-          "label": "citations",
-          "kind": "concept"
-        },
-        {
-          "label": "summarization",
           "kind": "concept"
         }
       ],
@@ -2726,28 +2798,8 @@
       ],
       "stack": [
         {
-          "label": "Python",
-          "kind": "tool"
-        },
-        {
           "label": "LangGraph",
           "kind": "tool"
-        },
-        {
-          "label": "tool calling",
-          "kind": "concept"
-        },
-        {
-          "label": "ReAct",
-          "kind": "concept"
-        },
-        {
-          "label": "MCP",
-          "kind": "concept"
-        },
-        {
-          "label": "A2A",
-          "kind": "concept"
         },
         {
           "label": "CrewAI",
@@ -2774,6 +2826,38 @@
           "kind": "tool"
         },
         {
+          "label": "ReAct",
+          "kind": "concept"
+        },
+        {
+          "label": "planning",
+          "kind": "concept"
+        },
+        {
+          "label": "reflection",
+          "kind": "concept"
+        },
+        {
+          "label": "MCP",
+          "kind": "concept"
+        },
+        {
+          "label": "A2A",
+          "kind": "concept"
+        },
+        {
+          "label": "tool calling",
+          "kind": "concept"
+        },
+        {
+          "label": "memory",
+          "kind": "concept"
+        },
+        {
+          "label": "multi-agent",
+          "kind": "concept"
+        },
+        {
           "label": "checkpointing",
           "kind": "concept"
         },
@@ -2782,19 +2866,11 @@
           "kind": "concept"
         },
         {
-          "label": "summarization",
+          "label": "sandboxing",
           "kind": "concept"
         },
         {
           "label": "tracing",
-          "kind": "concept"
-        },
-        {
-          "label": "guardrails",
-          "kind": "concept"
-        },
-        {
-          "label": "sandboxing",
           "kind": "concept"
         }
       ],
@@ -3042,7 +3118,19 @@
       ],
       "stack": [
         {
-          "label": "prompt caching",
+          "label": "context window",
+          "kind": "concept"
+        },
+        {
+          "label": "context rot",
+          "kind": "concept"
+        },
+        {
+          "label": "context selection",
+          "kind": "concept"
+        },
+        {
+          "label": "compaction",
           "kind": "concept"
         },
         {
@@ -3050,7 +3138,27 @@
           "kind": "concept"
         },
         {
+          "label": "memory",
+          "kind": "concept"
+        },
+        {
+          "label": "state offloading",
+          "kind": "concept"
+        },
+        {
           "label": "scratchpads",
+          "kind": "concept"
+        },
+        {
+          "label": "long-context strategies",
+          "kind": "concept"
+        },
+        {
+          "label": "tool results",
+          "kind": "concept"
+        },
+        {
+          "label": "context caching",
           "kind": "concept"
         }
       ],
@@ -3461,30 +3569,6 @@
       ],
       "stack": [
         {
-          "label": "SQL",
-          "kind": "concept"
-        },
-        {
-          "label": "prompt caching",
-          "kind": "concept"
-        },
-        {
-          "label": "prompt injection",
-          "kind": "concept"
-        },
-        {
-          "label": "chunking",
-          "kind": "concept"
-        },
-        {
-          "label": "Recall@k",
-          "kind": "concept"
-        },
-        {
-          "label": "citations",
-          "kind": "concept"
-        },
-        {
           "label": "DeepEval",
           "kind": "tool"
         },
@@ -3497,19 +3581,23 @@
           "kind": "concept"
         },
         {
+          "label": "golden datasets",
+          "kind": "concept"
+        },
+        {
+          "label": "offline evals",
+          "kind": "concept"
+        },
+        {
+          "label": "online evals",
+          "kind": "concept"
+        },
+        {
+          "label": "benchmarks",
+          "kind": "concept"
+        },
+        {
           "label": "MMLU",
-          "kind": "concept"
-        },
-        {
-          "label": "MMLU-Pro",
-          "kind": "concept"
-        },
-        {
-          "label": "TruthfulQA",
-          "kind": "concept"
-        },
-        {
-          "label": "AGIEval",
           "kind": "concept"
         },
         {
@@ -3517,11 +3605,15 @@
           "kind": "concept"
         },
         {
+          "label": "TruthfulQA",
+          "kind": "concept"
+        },
+        {
           "label": "SimpleQA",
           "kind": "concept"
         },
         {
-          "label": "Humanity's Last Exam",
+          "label": "regression testing",
           "kind": "concept"
         },
         {
@@ -3529,7 +3621,7 @@
           "kind": "concept"
         },
         {
-          "label": "contextual recall",
+          "label": "faithfulness",
           "kind": "concept"
         },
         {
@@ -3537,51 +3629,19 @@
           "kind": "concept"
         },
         {
-          "label": "contextual relevancy",
+          "label": "contextual recall",
           "kind": "concept"
         },
         {
-          "label": "faithfulness",
+          "label": "agent trajectories",
           "kind": "concept"
         },
         {
-          "label": "answer relevance",
-          "kind": "concept"
-        },
-        {
-          "label": "golden dataset",
-          "kind": "concept"
-        },
-        {
-          "label": "Text-to-SQL",
-          "kind": "concept"
-        },
-        {
-          "label": "jailbreaks",
-          "kind": "concept"
-        },
-        {
-          "label": "data drift",
-          "kind": "concept"
-        },
-        {
-          "label": "tracing",
+          "label": "tool selection",
           "kind": "concept"
         },
         {
           "label": "CI",
-          "kind": "concept"
-        },
-        {
-          "label": "guardrails",
-          "kind": "concept"
-        },
-        {
-          "label": "PII",
-          "kind": "concept"
-        },
-        {
-          "label": "drift detection",
           "kind": "concept"
         }
       ],
@@ -3884,7 +3944,7 @@
       ],
       "stack": [
         {
-          "label": "SQL",
+          "label": "threat modeling",
           "kind": "concept"
         },
         {
@@ -3892,7 +3952,11 @@
           "kind": "concept"
         },
         {
-          "label": "chunking",
+          "label": "indirect injection",
+          "kind": "concept"
+        },
+        {
+          "label": "data exfiltration",
           "kind": "concept"
         },
         {
@@ -3900,15 +3964,11 @@
           "kind": "concept"
         },
         {
-          "label": "tracing",
+          "label": "guardrails",
           "kind": "concept"
         },
         {
           "label": "moderation",
-          "kind": "concept"
-        },
-        {
-          "label": "guardrails",
           "kind": "concept"
         },
         {
@@ -3921,6 +3981,18 @@
         },
         {
           "label": "PII",
+          "kind": "concept"
+        },
+        {
+          "label": "secrets",
+          "kind": "concept"
+        },
+        {
+          "label": "red teaming",
+          "kind": "concept"
+        },
+        {
+          "label": "access control",
           "kind": "concept"
         },
         {
@@ -4347,43 +4419,11 @@
       ],
       "stack": [
         {
-          "label": "async",
-          "kind": "concept"
-        },
-        {
-          "label": "streaming",
-          "kind": "concept"
-        },
-        {
-          "label": "prompt caching",
-          "kind": "concept"
-        },
-        {
-          "label": "reranking",
-          "kind": "concept"
-        },
-        {
-          "label": "citations",
-          "kind": "concept"
-        },
-        {
-          "label": "tracing",
-          "kind": "concept"
-        },
-        {
-          "label": "guardrails",
-          "kind": "concept"
-        },
-        {
-          "label": "sandboxing",
-          "kind": "concept"
-        },
-        {
           "label": "model routing",
           "kind": "concept"
         },
         {
-          "label": "model gateway",
+          "label": "model gateways",
           "kind": "concept"
         },
         {
@@ -4391,7 +4431,39 @@
           "kind": "concept"
         },
         {
+          "label": "TTFT",
+          "kind": "concept"
+        },
+        {
+          "label": "streaming",
+          "kind": "concept"
+        },
+        {
+          "label": "queues",
+          "kind": "concept"
+        },
+        {
+          "label": "rate limits",
+          "kind": "concept"
+        },
+        {
           "label": "circuit breakers",
+          "kind": "concept"
+        },
+        {
+          "label": "fallbacks",
+          "kind": "concept"
+        },
+        {
+          "label": "graceful degradation",
+          "kind": "concept"
+        },
+        {
+          "label": "guardrails",
+          "kind": "concept"
+        },
+        {
+          "label": "user feedback",
           "kind": "concept"
         }
       ],
@@ -4715,11 +4787,7 @@
           "kind": "tool"
         },
         {
-          "label": "GitHub",
-          "kind": "tool"
-        },
-        {
-          "label": "Docker",
+          "label": "Streamlit",
           "kind": "tool"
         },
         {
@@ -4731,19 +4799,15 @@
           "kind": "tool"
         },
         {
-          "label": "streaming",
-          "kind": "concept"
-        },
-        {
-          "label": "prompt injection",
-          "kind": "concept"
-        },
-        {
-          "label": "chunking",
-          "kind": "concept"
+          "label": "Chroma",
+          "kind": "tool"
         },
         {
           "label": "DeepEval",
+          "kind": "tool"
+        },
+        {
+          "label": "MLflow",
           "kind": "tool"
         },
         {
@@ -4751,35 +4815,19 @@
           "kind": "tool"
         },
         {
-          "label": "tracing",
-          "kind": "concept"
-        },
-        {
-          "label": "CI",
-          "kind": "concept"
-        },
-        {
-          "label": "guardrails",
-          "kind": "concept"
-        },
-        {
-          "label": "MLflow",
+          "label": "Guardrails AI",
           "kind": "tool"
         },
         {
-          "label": "Streamlit",
+          "label": "NeMo Guardrails",
           "kind": "tool"
         },
         {
-          "label": "Chroma",
+          "label": "Docker",
           "kind": "tool"
         },
         {
           "label": "Docker Compose",
-          "kind": "tool"
-        },
-        {
-          "label": "Docker Hub",
           "kind": "tool"
         },
         {
@@ -4807,10 +4855,6 @@
           "kind": "tool"
         },
         {
-          "label": "load balancer",
-          "kind": "concept"
-        },
-        {
           "label": "Prometheus",
           "kind": "tool"
         },
@@ -4823,12 +4867,32 @@
           "kind": "tool"
         },
         {
-          "label": "Guardrails AI",
-          "kind": "tool"
+          "label": "CI/CD",
+          "kind": "concept"
         },
         {
-          "label": "NeMo Guardrails",
-          "kind": "tool"
+          "label": "experiment tracking",
+          "kind": "concept"
+        },
+        {
+          "label": "prompt versioning",
+          "kind": "concept"
+        },
+        {
+          "label": "tracing",
+          "kind": "concept"
+        },
+        {
+          "label": "containerization",
+          "kind": "concept"
+        },
+        {
+          "label": "load balancing",
+          "kind": "concept"
+        },
+        {
+          "label": "monitoring",
+          "kind": "concept"
         }
       ],
       "project": "M10.11",
@@ -5274,23 +5338,75 @@
       ],
       "stack": [
         {
-          "label": "tool calling",
-          "kind": "concept"
+          "label": "Bedrock",
+          "kind": "tool"
         },
         {
-          "label": "chunking",
-          "kind": "concept"
+          "label": "Vertex AI",
+          "kind": "tool"
         },
         {
-          "label": "embeddings",
-          "kind": "concept"
+          "label": "Azure AI Foundry",
+          "kind": "tool"
+        },
+        {
+          "label": "Hugging Face",
+          "kind": "tool"
+        },
+        {
+          "label": "Together",
+          "kind": "tool"
+        },
+        {
+          "label": "Fireworks",
+          "kind": "tool"
+        },
+        {
+          "label": "Groq",
+          "kind": "tool"
+        },
+        {
+          "label": "Replicate",
+          "kind": "tool"
         },
         {
           "label": "Modal",
           "kind": "tool"
         },
         {
-          "label": "guardrails",
+          "label": "Baseten",
+          "kind": "tool"
+        },
+        {
+          "label": "RunPod",
+          "kind": "tool"
+        },
+        {
+          "label": "vLLM",
+          "kind": "tool"
+        },
+        {
+          "label": "TGI",
+          "kind": "tool"
+        },
+        {
+          "label": "Ollama",
+          "kind": "tool"
+        },
+        {
+          "label": "OpenRouter",
+          "kind": "tool"
+        },
+        {
+          "label": "Portkey",
+          "kind": "tool"
+        },
+        {
+          "label": "LiteLLM",
+          "kind": "tool"
+        },
+        {
+          "label": "workload identity",
           "kind": "concept"
         },
         {
@@ -5298,15 +5414,27 @@
           "kind": "concept"
         },
         {
-          "label": "model gateway",
+          "label": "private connectivity",
           "kind": "concept"
         },
         {
-          "label": "vLLM",
-          "kind": "tool"
+          "label": "tenant isolation",
+          "kind": "concept"
         },
         {
-          "label": "quantization",
+          "label": "data residency",
+          "kind": "concept"
+        },
+        {
+          "label": "provisioned throughput",
+          "kind": "concept"
+        },
+        {
+          "label": "quotas",
+          "kind": "concept"
+        },
+        {
+          "label": "continuous batching",
           "kind": "concept"
         },
         {
@@ -5314,7 +5442,19 @@
           "kind": "concept"
         },
         {
-          "label": "distillation",
+          "label": "quantization",
+          "kind": "concept"
+        },
+        {
+          "label": "model gateways",
+          "kind": "concept"
+        },
+        {
+          "label": "failover",
+          "kind": "concept"
+        },
+        {
+          "label": "lock-in",
           "kind": "concept"
         }
       ],
@@ -5913,38 +6053,6 @@
       ],
       "stack": [
         {
-          "label": "streaming",
-          "kind": "concept"
-        },
-        {
-          "label": "structured outputs",
-          "kind": "concept"
-        },
-        {
-          "label": "OCR",
-          "kind": "concept"
-        },
-        {
-          "label": "chunking",
-          "kind": "concept"
-        },
-        {
-          "label": "embeddings",
-          "kind": "concept"
-        },
-        {
-          "label": "hybrid retrieval",
-          "kind": "concept"
-        },
-        {
-          "label": "citations",
-          "kind": "concept"
-        },
-        {
-          "label": "quantization",
-          "kind": "concept"
-        },
-        {
           "label": "Whisper",
           "kind": "tool"
         },
@@ -5953,19 +6061,67 @@
           "kind": "tool"
         },
         {
+          "label": "CLIP",
+          "kind": "tool"
+        },
+        {
+          "label": "vision encoder",
+          "kind": "concept"
+        },
+        {
+          "label": "image tokens",
+          "kind": "concept"
+        },
+        {
+          "label": "OCR",
+          "kind": "concept"
+        },
+        {
           "label": "visual RAG",
           "kind": "concept"
         },
         {
-          "label": "image generation",
+          "label": "diffusion",
           "kind": "concept"
         },
         {
-          "label": "tokenization",
+          "label": "inpainting",
           "kind": "concept"
         },
         {
-          "label": "transformers",
+          "label": "speech-to-text",
+          "kind": "concept"
+        },
+        {
+          "label": "text-to-speech",
+          "kind": "concept"
+        },
+        {
+          "label": "speaker diarization",
+          "kind": "concept"
+        },
+        {
+          "label": "word error rate",
+          "kind": "concept"
+        },
+        {
+          "label": "voice activity detection",
+          "kind": "concept"
+        },
+        {
+          "label": "endpointing",
+          "kind": "concept"
+        },
+        {
+          "label": "barge-in",
+          "kind": "concept"
+        },
+        {
+          "label": "joint embeddings",
+          "kind": "concept"
+        },
+        {
+          "label": "quantization",
           "kind": "concept"
         }
       ],
@@ -6415,34 +6571,6 @@
       ],
       "stack": [
         {
-          "label": "structured outputs",
-          "kind": "concept"
-        },
-        {
-          "label": "few-shot",
-          "kind": "concept"
-        },
-        {
-          "label": "model gateway",
-          "kind": "concept"
-        },
-        {
-          "label": "vLLM",
-          "kind": "tool"
-        },
-        {
-          "label": "quantization",
-          "kind": "concept"
-        },
-        {
-          "label": "LoRA",
-          "kind": "concept"
-        },
-        {
-          "label": "QLoRA",
-          "kind": "concept"
-        },
-        {
           "label": "PEFT",
           "kind": "tool"
         },
@@ -6459,7 +6587,23 @@
           "kind": "tool"
         },
         {
+          "label": "vLLM",
+          "kind": "tool"
+        },
+        {
+          "label": "Ollama",
+          "kind": "tool"
+        },
+        {
           "label": "SFT",
+          "kind": "concept"
+        },
+        {
+          "label": "LoRA",
+          "kind": "concept"
+        },
+        {
+          "label": "QLoRA",
           "kind": "concept"
         },
         {
@@ -6475,7 +6619,27 @@
           "kind": "concept"
         },
         {
-          "label": "tokenization",
+          "label": "chat templates",
+          "kind": "concept"
+        },
+        {
+          "label": "catastrophic forgetting",
+          "kind": "concept"
+        },
+        {
+          "label": "reward hacking",
+          "kind": "concept"
+        },
+        {
+          "label": "preference data",
+          "kind": "concept"
+        },
+        {
+          "label": "held-out evaluation",
+          "kind": "concept"
+        },
+        {
+          "label": "quantization",
           "kind": "concept"
         }
       ],
@@ -6613,12 +6777,20 @@
           "kind": "tool"
         },
         {
+          "label": "LangGraph",
+          "kind": "tool"
+        },
+        {
           "label": "GitHub",
           "kind": "tool"
         },
         {
-          "label": "LangGraph",
-          "kind": "tool"
+          "label": "MCP",
+          "kind": "concept"
+        },
+        {
+          "label": "multi-agent",
+          "kind": "concept"
         },
         {
           "label": "tool calling",
@@ -6626,10 +6798,6 @@
         },
         {
           "label": "structured outputs",
-          "kind": "concept"
-        },
-        {
-          "label": "MCP",
           "kind": "concept"
         },
         {
@@ -7088,31 +7256,11 @@
       ],
       "stack": [
         {
-          "label": "async",
-          "kind": "concept"
-        },
-        {
-          "label": "embeddings",
+          "label": "RAG",
           "kind": "concept"
         },
         {
           "label": "MCP",
-          "kind": "concept"
-        },
-        {
-          "label": "human-in-the-loop",
-          "kind": "concept"
-        },
-        {
-          "label": "CI",
-          "kind": "concept"
-        },
-        {
-          "label": "guardrails",
-          "kind": "concept"
-        },
-        {
-          "label": "quantization",
           "kind": "concept"
         },
         {
@@ -7124,8 +7272,28 @@
           "kind": "concept"
         },
         {
-          "label": "PEFT",
-          "kind": "tool"
+          "label": "quantization",
+          "kind": "concept"
+        },
+        {
+          "label": "AI system design",
+          "kind": "concept"
+        },
+        {
+          "label": "LLMOps",
+          "kind": "concept"
+        },
+        {
+          "label": "evals",
+          "kind": "concept"
+        },
+        {
+          "label": "production debugging",
+          "kind": "concept"
+        },
+        {
+          "label": "behavioral communication",
+          "kind": "concept"
         }
       ],
       "project": "M15.10",

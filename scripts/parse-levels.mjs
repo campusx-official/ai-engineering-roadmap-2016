@@ -3,16 +3,18 @@
  *
  * The .txt files are the single source of truth for all level content. Nothing
  * here invents copy: every string written to levels.json is lifted verbatim
- * from a source file. Where a field cannot be found, the level gets an entry in
+ * from a source file, except the hand-picked stack tags from src/data/stack.ts,
+ * each of which is checked against its level's text. Where a field cannot be found, the level gets an entry in
  * `todos[]` instead of a plausible-looking guess.
  *
  * Run: npm run parse   (also runs automatically before dev/build)
  */
 import { readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
+const { stacks } = await import(pathToFileURL(join(root, 'src/data/stack.ts')).href);
 
 /* Canonical location, per CLAUDE.md §2. The repo root is kept as a fallback so
    a stray level*.txt dropped there is still picked up rather than silently
@@ -192,86 +194,6 @@ const MODULE_ICON_RULES = [
   [/\bmodel\b|inference/i, 'cpu'],
 ];
 
-/* Named products, libraries, services, CLIs, model checkpoints and databases —
-   the things you install, call or pay for. Everything else in STACK_VOCAB is a
-   concept: a technique, protocol, format, metric, practice or regulation.
-   The split drives the two columns of the Stack section on a level page.
-
-   Judgement calls worth knowing: protocols (MCP, A2A) and specifications
-   (OpenAPI, JSON Schema) are concepts, while the clients that speak them
-   (Postman, curl) are tools; training techniques (LoRA, DPO, SFT) are concepts
-   while the libraries implementing them (PEFT, Unsloth, Axolotl) are tools;
-   SQL is a concept and PostgreSQL is the tool. */
-const STACK_TOOLS = new Set([
-  'Python', 'uv', 'pytest', 'Pydantic', 'FastAPI', 'PostgreSQL', 'Git', 'GitHub',
-  'Docker', 'curl', 'Postman', 'Bruno', 'OpenAI SDK', 'Anthropic SDK',
-  'LangChain', 'LangGraph', 'LlamaIndex', 'DSPy', 'pgvector', 'Qdrant',
-  'CrewAI', 'Agno', 'Google ADK', 'OpenAI Agents SDK', 'E2B', 'Modal',
-  'DeepEval', 'RAGAS', 'Langfuse', 'Phoenix', 'vLLM', 'MLflow', 'Streamlit',
-  'Chroma', 'Docker Compose', 'Docker Hub', 'GitHub Actions', 'AWS', 'EC2',
-  'CodeDeploy', 'Auto Scaling', 'Secrets Manager', 'Prometheus', 'Grafana',
-  'Node Exporter', 'Guardrails AI', 'NeMo Guardrails', 'Whisper', 'Kokoro',
-  'PEFT', 'Unsloth', 'Axolotl', 'TRL',
-]);
-
-/* Controlled vocabulary for the stack pills. A tag is emitted ONLY if its
-   pattern actually occurs in that level's source text — this is extraction from
-   the .txt files, never authored-in tooling. */
-const STACK_VOCAB = [
-  ['Python', /\bPython\b/], ['uv', /\buv\b/], ['pytest', /\bpytest\b/], ['type hints', /\btype hints\b/],
-  ['Pydantic', /\bPydantic\b/], ['FastAPI', /\bFastAPI\b/], ['HTTP/REST', /\bREST\b/], ['JSON', /\bJSON\b/],
-  ['OpenAPI', /\bOpenAPI\b/], ['PostgreSQL', /\bPostgreSQL\b/], ['SQL', /\bSQL\b/], ['Git', /\bGit\b/],
-  ['GitHub', /\bGitHub\b/], ['Docker', /\bDocker\b/], ['curl', /\bcurl\b/], ['Postman', /\bPostman\b/],
-  ['Bruno', /\bBruno\b/], ['async', /\basync\b|\basynchronous\b/i],
-  ['OpenAI SDK', /\bOpenAI\/Anthropic SDKs\b|\bOpenAI SDK\b/], ['Anthropic SDK', /\bOpenAI\/Anthropic SDKs\b/],
-  ['LangChain', /\bLangChain\b/], ['LangGraph', /\bLangGraph\b/], ['LlamaIndex', /\bLlamaIndex\b/],
-  ['DSPy', /\bDSPy\b/], ['streaming', /\bstream(ing|ed)?\b/i], ['tool calling', /\btool.calling\b|\bfunction \/ tool calling\b/i],
-  ['structured outputs', /\bstructured outputs?\b/i], ['JSON Schema', /\bJSON Schema\b/],
-  ['prompt caching', /\bprompt caching\b|\bcontext caching\b/i], ['few-shot', /\bfew-shot\b/],
-  ['system prompts', /\bsystem prompt\b/i], ['prompt injection', /\bprompt injection\b/i],
-  ['OCR', /\bOCR\b/], ['chunking', /\bchunk(ing|s)?\b/i], ['embeddings', /\bembeddings?\b/i],
-  ['pgvector', /\bpgvector\b/], ['Qdrant', /\bQdrant\b/], ['ANN', /\bANN\b|Approximate Nearest Neighbor/],
-  ['HNSW', /\bHNSW\b/], ['IVF', /\bIVF\b/], ['BM25', /\bBM25\b/], ['hybrid retrieval', /\bhybrid retrieval\b/i],
-  ['RRF', /\bRRF\b|Reciprocal Rank Fusion/], ['Recall@k', /\bRecall@k\b/], ['reranking', /\brerank(ing|ers?)?\b/i],
-  ['HyDE', /\bHyDE\b/], ['RAG-Fusion', /\bRAG-Fusion\b/], ['Self-RAG', /\bSelf-RAG\b/], ['CRAG', /\bCRAG\b/],
-  ['Adaptive RAG', /\bAdaptive RAG\b/], ['Graph RAG', /\bGraph RAG\b/], ['citations', /\bcitations?\b/i],
-  ['ReAct', /\bReAct\b/], ['MCP', /\bMCP\b/], ['A2A', /\bA2A\b/], ['CrewAI', /\bCrewAI\b/], ['Agno', /\bAgno\b/],
-  ['Google ADK', /\bADK\b/], ['OpenAI Agents SDK', /\bOpenAI Agents SDK\b/], ['E2B', /\bE2B\b/],
-  ['Modal', /\bModal\b/], ['checkpointing', /\bcheckpointing\b/i], ['human-in-the-loop', /\bhuman-in-the-loop\b/i],
-  ['summarization', /\bsummariz(ation|e|ing)\b/i], ['scratchpads', /\bscratchpads?\b/i],
-  ['DeepEval', /\bDeepEval\b/], ['RAGAS', /\bRAGAS\b/], ['LLM-as-a-Judge', /\bLLM-as-a-Judge\b/i],
-  ['MMLU', /\bMMLU\b(?!-)/], ['MMLU-Pro', /\bMMLU-Pro\b/], ['TruthfulQA', /\bTruthfulQA\b/],
-  ['AGIEval', /\bAGIEval\b/], ['GPQA', /\bGPQA\b/], ['SimpleQA', /\bSimpleQA\b/],
-  ["Humanity's Last Exam", /Humanity['\u2019]s Last Exam/],
-  ['RAG Triad', /\bRAG Triad\b/i], ['contextual recall', /\bContextual Recall\b/i],
-  ['contextual precision', /\bContextual Precision\b/i],
-  ['contextual relevancy', /\bContextual Relevanc(y|e)\b/i],
-  ['faithfulness', /\bfaithful(ness)?\b/i], ['answer relevance', /\bAnswer Relevance\b/i],
-  ['golden dataset', /\bGolden Dataset\b/i], ['Text-to-SQL', /\bText-to-SQL\b/i],
-  ['jailbreaks', /\bjailbreak/i], ['data drift', /\bdata drift\b/i],
-  ['Langfuse', /\bLangfuse\b/], ['Phoenix', /\bPhoenix\b/], ['tracing', /\btrac(ing|es?)\b/i],
-  ['CI', /\bCI\b/], ['F1', /\bF1\b/], ['MRR', /\bMRR\b/], ['BLEU/ROUGE', /\bBLEU\/ROUGE\b/],
-  ['moderation', /\bmoderation\b/i], ['guardrails', /\bguardrails?\b/i], ['least privilege', /\bleast privilege\b/i],
-  ['sandboxing', /\bsandbox(ed|ing)?\b/i], ['PII', /\bPII\b/], ['EU AI Act', /\bEU AI Act\b/],
-  ['DPDP', /\bDPDP\b/], ['model routing', /\bmodel rout(ing|er)\b/i], ['model gateway', /\bmodel gateway\b|\bgateways?\b/i],
-  ['semantic caching', /\bsemantic caching\b/i], ['circuit breakers', /\bcircuit breakers?\b/i],
-  ['vLLM', /\bvLLM\b/], ['quantization', /\bquantiz(ation|ed)\b/i], ['KV cache', /\bKV.cache\b/i],
-  ['feature flags', /\bfeature flags\b/i], ['canary', /\bcanary\b/i], ['drift detection', /\bdrift\b/i],
-  ['MLflow', /\bMLflow\b/], ['Streamlit', /\bStreamlit\b/], ['Chroma', /\bChroma\b/],
-  ['Docker Compose', /\bDocker Compose\b/], ['Docker Hub', /\bDocker Hub\b/],
-  ['GitHub Actions', /\bGitHub Actions\b/], ['AWS', /\bAWS\b/], ['EC2', /\bEC2\b/],
-  ['CodeDeploy', /\bCodeDeploy\b/], ['Auto Scaling', /\bAuto Scaling\b/],
-  ['Secrets Manager', /\bSecrets Manager\b/], ['load balancer', /\bLoad Balancer\b/i],
-  ['Prometheus', /\bPrometheus\b/], ['Grafana', /\bGrafana\b/], ['Node Exporter', /\bNode Exporter\b/],
-  ['Guardrails AI', /\bGuardrails AI\b/], ['NeMo Guardrails', /\bNeMo Guardrails\b/],
-  ['Whisper', /\bWhisper\b/], ['Kokoro', /\bKokoro\b/], ['STT', /\bSTT\b/], ['TTS', /\bTTS\b/],
-  ['visual RAG', /\bvisual RAG\b/i], ['image generation', /\bimage generation\b/i],
-  ['LoRA', /\bLoRA\b/], ['QLoRA', /\bQLoRA\b/], ['PEFT', /\bPEFT\b/], ['Unsloth', /\bUnsloth\b/],
-  ['Axolotl', /\bAxolotl\b/], ['TRL', /\bTRL\b/], ['SFT', /\bSFT\b/], ['DPO', /\bDPO\b/], ['RLHF', /\bRLHF\b/],
-  ['RFT', /\bRFT\b/], ['distillation', /\bdistill(ation|\b)/i], ['tokenization', /\btokeniz(ation|er)\b/i],
-  ['attention', /\battention\b/i], ['transformers', /\btransformer\b/i],
-];
-
 const MODULE_RE = /^([MP])(\d+)\.(\d+)\s*[·•]\s*(.+?)\s*[—–-]+\s*\(?sessions:\s*(\d+)\)?\s*(\[gap\])?\s*$/i;
 const NAMED_CAPSTONE_RE = /^Level\s+(\d+)\s+Capstone\s*[·•]\s*(.+?)\s*$/i;
 const LEVEL_TITLE_RE = /^Level\s+(\d+)\s*[·•]\s*(.+?)\s*$/;
@@ -320,13 +242,26 @@ function pickModuleIcon(name) {
   return 'circle-dot';
 }
 
-function extractStack(text) {
-  const seen = new Set();
+/* Stack tags are hand-picked in src/data/stack.ts. Each one must name something
+   that actually occurs in its level's text, so a typo, a renamed tool or a tag
+   copied onto the wrong level fails the parse instead of reaching the page. */
+const stackProblems = [];
+
+function stackFor(number, text) {
+  const set = stacks[number];
+  if (!set) {
+    stackProblems.push(`L${number}: no entry in src/data/stack.ts`);
+    return [];
+  }
   const tags = [];
-  for (const [label, re] of STACK_VOCAB) {
-    if (re.test(text) && !seen.has(label)) {
-      seen.add(label);
-      tags.push({ label, kind: STACK_TOOLS.has(label) ? 'tool' : 'concept' });
+  for (const kind of ['tool', 'concept']) {
+    for (const entry of set[`${kind}s`]) {
+      const [label, pattern] = Array.isArray(entry)
+        ? entry
+        : [entry, new RegExp(`(?<![\\w-])${entry.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')}(?![\\w-])`, 'i')];
+      if (!pattern.test(text)) stackProblems.push(`L${number}: "${label}" does not occur in the level text`);
+      if (tags.some((t) => t.label === label)) stackProblems.push(`L${number}: "${label}" is listed twice`);
+      tags.push({ label, kind });
     }
   }
   return tags;
@@ -348,7 +283,6 @@ function parseLevel(file, raw) {
 
   const metaLine = lines.find((l) => /^Prerequisites:/i.test(l)) || '';
   const prereqStated = metaLine ? (metaLine.match(/^Prerequisites:\s*([^·]+)/i)?.[1] || '').trim() : '';
-
   const modules = [];
   const completionOutcomes = [];
   let cur = null;
@@ -454,7 +388,7 @@ function parseLevel(file, raw) {
     phase: phase.id,
     icon: LEVEL_ICONS[number] || 'circle-dot',
     modules,
-    stack: extractStack(raw),
+    stack: stackFor(number, raw),
     project: capstone ? capstone.id : null,
     totalSessions,
     statedSessions: stated ? Number(stated[1]) : null,
@@ -486,6 +420,12 @@ const out = {
 
 mkdirSync(join(root, 'src/data'), { recursive: true });
 writeFileSync(join(root, 'src/data/levels.json'), JSON.stringify(out, null, 2));
+
+if (stackProblems.length) {
+  console.error('src/data/stack.ts NEEDS ATTENTION:');
+  for (const p of stackProblems) console.error('  ' + p);
+  process.exit(1);
+}
 
 const flagged = levels.filter((l) => l.todos.length);
 console.log(`parsed ${levels.length} levels · ${out.totalModules} modules · ${out.totalSessions} sessions`);
