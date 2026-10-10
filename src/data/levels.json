@@ -1,8 +1,8 @@
 {
   "generatedFrom": "./AI ENGINEER ROADMAP",
   "totalLevels": 16,
-  "totalSessions": 286,
-  "totalModules": 164,
+  "totalSessions": 285,
+  "totalModules": 165,
   "phases": [
     {
       "id": "foundations",
@@ -4517,151 +4517,212 @@
       "slug": "level-10",
       "title": "LLMOps: From Development to Production",
       "sourceFile": "level10-llmops.txt",
-      "scope": "Launch, test, watch, and protect Large Language Model apps in the real world while managing changing outputs, prompt updates, and the special behaviors of RAG and Agent systems.",
-      "prereqStated": null,
+      "scope": "Take the RAG application and the agent you have already built into production — versioned, evaluated on every change, guarded, containerized, deployed on AWS, and monitored — and keep them improving once real users arrive.",
+      "prereqStated": "Level 0 (containers), Level 4 (RAG), Level 5 (agents), Level 7 (evals), Level 8 (security)",
       "prerequisites": [
-        9
+        0,
+        4,
+        5,
+        7,
+        8
       ],
       "phase": "production",
       "icon": "gauge",
       "modules": [
         {
           "id": "M10.1",
-          "name": "Foundations of LLMOps",
+          "name": "What LLMOps adds",
           "sessionCount": 1,
-          "icon": "book-open",
+          "icon": "workflow",
           "objectives": [
             {
-              "text": "Define exactly what LLMOps is: the organized process of building, testing, watching, and running Large Language Model applications in the real world."
+              "text": "Understand LLMOps as the practice of shipping, operating, and improving LLM applications, and where it overlaps with and departs from classic MLOps."
             },
             {
-              "text": "Explain why LLMOps is its own special field and how it is different from regular MLOps."
+              "text": "Distinguish application LLMOps, which runs products on top of existing models, from model LLMOps, which trains and hosts the models themselves, and recognize that most teams practise the first."
             },
             {
-              "text": "Compare Model LLMOps (which means training, fine-tuning, and hosting raw AI models) with Application LLMOps (which means building and running useful apps on top of existing AI models)."
+              "text": "Understand what makes LLM systems harder to operate: non-deterministic outputs, prompts that change behavior without a code change, provider-side model updates, and a cost attached to every request."
             },
             {
-              "text": "Look at the Model LLMOps lifecycle—gathering huge amounts of data, updating model weights, and managing massive servers—and understand why we chose to focus on Application LLMOps instead, since most teams today build apps rather than make their own models from scratch."
+              "text": "Define what a release actually is for an LLM application: code, prompts, model version, retrieval configuration, index contents, and tool definitions, all of which must be versioned together."
             },
             {
-              "text": "Map the complete journey of an LLM app from early building stages to putting it live and watching its performance."
+              "text": "Understand how operating a RAG application differs from operating an agent, from stale indexes and retrieval drift on one side to runaway loops and tool failures on the other."
             },
             {
-              "text": "Show how the daily running of a RAG app is different from an Agentic app."
-            },
-            {
-              "text": "Give a big-picture view of the whole LLMOps toolkit, including how we access models, check quality, track errors, keep things safe, and update code automatically."
-            },
-            {
-              "text": "Understand the two main projects (a RAG app and an Agentic app) that we will build and manage during this course."
+              "text": "Map the lifecycle this level follows: track → evaluate → guard → serve → ship → deploy → monitor → improve."
             }
           ],
           "notes": [],
           "isCapstone": false,
           "isGap": false,
-          "outcome": "Understand the full journey of an LLM application and the complete LLMOps toolkit before writing any code."
+          "tryIt": "List every change that could alter your RAG application's answers tomorrow without anyone editing its code, and note which of them you could currently detect.",
+          "mentalModel": "Code + prompts + model + data + tools = one release, and every part of it can change behavior",
+          "outcome": "Explain what has to be versioned, tested, and watched for an LLM application to be safe to change."
         },
         {
           "id": "M10.2",
-          "name": "Application development",
+          "name": "Preparing your apps for production",
           "sessionCount": 1,
-          "icon": "hammer",
+          "icon": "wrench",
           "objectives": [
             {
-              "text": "Build a RAG app that reads documents, breaks them into pieces, stores them, and connects them to an LLM to answer questions."
+              "text": "Take the RAG application from Level 4 and the agent from Level 5 as the two systems this level operates, rather than building new ones."
             },
             {
-              "text": "Build an Agent app that uses tools, plans steps, remembers past actions, and works on its own."
+              "text": "Separate configuration from code, so the model, prompts, retrieval parameters, and tool set can change without a rewrite."
             },
             {
-              "text": "Use basic tools like LangChain for RAG, LangGraph for Agents, Chroma for storage, and OpenAI or Anthropic models."
+              "text": "Pin model versions and dependency versions, so a rebuild next month produces the same system as today."
+            },
+            {
+              "text": "Make each request traceable from the start by attaching a request ID, the prompt version, and the model version to everything it touches."
+            },
+            {
+              "text": "Carry the evaluation dataset from Level 7 forward as the fixed yardstick every later change will be measured against."
             }
           ],
           "notes": [],
           "isCapstone": false,
           "isGap": false,
-          "outcome": "Set up the basic RAG and Agent apps that we will improve and put online in later steps."
+          "tryIt": "Change the chunk size and the model of your RAG application through configuration alone, and confirm that no code had to change.",
+          "outcome": "Have two applications structured so that every behavior-changing setting is explicit, versioned, and recorded."
         },
         {
           "id": "M10.3",
-          "name": "Evaluation",
-          "sessionCount": 3,
-          "icon": "flask-conical",
-          "objectives": [
-            {
-              "text": "Create test question-answer pairs automatically using DeepEval instead of typing them out by hand."
-            },
-            {
-              "text": "Run a full test on both apps and save the starting scores in MLflow before changing any code."
-            },
-            {
-              "text": "Score the RAG app on how truthful and exact it is using AI-as-a-judge tools."
-            },
-            {
-              "text": "Score the Agent app on whether it picks the right tools, finishes the job, and takes logical steps."
-            },
-            {
-              "text": "Set up automatic alarms to catch if new changes break the app."
-            }
-          ],
-          "notes": [],
-          "isCapstone": false,
-          "isGap": false,
-          "outcome": "Measure the quality of your LLM apps automatically without needing humans to check every answer."
-        },
-        {
-          "id": "M10.4",
           "name": "Experiment tracking & prompt versioning",
           "sessionCount": 2,
           "icon": "git-compare",
           "objectives": [
             {
-              "text": "Save and manage different versions of prompts using Langfuse so apps can pull them when running."
+              "text": "Record each experiment in MLflow with its parameters, such as chunk size, top-k, model, temperature, and tool set.",
+              "group": "Tracking experiments"
             },
             {
-              "text": "Label prompt versions for different stages like testing and live production."
+              "text": "Log evaluation scores as metrics and keep prompts, configurations, and sample outputs as artifacts of the run.",
+              "group": "Tracking experiments"
             },
             {
-              "text": "Keep track of RAG settings (like chunk size) and Agent settings (like tools) as recorded MLflow experiments."
+              "text": "Compare runs side by side to see which change actually moved quality, latency, or cost.",
+              "group": "Tracking experiments"
             },
             {
-              "text": "Track Metrics and artifacts along with the parameters."
+              "text": "Record a baseline run for both applications before changing anything.",
+              "group": "Tracking experiments"
             },
             {
-              "text": "Compare different prompt versions side-by-side in a dashboard to see how changes affect the output."
+              "text": "Store prompts in a prompt registry such as Langfuse, so they are versioned, reviewed, and deployed independently of code.",
+              "group": "Versioning prompts"
+            },
+            {
+              "text": "Label prompt versions for staging and production, and promote a version by moving the label rather than editing text in place.",
+              "group": "Versioning prompts"
+            },
+            {
+              "text": "Fetch prompts at runtime with caching and a pinned fallback, so a registry outage does not take the application down.",
+              "group": "Versioning prompts"
+            },
+            {
+              "text": "Roll back a bad prompt by moving the production label back to the previous version.",
+              "group": "Versioning prompts"
+            },
+            {
+              "text": "Link every trace to the prompt version that produced it, so a regression can be traced to the change that caused it.",
+              "group": "Versioning prompts"
             }
           ],
           "notes": [],
           "isCapstone": false,
           "isGap": false,
-          "outcome": "Keep a clear, organized history of your prompts and app settings so you can easily repeat success."
+          "tryIt": "Ship a second version of a prompt behind the staging label, compare it with production on your evaluation set, then promote or reject it.",
+          "outcome": "Keep a reproducible history of every prompt and configuration, and change either one without a code deployment."
+        },
+        {
+          "id": "M10.4",
+          "name": "Evaluation as a release gate",
+          "sessionCount": 2,
+          "icon": "flask-conical",
+          "objectives": [
+            {
+              "text": "Turn the Level 7 evaluation suite into automated tests that run with DeepEval inside an ordinary test runner.",
+              "group": "Wiring the suite into the build"
+            },
+            {
+              "text": "Score the RAG application on faithfulness, answer relevance, and contextual precision, and the agent on tool selection, task completion, and step efficiency.",
+              "group": "Wiring the suite into the build"
+            },
+            {
+              "text": "Set a threshold per metric against the recorded baseline, and fail the build when a change falls below it.",
+              "group": "Wiring the suite into the build"
+            },
+            {
+              "text": "Extend coverage with synthetic test cases generated by DeepEval, reviewed by a person before they join the suite.",
+              "group": "Wiring the suite into the build"
+            },
+            {
+              "text": "Handle non-determinism by repeating runs, using tolerance bands, and fixing sampling settings where the task allows it.",
+              "group": "Making the gate trustworthy"
+            },
+            {
+              "text": "Budget evaluation cost and time by running a fast subset on every change and the full suite before release.",
+              "group": "Making the gate trustworthy"
+            },
+            {
+              "text": "Treat a prompt change, a model change, and a retrieval change exactly like a code change, so all of them pass through the same gate.",
+              "group": "Making the gate trustworthy"
+            },
+            {
+              "text": "Record every gated run in MLflow, so the history of a metric shows which release moved it.",
+              "group": "Making the gate trustworthy"
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "tryIt": "Deliberately weaken a prompt, push it, and confirm that the gate blocks it with a clear report of which metric failed.",
+          "outcome": "Make it impossible for a change that lowers measured quality to reach production unnoticed."
         },
         {
           "id": "M10.5",
-          "name": "Guardrails & output safety",
+          "name": "Runtime guardrails",
           "sessionCount": 2,
           "icon": "shield-half",
           "objectives": [
             {
-              "text": "Look at different safety tools like Guardrails AI, NeMo Guardrails"
+              "text": "Turn the threat model from Level 8 into runtime checks that run on every request, in front of and behind the model.",
+              "group": "Validating inputs and outputs"
             },
             {
-              "text": "Force the LLM to give answers in a strict format and automatically ask again if it gets it wrong using Guardrails AI."
+              "text": "Enforce structured outputs with Guardrails AI, validating against a schema and re-asking the model when validation fails.",
+              "group": "Validating inputs and outputs"
             },
             {
-              "text": "Add checkers to block bad user inputs and stop prompt injection attacks."
+              "text": "Define topical and conversational rails with NeMo Guardrails, and understand when that framework suits better than a validator.",
+              "group": "Validating inputs and outputs"
             },
             {
-              "text": "Add checkers to stop the LLM from making things up, going off-topic, or leaking private data."
+              "text": "Check inputs for prompt injection attempts and personal data, and outputs for ungrounded claims, off-topic answers, and leaked secrets.",
+              "group": "Validating inputs and outputs"
             },
             {
-              "text": "Put strict limits on Agent apps to check tool inputs and stop the agent from getting stuck in endless loops."
+              "text": "Validate tool arguments before execution, and cap agent steps, retries, and spend per request so a loop cannot run unbounded.",
+              "group": "Limiting agents and measuring the guards"
+            },
+            {
+              "text": "Measure what each guardrail costs in latency and how often it blocks a legitimate request.",
+              "group": "Limiting agents and measuring the guards"
+            },
+            {
+              "text": "Log every block and every re-ask, so guardrail behavior can be reviewed and tuned rather than trusted blindly.",
+              "group": "Limiting agents and measuring the guards"
             }
           ],
           "notes": [],
           "isCapstone": false,
           "isGap": false,
-          "outcome": "Check and fix inputs and outputs to make sure the LLM app is safe and reliable before users see the results."
+          "tryIt": "Send ten injection attempts and ten legitimate edge cases through your guarded application, then count what was blocked wrongly in each direction.",
+          "outcome": "Run both applications behind input, output, and agent guardrails whose cost and false-positive rate you have measured."
         },
         {
           "id": "M10.6",
@@ -4670,28 +4731,47 @@
           "icon": "container",
           "objectives": [
             {
-              "text": "Move the app logic from simple scripts into a strong, real-world FastAPI backend."
+              "text": "Move application logic out of notebooks and scripts into a FastAPI backend with validated requests and typed responses.",
+              "group": "A production backend"
             },
             {
-              "text": "Turn Streamlit into just a screen that talks to the FastAPI backend."
+              "text": "Stream responses token by token with server-sent events, so users see the answer forming instead of waiting for all of it.",
+              "group": "A production backend"
             },
             {
-              "text": "Send answers word-by-word in real time (streaming) so users do not have to wait for the whole reply."
+              "text": "Set timeouts and handle client disconnects, so an abandoned request stops consuming model tokens.",
+              "group": "A production backend"
             },
             {
-              "text": "Create an application frontend using Streamlit which handles user queries"
+              "text": "Expose health and readiness endpoints that report whether the model provider and vector database are reachable.",
+              "group": "A production backend"
             },
             {
-              "text": "Pack the frontend and backend into Docker containers and connect them using Docker Compose."
+              "text": "Build a Streamlit frontend that only renders the interface and calls the backend, holding no application logic of its own.",
+              "group": "A thin frontend"
             },
             {
-              "text": "Hide passwords and API keys safely inside the containers using .env files."
+              "text": "Render the streamed response and surface errors, timeouts, and guardrail blocks to the user in plain language.",
+              "group": "A thin frontend"
+            },
+            {
+              "text": "Package the backend and frontend as Docker images with small, reproducible builds.",
+              "group": "Containers"
+            },
+            {
+              "text": "Run the backend, frontend, and the vector database your RAG application already uses together with Docker Compose.",
+              "group": "Containers"
+            },
+            {
+              "text": "Supply secrets and API keys through the environment at runtime, never baked into an image.",
+              "group": "Containers"
             }
           ],
           "notes": [],
           "isCapstone": false,
           "isGap": false,
-          "outcome": "Upgrade the apps into a fast, streaming, and easily movable container setup."
+          "tryIt": "Start the whole stack with one Docker Compose command on a clean machine, and confirm that streaming still works through every layer.",
+          "outcome": "Serve both applications as a streaming, containerized stack that runs the same way on any machine."
         },
         {
           "id": "M10.7",
@@ -4700,28 +4780,27 @@
           "icon": "infinity",
           "objectives": [
             {
-              "text": "Build automatic pipelines in GitHub Actions that use your tests as a strict door to production."
+              "text": "Build a GitHub Actions pipeline that runs unit tests, then the evaluation gate, then builds an image, in that order."
             },
             {
-              "text": "Run the DeepEval tests automatically every time you push new code."
+              "text": "Tag every image with the commit it was built from, and push only images that passed the gate to a registry such as Docker Hub."
             },
             {
-              "text": "Stop the release instantly if any test score falls below your set limits."
+              "text": "Store provider keys and registry credentials as pipeline secrets, and keep them out of logs and pull-request builds from forks."
             },
             {
-              "text": "Build effective gates to apply regression testing on new versions"
+              "text": "Require a manual approval before a release reaches production, while allowing staging to deploy automatically."
             },
             {
-              "text": "Build Docker images with clear version tags only after all tests pass."
-            },
-            {
-              "text": "Upload the safe and tested Docker images to Docker Hub."
+              "text": "Keep the previous image deployable, so a rollback is a redeploy of a known tag rather than a rebuild."
             }
           ],
           "notes": [],
           "isCapstone": false,
           "isGap": false,
-          "outcome": "Automate your testing and building steps so only high-quality code goes live."
+          "tryIt": "Open a pull request that changes only a prompt, and follow it through the gate, the build, and the push.",
+          "mentalModel": "Push → unit tests → eval gate → build & tag → registry → staging → approve → production",
+          "outcome": "Automate the path from a commit to a tested, tagged, deployable image, with quality enforced before anything ships."
         },
         {
           "id": "M10.8",
@@ -4730,85 +4809,148 @@
           "icon": "cloud-upload",
           "objectives": [
             {
-              "text": "Set up AWS EC2 servers to run LLM workloads, installing Docker and the right access roles."
+              "text": "Provision EC2 instances for the application, install Docker, and attach an IAM role instead of storing access keys on the machine.",
+              "group": "Servers, identity and secrets"
             },
             {
-              "text": "Automate the release process using AWS CodeDeploy to pull new Docker images and swap them safely."
+              "text": "Store provider API keys in AWS Secrets Manager and load them when the container starts.",
+              "group": "Servers, identity and secrets"
             },
             {
-              "text": "Set up a Load Balancer to manage traffic and make sure the word-by-word streaming works smoothly."
+              "text": "Use AWS CodeDeploy to pull a tagged image and replace running containers, with health checks deciding whether the release continues.",
+              "group": "Automated releases"
             },
             {
-              "text": "Add Auto Scaling to automatically add more servers when busy and remove them when quiet."
+              "text": "Choose between in-place and blue/green releases, and roll back automatically when the new version fails its health checks.",
+              "group": "Automated releases"
             },
             {
-              "text": "Store sensitive API keys securely in the cloud using AWS Secrets Manager."
+              "text": "Put an Application Load Balancer in front of the instances, and raise its idle timeout so long streamed responses are not cut off.",
+              "group": "Traffic and scale"
             },
             {
-              "text": "Compare this self-managed path with deploying the same app against a managed platform such as Bedrock, Vertex AI, or Azure AI Foundry, where identity, networking, and the model endpoint are provided for you."
+              "text": "Add an Auto Scaling group that adds instances when busy and removes them when quiet.",
+              "group": "Traffic and scale"
             },
             {
-              "text": "Plan capacity on a managed platform: request quota increases, choose between on-demand and provisioned throughput, and watch the token limits that throttle you before your servers do."
+              "text": "Scale on request concurrency rather than CPU, since an LLM application spends most of its time waiting on the model provider.",
+              "group": "Traffic and scale"
+            },
+            {
+              "text": "Recognize that provider rate limits usually cap throughput before your servers do, and size scaling with those limits in view.",
+              "group": "Traffic and scale"
             }
           ],
           "notes": [],
           "isCapstone": false,
           "isGap": false,
-          "outcome": "Launch your packed apps on AWS with automatic updates, traffic management, and scaling."
+          "tryIt": "Load-test the deployed application until it scales out, then check whether the bottleneck was your instances or the provider's rate limit.",
+          "outcome": "Run both applications on AWS with automated releases, health-checked rollbacks, load balancing, and scaling."
         },
         {
           "id": "M10.9",
-          "name": "Post-deployment monitoring",
+          "name": "Monitoring & observability",
           "sessionCount": 3,
           "icon": "activity",
           "objectives": [
             {
-              "text": "Set up Prometheus on a special server to gather health data from all your running machines."
+              "text": "Run Prometheus to collect metrics from every instance, using Node Exporter for CPU, memory, disk, and network.",
+              "group": "Infrastructure and application metrics"
             },
             {
-              "text": "Watch computer health stats like CPU, memory, and network usage using Node Exporter."
+              "text": "Export application metrics from the backend: requests, latency percentiles, errors, model calls, tokens, and guardrail blocks.",
+              "group": "Infrastructure and application metrics"
             },
             {
-              "text": "Track app stats like the number of requests, LLM calls, and tokens used."
+              "text": "Build Grafana dashboards that show server health, traffic, latency, error rate, and token spend side by side.",
+              "group": "Dashboards and alerts"
             },
             {
-              "text": "Build simple Grafana dashboards to see the health of your servers, app traffic, and LLM behavior in one place."
+              "text": "Alert on the signals that need a human, such as error-rate spikes, latency beyond budget, failed scaling, and spend above a daily limit.",
+              "group": "Dashboards and alerts"
             },
             {
-              "text": "Set up alarms in Grafana to warn you if servers get too busy or fail to scale."
+              "text": "Trace every request in Langfuse through retrieval, model calls, and tool calls, with latency and cost recorded at each step.",
+              "group": "Tracing and online evaluation"
             },
             {
-              "text": "Monitor logs, latency and token costs for each of your inputs through tracing."
+              "text": "Run online evaluations on a sample of live traffic, and collect user feedback alongside them.",
+              "group": "Tracing and online evaluation"
             },
             {
-              "text": "Run frequent online evaluations over your app."
+              "text": "Turn production failures found in traces and feedback into new cases for the Level 7 evaluation suite.",
+              "group": "Tracing and online evaluation"
             }
           ],
           "notes": [],
           "isCapstone": false,
           "isGap": false,
-          "outcome": "Keep a close watch on your live AWS setup, covering both the computer health and app speed."
+          "tryIt": "Find the most expensive request of the past day in your traces, and explain where its tokens went.",
+          "outcome": "See server health, application behavior, cost, and answer quality for the live system, and feed what you find back into evaluation."
+        },
+        {
+          "id": "M10.10",
+          "name": "Incidents, rollbacks & change management",
+          "sessionCount": 1,
+          "icon": "siren",
+          "objectives": [
+            {
+              "text": "Recognize the incidents specific to LLM applications: a provider outage, a silent model update, a prompt regression, a stale index, a runaway agent, and a cost spike."
+            },
+            {
+              "text": "Respond with the lever that matches the cause: a model fallback, a prompt rollback, an image rollback, an index rebuild, or a spend cap."
+            },
+            {
+              "text": "Write a short runbook per incident type, naming the signal that detects it, the first action to take, and the person who decides."
+            },
+            {
+              "text": "Re-run the evaluation suite whenever the provider announces a model change, before the change reaches your users."
+            },
+            {
+              "text": "Run a blameless review after each incident, and add the case that caused it to the evaluation suite."
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "tryIt": "Simulate a provider outage in staging and time how long the application takes to fall back and recover.",
+          "outcome": "Detect, contain, and recover from LLM-specific incidents with a practised response rather than improvisation."
         },
         {
           "id": "M10.11",
           "name": "Capstone: LLMOps Project",
-          "sessionCount": 4,
+          "sessionCount": 3,
           "icon": "flag",
           "objectives": [
             {
-              "text": "Choose an Agent app and show off the whole LLMOps process from start to finish."
+              "text": "Take the agent from Level 5 or the RAG application from Level 4 through the whole lifecycle of this level."
             },
             {
-              "text": "Build around core LLMOps steps: app building, tracking settings, automatic testing, live watching, safety checkers, Docker packing, auto-releases, AWS hosting, and Grafana dashboards."
+              "text": "Version every prompt in a registry with a production label, and record experiments with their parameters, metrics, and artifacts."
             },
             {
-              "text": "For this project, follow the path: build →  test → track → secure → pack → launch → watch."
+              "text": "Gate every change in CI with the evaluation suite, and show the gate blocking a deliberately regressed prompt."
+            },
+            {
+              "text": "Run the application behind input, output, and agent guardrails, with every block logged."
+            },
+            {
+              "text": "Serve it as a streaming FastAPI backend and a Streamlit frontend, packaged with Docker Compose."
+            },
+            {
+              "text": "Build and push commit-tagged images through GitHub Actions, and deploy them to EC2 with CodeDeploy behind a load balancer with Auto Scaling and Secrets Manager."
+            },
+            {
+              "text": "Monitor it with Grafana dashboards and at least one working alert, and trace requests with cost and latency per step."
+            },
+            {
+              "text": "Demonstrate one rollback, of either a prompt or an image, and write the runbook for one incident type."
             }
           ],
           "notes": [],
           "isCapstone": true,
           "isGap": false,
-          "outcome": "Show a fully launched, watched, and safe Agent app built from the ground up."
+          "finalResult": "a deployed LLM application where every change is versioned and evaluated before release, and whose health, quality, and cost you can see while it runs."
         }
       ],
       "stack": [
@@ -4818,18 +4960,6 @@
         },
         {
           "label": "Streamlit",
-          "kind": "tool"
-        },
-        {
-          "label": "LangChain",
-          "kind": "tool"
-        },
-        {
-          "label": "LangGraph",
-          "kind": "tool"
-        },
-        {
-          "label": "Chroma",
           "kind": "tool"
         },
         {
@@ -4861,11 +4991,11 @@
           "kind": "tool"
         },
         {
-          "label": "GitHub Actions",
+          "label": "Docker Hub",
           "kind": "tool"
         },
         {
-          "label": "AWS",
+          "label": "GitHub Actions",
           "kind": "tool"
         },
         {
@@ -4874,6 +5004,10 @@
         },
         {
           "label": "CodeDeploy",
+          "kind": "tool"
+        },
+        {
+          "label": "Application Load Balancer",
           "kind": "tool"
         },
         {
@@ -4889,15 +5023,19 @@
           "kind": "tool"
         },
         {
-          "label": "Grafana",
-          "kind": "tool"
-        },
-        {
           "label": "Node Exporter",
           "kind": "tool"
         },
         {
-          "label": "CI/CD",
+          "label": "Grafana",
+          "kind": "tool"
+        },
+        {
+          "label": "release gates",
+          "kind": "concept"
+        },
+        {
+          "label": "prompt registry",
           "kind": "concept"
         },
         {
@@ -4905,7 +5043,19 @@
           "kind": "concept"
         },
         {
-          "label": "prompt versioning",
+          "label": "server-sent events",
+          "kind": "concept"
+        },
+        {
+          "label": "CI/CD",
+          "kind": "concept"
+        },
+        {
+          "label": "blue/green",
+          "kind": "concept"
+        },
+        {
+          "label": "autoscaling",
           "kind": "concept"
         },
         {
@@ -4913,29 +5063,32 @@
           "kind": "concept"
         },
         {
-          "label": "containerization",
+          "label": "online evaluation",
           "kind": "concept"
         },
         {
-          "label": "load balancing",
+          "label": "rollbacks",
           "kind": "concept"
         },
         {
-          "label": "monitoring",
+          "label": "runbooks",
           "kind": "concept"
         }
       ],
       "project": "M10.11",
-      "totalSessions": 24,
-      "statedSessions": null,
+      "totalSessions": 23,
+      "statedSessions": 23,
       "completionOutcomes": [
-        "Build LLM apps and move them into real-world container setups.",
-        "Manage different prompt versions and track settings easily.",
-        "Test RAG and Agent apps thoroughly without needing perfect human answers.",
-        "Force exact output formats and block bad inputs or data leaks.",
-        "Make automatic pipelines that test your app before letting it go live.",
-        "Launch, balance traffic, and automatically grow your LLM servers on AWS.",
-        "Watch your instance health, app speed, and LLM costs continuously in the real world."
+        "Explain what makes an LLM application harder to operate than conventional software, and what a release consists of.",
+        "Structure an application so that prompts, models, retrieval settings, and tools are configuration rather than code.",
+        "Track experiments and version prompts, promoting and rolling back without a code deployment.",
+        "Gate every change, including prompt and model changes, on an automated evaluation suite.",
+        "Run guardrails on inputs, outputs, and agent actions, and measure what they cost and what they wrongly block.",
+        "Serve an application as a streaming FastAPI backend with a thin frontend, packaged in containers.",
+        "Build a CI/CD pipeline that tests, evaluates, builds, and tags images before anything is deployed.",
+        "Deploy on AWS with automated, health-checked releases, load balancing, and scaling sized to provider limits.",
+        "Monitor infrastructure, application metrics, cost, and answer quality, and alert on what needs a human.",
+        "Respond to LLM-specific incidents with fallbacks, rollbacks, and runbooks."
       ],
       "todos": []
     },

@@ -120,14 +120,16 @@ export const stacks: Record<number, LevelStack> = {
   },
   10: {
     tools: [
-      'FastAPI', 'Streamlit', 'LangChain', 'LangGraph', 'Chroma', 'DeepEval', 'MLflow', 'Langfuse',
-      'Guardrails AI', ['NeMo Guardrails', /\bNeMo\b/], 'Docker', 'Docker Compose', 'GitHub Actions',
-      'AWS', 'EC2', 'CodeDeploy', 'Auto Scaling', 'Secrets Manager', 'Prometheus', 'Grafana', 'Node Exporter',
+      'FastAPI', 'Streamlit', 'DeepEval', 'MLflow', 'Langfuse', 'Guardrails AI', 'NeMo Guardrails',
+      'Docker', 'Docker Compose', 'Docker Hub', 'GitHub Actions', 'EC2', 'CodeDeploy',
+      ['Application Load Balancer', /\bApplication Load Balancer\b/], 'Auto Scaling', 'Secrets Manager',
+      'Prometheus', 'Node Exporter', 'Grafana',
     ],
     concepts: [
-      ['CI/CD', /\bCI\b/], ['experiment tracking', /\bexperiment tracking\b/i], ['prompt versioning', /\bprompt versioning\b/i],
-      'tracing', ['containerization', /\bcontaineriz/i], ['load balancing', /\bload balancer\b/i],
-      ['monitoring', /\bmonitoring\b/i],
+      ['release gates', /\brelease gate\b/i], ['prompt registry', /\bprompt registry\b/i], 'experiment tracking',
+      ['server-sent events', /\bserver-sent events\b/i], ['CI/CD', /\bCI\/CD\b/], 'blue/green',
+      ['autoscaling', /\bAuto Scaling\b/], ['tracing', /\btrac(e|es|ing)\b/i], ['online evaluation', /\bonline evaluations?\b/i],
+      ['rollbacks', /\broll(back|s back| back)\b/i], ['runbooks', /\brunbooks?\b/i],
     ],
   },
   11: {

@@ -78,6 +78,11 @@ const MODULE_ICON_RULES = [
   [/evals in ci|regression testing/i, 'git-pull-request'],
   [/production evals|feedback loop/i, 'refresh-cw'],
 
+  // llmops sub-topics
+  [/what llmops adds/i, 'workflow'],
+  [/preparing your apps/i, 'wrench'],
+  [/incidents?|rollbacks?/i, 'siren'],
+
   // fine-tuning sub-topics
   [/should you fine.?tune/i, 'circle-question-mark'],
   [/preference tuning|\bdpo\b/i, 'thumbs-up'],
