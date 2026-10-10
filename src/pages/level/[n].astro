@@ -161,10 +161,6 @@ const description = `Level ${level.number} of the CampusX AI Engineering Roadmap
             <ModuleRow module={m} index={i} levelNumber={level.number} />
           ))}
         </div>
-        <p class="mods__hint">
-          <Icon name="chevrons-up-down" size={14} />
-          <span>Expand any module for its objectives</span>
-        </p>
       </div>
     </section>
 
@@ -380,17 +376,6 @@ const description = `Level ${level.number} of the CampusX AI Engineering Roadmap
 
   .mods { border-radius: var(--cx-r-card); overflow: hidden; }
 
-  .mods__hint {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    margin-top: 16px;
-    font-family: var(--cx-font-mono);
-    font-size: 10.5px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--cx-g500);
-  }
 
   .ship-stack { display: flex; flex-direction: column; gap: 16px; }
 
