@@ -78,8 +78,8 @@ export const hundredDaysModules: DaysModule[] = [
     icon: 'brain-circuit',
     summary:
       'Learn how LLMs behave, what they cost, where they fail, and how to choose one from measurements rather than leaderboard rank.',
-    days: [1, 6],
-    hours: 'about 6 hours',
+    days: [1, 5],
+    hours: 'about 4 hours',
     before: 'Basic Python, calling an API, and an API key for at least one model provider.',
     outcome:
       'Explain why an LLM gives fluent wrong answers, estimate what a request will cost and how long it will take, and choose a model from measurements rather than rank.',
