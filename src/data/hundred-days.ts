@@ -221,7 +221,7 @@ export const hundredDaysModules: DaysModule[] = [
           },
         ],
         tryIt:
-          "Write 10 questions: some the model should know, some it can't know, some built on a false premise, and some missing key information. Record each answer and how confident it sounds. Keep this list; it becomes your first test set later in the track.",
+          "Write 10 questions: some the model should know, some it can't know, some built on a false premise, and some missing key information. Record each answer and how confident it sounds.",
         outcome:
           'Predict which tasks an LLM will handle well and which need safeguards such as giving it the right documents, checking its output, or a human review.',
       },

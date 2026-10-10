@@ -168,7 +168,7 @@ const description = `${dayRange(mod.days)} of 100 Days of AI Engineering. ${mod.
     )}
 
     <!-- ───────────────── what we skipped ───────────────── -->
-    <section class="section dsec">
+    <section class="section dsec dsec--flush">
       <div class="wrap">
         <details class="skipped" data-track-expand="days_skipped_expand" data-track-data={String(mod.number)}>
           <summary class="skipped__summary">
@@ -378,6 +378,8 @@ const description = `${dayRange(mod.days)} of 100 Days of AI Engineering. ${mod.
   .dsec { padding-block: 44px; }
   @media (min-width: 768px) { .dsec { padding-block: 56px; } }
   .dsec--tight { padding-block: 22px; }
+  /* Sits between two padded sections, which already give it room. */
+  .dsec--flush { padding-block: 0; }
   .dsec__head { margin-bottom: 26px; max-width: 640px; }
 
   .dsec__label {
