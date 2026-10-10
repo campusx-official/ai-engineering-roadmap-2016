@@ -64,7 +64,6 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
         <div class="dhero__stats">
           <StatBlock value={TOTAL_DAYS} label="Days" icon="calendar-days" />
           <StatBlock value="~100" label="Hours" icon="clock" />
-          <StatBlock value={1} label="Project" icon="folder-git-2" />
         </div>
       </div>
     </div>
@@ -194,8 +193,8 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
 
   .dhero__stats {
     display: grid;
-    max-width: 520px;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: 360px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 18px;
     margin-top: 12px;
     padding-top: 24px;
