@@ -617,7 +617,7 @@ export const hundredDaysModules: DaysModule[] = [
       'Write prompts that make your assistant reliable and predictable, and choose between prompt versions by testing them, not by gut feel.',
     days: [19, 24],
     hours: 'about 6 hours',
-    before: 'Module 2 (Building with LLM APIs) and your working assistant from its milestone.',
+    before: 'Module 2 (Building with LLM APIs).',
     outcome:
       "Write clear prompts and system prompts, use examples and reasoning only where they help, test prompt versions against each other on the same questions, keep prompts versioned and cheap, and explain why prompt wording alone can't keep your app safe.",
     coursesFromLevel: 3,
@@ -652,7 +652,7 @@ export const hundredDaysModules: DaysModule[] = [
           },
         ],
         tryIt:
-          'Take a one-line prompt for your project, such as "answer questions about these docs", and rewrite it with all six parts. Compare answers on three of your project questions.',
+          'Take a one-line prompt, such as "answer questions about these docs", and rewrite it with all six parts. Compare answers on three questions.',
         outcome: 'Write a well-structured prompt and explain what each part is for.',
       },
       {
@@ -783,7 +783,7 @@ export const hundredDaysModules: DaysModule[] = [
           },
         ],
         tryIt:
-          "Write two versions of your assistant's system prompt and score both on your 10 project questions. Run each version twice.",
+          "Write two versions of your assistant's system prompt and score both on 10 questions. Run each version twice.",
         outcome: 'Pick the better of two prompts with numbers instead of impressions.',
       },
       {
@@ -835,7 +835,7 @@ export const hundredDaysModules: DaysModule[] = [
           },
           {
             title: "Wording isn't security",
-            text: 'A prompt that says "never do X" can be talked around; anything sensitive, like your action tool, must be checked and limited in code.',
+            text: 'A prompt that says "never do X" can be talked around; anything sensitive, like a tool that changes data, must be checked and limited in code.',
           },
           {
             title: 'More later',
