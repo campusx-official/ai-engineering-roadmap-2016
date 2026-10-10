@@ -111,6 +111,9 @@ export const capstoneOf = (level: Level): Module | null =>
   level.modules.find((m) => m.id === level.project) ?? null;
 
 /** Every ship-it module. The merged RAG level carries two. */
+/** Anchor of a capstone's ship-it callout — unique even when a level has two. */
+export const shipAnchor = (m: Module) => `ship-${m.id.toLowerCase().replace(/\./g, '-')}`;
+
 export const capstonesOf = (level: Level): Module[] =>
   level.modules.filter((m) => m.isCapstone);
 

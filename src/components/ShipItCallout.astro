@@ -6,7 +6,7 @@
 import Icon from './Icon.astro';
 import SessionMeter from './SessionMeter.astro';
 import { markTerms, trimTrailingPunctuation } from '../lib/objective';
-import type { Module } from '../data/levels';
+import { shipAnchor, type Module } from '../data/levels';
 
 interface Props {
   module: Module;
@@ -39,12 +39,12 @@ const items = module.objectives.map((o) => {
 const twoCol = items.filter((i) => !i.heading).length > 8;
 ---
 
-<aside class="ship" aria-labelledby={`ship-${levelNumber}`}>
+<aside class="ship" id={shipAnchor(module)} aria-labelledby={`${shipAnchor(module)}-title`}>
   <div class="ship__head">
     <span class="ship__badge"><Icon name="flag" size={16} /></span>
     <div class="ship__headings">
       <p class="ship__eyebrow">Ship it · Level {levelNumber} capstone</p>
-      <h3 class="ship__title" id={`ship-${levelNumber}`}>{module.name}</h3>
+      <h3 class="ship__title" id={`${shipAnchor(module)}-title`}>{module.name}</h3>
     </div>
     {module.sessionCount !== null && (
       <div class="ship__meter">
