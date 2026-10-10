@@ -184,10 +184,10 @@ export const topics: Record<string, TopicSet> = {
     'Open-weight models',
     'Managed platforms & hosted open weights',
     'Other useful distinctions',
+    'There is no universally best LLM',
     'Knowledge cutoffs',
     'Versions, snapshots & deprecations',
     'Open-weight licensing',
-    'There is no universally best LLM',
   ] },
   'M1.11': { sig: 'f8e60aa0', labels: [
     'What a benchmark is',
