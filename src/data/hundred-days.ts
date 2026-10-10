@@ -29,6 +29,13 @@ export interface Unit {
   mentalModel?: string;
   tryIt?: string;
   outcome?: string;
+  /** 1-based index into the module's `parts`, when the module is split into parts. */
+  part?: number;
+}
+
+export interface Part {
+  title: string;
+  intro?: string;
 }
 
 export interface SkippedTopic {
@@ -52,8 +59,10 @@ export interface DaysModule {
   outcome: string;
   units: Unit[];
   skipped: SkippedTopic[];
-  /** Roadmap level whose CampusX courses this module shares. */
-  coursesFromLevel: number;
+  /** Long modules group their units under part headings, in order. */
+  parts?: Part[];
+  /** Roadmap levels whose CampusX courses this module shares; `only` narrows to named courses. */
+  coursesFrom: { level: number; only?: string[] }[];
   /** Roadmap level this module is the short version of; that level links here. */
   shortVersionOf?: number;
 }
@@ -72,7 +81,7 @@ export const hundredDaysModules: DaysModule[] = [
     before: 'Basic Python, calling an API, and an API key for at least one model provider.',
     outcome:
       'Explain why an LLM gives fluent wrong answers, estimate what a request will cost and how long it will take, and choose a model from measurements rather than rank.',
-    coursesFromLevel: 1,
+    coursesFrom: [{ level: 1 }],
     shortVersionOf: 1,
     units: [
       {
@@ -309,7 +318,7 @@ export const hundredDaysModules: DaysModule[] = [
       'Module 1 (LLM Fundamentals).',
     outcome:
       'Build an assistant in LangChain that holds a conversation, streams its answers, returns structured data your code can trust, uses tools safely, recovers from failures, and tells you what every request cost.',
-    coursesFromLevel: 2,
+    coursesFrom: [{ level: 2 }],
     shortVersionOf: 2,
     units: [
       {
@@ -607,7 +616,7 @@ export const hundredDaysModules: DaysModule[] = [
     before: 'Module 2 (Building with LLM APIs).',
     outcome:
       "Write clear prompts and system prompts, use examples and reasoning only where they help, test prompt versions against each other on the same questions, keep prompts versioned and cheap, and explain why prompt wording alone can't keep your app safe.",
-    coursesFromLevel: 3,
+    coursesFrom: [{ level: 3 }],
     shortVersionOf: 3,
     units: [
       {
@@ -858,6 +867,705 @@ export const hundredDaysModules: DaysModule[] = [
         topic: 'Deep prompt-injection defenses',
         why: 'Covered properly in the security module',
         where: [{ level: 8, href: '/level/8/#m8-2' }],
+      },
+    ],
+  },
+  {
+    number: 4,
+    slug: 'rag',
+    title: 'RAG',
+    phase: 'retrieval',
+    icon: 'library',
+    summary:
+      'Give your assistant the right information at the right time: build a simple RAG system, improve it with advanced retrieval patterns, then measure which improvements actually helped.',
+    days: [26, 51],
+    hours: 'about 23 hours',
+    before: 'Module 3 (Prompt Engineering).',
+    outcome:
+      "Build a RAG system that finds the right passages, answers with citations and says when it doesn't know; improve it with advanced patterns such as hybrid search, reranking, query transformation and self-correcting retrieval; and prove with a test set and automatic checks which changes helped.",
+    coursesFrom: [{ level: 4 }, { level: 7, only: ['LLM Evaluations'] }],
+    shortVersionOf: 4,
+    parts: [
+      { title: 'Build a Simple RAG' },
+      { title: 'Advanced RAG', intro: 'Each unit in this part tackles a specific way simple RAG fails.' },
+      { title: 'Evaluating RAG' },
+    ],
+    units: [
+      {
+        id: '4.1',
+        title: 'When to Use RAG',
+        icon: 'circle-question-mark',
+        days: [26, 26],
+        minutes: 45,
+        part: 1,
+        bullets: [
+          {
+            title: 'The RAG pipeline',
+            text: "A question comes in, the most relevant passages are found, they're added to the prompt, and the model answers from them.",
+          },
+          {
+            title: 'What RAG solves',
+            text: 'Private documents, information that changes often, collections too large to send whole, and answers that need sources.',
+          },
+          {
+            title: 'When not to use RAG',
+            text: 'When the model already knows enough, the task is just rewriting or transforming text, or all the information fits comfortably in one prompt.',
+          },
+          {
+            title: 'Two kinds of failure',
+            text: 'A wrong answer can come from finding the wrong passages or from the model misusing the right ones.',
+          },
+        ],
+        tryIt:
+          'Send a long document whole to your model with a question about it, and note the tokens, cost and time.',
+        outcome:
+          'Decide whether a problem genuinely needs RAG and explain what each step of the pipeline does.',
+      },
+      {
+        id: '4.2',
+        title: 'Loading and Cleaning Documents',
+        icon: 'file-input',
+        days: [27, 28],
+        minutes: 90,
+        part: 1,
+        bullets: [
+          {
+            title: 'Getting text out',
+            text: "Load PDFs, web pages, Word files and other formats with LangChain's document loaders, and recognize scanned pages that need text recognition first.",
+          },
+          {
+            title: 'Clean without losing structure',
+            text: 'Remove clutter like repeated headers and footers, but keep headings, lists and tables that give text its meaning.',
+          },
+          {
+            title: 'Keep the details',
+            text: "Store each document's title, source, section and date alongside its text; you'll need them for filters and citations.",
+          },
+          {
+            title: 'Changes over time',
+            text: "Handle duplicate documents, updated versions and deleted files so your collection doesn't go stale.",
+          },
+        ],
+        tryIt:
+          'Load your three messiest documents and read the extracted text. Note every place where tables, headings or layout came out wrong.',
+        outcome:
+          'Turn a real document collection into clean text with useful details attached, ready for searching.',
+      },
+      {
+        id: '4.3',
+        title: 'Chunking',
+        icon: 'scissors',
+        days: [29, 29],
+        minutes: 60,
+        part: 1,
+        bullets: [
+          {
+            title: 'Why split documents',
+            text: 'Whole documents are too big to search precisely or send to the model, so you break them into smaller passages.',
+          },
+          {
+            title: 'Ways to split',
+            text: "By fixed size, by paragraphs and sentences, by the document's own sections, or by changes in meaning.",
+          },
+          {
+            title: 'Size and overlap',
+            text: 'Small passages are precise but may miss context; large ones carry context but add noise. A little overlap stops ideas being cut in half.',
+          },
+          {
+            title: 'Keep the labels',
+            text: 'Each passage should carry its document title and section so it still makes sense on its own.',
+          },
+        ],
+        tryIt:
+          'Split the same document by fixed size and by its sections. Read five passages from each and judge which would make sense to a reader with no other context.',
+        outcome:
+          'Choose a chunking approach that fits your documents and the questions people ask about them.',
+      },
+      {
+        id: '4.4',
+        title: 'Embeddings and Semantic Search',
+        icon: 'scan-search',
+        days: [30, 31],
+        minutes: 90,
+        part: 1,
+        bullets: [
+          {
+            title: 'What an embedding is',
+            text: 'A list of numbers that captures meaning, so passages about similar things end up close together.',
+          },
+          {
+            title: 'Searching by meaning',
+            text: 'Turn the question into an embedding too, then find the passages closest to it.',
+          },
+          {
+            title: 'Build it once by hand',
+            text: 'Search a small set of passages yourself, with no database, so you understand what a vector database will do for you.',
+          },
+          {
+            title: 'Choosing an embedding model',
+            text: 'Compare quality, cost, speed and language support, especially for Hindi or mixed Hindi-English text if your users write that way.',
+          },
+          {
+            title: "Don't mix models",
+            text: "Embeddings from different models can't be compared; changing the model means re-embedding everything.",
+          },
+          {
+            title: 'Where meaning-based search fails',
+            text: 'Exact names, product codes, numbers and rare terms are often missed.',
+          },
+        ],
+        tryIt:
+          'Search your passages for one question phrased in your own words and one containing an exact product name or code. Compare what comes back.',
+        outcome:
+          'Explain how semantic search works, choose an embedding model, and predict the questions it will struggle with.',
+      },
+      {
+        id: '4.5',
+        title: 'Vector Databases',
+        icon: 'database',
+        days: [32, 33],
+        minutes: 90,
+        part: 1,
+        bullets: [
+          {
+            title: 'Storing passages',
+            text: 'Save each passage with its embedding and its details (document, section, date) in a vector database such as pgvector, through LangChain.',
+          },
+          {
+            title: 'Search with filters',
+            text: 'Find the closest passages while limiting results by details like document type or date.',
+          },
+          {
+            title: 'Why databases use shortcuts',
+            text: 'Comparing against every passage gets slow at scale, so databases use approximate search that trades a little accuracy for a lot of speed.',
+          },
+          {
+            title: 'Keeping it current',
+            text: 'Add, update and delete passages when documents change, without rebuilding everything.',
+          },
+        ],
+        tryIt:
+          'Load all your passages into the database, then run the same question with and without a filter on document type.',
+        outcome:
+          'Store your whole collection in a vector database and search it quickly with filters.',
+      },
+      {
+        id: '4.6',
+        title: 'Your First RAG Pipeline',
+        icon: 'workflow',
+        days: [34, 35],
+        minutes: 90,
+        part: 1,
+        bullets: [
+          {
+            title: 'Put the pieces together',
+            text: 'Connect your search, a prompt and your model into one LangChain chain: question → passages → prompt → answer.',
+          },
+          {
+            title: 'Prompt for grounded answers',
+            text: 'Tell the model to answer only from the passages provided, building on the system prompt you tested in Module 3.',
+          },
+          {
+            title: 'When search comes back weak',
+            text: 'Handle results that are irrelevant or thin instead of letting the model guess.',
+          },
+          {
+            title: 'How many passages, in what order',
+            text: "More passages isn't always better; put the most relevant first and watch the total length.",
+          },
+        ],
+        tryIt:
+          'Ask five questions with 3 passages and with 10 passages, and compare the answers, tokens and cost.',
+        outcome:
+          'Build a working RAG pipeline that answers from your documents instead of whole files.',
+      },
+      {
+        id: '4.7',
+        title: "Citations and Saying \"I Don't Know\"",
+        icon: 'quote',
+        days: [36, 36],
+        minutes: 60,
+        part: 1,
+        bullets: [
+          {
+            title: 'Answer from the evidence',
+            text: 'The answer should come from the retrieved passages, not from what the model happens to remember.',
+          },
+          {
+            title: 'Cite your sources',
+            text: 'Link each claim to the document and section it came from.',
+          },
+          {
+            title: "A citation isn't proof",
+            text: 'A cited passage must actually support the claim; check that it does.',
+          },
+          {
+            title: "Say when the answer isn't there",
+            text: "When the passages don't contain the answer, the assistant should say so instead of inventing one.",
+          },
+          {
+            title: 'Keep evidence and explanation apart',
+            text: 'Make it clear what came from the documents and what the model added.',
+          },
+        ],
+        tryIt:
+          "Ask three questions your documents can't answer. Then check five cited answers by opening the cited section and confirming it supports the claim.",
+        outcome:
+          "Produce answers people can verify, and an assistant that admits when it doesn't know.",
+      },
+      {
+        id: '4.8',
+        title: 'Keyword and Hybrid Search',
+        icon: 'combine',
+        days: [38, 38],
+        minutes: 60,
+        part: 2,
+        bullets: [
+          {
+            title: 'Keyword search still matters',
+            text: 'Classic keyword search (BM25) finds exact names, codes and phrases that meaning-based search misses.',
+          },
+          {
+            title: 'Combine both',
+            text: 'Hybrid search runs both kinds and merges the results into one ranked list.',
+          },
+          {
+            title: 'Merging rankings fairly',
+            text: 'Reciprocal rank fusion combines lists by position rather than raw scores, so results from different search types can be compared.',
+          },
+          {
+            title: 'When hybrid helps most',
+            text: 'Questions with names, technical terms, IDs, numbers or exact wording.',
+          },
+        ],
+        tryIt:
+          'Run five questions containing exact names or codes through meaning-based, keyword and hybrid search, and see which finds the right passage each time.',
+        outcome:
+          'Add hybrid search to your pipeline and know which kinds of questions it helps with.',
+      },
+      {
+        id: '4.9',
+        title: 'Smarter Chunks and Filters',
+        icon: 'layers',
+        days: [39, 39],
+        minutes: 60,
+        part: 2,
+        bullets: [
+          {
+            title: 'Search small, send big',
+            text: 'Search over small, precise passages, but send the model the larger section around the match so it has full context.',
+          },
+          {
+            title: 'Give chunks their context',
+            text: 'Add a short line to each passage saying which document and section it comes from, so passages that make no sense alone still get found.',
+          },
+          {
+            title: 'Tables and structured content',
+            text: 'Keep tables whole and describe them in words so search can find them and the model can read them.',
+          },
+          {
+            title: 'Filters from the question',
+            text: 'Let the model pull filters out of the question itself, such as a product name, date range or document type, before searching.',
+          },
+        ],
+        tryIt:
+          'Ask three questions that mention a specific product, date or document type. Compare results with plain search and with filters extracted from the question.',
+        outcome:
+          'Shape your passages and filters so search finds the right content and the model sees enough of it.',
+      },
+      {
+        id: '4.10',
+        title: 'Reranking',
+        icon: 'arrow-down-wide-narrow',
+        days: [40, 40],
+        minutes: 60,
+        part: 2,
+        bullets: [
+          {
+            title: 'Search wide, then choose carefully',
+            text: 'Retrieve many candidate passages, then use a reranking model to pick the best few to send to the model.',
+          },
+          {
+            title: 'Why it works',
+            text: 'A reranker reads the question and each passage together, so it judges relevance more accurately than search alone.',
+          },
+          {
+            title: 'The cost',
+            text: 'Reranking adds time and cost to every question.',
+          },
+          {
+            title: "When it doesn't help",
+            text: 'If your search is already precise, reranking may add little.',
+          },
+        ],
+        tryIt:
+          'For five questions where your assistant answered poorly, compare the top 3 passages with and without reranking.',
+        outcome:
+          'Add reranking to your pipeline and explain what it improves and what it costs.',
+      },
+      {
+        id: '4.11',
+        title: 'Query Transformation',
+        icon: 'pencil-line',
+        days: [41, 41],
+        minutes: 60,
+        part: 2,
+        bullets: [
+          {
+            title: "Questions aren't always good search queries",
+            text: 'Users write vague, long or multi-part questions that search handles badly.',
+          },
+          {
+            title: 'Rewrite the question',
+            text: "Have the model turn the user's question into a clearer search query first.",
+          },
+          {
+            title: 'Multiple queries',
+            text: 'Generate several versions of the question, search for each, and combine the results.',
+          },
+          {
+            title: 'RAG-Fusion',
+            text: 'Combine the results of several queries with reciprocal rank fusion, so passages that rank well across many queries rise to the top.',
+          },
+          {
+            title: 'Search with a draft answer (HyDE)',
+            text: 'Have the model write a short hypothetical answer and search for passages similar to it.',
+          },
+          {
+            title: 'Break it down',
+            text: 'Split a multi-part question into sub-questions, answer each from its own search, then combine.',
+          },
+          {
+            title: 'Weigh the cost',
+            text: 'Each technique adds model calls and time; use them only for the questions that need them.',
+          },
+        ],
+        tryIt:
+          'Take three ambiguous questions and one multi-part question. Compare the passages found with plain search, multiple queries and breaking the question down.',
+        outcome:
+          'Turn hard questions into searches that find the right passages, and choose the right technique for each kind of question.',
+      },
+      {
+        id: '4.12',
+        title: 'Routing and Adaptive RAG',
+        icon: 'split',
+        days: [42, 42],
+        minutes: 60,
+        part: 2,
+        bullets: [
+          {
+            title: 'Not every question needs retrieval',
+            text: 'Greetings, follow-ups and general questions can be answered directly; searching for them wastes time and can confuse the model.',
+          },
+          {
+            title: 'Route to the right source',
+            text: 'When you have several collections or tools, decide which one a question belongs to before searching.',
+          },
+          {
+            title: 'Adaptive RAG',
+            text: 'Choose the strategy per question: answer directly, do a simple search, or use heavier techniques like query transformation only for hard questions.',
+          },
+          {
+            title: 'Cost and speed',
+            text: 'Routing saves money and time on easy questions while spending more only where it helps.',
+          },
+        ],
+        tryIt:
+          'Build a router that sends each of 20 questions to "answer directly", "simple search" or "transform and search". Check whether its choices make sense.',
+        outcome:
+          'Build a RAG system that adapts its effort to each question instead of treating every question the same.',
+      },
+      {
+        id: '4.13',
+        title: 'Self-Correcting RAG',
+        icon: 'refresh-ccw',
+        days: [43, 43],
+        minutes: 60,
+        part: 2,
+        bullets: [
+          {
+            title: 'Check what you found (Corrective RAG)',
+            text: "Have the model grade the retrieved passages; if they're weak, rewrite the query and search again, or fall back to another source.",
+          },
+          {
+            title: 'Check what you wrote (Self-RAG)',
+            text: "Before returning an answer, check that it's supported by the passages and actually answers the question; if not, retry or say you don't know.",
+          },
+          {
+            title: 'Search in steps (multi-hop)',
+            text: "For questions that need several facts, search, read, then search again for what's still missing.",
+          },
+          {
+            title: 'Know when to stop',
+            text: "Limit how many times the system can retry, so a hard question can't loop forever or run up costs.",
+          },
+          {
+            title: 'A step toward agents',
+            text: "These loops let the system decide its next step, a first taste of the agents you'll build later in the track.",
+          },
+        ],
+        tryIt:
+          "Add a step that grades retrieved passages and retries with a rewritten query when they're weak. Run the 5 questions your pipeline answers worst and see how often the retry helps.",
+        outcome:
+          'Build a RAG system that notices bad retrieval or unsupported answers and corrects itself within a set limit.',
+      },
+      {
+        id: '4.14',
+        title: 'Graph RAG and Choosing a Pattern',
+        icon: 'network',
+        days: [44, 44],
+        minutes: 60,
+        part: 2,
+        bullets: [
+          {
+            title: 'What Graph RAG is',
+            text: 'Pull out the people, products, places and relationships in your documents into a graph, then search through those connections instead of only by similarity.',
+          },
+          {
+            title: 'When it helps',
+            text: 'Questions about relationships ("which teams use this product?") or about the whole collection ("what are the main themes?") that no single passage answers.',
+          },
+          {
+            title: 'What it costs',
+            text: 'Building and updating the graph takes many model calls and is much harder to maintain than plain search.',
+          },
+          {
+            title: 'Choosing a pattern',
+            text: 'Start from your actual failures. Missed exact terms → hybrid search. Right passages ranked low → reranking. Vague questions → query transformation. Weak retrieval → corrective RAG. Relationship questions → Graph RAG.',
+          },
+          {
+            title: "More isn't better",
+            text: 'Every pattern adds cost, delay and things that can break; add one only when your failures call for it.',
+          },
+        ],
+        tryIt:
+          'Go through the answers your simple pipeline got wrong and match each one to the pattern from this part most likely to fix it.',
+        outcome:
+          'Recognize when Graph RAG is worth its cost, and choose RAG patterns based on your own failures rather than novelty.',
+      },
+      {
+        id: '4.15',
+        title: 'Why Evals, and Reading Your Failures',
+        icon: 'search-check',
+        days: [45, 45],
+        minutes: 60,
+        part: 3,
+        bullets: [
+          {
+            title: "Why \"it looks fine\" isn't enough",
+            text: "You've just added several patterns because they seemed to help on a few questions. Teams that work this way ship embarrassing failures; real cases, like an airline chatbot inventing a refund policy, show the cost.",
+          },
+          {
+            title: 'AI testing is different',
+            text: 'The same input can give different outputs, and many answers are neither simply right nor wrong, so you test with sets of examples and scores rather than single checks.',
+          },
+          {
+            title: 'Read before you measure',
+            text: 'Look closely at 20–30 real answers, write down what went wrong in each, and group similar problems together.',
+          },
+          {
+            title: 'Measure what actually fails',
+            text: 'Use those groups to decide what to measure and what to fix first.',
+          },
+          {
+            title: 'The evaluation loop',
+            text: 'Define what good looks like → build examples → run → score → look at failures → improve → repeat.',
+          },
+        ],
+        tryIt:
+          "Run 20 questions through your current pipeline and write a one-line note on every answer that isn't right. Group the notes into 3–5 failure types and count each.",
+        outcome:
+          "Explain why AI apps need systematic testing, and find your app's most common failures by reading its answers.",
+      },
+      {
+        id: '4.16',
+        title: 'Test Sets and Scoring',
+        icon: 'clipboard-check',
+        days: [46, 47],
+        minutes: 120,
+        part: 3,
+        bullets: [
+          {
+            title: 'A golden test set',
+            text: 'A list of questions, each with its correct answer and the passage that contains it, built from your own documents.',
+          },
+          {
+            title: 'Growing it quickly',
+            text: 'Write questions by hand, then use a model to suggest more from your documents, and check every suggestion yourself before keeping it.',
+          },
+          {
+            title: 'Three ways to score',
+            text: 'Code checks for exact facts and formats, a model acting as a judge for questions of meaning, and your own review for anything subtle.',
+          },
+          {
+            title: 'With or without an answer key',
+            text: 'Some checks compare against the correct answer; others, like "is this answer supported by the passages?", need no answer key.',
+          },
+          {
+            title: 'Writing a good judge',
+            text: 'Give the judge one clear question at a time and ask for pass or fail rather than a score out of 10.',
+          },
+          {
+            title: 'Check the judge',
+            text: "Score 20 answers yourself, compare with the judge, and fix its instructions until you mostly agree. A judge you haven't checked can't be trusted.",
+          },
+        ],
+        tryIt:
+          'Write a judge that decides whether an answer is supported by its passages. Score 20 answers yourself and with the judge, and count how often you agree.',
+        outcome:
+          "Build a golden test set from your documents and score answers with code checks and a judge you've verified.",
+      },
+      {
+        id: '4.17',
+        title: 'Measuring Retrieval',
+        icon: 'target',
+        days: [48, 48],
+        minutes: 60,
+        part: 3,
+        bullets: [
+          {
+            title: 'Test the search on its own',
+            text: "If search doesn't find the right passages, no prompt can fix the answer, so measure it separately.",
+          },
+          {
+            title: 'Recall@k',
+            text: 'Of your test questions, how often is the right passage in the top k results?',
+          },
+          {
+            title: 'Precision',
+            text: 'How many of the passages you retrieve are actually useful, rather than noise that confuses the model?',
+          },
+          {
+            title: 'Compare choices fairly',
+            text: 'Test chunk sizes, embedding models, search types, reranking and query techniques on the same test set.',
+          },
+        ],
+        tryIt:
+          'Measure Recall@5 for meaning-based search, hybrid search, and hybrid search with reranking.',
+        outcome:
+          'Measure whether your search finds what users need, and know which of your Part 2 techniques actually improved it.',
+      },
+      {
+        id: '4.18',
+        title: 'Evaluating RAG Answers',
+        icon: 'list-checks',
+        days: [49, 50],
+        minutes: 120,
+        part: 3,
+        bullets: [
+          {
+            title: 'Test each part, then the whole',
+            text: "Check search on its own, the model on its own, the full pipeline, and finally the experience from the user's side.",
+          },
+          {
+            title: 'Test the model on its own',
+            text: "Give it the correct passages and check whether it answers faithfully; if it fails here, the problem isn't search.",
+          },
+          {
+            title: 'The three core RAG checks',
+            text: 'Did search find relevant passages? Is the answer supported by them? Does the answer actually address the question?',
+          },
+          {
+            title: 'Find where it broke',
+            text: "For each failure, decide whether search, the assembled prompt or the model's answer was at fault.",
+          },
+          {
+            title: 'What users care about',
+            text: 'Correct, complete answers with working citations, in the right tone and format.',
+          },
+          {
+            title: 'Cost and speed per question',
+            text: 'Track them alongside quality, especially for patterns like self-correction that add extra calls.',
+          },
+          {
+            title: 'Evaluation tools',
+            text: 'Use a library such as DeepEval or RAGAS for these checks, and make sure you understand what each score actually measures.',
+          },
+        ],
+        tryIt:
+          'Score your test set on the three core checks. For your five worst answers, write down whether search, the prompt or the model was at fault.',
+        outcome:
+          'Evaluate a RAG system part by part and pinpoint where each failure comes from.',
+      },
+      {
+        id: '4.19',
+        title: 'Automatic Regression Tests',
+        icon: 'shield-check',
+        days: [51, 51],
+        minutes: 60,
+        part: 3,
+        bullets: [
+          {
+            title: 'Save everything together',
+            text: 'Keep test questions, prompts, settings, model versions and results together so any result can be reproduced.',
+          },
+          {
+            title: 'Compare against a baseline',
+            text: 'Every change is judged against the current best version, never in isolation.',
+          },
+          {
+            title: 'Test on every change',
+            text: 'Run your evaluation automatically whenever you change a prompt, setting or model, and stop the change if quality drops.',
+          },
+          {
+            title: 'Grow the test set',
+            text: "Add every new failure you find, so the same mistake can't come back unnoticed.",
+          },
+          {
+            title: 'Watch quality, cost and speed together',
+            text: 'A change that improves one and damages another needs a deliberate decision.',
+          },
+        ],
+        tryIt:
+          'Set up a single command that runs your test set and fails if the score drops below your baseline. Then deliberately make your prompt worse and confirm it fails.',
+        outcome:
+          'Make it impossible to make your app worse without noticing.',
+      },
+    ],
+    skipped: [
+      {
+        topic: 'How vector search shortcuts work inside',
+        why: 'You need to know the trade-off, not the algorithms',
+        where: [{ level: 4, href: '/level/4/#m4-5' }],
+      },
+      {
+        topic: 'Similarity math in detail',
+        why: 'One idea covers it: closer means more similar',
+        where: [{ level: 4, href: '/level/4/#m4-4' }],
+      },
+      {
+        topic: 'Building a full Graph RAG system',
+        why: 'Here you learn when it\'s worth it; building one well is a project of its own',
+        where: [{ level: 4, href: '/level/4/#m4-14' }],
+      },
+      {
+        topic: 'Building RAG with LlamaIndex',
+        why: 'One framework, used well, is enough',
+        where: [{ level: 4, href: '/level/4/#m4-15' }],
+      },
+      {
+        topic: 'Model benchmarks and leaderboards',
+        why: 'Choosing a model was covered in Module 1',
+        where: [
+          { level: 1, href: '/level/1/#m1-11' },
+          { level: 7, href: '/level/7/#m7-4' },
+        ],
+      },
+      {
+        topic: 'Online evaluation after launch',
+        why: 'Covered when you ship to production',
+        where: [
+          { level: 7, href: '/level/7/#m7-3' },
+          { level: 10, href: '/level/10/#m10-9' },
+        ],
+      },
+      {
+        topic: 'Safety and injection testing in depth',
+        why: 'Covered in the security module',
+        where: [
+          { level: 7, href: '/level/7/#m7-8' },
+          { level: 8, href: '/level/8/#m8-2' },
+        ],
       },
     ],
   },

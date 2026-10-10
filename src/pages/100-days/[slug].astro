@@ -32,7 +32,17 @@ const { mod } = Astro.props;
 const idx = hundredDaysModules.indexOf(mod);
 const prev = hundredDaysModules[idx - 1];
 const next = hundredDaysModules[idx + 1];
-const courses = coursesFor(mod.coursesFromLevel);
+/* A module can draw on several roadmap levels' courses (RAG also teaches evals). */
+const courses = mod.coursesFrom.flatMap(({ level, only }) =>
+  coursesFor(level)
+    .filter((c) => !only || only.includes(c.title))
+    .map((course) => ({ course, level })),
+);
+
+/* Units grouped under their part headings; a module without parts is one group. */
+const groups = mod.parts
+  ? mod.parts.map((part, i) => ({ part, number: i + 1, units: mod.units.filter((u) => u.part === i + 1) }))
+  : [{ part: null, number: 0, units: mod.units }];
 /* Days up to and including this module — the same meter as a level's cumulative sessions. */
 const cumulativeDays = mod.days[1];
 const cumulativePct = Math.round((cumulativeDays / TOTAL_DAYS) * 100);
@@ -83,7 +93,7 @@ const description = `${dayRange(mod.days)} of 100 Days of AI Engineering. ${mod.
           <div class="dh__fact">
             <span class="dh__fact-label">Duration</span>
             <span class="dh__fact-strong">{dayRange(mod.days)} · {mod.hours}</span>
-            <span class="dh__fact-value">{unitCount} units</span>
+            <span class="dh__fact-value">{unitCount} units{mod.parts && ` in ${mod.parts.length} parts`}</span>
           </div>
 
           <div class="dh__fact">
@@ -115,16 +125,27 @@ const description = `${dayRange(mod.days)} of 100 Days of AI Engineering. ${mod.
           <span>The units</span>
         </h2>
         <div class="mods">
-          {mod.units.map((u, i) => (
-            <ModuleRow
-              module={asModule(u)}
-              index={i}
-              levelNumber={1}
-              duration={`${dayRange(u.days)} · ${formatMinutes(u.minutes)}`}
-              idLabel={`Unit ${u.id}`}
-              anchor={`unit-${u.id.replace(/\./g, '-')}`}
-              trackKey={`100d-${mod.number}`}
-            />
+          {groups.map(({ part, number, units }) => (
+            <>
+              {part && (
+                <div class="part">
+                  <p class="part__eyebrow">Part {number} · {dayRange([units[0].days[0], units[units.length - 1].days[1]])}</p>
+                  <h3 class="part__title">{part.title}</h3>
+                  {part.intro && <p class="part__intro">{part.intro}</p>}
+                </div>
+              )}
+              {units.map((u) => (
+                <ModuleRow
+                  module={asModule(u)}
+                  index={mod.units.indexOf(u)}
+                  levelNumber={1}
+                  duration={`${dayRange(u.days)} · ${formatMinutes(u.minutes)}`}
+                  idLabel={`Unit ${u.id}`}
+                  anchor={`unit-${u.id.replace(/\./g, '-')}`}
+                  trackKey={`100d-${mod.number}`}
+                />
+              ))}
+            </>
           ))}
         </div>
       </div>
@@ -177,8 +198,8 @@ const description = `${dayRange(mod.days)} of 100 Days of AI Engineering. ${mod.
         />
         {courses.length > 0 && (
           <ul class="courses__grid" id="courses-h" role="list">
-            {courses.map((c) => (
-              <li><CourseCard course={c} levelNumber={mod.coursesFromLevel} /></li>
+            {courses.map(({ course, level }) => (
+              <li><CourseCard course={course} levelNumber={level} /></li>
             ))}
           </ul>
         )}
@@ -431,6 +452,19 @@ const description = `${dayRange(mod.days)} of 100 Days of AI Engineering. ${mod.
       color: var(--cx-g500);
     }
   }
+
+  /* ---------- parts ---------- */
+  .part { display: flex; flex-direction: column; gap: 4px; padding: 28px 4px 12px; }
+  .part:first-child { padding-top: 6px; }
+  .part__eyebrow {
+    font-family: var(--cx-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--phase-ac);
+  }
+  .part__title { font-size: clamp(19px, 2.6vw, 23px); letter-spacing: -0.02em; color: var(--cx-ink); }
+  .part__intro { font-size: 14.5px; line-height: 1.55; color: var(--cx-g600); }
 
   /* ---------- courses ---------- */
   .courses__grid {
