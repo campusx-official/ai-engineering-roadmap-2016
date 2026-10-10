@@ -4,7 +4,6 @@ import Icon from '../../components/Icon.astro';
 import Eyebrow from '../../components/Eyebrow.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import ModuleRow from '../../components/ModuleRow.astro';
-import MilestoneCallout from '../../components/MilestoneCallout.astro';
 import CourseCard from '../../components/CourseCard.astro';
 import Button from '../../components/Button.astro';
 import { coursesFor, CAMPUSX_ONE_URL } from '../../data/courses';
@@ -34,7 +33,6 @@ const idx = hundredDaysModules.indexOf(mod);
 const prev = hundredDaysModules[idx - 1];
 const next = hundredDaysModules[idx + 1];
 const courses = coursesFor(mod.coursesFromLevel);
-const milestoneAnchor = `milestone-${mod.number}`;
 /* Days up to and including this module — the same meter as a level's cumulative sessions. */
 const cumulativeDays = mod.days[1];
 const cumulativePct = Math.round((cumulativeDays / TOTAL_DAYS) * 100);
@@ -54,18 +52,6 @@ const asModule = (u: Unit): Module => ({
   isCapstone: false,
   isGap: false,
 });
-
-const milestone = mod.milestone;
-const milestoneRow: Module | null = milestone ? {
-  id: `${mod.number}.M`,
-  name: `Project milestone: ${milestone.title}`,
-  sessionCount: null,
-  icon: 'flag',
-  objectives: [],
-  notes: [],
-  isCapstone: true,
-  isGap: false,
-} : null;
 
 const unitCount = mod.units.length;
 const title = `Module ${mod.number} · ${mod.title} — 100 Days of AI Engineering`;
@@ -97,7 +83,7 @@ const description = `${dayRange(mod.days)} of 100 Days of AI Engineering. ${mod.
           <div class="dh__fact">
             <span class="dh__fact-label">Duration</span>
             <span class="dh__fact-strong">{dayRange(mod.days)} · {mod.hours}</span>
-            <span class="dh__fact-value">{unitCount} units{milestone && ' and a project milestone'}</span>
+            <span class="dh__fact-value">{unitCount} units</span>
           </div>
 
           <div class="dh__fact">
@@ -140,28 +126,9 @@ const description = `${dayRange(mod.days)} of 100 Days of AI Engineering. ${mod.
               trackKey={`100d-${mod.number}`}
             />
           ))}
-          {milestone && milestoneRow && (
-            <ModuleRow
-              module={milestoneRow}
-              index={mod.units.length}
-              levelNumber={1}
-              duration={`${dayRange(milestone.days)} · ${formatMinutes(milestone.minutes)}`}
-              capHref={`#${milestoneAnchor}`}
-              capNote="Project milestone, below"
-            />
-          )}
         </div>
       </div>
     </section>
-
-    <!-- ───────────────── milestone ───────────────── -->
-    {milestone && (
-      <section class="section dsec dsec--tight">
-        <div class="wrap">
-          <MilestoneCallout milestone={milestone} moduleNumber={mod.number} anchor={milestoneAnchor} />
-        </div>
-      </section>
-    )}
 
     <!-- ───────────────── what we skipped ───────────────── -->
     <section class="section dsec dsec--flush">
@@ -373,7 +340,6 @@ const description = `${dayRange(mod.days)} of 100 Days of AI Engineering. ${mod.
   /* ---------- sections ---------- */
   .dsec { padding-block: 44px; }
   @media (min-width: 768px) { .dsec { padding-block: 56px; } }
-  .dsec--tight { padding-block: 22px; }
   /* Sits between two padded sections, which already give it room. */
   .dsec--flush { padding-block: 0; }
   .dsec__head { margin-bottom: 26px; max-width: 640px; }

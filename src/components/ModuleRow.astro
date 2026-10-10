@@ -23,9 +23,6 @@ interface Props {
   idLabel?: string;
   /** Element id, so other pages can deep-link to this row. */
   anchor?: string;
-  /** Capstone rows: where the row links to and what its id line says. */
-  capHref?: string;
-  capNote?: string;
   /** Analytics value prefix; defaults to the level number. */
   trackKey?: string;
 }
@@ -36,8 +33,6 @@ const {
   duration,
   idLabel = module.id,
   anchor = moduleAnchor(module),
-  capHref = `#${shipAnchor(module)}`,
-  capNote = `${module.id} · Ship it, below`,
   trackKey = String(levelNumber),
 } = Astro.props;
 
@@ -52,7 +47,7 @@ const objectiveCount = module.objectives.length;
 ---
 
 {module.isCapstone ? (
-<a class="mod mod--cap" href={capHref} data-module={module.id}>
+<a class="mod mod--cap" href={`#${shipAnchor(module)}`} data-module={module.id}>
   <span class="mod__summary">
     <span class="mod__idx">{String(index + 1).padStart(2, '0')}</span>
     <span class="mod__ico-wrap mod__ico-wrap--cap">
@@ -60,18 +55,14 @@ const objectiveCount = module.objectives.length;
     </span>
     <span class="mod__main">
       <span class="mod__name">{module.name}</span>
-      <span class="mod__id">{capNote}</span>
+      <span class="mod__id">{module.id} · Ship it, below</span>
     </span>
-    {duration ? (
-      <span class="mod__dur">{duration}</span>
-    ) : (
-      <span class="mod__meter">
-        <SessionMeter count={module.sessionCount} size="sm" showLabel={false} />
-        <span class="mod__count">
-          {module.sessionCount === null ? '—' : module.sessionCount}
-        </span>
+    <span class="mod__meter">
+      <SessionMeter count={module.sessionCount} size="sm" showLabel={false} />
+      <span class="mod__count">
+        {module.sessionCount === null ? '—' : module.sessionCount}
       </span>
-    )}
+    </span>
     <Icon name="arrow-down" size={18} class="mod__chev" />
   </span>
 </a>

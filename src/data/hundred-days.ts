@@ -31,17 +31,6 @@ export interface Unit {
   outcome?: string;
 }
 
-export interface Milestone {
-  title: string;
-  days: [number, number];
-  minutes: number;
-  /** One line saying what gets built, shown above the steps. */
-  build?: string;
-  steps: string[];
-  passCriteria: string[];
-  about: string;
-}
-
 export interface SkippedTopic {
   topic: string;
   why: string;
@@ -62,8 +51,6 @@ export interface DaysModule {
   before: string;
   outcome: string;
   units: Unit[];
-  /** The step this module adds to the 100-day project, if it has one. */
-  milestone?: Milestone;
   skipped: SkippedTopic[];
   /** Roadmap level whose CampusX courses this module shares. */
   coursesFromLevel: number;
