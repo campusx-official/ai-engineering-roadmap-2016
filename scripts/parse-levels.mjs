@@ -283,6 +283,12 @@ function parseLevel(file, raw) {
 
   const metaLine = lines.find((l) => /^Prerequisites:/i.test(l)) || '';
   const prereqStated = metaLine ? (metaLine.match(/^Prerequisites:\s*([^·]+)/i)?.[1] || '').trim() : '';
+  /* Every level a stated line names, in the order it names them ("None" names
+     none). With no line at all, a level assumes the one before it. */
+  const prerequisites = metaLine
+    ? [...new Set([...prereqStated.matchAll(/Level\s+(\d+)/gi)].map((m) => Number(m[1])))]
+    : number > 0 ? [number - 1] : [];
+
   const modules = [];
   const completionOutcomes = [];
   let cur = null;
@@ -385,6 +391,7 @@ function parseLevel(file, raw) {
     sourceFile: file,
     scope,
     prereqStated: prereqStated || null,
+    prerequisites,
     phase: phase.id,
     icon: LEVEL_ICONS[number] || 'circle-dot',
     modules,

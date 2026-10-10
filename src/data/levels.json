@@ -92,6 +92,7 @@
       "sourceFile": "level0-software-fundamentals.txt",
       "scope": "become comfortable building, debugging, and deploying real software before adding LLMs. This is the engineering foundation for everything that follows.",
       "prereqStated": null,
+      "prerequisites": [],
       "phase": "foundations",
       "icon": "terminal",
       "modules": [
@@ -566,6 +567,7 @@
       "sourceFile": "level1-llm-101.txt",
       "scope": "Build a strong mental model of how LLMs work, why they behave the way they do, and how to choose and use the right model for a task.",
       "prereqStated": "None",
+      "prerequisites": [],
       "phase": "foundations",
       "icon": "brain",
       "modules": [
@@ -1045,6 +1047,9 @@
       "sourceFile": "level2-llm-orchestration.txt",
       "scope": "turn individual LLM calls into reliable software workflows — messages, streaming, structured outputs, tools, multi-step orchestration, concurrency, failure handling, and observability. RAG and agents come later.",
       "prereqStated": null,
+      "prerequisites": [
+        1
+      ],
       "phase": "foundations",
       "icon": "plug",
       "modules": [
@@ -1487,6 +1492,9 @@
       "sourceFile": "level3-prompt-engineering.txt",
       "scope": "design instructions that make LLM behavior more reliable and predictable. Context engineering comes later.",
       "prereqStated": null,
+      "prerequisites": [
+        2
+      ],
       "phase": "foundations",
       "icon": "message-square-code",
       "modules": [
@@ -1775,6 +1783,9 @@
       "sourceFile": "level4-rag.txt",
       "scope": "build the retrieval layer that RAG depends on — ingestion, chunking, embeddings, vector search, and hybrid retrieval — then ground LLMs in external knowledge, improve retrieval quality, and learn the major RAG architectures used beyond a naive retrieve-and-generate pipeline.",
       "prereqStated": null,
+      "prerequisites": [
+        3
+      ],
       "phase": "retrieval",
       "icon": "library-big",
       "modules": [
@@ -2317,6 +2328,9 @@
       "sourceFile": "level5-agents.txt",
       "scope": "build systems where models can decide what to do next, use tools, maintain state, recover from failures, and collaborate with other agents. Planning · tools · MCP · memory · multi-agent · LangGraph.",
       "prereqStated": null,
+      "prerequisites": [
+        4
+      ],
       "phase": "agentic",
       "icon": "bot",
       "modules": [
@@ -2902,6 +2916,9 @@
       "sourceFile": "level6-context-engineering.txt",
       "scope": "manage the model’s limited context window deliberately — decide what enters, what stays, what gets compressed, and what gets moved outside.",
       "prereqStated": null,
+      "prerequisites": [
+        5
+      ],
       "phase": "agentic",
       "icon": "layout-panel-left",
       "modules": [
@@ -3185,7 +3202,11 @@
       "title": "LLM Evaluations",
       "sourceFile": "level7-llm-evals.txt",
       "scope": "Design, execute, and automate comprehensive evaluations for Large Language Models and AI applications to ensure quality, safety, and reliability in production environments.",
-      "prereqStated": null,
+      "prereqStated": "Level 4 (RAG), Level 5 (agents)",
+      "prerequisites": [
+        4,
+        5
+      ],
       "phase": "trust",
       "icon": "flask-conical",
       "modules": [
@@ -3671,6 +3692,9 @@
       "sourceFile": "level8-ai-security.txt",
       "scope": "secure LLM, RAG, and agent systems against model-specific attacks, unsafe actions, data leakage, and regulatory risk.",
       "prereqStated": null,
+      "prerequisites": [
+        7
+      ],
       "phase": "trust",
       "icon": "shield-half",
       "modules": [
@@ -4027,6 +4051,9 @@
       "sourceFile": "level9-ai-system-design.txt",
       "scope": "design a complete production AI application and defend every architectural choice across quality, latency, cost, reliability, and user experience.",
       "prereqStated": null,
+      "prerequisites": [
+        8
+      ],
       "phase": "production",
       "icon": "network",
       "modules": [
@@ -4492,6 +4519,9 @@
       "sourceFile": "level10-llmops.txt",
       "scope": "Launch, test, watch, and protect Large Language Model apps in the real world while managing changing outputs, prompt updates, and the special behaviors of RAG and Agent systems.",
       "prereqStated": null,
+      "prerequisites": [
+        9
+      ],
       "phase": "production",
       "icon": "gauge",
       "modules": [
@@ -4916,6 +4946,10 @@
       "sourceFile": "level11-managed-platforms.txt",
       "scope": "Ship an AI application on the platforms teams actually buy — a cloud provider's managed platform, an open-weight hosting provider, or a router spanning several — and know which parts to hand over and which to keep.",
       "prereqStated": "Level 9 (system design), Level 10 (LLMOps)",
+      "prerequisites": [
+        9,
+        10
+      ],
       "phase": "production",
       "icon": "cloud-cog",
       "modules": [
@@ -5488,6 +5522,11 @@
       "sourceFile": "level12-multimodal-101.txt",
       "scope": "Build a strong mental model of how models handle images, audio, and video, why they fail differently from text models, and how to choose and use the right model when a task stops being text-only.",
       "prereqStated": "Level 1 (LLM 101), Level 2 (orchestration), Level 4 (RAG)",
+      "prerequisites": [
+        1,
+        2,
+        4
+      ],
       "phase": "frontier",
       "icon": "audio-lines",
       "modules": [
@@ -6152,6 +6191,11 @@
       "sourceFile": "level13-fine-tuning.txt",
       "scope": "Fine-tune a model only when prompting, retrieval, and orchestration have measurably run out, and prove with evaluation numbers that the tune was worth its data, training, and serving cost.",
       "prereqStated": "Level 1 (LLM 101), Level 7 (evals), Level 11 (managed platforms)",
+      "prerequisites": [
+        1,
+        7,
+        11
+      ],
       "phase": "frontier",
       "icon": "sliders-horizontal",
       "modules": [
@@ -6668,7 +6712,13 @@
       "title": "Projects",
       "sourceFile": "level14-projects.txt",
       "scope": "proof, not concepts. Portfolio builds that compose earlier levels. Ship 3–5 public.",
-      "prereqStated": null,
+      "prereqStated": "Level 4 (RAG), Level 5 (agents), Level 10 (LLMOps), Level 12 (multimodal)",
+      "prerequisites": [
+        4,
+        5,
+        10,
+        12
+      ],
       "phase": "frontier",
       "icon": "trophy",
       "modules": [
@@ -6818,6 +6868,9 @@
       "sourceFile": "level15-interview-prep.txt",
       "scope": "convert everything learned across the roadmap into interview performance. This level does not re-teach concepts; it focuses on scenario-based questions, system-design discussions, debugging cases, trade-offs, and defending real engineering decisions under interview conditions.",
       "prereqStated": null,
+      "prerequisites": [
+        14
+      ],
       "phase": "interview",
       "icon": "briefcase-business",
       "modules": [

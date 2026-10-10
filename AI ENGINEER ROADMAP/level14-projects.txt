@@ -1,6 +1,7 @@
 Level 14 · Projects
 
 Scope: proof, not concepts. Portfolio builds that compose earlier levels. Ship 3–5 public.
+Prerequisites: Level 4 (RAG), Level 5 (agents), Level 10 (LLMOps), Level 12 (multimodal)
 
 P14.1 · Document Q&A platform — (sessions: 3)
 

@@ -58,6 +58,8 @@ export interface Level {
   sourceFile: string;
   scope: string;
   prereqStated: string | null;
+  /** Levels this one assumes: those its Prerequisites line names, else the previous level. */
+  prerequisites: number[];
   phase: PhaseId;
   icon: string;
   modules: Module[];

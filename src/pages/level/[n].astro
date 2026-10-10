@@ -21,7 +21,6 @@ import {
   toolsOf,
   teachingModules,
   getLevel,
-  prevLevel,
   cumulativeSessions,
   sentence,
   totalSessions,
@@ -46,21 +45,15 @@ const courses = coursesFor(level.number);
 const books = booksFor(level.number);
 const concepts = conceptsOf(level);
 const tools = toolsOf(level);
-const prev = prevLevel(level.number);
 const cumulative = cumulativeSessions(level.number);
 const cumulativePct = Math.round((cumulative / totalSessions) * 100);
 
-const prereq =
-  level.prereqStated ??
-  (prev ? `Level ${prev.number} · ${prev.title}` : null);
-
-/* A stated prerequisite can name a level other than the previous one (Level 11
-   assumes Level 1), so the link follows the level the text actually names. A
-   statement that names no level at all ("None") renders as plain text. */
-const namedLevel = level.prereqStated?.match(/Level\s+(\d+)/)?.[1];
-const prereqTarget = level.prereqStated
-  ? (namedLevel ? getLevel(Number(namedLevel)) ?? null : null)
-  : prev;
+/* One link per level this one assumes. Most assume the previous level, but a
+   stated Prerequisites line can name several, none of them adjacent (Level 13
+   assumes 1, 7 and 11, not 12). A level that assumes nothing says so. */
+const prereqs = level.prerequisites
+  .map((n) => getLevel(n))
+  .filter((l): l is NonNullable<typeof l> => Boolean(l));
 
 const description = `Level ${level.number} of the CampusX AI Engineering Roadmap: ${level.scope}`.slice(0, 300);
 ---
@@ -118,22 +111,26 @@ const description = `Level ${level.number} of the CampusX AI Engineering Roadmap
             <span class="lh__fact-value">{cumulative} of {totalSessions} sessions ({cumulativePct}%)</span>
           </div>
 
-          {prereq && (
-            <div class="lh__fact lh__fact--pre">
-              <span class="lh__fact-label">Assumes</span>
-              {prereqTarget ? (
-                <a class="lh__pre" href={`/level/${prereqTarget.number}/`} data-track="prereq_click" data-track-data={String(prereqTarget.number)}>
-                  <Icon name="corner-left-up" size={14} />
-                  <span>{prereq}</span>
-                </a>
-              ) : (
-                <span class="lh__pre lh__pre--none">
-                  <Icon name="flag-triangle-right" size={14} />
-                  <span>{prev ? prereq : `${prereq} — this is the start`}</span>
-                </span>
-              )}
-            </div>
-          )}
+          <div class="lh__fact lh__fact--pre">
+            <span class="lh__fact-label">Assumes</span>
+            {prereqs.length > 0 ? (
+              <ul class="lh__pres" role="list">
+                {prereqs.map((p) => (
+                  <li>
+                    <a class="lh__pre" href={`/level/${p.number}/`} data-track="prereq_click" data-track-data={String(p.number)}>
+                      <Icon name="corner-left-up" size={14} />
+                      <span>Level {p.number} · {p.title}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <span class="lh__pre lh__pre--none">
+                <Icon name="flag-triangle-right" size={14} />
+                <span>{level.number === 0 ? 'Nothing — this is the start' : level.prereqStated}</span>
+              </span>
+            )}
+          </div>
         </div>
       </div>
     </header>
@@ -373,6 +370,7 @@ const description = `Level ${level.number} of the CampusX AI Engineering Roadmap
   .lh__prog { display: block; height: 6px; border-radius: 999px; background: var(--cx-border-2); overflow: hidden; }
   .lh__prog-fill { display: block; height: 100%; border-radius: 999px; background: var(--phase-ac); opacity: 0.85; }
 
+  .lh__pres { display: flex; flex-direction: column; gap: 5px; margin: 0; padding: 0; list-style: none; }
   .lh__pre {
     display: inline-flex;
     align-items: center;

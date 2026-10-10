@@ -1,6 +1,7 @@
 Level 7 · LLM Evaluations
 
 Scope: Design, execute, and automate comprehensive evaluations for Large Language Models and AI applications to ensure quality, safety, and reliability in production environments.
+Prerequisites: Level 4 (RAG), Level 5 (agents)
 
 M7.1 · Introduction to LLM evaluations — (sessions: 1)
 Understand the pitfalls of “vibe testing” by examining real-world failure case studies like Air Canada.
