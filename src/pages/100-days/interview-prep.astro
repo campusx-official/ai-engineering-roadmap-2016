@@ -245,6 +245,9 @@ const toneStyle = (t: QuestionType) =>
 
   /* ---------- types ---------- */
   .types { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; }
+  @media (min-width: 860px) {
+    .types { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, auto); grid-auto-flow: column; gap: 10px 56px; }
+  }
   .types__item {
     display: grid;
     grid-template-columns: 92px 1fr;
