@@ -724,7 +724,7 @@ export const hundredDaysModules: DaysModule[] = [
     summary:
       'Write prompts that make your assistant reliable and predictable, and choose between prompt versions by testing them, not by gut feel.',
     days: [18, 24],
-    hours: 'about 7 hours',
+    hours: 'about 11 hours',
     before: 'Module 2 (Building with LLM APIs).',
     outcome:
       "Write clear prompts and system prompts, use examples and reasoning only where they help, test prompt versions against each other on the same questions, keep prompts versioned and cheap, and explain why prompt wording alone can't keep your app safe.",
@@ -838,7 +838,7 @@ export const hundredDaysModules: DaysModule[] = [
         title: 'Reasoning and Breaking Tasks Down',
         icon: 'git-branch',
         days: [21, 21],
-        minutes: 45,
+        minutes: 60,
         bullets: [
           {
             title: 'When to ask for reasoning',
@@ -867,7 +867,7 @@ export const hundredDaysModules: DaysModule[] = [
         title: 'Testing and Improving Prompts',
         icon: 'flask-conical',
         days: [22, 22],
-        minutes: 60,
+        minutes: 90,
         bullets: [
           {
             title: 'Why prompts fail',
@@ -899,7 +899,7 @@ export const hundredDaysModules: DaysModule[] = [
         title: 'Automatic Prompt Improvement',
         icon: 'wand-sparkles',
         days: [23, 23],
-        minutes: 60,
+        minutes: 90,
         bullets: [
           {
             title: 'Let a model improve your prompt',
@@ -936,7 +936,7 @@ export const hundredDaysModules: DaysModule[] = [
         title: 'Versions, Cost and Caching',
         icon: 'file-clock',
         days: [24, 24],
-        minutes: 30,
+        minutes: 120,
         bullets: [
           {
             title: 'Version prompts like code',
@@ -964,7 +964,7 @@ export const hundredDaysModules: DaysModule[] = [
         title: 'Prompt Injection Basics',
         icon: 'shield-alert',
         days: [24, 24],
-        minutes: 30,
+        minutes: 120,
         bullets: [
           {
             title: 'What prompt injection is',
