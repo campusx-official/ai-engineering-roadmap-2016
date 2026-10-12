@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
+import StickyDaysNav from '../../components/StickyDaysNav.astro';
 import Eyebrow from '../../components/Eyebrow.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import { hundredDaysModules, daysModuleHref, DAYS_BASE } from '../../data/hundred-days';
@@ -28,6 +29,10 @@ const projectByNumber = new Map(projects.map((p) => [p.number, p]));
   description={projectsSummary}
   page="days_projects"
 >
+  <Fragment slot="subnav">
+    <StickyDaysNav current="projects" />
+  </Fragment>
+
   <article data-phase="frontier">
     <!-- ───────────────── header ───────────────── -->
     <header class="ph">

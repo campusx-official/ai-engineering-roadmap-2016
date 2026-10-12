@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
+import StickyDaysNav from '../../components/StickyDaysNav.astro';
 import Eyebrow from '../../components/Eyebrow.astro';
 import { hundredDaysModules, daysModuleHref, DAYS_BASE } from '../../data/hundred-days';
 import { PROJECTS_HREF } from '../../data/hundred-days-projects';
@@ -34,6 +35,10 @@ const toneStyle = (t: QuestionType) =>
   description={interviewSummary}
   page="days_interview"
 >
+  <Fragment slot="subnav">
+    <StickyDaysNav current="interview" />
+  </Fragment>
+
   <article data-phase="interview">
     <!-- ───────────────── header ───────────────── -->
     <header class="ih">

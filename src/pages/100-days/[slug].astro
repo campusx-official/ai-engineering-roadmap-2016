@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
+import StickyDaysNav from '../../components/StickyDaysNav.astro';
 import Eyebrow from '../../components/Eyebrow.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import ModuleRow from '../../components/ModuleRow.astro';
@@ -70,6 +71,10 @@ const description = `${dayRange(mod.days)} of 100 Days of AI Engineering. ${mod.
 ---
 
 <Base title={title} description={description} page="days_module">
+  <Fragment slot="subnav">
+    <StickyDaysNav current={mod.number} />
+  </Fragment>
+
   <article data-phase={mod.phase}>
     <!-- ───────────────── header ───────────────── -->
     <header class="dh">

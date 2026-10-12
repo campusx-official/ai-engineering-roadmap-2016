@@ -1,0 +1,191 @@
+---
+/**
+ * Sticky mini-map for the 100 Days pages: where you are, and every module,
+ * Projects and Interview Prep one tap away. The 100 Days twin of StickyLevelNav.
+ */
+import Icon from './Icon.astro';
+import { hundredDaysModules, daysModuleHref, dayRange, DAYS_BASE } from '../data/hundred-days';
+import { PROJECTS_HREF } from '../data/hundred-days-projects';
+import { INTERVIEW_HREF } from '../data/hundred-days-interview';
+
+interface Props {
+  /** Module number, or 'projects' / 'interview'. */
+  current: number | 'projects' | 'interview';
+}
+const { current } = Astro.props;
+
+const stops = [
+  ...hundredDaysModules.map((m) => ({
+    key: m.number as Props['current'],
+    label: String(m.number),
+    short: `M${m.number}`,
+    title: m.title,
+    meta: dayRange(m.days),
+    href: daysModuleHref(m),
+    phase: m.phase,
+  })),
+  { key: 'projects' as const, label: 'Projects', short: 'P', title: 'Projects', meta: 'After the 100 days', href: PROJECTS_HREF, phase: 'frontier' },
+  { key: 'interview' as const, label: 'Interview', short: 'IP', title: 'Interview Prep', meta: 'After the 100 days', href: INTERVIEW_HREF, phase: 'interview' },
+];
+const here = stops.find((s) => s.key === current)!;
+---
+
+<div class="sdnav no-print" data-phase={here.phase}>
+  <div class="wrap sdnav__inner">
+    <a class="sdnav__here" href={`${DAYS_BASE}/`} title="Back to 100 Days of AI Engineering">
+      <Icon name="chevron-left" size={16} />
+      <span class="sdnav__n">{here.short}</span>
+      <span class="sdnav__title">{here.title}</span>
+    </a>
+
+    <nav class="sdnav__map" aria-label="100 Days of AI Engineering">
+      <ol class="sdnav__list" role="list">
+        {stops.map((s) => (
+          <li class:list={['sdnav__item', { 'sdnav__item--wide': typeof s.key !== 'number' }]} data-phase={s.phase}>
+            <a
+              class="sdnav__link"
+              href={s.href}
+              aria-current={s.key === current ? 'page' : undefined}
+              aria-label={typeof s.key === 'number' ? `Module ${s.key}: ${s.title}` : s.title}
+              data-track="days_minimap_jump"
+              data-track-data={String(s.key)}
+            >
+              <span>{s.label}</span>
+              <span class="sdnav__tip" aria-hidden="true">
+                <span class="sdnav__tip-n">{typeof s.key === 'number' ? `Module ${s.key}` : s.meta}</span>
+                {s.title}
+                {typeof s.key === 'number' && <span class="sdnav__tip-n">{s.meta}</span>}
+              </span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<style>
+  .sdnav {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--cx-border);
+  }
+
+  .sdnav__inner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-block: 9px;
+  }
+
+  .sdnav__here {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex: none;
+    max-width: 260px;
+    min-width: 0;
+    color: var(--cx-g600);
+    transition: color 0.16s ease;
+  }
+  .sdnav__here:hover { color: var(--cx-purple); }
+
+  .sdnav__n {
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--phase-ac);
+    padding: 2px 7px;
+    border-radius: 5px;
+    background: var(--phase-bg);
+    border: 1px solid var(--phase-br);
+  }
+  .sdnav__title {
+    font-family: var(--cx-font-display);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+    color: var(--cx-ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sdnav__map { flex: 1 1 auto; min-width: 0; }
+  /* the mini-map hides on phones, which leaves room for the title instead */
+  @media (max-width: 640px) {
+    .sdnav__map { display: none; }
+    .sdnav__here { max-width: none; }
+  }
+
+  .sdnav__list { display: flex; gap: 4px; margin: 0; padding: 0; list-style: none; }
+  .sdnav__item { flex: 1 1 0; min-width: 0; position: relative; }
+  .sdnav__item--wide { flex-grow: 2.4; }
+
+  .sdnav__link {
+    display: grid;
+    place-items: center;
+    height: 28px;
+    border-radius: 6px;
+    background: var(--phase-bg);
+    border: 1px solid var(--phase-br);
+    color: var(--phase-ac);
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: background-color 0.16s ease, transform 0.16s ease, border-color 0.16s ease;
+  }
+  .sdnav__link:hover { transform: translateY(-2px); border-color: var(--phase-ac); }
+  .sdnav__link[aria-current='page'] { background: var(--phase-ac); border-color: var(--phase-ac); color: #fff; }
+
+  /* ----- tooltip (same look as the level mini-map) ----- */
+  .sdnav__tip {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-4px);
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: max-content;
+    max-width: 220px;
+    padding: 9px 12px;
+    border-radius: 10px;
+    background: var(--cx-ink);
+    color: #fff;
+    font-family: var(--cx-font-body);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.35;
+    text-align: left;
+    white-space: normal;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+  .sdnav__link:hover .sdnav__tip,
+  .sdnav__link:focus-visible .sdnav__tip { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .sdnav__tip-n {
+    font-family: var(--cx-font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.62);
+  }
+  .sdnav__item:last-child .sdnav__tip { left: auto; right: 0; transform: translateY(-4px); }
+  .sdnav__item:last-child .sdnav__link:hover .sdnav__tip,
+  .sdnav__item:last-child .sdnav__link:focus-visible .sdnav__tip { transform: translateY(0); }
+
+  @media (max-width: 780px), (hover: none) { .sdnav__tip { display: none; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sdnav__here, .sdnav__link, .sdnav__tip { transition: none; }
+    .sdnav__link:hover { transform: none; }
+  }
+</style>
