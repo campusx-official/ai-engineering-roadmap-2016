@@ -2602,6 +2602,464 @@ export const hundredDaysModules: DaysModule[] = [
       },
     ],
   },
+  {
+    number: 6,
+    slug: 'shipping-to-production',
+    title: 'Shipping to Production',
+    phase: 'production',
+    icon: 'rocket',
+    summary:
+      'Put your agent in front of real users: design it properly, deploy it, release changes safely, watch how it behaves, keep costs under control, and know what to do when something breaks.',
+    days: [78, 90],
+    hours: 'about 13 hours',
+    before: 'Module 5 (Agents).',
+    outcome:
+      "Turn a working AI app into a live service: justify its design, deploy it, block releases that make it worse, roll out changes gradually, monitor quality, cost and speed, handle incidents, and confirm it's secure from end to end.",
+    coursesFrom: [{ level: 9 }, { level: 10 }, { level: 11 }],
+    shortVersionOf: 10,
+    alsoCovers: [{ level: 9, topic: 'AI system design' }],
+    units: [
+      {
+        id: '6.1',
+        title: 'Designing an AI System',
+        icon: 'drafting-compass',
+        days: [78, 78],
+        minutes: 60,
+        bullets: [
+          {
+            title: 'Start from the requirements',
+            text: 'Who uses it, how many people, how fast it must respond, how good answers must be, what it may cost, and what data rules apply.',
+          },
+          {
+            title: 'Rough numbers first',
+            text: 'Turn expected users into requests per minute, tokens per day and cost per month before choosing anything.',
+          },
+          {
+            title: 'Choose the simplest design that works',
+            text: 'Decide between plain prompting, RAG, an agent or a mix, and justify each extra piece.',
+          },
+          {
+            title: 'The core trade-offs',
+            text: 'Quality, speed and cost pull against each other; every design choice favors one of them.',
+          },
+          {
+            title: 'Plan for failure',
+            text: 'Decide what happens when the model, a tool or a provider is down or slow.',
+          },
+          {
+            title: 'Write it down',
+            text: 'Record your design, the alternatives you rejected, and why.',
+          },
+        ],
+        tryIt:
+          'Write a one-page design for your app: requirements, expected traffic, monthly cost estimate, a diagram of the main parts, and three decisions you made with the alternatives you rejected.',
+        outcome:
+          'Turn a product idea into a design you can defend, starting from requirements rather than favorite tools.',
+      },
+      {
+        id: '6.2',
+        title: 'From Prototype to Service',
+        icon: 'server',
+        days: [79, 79],
+        minutes: 60,
+        bullets: [
+          {
+            title: 'A backend for your agent',
+            text: 'Put your agent behind a web API so any frontend or other app can use it.',
+          },
+          {
+            title: 'Stream through the API',
+            text: 'Send answers and agent progress to the user as they happen.',
+          },
+          {
+            title: "Know who's asking",
+            text: 'Identify each user so permissions, memory and cost tracking work per person.',
+          },
+          {
+            title: 'Keep the app stateless',
+            text: 'Store conversations, agent progress and memories in a database, not inside the running app, so it can restart or scale without losing anything.',
+          },
+          {
+            title: 'Long tasks in the background',
+            text: 'Run long agent tasks as background jobs that report progress, instead of holding a request open.',
+          },
+          {
+            title: 'Protect the API',
+            text: 'Require authentication and limit how many requests each user can make.',
+          },
+        ],
+        tryIt:
+          'Expose your agent through an API with a streaming endpoint. Call it from two different users and confirm each gets their own conversation and memories.',
+        outcome:
+          'Run your agent as a proper service that many users can use at once.',
+      },
+      {
+        id: '6.3',
+        title: 'A Real Frontend',
+        icon: 'monitor-smartphone',
+        days: [80, 80],
+        minutes: 60,
+        bullets: [
+          {
+            title: 'A chat interface',
+            text: 'Build a simple chat page that streams answers as they arrive.',
+          },
+          {
+            title: 'Show the evidence',
+            text: 'Display citations so users can open the source of each claim.',
+          },
+          {
+            title: 'Show what the agent is doing',
+            text: 'Display progress, the tool in use and what it found during longer tasks.',
+          },
+          {
+            title: 'Approval in the interface',
+            text: 'Show the user exactly what the agent wants to do and let them approve or reject it.',
+          },
+          {
+            title: 'Collect feedback',
+            text: 'Add a simple way for users to rate answers and say what went wrong.',
+          },
+          {
+            title: 'Handle failure in the interface',
+            text: 'Show clear messages when something fails, and let users retry or cancel.',
+          },
+        ],
+        tryIt:
+          'Build a chat page for your agent with streaming, citations, an approval prompt and a thumbs-up or thumbs-down on each answer.',
+        outcome:
+          "Give users an interface that shows them what the agent knows, what it's doing and what it wants to do.",
+      },
+      {
+        id: '6.4',
+        title: 'Packaging and Deploying',
+        icon: 'container',
+        days: [81, 82],
+        minutes: 120,
+        bullets: [
+          {
+            title: 'Package everything',
+            text: 'Put your app in a container so it runs the same everywhere.',
+          },
+          {
+            title: 'Run all the parts together',
+            text: 'Package your app with its database and vector database so the whole system starts with one command.',
+          },
+          {
+            title: 'Deploy to a managed host',
+            text: "Deploy to a hosting service that runs containers for you, so you don't manage servers yourself.",
+          },
+          {
+            title: 'Secrets in the right place',
+            text: "Keep API keys and passwords in the host's secret storage, never in your code or container.",
+          },
+          {
+            title: 'Separate environments',
+            text: 'Keep development, testing and live versions apart, each with its own settings, data and keys.',
+          },
+          {
+            title: 'Health checks',
+            text: 'Let the host check that your app is running properly and restart it if not.',
+          },
+          {
+            title: 'Data changes on deploy',
+            text: 'Plan how database changes and re-indexing documents happen when you release a new version.',
+          },
+        ],
+        tryIt:
+          'Deploy your app to a test environment, then to a live one. Change a setting only in the test environment and confirm the live one is unaffected.',
+        outcome:
+          'Deploy your app reliably to a live environment, with secrets and settings kept safe and separate.',
+      },
+      {
+        id: '6.5',
+        title: 'Automatic Checks on Every Change',
+        icon: 'shield-check',
+        days: [83, 83],
+        minutes: 60,
+        bullets: [
+          {
+            title: 'Test on every change',
+            text: 'Run your tests automatically whenever you push code, using a tool such as GitHub Actions.',
+          },
+          {
+            title: 'Your regression suite becomes a gate',
+            text: 'Run your RAG quality, RAG security, agent and agent security tests, and block a release if any of them get worse.',
+          },
+          {
+            title: 'Fast checks and full checks',
+            text: 'Run a quick subset on every change and the full suite before each release, since evaluations cost time and money.',
+          },
+          {
+            title: 'Prompts and models count as code',
+            text: 'A changed prompt, model version or setting goes through the same checks as a code change.',
+          },
+          {
+            title: 'Release only what passed',
+            text: 'Build and deploy only the exact version that passed every check.',
+          },
+        ],
+        tryIt:
+          'Set up automatic checks that run your quick test subset on every push. Push a deliberately worse prompt and confirm the release is blocked.',
+        outcome:
+          "Make it impossible to release a version of your app that's worse than the current one.",
+      },
+      {
+        id: '6.6',
+        title: 'Releasing Safely',
+        icon: 'rocket',
+        days: [84, 84],
+        minutes: 60,
+        bullets: [
+          {
+            title: 'Every release can be traced',
+            text: 'Record which code, prompt, model and settings are live, so any result can be traced to a version.',
+          },
+          {
+            title: 'Release to a few users first',
+            text: 'Send a small share of traffic to the new version and widen it only if it behaves well.',
+          },
+          {
+            title: 'Test in the shadows',
+            text: 'Run a new version on real questions without showing its answers to users, and compare it with the current one.',
+          },
+          {
+            title: 'Compare versions with real users',
+            text: 'Run two versions side by side and compare quality, user ratings and cost before choosing.',
+          },
+          {
+            title: 'Turn features on and off',
+            text: 'Release new behavior switched off and turn it on without a new deployment.',
+          },
+          {
+            title: 'Roll back fast',
+            text: 'Be able to return to the previous version in minutes when something goes wrong.',
+          },
+        ],
+        tryIt:
+          'Release a new prompt to 10% of traffic, compare it with the current version on quality and cost, then either roll it out to everyone or roll it back.',
+        outcome:
+          'Release changes gradually, compare them on real traffic, and undo them quickly if they cause harm.',
+      },
+      {
+        id: '6.7',
+        title: 'Watching It in Production',
+        icon: 'activity',
+        days: [85, 86],
+        minutes: 120,
+        bullets: [
+          {
+            title: 'Trace live traffic',
+            text: "Keep tracing every request in production, so you can follow any user's problem step by step.",
+          },
+          {
+            title: 'The numbers to watch',
+            text: 'Requests, errors, response time (typical and slowest), tokens, and cost per request and per user.',
+          },
+          {
+            title: 'Check quality on live traffic',
+            text: 'Regularly score a sample of real answers with your judges, since live questions differ from your test set.',
+          },
+          {
+            title: 'Listen to users',
+            text: 'Collect ratings and comments, and watch signals like users rephrasing the same question or abandoning a task.',
+          },
+          {
+            title: 'Spot changes over time',
+            text: "Notice when the questions people ask, your documents or the model's behavior start to shift.",
+          },
+          {
+            title: 'Alerts',
+            text: "Get warned when errors, response times, costs or quality scores cross a limit you've set.",
+          },
+          {
+            title: 'Close the loop',
+            text: 'Add real failures and poorly rated answers to your test set, so the regression suite learns from production.',
+          },
+          {
+            title: 'Keep private data out',
+            text: 'Mask personal details in traces and logs, as you learned in Module 4.',
+          },
+        ],
+        tryIt:
+          'Build a dashboard showing requests, errors, response time, cost and a live quality score. Set one alert, trigger it on purpose, and add three poorly rated answers to your test set.',
+        outcome:
+          'Know how your app is performing for real users and turn what you see into improvements.',
+      },
+      {
+        id: '6.8',
+        title: 'Cost, Speed and Scale',
+        icon: 'gauge',
+        days: [87, 87],
+        minutes: 60,
+        bullets: [
+          {
+            title: 'Find where time and money go',
+            text: 'Break each request into its parts (search, model calls, tools) and see which costs most.',
+          },
+          {
+            title: 'Caching',
+            text: 'Reuse answers to repeated questions, cache fixed prompt sections, and cache search results.',
+          },
+          {
+            title: 'Answer similar questions once',
+            text: 'Semantic caching reuses an answer when a new question means the same as an earlier one; decide which questions must never be answered from a cache.',
+          },
+          {
+            title: 'Cheaper models for easy work',
+            text: 'Send simple requests to a fast, cheap model and only hard ones to a stronger model.',
+          },
+          {
+            title: 'Do things at the same time',
+            text: 'Run independent steps in parallel instead of one after another.',
+          },
+          {
+            title: 'Limits per user',
+            text: "Cap usage per user so one person or a runaway agent can't run up the bill.",
+          },
+        ],
+        tryIt:
+          "Add caching and route simple questions to a cheaper model. Measure cost per request and response time before and after, and confirm your quality score hasn't dropped.",
+        outcome:
+          'Make your app faster and cheaper without making it worse, and prove it with numbers.',
+      },
+      {
+        id: '6.9',
+        title: 'Model Gateways and Managed Platforms',
+        icon: 'waypoints',
+        days: [88, 88],
+        minutes: 60,
+        bullets: [
+          {
+            title: 'One gateway for all models',
+            text: 'A model gateway sits between your app and model providers, holding keys, tracking usage and switching providers when one fails.',
+          },
+          {
+            title: 'Backup providers',
+            text: 'Fail over automatically when a provider is down or slow, knowing the backup model may answer differently.',
+          },
+          {
+            title: 'Changing models is a release',
+            text: 'A gateway can swap the model behind your app without a code change, so run your tests before every switch.',
+          },
+          {
+            title: 'Cloud AI platforms',
+            text: "Many companies can't send data to a public API and use their cloud provider's AI platform instead, which serves models inside their own account.",
+          },
+          {
+            title: 'Hosting open models',
+            text: 'Running open models yourself or through a hosting provider gives more control and predictable costs at high volume, but takes more work.',
+          },
+        ],
+        tryIt:
+          'Put a gateway in front of two model providers, make the main one fail, and confirm the backup answers within your response-time limit.',
+        outcome:
+          'Avoid depending on a single provider, and know when a cloud AI platform or self-hosting is the right choice.',
+      },
+      {
+        id: '6.10',
+        title: 'When Things Break',
+        icon: 'siren',
+        days: [89, 89],
+        minutes: 60,
+        bullets: [
+          {
+            title: 'Common incidents',
+            text: 'A provider outage, sudden slowness, a cost spike, a drop in answer quality, or the agent looping.',
+          },
+          {
+            title: 'Decide what to do',
+            text: 'For each incident, know whether to roll back, switch provider, turn a feature off, or investigate first.',
+          },
+          {
+            title: 'Runbooks',
+            text: 'Write short step-by-step guides for your most likely incidents, so anyone can act quickly.',
+          },
+          {
+            title: 'Find the cause',
+            text: 'Use traces, dashboards and version records to work out what changed and when.',
+          },
+          {
+            title: 'Learn from it',
+            text: "After each incident, write a short blameless review and add a test so it can't happen the same way again.",
+          },
+        ],
+        tryIt:
+          'Write runbooks for two incidents: a provider outage and a sudden drop in answer quality. Then simulate one and follow your own runbook.',
+        outcome:
+          'Respond to production problems calmly and quickly, and make each one less likely to happen again.',
+      },
+      {
+        id: '6.11',
+        title: 'Whole-App Security Review',
+        icon: 'scan-eye',
+        days: [90, 90],
+        minutes: 60,
+        bullets: [
+          {
+            title: 'Threat model the whole system',
+            text: 'Map every path for untrusted input and every action that could cause harm, across the frontend, API, RAG system, agent, MCP servers, memory and logs.',
+          },
+          {
+            title: 'Secrets and personal data everywhere',
+            text: 'Check that no keys, passwords or personal details appear in code, containers, logs, traces, caches or test sets.',
+          },
+          {
+            title: 'Checks at every boundary',
+            text: 'Make sure user input, documents, tool results and model output are each checked where they enter or leave the system.',
+          },
+          {
+            title: 'The API and frontend',
+            text: "Confirm authentication, per-user limits and permissions hold, and that answers can't send data to outside sites through links or images.",
+          },
+          {
+            title: 'A final red-team',
+            text: "Attack the live app through every door, including the parts that only exist now that it's deployed.",
+          },
+          {
+            title: 'Use the checklist',
+            text: 'Run through the OWASP Top 10 for LLM Applications one last time against the finished app.',
+          },
+        ],
+        tryIt:
+          'Run your full security test suite against the deployed app, then try five new attacks that target the API or frontend.',
+        outcome:
+          'Confirm that your complete, deployed app is secure from end to end, not just its individual parts.',
+      },
+    ],
+    skipped: [
+      {
+        topic: 'Managing your own servers, load balancers and auto scaling',
+        why: 'A managed host does this for you; learn it when your scale demands it',
+        where: [{ level: 10, href: '/level/10/#m10-8' }],
+      },
+      {
+        topic: 'Server-level monitoring tools',
+        why: 'App-level metrics and live quality scores matter more for an AI app',
+        where: [{ level: 10, href: '/level/10/#m10-9' }],
+      },
+      {
+        topic: 'Cloud AI platforms in depth',
+        why: "Here you learn when they're needed; using one well is a project of its own",
+        where: [{ level: 11, href: '/level/11/#m11-2' }],
+      },
+      {
+        topic: 'Self-hosting open models and sizing hardware',
+        why: 'Most teams start with hosted models',
+        where: [{ level: 11, href: '/level/11/#m11-6' }],
+      },
+      {
+        topic: 'Design case studies beyond your own app',
+        why: "You'll practice more designs in the interview module",
+        where: [{ level: 9, href: '/level/9/#m9-9' }],
+      },
+      {
+        topic: 'Responsible AI and regulation in depth',
+        why: 'Beyond what your app needs to launch',
+        where: [{ level: 8, href: '/level/8/#m8-8' }],
+      },
+    ],
+  },
 ];
 
 export const daysModuleHref = (m: DaysModule) => `${DAYS_BASE}/${m.slug}/`;
