@@ -356,7 +356,7 @@ export const hundredDaysModules: DaysModule[] = [
     summary:
       'Use LangChain to turn single model calls into a reliable app: conversations, streaming, structured answers, tools, multi-step chains, error handling and cost tracking.',
     days: [7, 17],
-    hours: 'about 20 hours',
+    hours: 'about 18 hours',
     before:
       'Module 1 (LLM Fundamentals).',
     outcome:
@@ -517,7 +517,7 @@ export const hundredDaysModules: DaysModule[] = [
         title: 'Tool Calling',
         icon: 'wrench',
         days: [12, 13],
-        minutes: 240,
+        minutes: 120,
         bullets: [
           {
             title: 'The model asks; your code acts',
