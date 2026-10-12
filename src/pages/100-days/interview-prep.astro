@@ -6,7 +6,6 @@ import { hundredDaysModules, daysModuleHref, DAYS_BASE } from '../../data/hundre
 import { PROJECTS_HREF } from '../../data/hundred-days-projects';
 import {
   interviewSummary,
-  howToUse,
   questionTypes,
   strongAnswer,
   questionGroups,
@@ -55,24 +54,6 @@ const toneStyle = (t: QuestionType) =>
         </div>
       </div>
     </header>
-
-    <!-- ───────────────── how to use ───────────────── -->
-    <section class="section isec isec--first" aria-labelledby="how-h">
-      <div class="wrap">
-        <h2 class="isec__label" id="how-h">
-          <Icon name="compass" size={14} />
-          <span>How to use this section</span>
-        </h2>
-        <ol class="how" role="list">
-          {howToUse.map((h, i) => (
-            <li class="how__item">
-              <span class="how__n">{String(i + 1).padStart(2, '0')}</span>
-              <p class="how__text"><b>{h.title}</b> {h.body}</p>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </section>
 
     <!-- ───────────────── types + strong answers ───────────────── -->
     <section class="section isec isec--gray" aria-labelledby="types-h">
@@ -265,7 +246,6 @@ const toneStyle = (t: QuestionType) =>
   /* ---------- sections ---------- */
   .isec { padding-block: 44px; }
   @media (min-width: 768px) { .isec { padding-block: 56px; } }
-  .isec--first { padding-top: 12px; }
   .isec--gray { background: var(--cx-gray); border-block: 1px solid var(--cx-border); }
 
   .isec__label {
@@ -283,23 +263,6 @@ const toneStyle = (t: QuestionType) =>
 
   .igrid { display: grid; grid-template-columns: 1fr; gap: 40px; }
   @media (min-width: 960px) { .igrid { grid-template-columns: 1fr 1fr; gap: 56px; } }
-
-  /* ---------- how to use ---------- */
-  .how { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 0; padding: 0; list-style: none; }
-  @media (min-width: 640px) { .how { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1040px) { .how { grid-template-columns: repeat(4, 1fr); } }
-  .how__item {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 18px;
-    background: #fff;
-    border: 1px solid var(--cx-border);
-    border-radius: var(--cx-r-card-sm);
-  }
-  .how__n { font-family: var(--cx-font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--phase-ac); }
-  .how__text { font-size: 14.5px; line-height: 1.55; color: var(--cx-g600); }
-  .how__text b { color: var(--cx-ink); font-weight: 600; }
 
   /* ---------- types + strong ---------- */
   .types, .strong { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; }

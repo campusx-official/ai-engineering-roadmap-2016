@@ -27,19 +27,6 @@ export interface QuestionGroup {
 export const interviewSummary =
   'The 100 questions AI engineering interviews keep coming back to, from core concepts to system design, with what a strong answer covers.';
 
-export const howToUse: { title: string; body: string }[] = [
-  {
-    title: "Don't memorize answers.",
-    body: 'Interviewers follow up, and memorized answers fall apart. Use the outlines to check that your own answer covers the key points.',
-  },
-  { title: 'Answer out loud first,', body: 'then read the outline. Note the points you missed.' },
-  {
-    title: 'Use your own projects.',
-    body: 'The strongest answers include something you built, measured or got wrong.',
-  },
-  { title: 'Start with your weakest module.', body: 'The questions are grouped to match the track.' },
-];
-
 export const questionTypes: { type: QuestionType; meaning: string }[] = [
   { type: 'Concept', meaning: 'explain how something works and when to use it.' },
   { type: 'Scenario', meaning: 'decide what to do in a specific situation.' },
