@@ -79,7 +79,7 @@ export const hundredDaysModules: DaysModule[] = [
     summary:
       'Learn how LLMs behave, what they cost, where they fail, and how to choose one from measurements rather than leaderboard rank.',
     days: [1, 6],
-    hours: 'about 5 hours',
+    hours: 'about 12 hours',
     before: 'Basic Python, calling an API, and an API key for at least one model provider.',
     outcome:
       'Explain why an LLM gives fluent wrong answers, estimate what a request will cost and how long it will take, and choose a model from measurements rather than rank.',
@@ -91,7 +91,7 @@ export const hundredDaysModules: DaysModule[] = [
         title: 'What an LLM Does',
         icon: 'sparkles',
         days: [1, 1],
-        minutes: 45,
+        minutes: 120,
         bullets: [
           {
             title: 'Next-token prediction',
@@ -124,7 +124,7 @@ export const hundredDaysModules: DaysModule[] = [
         title: 'Tokens, Context and Latency',
         icon: 'binary',
         days: [2, 2],
-        minutes: 80,
+        minutes: 120,
         bullets: [
           {
             title: 'Tokens, not words',
@@ -165,7 +165,7 @@ export const hundredDaysModules: DaysModule[] = [
         title: 'Beyond Text: Images, Audio and PDFs',
         icon: 'image',
         days: [3, 3],
-        minutes: 60,
+        minutes: 120,
         bullets: [
           {
             title: 'Models that see and hear',
@@ -206,7 +206,7 @@ export const hundredDaysModules: DaysModule[] = [
         title: 'Controlling Output',
         icon: 'sliders-horizontal',
         days: [4, 4],
-        minutes: 50,
+        minutes: 120,
         bullets: [
           {
             title: 'Temperature',
@@ -242,7 +242,7 @@ export const hundredDaysModules: DaysModule[] = [
         title: 'Where LLMs Fail',
         icon: 'triangle-alert',
         days: [5, 5],
-        minutes: 45,
+        minutes: 120,
         bullets: [
           {
             title: 'Common strengths',
@@ -271,7 +271,7 @@ export const hundredDaysModules: DaysModule[] = [
         title: 'Choosing a Model',
         icon: 'scale',
         days: [6, 6],
-        minutes: 30,
+        minutes: 120,
         bullets: [
           {
             title: 'Closed vs open models',
