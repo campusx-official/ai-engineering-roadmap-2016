@@ -35,15 +35,6 @@ export const questionTypes: { type: QuestionType; meaning: string }[] = [
   { type: 'Defense', meaning: 'explain and justify your own work.' },
 ];
 
-export const strongAnswer: { title: string; body: string }[] = [
-  { title: 'States assumptions', body: 'before diving in.' },
-  { title: 'Talks in trade-offs:', body: 'quality, speed, cost, risk and effort.' },
-  { title: 'Starts simple', body: "and adds complexity only when it's justified." },
-  { title: 'Measures:', body: "explains how you'd know whether it worked." },
-  { title: 'Plans for failure:', body: 'what breaks, and what happens then.' },
-  { title: 'Admits uncertainty', body: "and says how you'd find out, instead of bluffing." },
-];
-
 type Row = [QuestionType, string, string];
 
 function group(title: string, start: number, rows: Row[], extra: Partial<QuestionGroup> = {}): QuestionGroup {
