@@ -1748,12 +1748,12 @@ export const hundredDaysModules: DaysModule[] = [
     phase: 'agentic',
     icon: 'bot',
     summary:
-      "Turn your RAG assistant into an agent that plans, uses tools, remembers and asks for approval, then measure how well it behaves and lock down what it's allowed to do.",
-    days: [51, 71],
-    hours: 'about 21 hours',
+      "Turn your RAG assistant into an agent that plans, uses tools and MCP servers, remembers, manages its context and works with other agents, then measure how well it behaves and lock down what it's allowed to do.",
+    days: [51, 76],
+    hours: 'about 26 hours',
     before: 'Module 4 (RAG).',
     outcome:
-      "Decide when a problem needs an agent; build one with LangGraph that plans, uses tools and MCP servers, remembers what matters, manages its context and asks for approval before risky actions; measure its decisions, recovery and efficiency; and limit what it can do so a tricked agent can't cause harm.",
+      "Decide when a problem needs an agent; build one with LangGraph that plans, uses tools and MCP servers, remembers what matters, manages its context, and works with other agents; measure its decisions, recovery and efficiency; and limit what it can do so a tricked agent can't cause harm.",
     coursesFrom: [{ level: 5 }, { level: 6 }, { level: 7 }, { level: 8 }],
     shortVersionOf: 5,
     alsoCovers: [{ level: 6, topic: 'Context engineering' }],
@@ -1958,78 +1958,140 @@ export const hundredDaysModules: DaysModule[] = [
       },
       {
         id: '5.7',
-        title: 'MCP (Model Context Protocol)',
+        title: 'MCP Fundamentals',
         icon: 'plug',
-        days: [58, 59],
-        minutes: 120,
-        part: 2,
-        bullets: [
-          {
-            title: 'Why MCP exists',
-            text: 'A standard way to connect AI apps to tools and data, so one integration works with many apps.',
-          },
-          {
-            title: 'Host, client and server',
-            text: 'The app (host) uses a client to talk to MCP servers, and each server exposes tools, data and prompts.',
-          },
-          {
-            title: 'Tool calling vs MCP',
-            text: 'Tool calling is how a model asks for an action; MCP is how tools are packaged and shared between apps.',
-          },
-          {
-            title: 'Build an MCP server',
-            text: 'Expose a real system, such as support requests or your document search, as an MCP server.',
-          },
-          {
-            title: 'Connect your agent',
-            text: "Use LangChain's MCP support to give your agent the server's tools.",
-          },
-          {
-            title: 'Running locally or remotely',
-            text: 'Understand the difference between servers running on your machine and servers reached over the internet, and why remote ones need authentication.',
-          },
-        ],
-        tryIt:
-          "Build an MCP server that exposes your agent's tools, connect your agent to it, and also connect it to an AI app that supports MCP.",
-        outcome:
-          'Package your tools as an MCP server that any compatible app or agent can use.',
-      },
-      {
-        id: '5.8',
-        title: 'Memory',
-        icon: 'brain',
-        days: [60, 60],
+        days: [58, 58],
         minutes: 60,
         part: 2,
         bullets: [
           {
-            title: 'Kinds of memory',
-            text: "The current conversation, the agent's working state, and long-term memory that lasts between conversations.",
+            title: 'Why MCP exists',
+            text: 'A standard way to connect AI apps to tools and data, so one integration works with many apps instead of being rebuilt for each.',
           },
           {
-            title: "Remember what's worth keeping",
-            text: 'Store useful facts, preferences and past outcomes, not every message.',
+            title: 'Host, client and server',
+            text: 'The app (host) uses a client to talk to MCP servers; each server exposes capabilities from one system.',
           },
           {
-            title: "Recall only what's relevant",
-            text: "Look up memories when they're needed instead of adding everything to every request.",
+            title: 'What a server can offer',
+            text: 'Tools the model can call, resources (data the app can read, such as files or records), and ready-made prompts.',
           },
           {
-            title: 'Keep memory accurate',
-            text: 'Update memories when facts change and remove ones that are wrong or out of date.',
+            title: 'Tool calling vs MCP',
+            text: 'Tool calling is how a model asks for an action; MCP is how tools and data are packaged and shared between apps.',
+          },
+          {
+            title: 'Using existing servers',
+            text: 'Many systems already have MCP servers, such as file systems, code repositories and databases.',
+          },
+          {
+            title: 'Connecting your agent',
+            text: "Use LangChain's MCP support to load a server's tools into your LangGraph agent.",
           },
         ],
         tryIt:
-          'Tell your agent a preference in one conversation, such as "always reply in Hindi", and check that it remembers it in a new conversation.',
+          'Connect your agent to an existing MCP server, such as a file-system server pointed at a folder of your documents, and ask it to find and summarize a file.',
         outcome:
-          'Build an agent that remembers what matters across conversations without carrying everything along.',
+          'Explain how MCP works and connect your agent to existing MCP servers.',
+      },
+      {
+        id: '5.8',
+        title: 'Building MCP Servers',
+        icon: 'server',
+        days: [59, 60],
+        minutes: 120,
+        part: 2,
+        bullets: [
+          {
+            title: 'Build your own server',
+            text: 'Expose a real system, such as support requests, as an MCP server.',
+          },
+          {
+            title: 'Tools, resources and prompts',
+            text: 'Offer actions as tools (create or check a request), reference data as resources (your policies), and common tasks as prompts.',
+          },
+          {
+            title: 'Good server design',
+            text: 'Clear names and descriptions, typed inputs, useful error messages, and small, focused results, just like good tools in Module 2.',
+          },
+          {
+            title: 'Local and remote servers',
+            text: 'Servers can run on the same machine as the app or be reached over the internet; remote servers need authentication.',
+          },
+          {
+            title: 'Test before you connect',
+            text: "Use an MCP inspector tool to call your server's tools directly and check what they return.",
+          },
+          {
+            title: 'Several servers, one agent',
+            text: "Connect your agent to more than one server and make sure tool names don't clash or confuse it.",
+          },
+          {
+            title: 'Changing a server safely',
+            text: 'Adding or renaming tools changes what every connected agent sees; version your server and test agents after each change.',
+          },
+        ],
+        tryIt:
+          'Build an MCP server for support requests with at least two tools and one resource. Test it with an inspector, connect your agent and an MCP-compatible AI app to it, and complete one task from each.',
+        outcome:
+          'Package your own systems as MCP servers that any compatible app or agent can use.',
       },
       {
         id: '5.9',
-        title: 'Context Engineering',
-        icon: 'layout-dashboard',
+        title: 'Memory',
+        icon: 'brain',
         days: [61, 62],
         minutes: 120,
+        part: 2,
+        bullets: [
+          {
+            title: 'Short-term and long-term',
+            text: 'Short-term memory lasts for one conversation or task; long-term memory carries over between conversations.',
+          },
+          {
+            title: 'Kinds of long-term memory',
+            text: 'Facts about the user (preferences, details), records of past events (what happened last time), and lessons about how to do things better.',
+          },
+          {
+            title: 'Where memories live',
+            text: "Store them in a database or LangGraph's memory store, organized per user so they never mix.",
+          },
+          {
+            title: 'When to save',
+            text: "During the conversation, when something important comes up, or in the background afterwards, so saving doesn't slow the user down.",
+          },
+          {
+            title: 'What to save',
+            text: 'Have the model pull out useful facts in a structured form, and avoid duplicates or saving every message.',
+          },
+          {
+            title: 'When facts change',
+            text: 'Update or replace memories that are out of date, and decide what wins when two memories disagree.',
+          },
+          {
+            title: 'Recalling the right memories',
+            text: 'Look up memories by relevance and recency, and add only the few that help with the current request.',
+          },
+          {
+            title: 'Forgetting',
+            text: 'Let memories expire, and delete them completely when a user asks, including from backups and logs.',
+          },
+          {
+            title: 'Is memory helping?',
+            text: 'Check whether the agent recalls the right things, and whether it ever remembers something wrong or outdated.',
+          },
+        ],
+        tryIt:
+          'Tell your agent a preference ("always reply in Hindi") and a fact ("my team is in Pune") in one conversation. Check both are used in a new conversation, then change the fact and confirm the old one is replaced.',
+        outcome:
+          'Build an agent that remembers what matters across conversations, keeps its memories accurate, and forgets on request.',
+      },
+      {
+        id: '5.10',
+        title: 'Context Engineering Basics',
+        icon: 'layout-dashboard',
+        days: [63, 63],
+        minutes: 60,
         part: 2,
         bullets: [
           {
@@ -2038,61 +2100,107 @@ export const hundredDaysModules: DaysModule[] = [
           },
           {
             title: 'Long runs go wrong',
-            text: 'As context grows, agents lose track of the goal, miss details and cost more with every step.',
+            text: 'As context grows, agents lose track of the goal, miss details buried in the middle and cost more with every step.',
           },
           {
             title: "See what's really in there",
             text: "Inspect exactly what the agent sends the model at each step and spot what's useful and what's noise.",
           },
           {
+            title: 'Split the budget',
+            text: 'Give rough limits to each part: instructions, history, retrieved passages, memories and tool results.',
+          },
+          {
             title: 'Build it on purpose',
             text: "Decide what's always included, what's looked up when needed, what's summarized and what's left out.",
           },
           {
-            title: 'Shrink without losing the plot',
-            text: 'Summarize older history while keeping the goal, decisions and unfinished work, and trim large tool results before they go back to the model.',
-          },
-          {
-            title: 'Write things down',
-            text: 'Let the agent keep notes, plans and progress outside its context and read them back when needed.',
-          },
-          {
-            title: 'Only the tools it needs',
-            text: 'Give the agent only the tools relevant to the current task, since every tool description takes space.',
-          },
-          {
-            title: 'Use caching',
-            text: 'Keep fixed instructions at the start so they can be cached, as you did in Module 3.',
+            title: 'Order and label',
+            text: "Keep instructions, evidence, memories and user input clearly separated so the model doesn't mix them up.",
           },
         ],
         tryIt:
-          'Run a long task that needs 20 or more steps. Compare a version that keeps everything with one that summarizes history and trims tool results, on success, tokens and cost.',
+          "Log the full context your agent sends at step 1, step 10 and step 20 of a long task. Measure how big each part has grown and mark what's no longer useful.",
         outcome:
-          'Keep long, tool-heavy agent runs focused and affordable by managing what goes into the context.',
+          "Diagnose when an agent's problems are really context problems, and plan what goes into its context.",
       },
       {
-        id: '5.10',
-        title: 'Multi-Agent Systems',
-        icon: 'users',
-        days: [63, 63],
+        id: '5.11',
+        title: 'Compaction, Offloading and Tool Context',
+        icon: 'shrink',
+        days: [64, 65],
+        minutes: 120,
+        part: 2,
+        bullets: [
+          {
+            title: 'Summarize without losing the plot',
+            text: 'Compress older history while keeping the goal, constraints, decisions and unfinished work.',
+          },
+          {
+            title: 'Rolling summaries',
+            text: 'Update a running summary as the task goes on instead of re-summarizing everything each time.',
+          },
+          {
+            title: 'Keep exact details exact',
+            text: 'Store numbers, IDs and other precise data separately, since summaries can blur them.',
+          },
+          {
+            title: 'Write things down',
+            text: 'Let the agent keep notes, plans and progress in a scratchpad or file outside its context and read them back when needed.',
+          },
+          {
+            title: 'Trim tool results',
+            text: "Filter or summarize large results before they go back to the model, and keep the full version outside in case it's needed later.",
+          },
+          {
+            title: 'Only the tools it needs',
+            text: 'Load only the tools relevant to the current step, since every tool description takes space.',
+          },
+          {
+            title: 'Use caching',
+            text: 'Keep fixed instructions and tool descriptions at the start so they can be cached, and measure how much caching saves.',
+          },
+          {
+            title: 'Give sub-tasks their own context',
+            text: "Hand a self-contained sub-task to a separate agent with a fresh context, so its working details don't crowd the main one; you'll build this in the multi-agent units.",
+          },
+        ],
+        tryIt:
+          'Run a task of 20 or more steps three ways: keeping everything, summarizing history, and summarizing history plus trimming tool results and keeping notes. Compare success, tokens and cost.',
+        outcome:
+          'Keep long, tool-heavy agent runs focused and affordable without losing the information that matters.',
+      },
+      {
+        id: '5.12',
+        title: 'Multi-Agent Patterns',
+        icon: 'network',
+        days: [66, 66],
         minutes: 60,
         part: 2,
         bullets: [
           {
             title: 'Why more than one agent',
-            text: 'Different parts of a task may need different tools, instructions, models or permissions.',
+            text: "Different parts of a task may need different tools, instructions, models or permissions, and splitting work keeps each agent's context small.",
           },
           {
-            title: 'Common patterns',
-            text: 'A supervisor that hands work to specialist agents, agents that pass work along in sequence, and specialists working in parallel.',
+            title: 'Supervisor and specialists',
+            text: 'One agent plans and hands work to specialist agents, then combines their results.',
+          },
+          {
+            title: 'Handoffs',
+            text: 'Agents pass a task along in sequence, each doing its part, like a support desk transferring a call.',
+          },
+          {
+            title: 'Parallel specialists',
+            text: 'Several agents work on parts of a task at the same time, and their results are merged.',
+          },
+          {
+            title: 'Teams of teams',
+            text: 'For large tasks, supervisors can manage other supervisors, each with their own specialists.',
           },
           {
             title: 'What goes wrong',
-            text: 'Duplicated work, agents talking past each other, growing context, conflicting results, and higher cost.',
-          },
-          {
-            title: 'Agents talking to agents',
-            text: 'MCP connects agents to tools; A2A is an emerging standard for connecting independently built agents to each other.',
+            text: 'Duplicated work, agents talking past each other, lost information between agents, conflicting results, and much higher cost.',
           },
           {
             title: 'One strong agent is often enough',
@@ -2100,15 +2208,61 @@ export const hundredDaysModules: DaysModule[] = [
           },
         ],
         tryIt:
-          'Build a supervisor in LangGraph with two specialists, one for answering questions and one for handling requests. Compare it with your single agent on the same five tasks.',
+          'Sketch two designs for your agent: a single agent and a supervisor with specialists. For each, list which tools and permissions every agent gets, and predict which will cost more.',
         outcome:
-          'Build a multi-agent system and judge honestly whether it beats a single agent.',
+          'Choose a multi-agent pattern that fits the task, or decide that a single agent is better.',
       },
       {
-        id: '5.11',
+        id: '5.13',
+        title: 'Building Multi-Agent Systems',
+        icon: 'users',
+        days: [67, 68],
+        minutes: 120,
+        part: 2,
+        bullets: [
+          {
+            title: 'Build a supervisor',
+            text: 'Use LangGraph to build a supervisor that decides which specialist handles each part of a task.',
+          },
+          {
+            title: 'Handoffs between agents',
+            text: 'Pass a task, with the context it needs, from one agent to another.',
+          },
+          {
+            title: 'What each agent sees',
+            text: 'Decide whether agents share one state or pass messages, and give each only the information it needs.',
+          },
+          {
+            title: 'Right tools, right model',
+            text: 'Give each specialist only its own tools and permissions, and use cheaper models for simpler specialists.',
+          },
+          {
+            title: 'Combining results',
+            text: "Merge specialists' outputs and resolve conflicts when they disagree.",
+          },
+          {
+            title: 'When a specialist fails',
+            text: 'Retry, reassign the work to another agent, or escalate to a person.',
+          },
+          {
+            title: 'Track the cost',
+            text: 'Measure steps, tokens, time and cost per agent and for the whole task.',
+          },
+          {
+            title: 'Agents from other teams (A2A)',
+            text: 'A2A is an emerging standard for connecting agents built by different teams or companies, the way MCP connects tools.',
+          },
+        ],
+        tryIt:
+          'Build a supervisor with two or three specialists, such as one for answering questions, one for handling requests and one for checking policies. Compare it with your single agent on the same ten tasks for success, cost and time.',
+        outcome:
+          'Build a working multi-agent system and judge with numbers whether it beats a single agent.',
+      },
+      {
+        id: '5.14',
         title: 'Reliability and User Experience',
         icon: 'gauge',
-        days: [64, 64],
+        days: [69, 69],
         minutes: 60,
         part: 2,
         bullets: [
@@ -2139,10 +2293,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Build agents that fail predictably, hand over when stuck, and keep users informed and in control.',
       },
       {
-        id: '5.12',
+        id: '5.15',
         title: 'Why Agent Evals Are Different',
         icon: 'footprints',
-        days: [65, 65],
+        days: [70, 70],
         minutes: 60,
         part: 3,
         bullets: [
@@ -2156,11 +2310,11 @@ export const hundredDaysModules: DaysModule[] = [
           },
           {
             title: 'Group the failures',
-            text: 'Note what went wrong in each run (wrong tool, bad inputs, loops, gave up early) and count each type.',
+            text: 'Note what went wrong in each run (wrong tool, bad inputs, loops, gave up early, lost context, bad handoff) and count each type.',
           },
           {
             title: 'What to measure',
-            text: 'Decisions, tool use, the path taken, task success, recovery from problems, efficiency and safety.',
+            text: 'Decisions, tool use, the path taken, task success, recovery from problems, memory, efficiency and safety.',
           },
         ],
         tryIt:
@@ -2169,10 +2323,10 @@ export const hundredDaysModules: DaysModule[] = [
           "Find your agent's most common failures by reading what it actually did, not just what it answered.",
       },
       {
-        id: '5.13',
+        id: '5.16',
         title: 'Evaluating Tool Use and Task Success',
         icon: 'clipboard-check',
-        days: [66, 66],
+        days: [71, 71],
         minutes: 60,
         part: 3,
         bullets: [
@@ -2203,10 +2357,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Measure whether your agent makes good decisions and completes its tasks.',
       },
       {
-        id: '5.14',
-        title: 'Testing Recovery and Efficiency',
+        id: '5.17',
+        title: 'Testing Recovery, Memory and Efficiency',
         icon: 'life-buoy',
-        days: [67, 67],
+        days: [72, 72],
         minutes: 60,
         part: 3,
         bullets: [
@@ -2219,8 +2373,8 @@ export const hundredDaysModules: DaysModule[] = [
             text: 'Check whether the agent retries, tries another tool, changes its plan or asks for help.',
           },
           {
-            title: 'Measure recovery, not just success',
-            text: "An agent that only works when nothing goes wrong isn't ready for real users.",
+            title: 'Test memory',
+            text: "Check that the agent recalls the right facts across conversations and never uses outdated or another user's memories.",
           },
           {
             title: 'Efficiency',
@@ -2228,15 +2382,15 @@ export const hundredDaysModules: DaysModule[] = [
           },
         ],
         tryIt:
-          'Make your search tool fail on three tasks and return empty results on two more. Record how the agent handles each.',
+          'Make your search tool fail on three tasks and return empty results on two more. Then run three tasks that depend on remembered facts. Record how the agent handles each.',
         outcome:
-          'Measure how well your agent copes when things go wrong and what each task costs.',
+          'Measure how well your agent copes when things go wrong, whether its memory can be trusted, and what each task costs.',
       },
       {
-        id: '5.15',
+        id: '5.18',
         title: 'Agent Threats and Least Privilege',
         icon: 'key-round',
-        days: [68, 68],
+        days: [73, 73],
         minutes: 60,
         part: 4,
         bullets: [
@@ -2246,11 +2400,15 @@ export const hundredDaysModules: DaysModule[] = [
           },
           {
             title: 'Least privilege',
-            text: 'Give the agent only the tools and permissions the current task needs, and nothing more.',
+            text: 'Give each agent only the tools and permissions its task needs, and nothing more.',
           },
           {
             title: 'Check tool use in code',
             text: "Validate which tool is used, its inputs and the user's permissions outside the model, before anything runs.",
+          },
+          {
+            title: 'Memory can be attacked',
+            text: 'Injected instructions saved as memories can affect every future conversation, and memories must never leak between users.',
           },
           {
             title: 'Limits stop runaways',
@@ -2258,15 +2416,15 @@ export const hundredDaysModules: DaysModule[] = [
           },
         ],
         tryIt:
-          'List every tool and permission your agent has. For each one, write what an attacker could do with it, then remove or restrict anything not essential.',
+          'List every tool and permission each of your agents has. For each one, write what an attacker could do with it, then remove or restrict anything not essential.',
         outcome:
-          'Explain how agents can be attacked and give yours only the access it truly needs.',
+          'Explain how agents can be attacked and give yours only the access they truly need.',
       },
       {
-        id: '5.16',
+        id: '5.19',
         title: 'Approval Gates and Sandboxing',
         icon: 'box',
-        days: [69, 69],
+        days: [74, 74],
         minutes: 60,
         part: 4,
         bullets: [
@@ -2297,10 +2455,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Let agents take powerful actions safely, with approval and isolation around anything risky.',
       },
       {
-        id: '5.17',
+        id: '5.20',
         title: 'Securing MCP and Tools',
         icon: 'shield-check',
-        days: [70, 70],
+        days: [75, 75],
         minutes: 60,
         part: 4,
         bullets: [
@@ -2322,7 +2480,7 @@ export const hundredDaysModules: DaysModule[] = [
           },
           {
             title: 'Hijacked tool use',
-            text: "Injected instructions from documents or tool results may try to make the agent call tools it shouldn't; your code checks from Unit 5.15 are what stop them.",
+            text: "Injected instructions from documents or tool results may try to make the agent call tools it shouldn't; your code checks from Unit 5.18 are what stop them.",
           },
         ],
         tryIt:
@@ -2331,20 +2489,20 @@ export const hundredDaysModules: DaysModule[] = [
           'Connect agents to MCP servers and tools without handing control to whoever wrote them.',
       },
       {
-        id: '5.18',
+        id: '5.21',
         title: 'Red-Teaming Your Agent',
         icon: 'swords',
-        days: [71, 71],
+        days: [76, 76],
         minutes: 60,
         part: 4,
         bullets: [
           {
             title: 'Attack your own agent',
-            text: 'Try to make it misuse tools, go beyond its permissions, reveal secrets, take actions without approval, or loop and run up costs.',
+            text: 'Try to make it misuse tools, go beyond its permissions, reveal secrets, take actions without approval, poison its memory, or loop and run up costs.',
           },
           {
             title: 'Attack through every door',
-            text: "Use the user's messages, retrieved documents, tool results and MCP tool descriptions.",
+            text: "Use the user's messages, retrieved documents, tool results, MCP tool descriptions and saved memories.",
           },
           {
             title: 'Measure unsafe actions',
@@ -2360,7 +2518,7 @@ export const hundredDaysModules: DaysModule[] = [
           },
         ],
         tryIt:
-          'Write 10 attacks on your agent across messages, documents, tool results and MCP. Record how many succeed, fix what you can, and run them again.',
+          'Write 10 attacks on your agent across messages, documents, tool results, MCP and memory. Record how many succeed, fix what you can, and run them again.',
         outcome:
           'Test your agent the way an attacker would and turn what you find into permanent tests.',
       },
@@ -2372,19 +2530,14 @@ export const hundredDaysModules: DaysModule[] = [
         where: [{ level: 5, href: '/level/5/#m5-10' }],
       },
       {
-        topic: 'A2A in depth',
-        why: 'Still emerging; MCP covers what most agents need today',
+        topic: 'Building with A2A',
+        why: 'Still emerging; MCP and LangGraph handoffs cover what most agent systems need today',
         where: [{ level: 5, href: '/level/5/#m5-6' }],
       },
       {
-        topic: 'Long-context strategies in depth',
-        why: 'Unit 5.9 covers what agents need; very long documents are a specialist topic',
+        topic: 'Long-context strategies for very long documents',
+        why: 'A specialist topic; Units 5.10–5.11 cover what agents need',
         where: [{ level: 6, href: '/level/6/#m6-5' }],
-      },
-      {
-        topic: 'Hierarchical summaries and advanced compaction',
-        why: 'Basic summarizing and trimming handle most agent runs',
-        where: [{ level: 6, href: '/level/6/#m6-3' }],
       },
       {
         topic: 'Cybersecurity capability benchmarks',
