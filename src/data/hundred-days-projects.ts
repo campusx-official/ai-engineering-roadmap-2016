@@ -24,7 +24,7 @@ export const projectsSummary =
   'Turn what you learned into a portfolio: build two or three projects that each show a different skill, to the same standard you used in the course.';
 
 export const whyBuild =
-  "By Day 100 you've built one complete AI app. Everyone who finished the track built a similar one, so on its own it won't set you apart. The projects here help you show range: each one exercises a different skill, and each is held to the standard that employers rarely see, with real test results, security testing and a live deployment.";
+  'Everyone who finishes the track has an app like yours. These projects show range: each one uses a different skill, with real test results, security testing and a live deployment.';
 
 export const howToUse: { title: string; body: string }[] = [
   {
