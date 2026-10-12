@@ -66,7 +66,7 @@ export interface DaysModule {
   /** Roadmap level this module is the short version of; that level links here. */
   shortVersionOf?: number;
   /** Other roadmap levels whose topic this module covers; those levels link here too. */
-  alsoCovers?: { level: number; topic: string }[];
+  alsoCovers?: { level: number; topic: string; plural?: boolean }[];
 }
 
 export const hundredDaysModules: DaysModule[] = [
@@ -2836,15 +2836,18 @@ export const hundredDaysModules: DaysModule[] = [
     phase: 'production',
     icon: 'rocket',
     summary:
-      'Put your agent in front of real users: design it properly, deploy it, release changes safely, watch how it behaves, keep costs under control, and know what to do when something breaks.',
-    days: [84, 96],
-    hours: 'about 13 hours',
-    before: 'Module 5 (Agents).',
+      "Put your agent in front of real users: design it properly, deploy it, release changes safely, watch how it behaves, keep costs under control with caching, open models and fine-tuning, and make sure it's secure from end to end.",
+    days: [84, 100],
+    hours: 'about 17 hours',
+    before: 'Module 5 (Agents), your agent, and your full regression suite.',
     outcome:
-      "Turn a working AI app into a live service: justify its design, deploy it, block releases that make it worse, roll out changes gradually, monitor quality, cost and speed, handle incidents, and confirm it's secure from end to end.",
-    coursesFrom: [{ level: 9 }, { level: 10 }, { level: 11 }],
+      "Turn a working AI app into a live service: justify its design, deploy it, block releases that make it worse, roll out changes gradually, monitor quality, cost and speed, cut costs with caching, open models and fine-tuning, handle incidents, and confirm it's secure from end to end.",
+    coursesFrom: [{ level: 9 }, { level: 10 }, { level: 11 }, { level: 13 }],
     shortVersionOf: 10,
-    alsoCovers: [{ level: 9, topic: 'AI system design' }],
+    alsoCovers: [
+      { level: 9, topic: 'AI system design' },
+      { level: 13, topic: 'The basics of fine-tuning', plural: true },
+    ],
     units: [
       {
         id: '6.1',
@@ -2879,7 +2882,7 @@ export const hundredDaysModules: DaysModule[] = [
           },
         ],
         tryIt:
-          'Write a one-page design for your app: requirements, expected traffic, monthly cost estimate, a diagram of the main parts, and three decisions you made with the alternatives you rejected.',
+          'Write a one-page design for your project: requirements, expected traffic, monthly cost estimate, a diagram of the main parts, and three decisions you made with the alternatives you rejected.',
         outcome:
           'Turn a product idea into a design you can defend, starting from requirements rather than favorite tools.',
       },
@@ -3174,20 +3177,192 @@ export const hundredDaysModules: DaysModule[] = [
             text: "Many companies can't send data to a public API and use their cloud provider's AI platform instead, which serves models inside their own account.",
           },
           {
-            title: 'Hosting open models',
-            text: 'Running open models yourself or through a hosting provider gives more control and predictable costs at high volume, but takes more work.',
+            title: 'Choosing a path',
+            text: 'Compare public APIs, cloud AI platforms and hosting open models on data rules, cost, effort and how quickly you get new models.',
           },
         ],
         tryIt:
           'Put a gateway in front of two model providers, make the main one fail, and confirm the backup answers within your response-time limit.',
         outcome:
-          'Avoid depending on a single provider, and know when a cloud AI platform or self-hosting is the right choice.',
+          'Avoid depending on a single provider, and know when a cloud AI platform is the right choice.',
       },
       {
         id: '6.10',
+        title: 'Serving Open Models Yourself',
+        icon: 'server-cog',
+        days: [95, 95],
+        minutes: 60,
+        bullets: [
+          {
+            title: 'Why host your own',
+            text: 'Predictable cost at high volume, data that never leaves your control, and full control over which version runs.',
+          },
+          {
+            title: 'The hosting ladder',
+            text: 'Call an open model through a provider, rent GPUs from a platform that runs it for you, or run it on your own servers.',
+          },
+          {
+            title: 'Serving software',
+            text: "Tools such as vLLM serve many requests efficiently by handling them together, which a simple loop can't do.",
+          },
+          {
+            title: 'Smaller models, less memory',
+            text: 'Compressed (quantized) versions of a model need far less memory, with some loss of quality.',
+          },
+          {
+            title: 'Sizing the hardware',
+            text: "A model's size, its precision and the length of its inputs decide how much GPU memory you need.",
+          },
+          {
+            title: 'Per token or per hour',
+            text: "Paying per token suits low or uneven traffic; renting GPUs by the hour wins only when they're kept busy.",
+          },
+          {
+            title: 'Cold starts',
+            text: 'A deployment that scales down to save money may answer its first request slowly.',
+          },
+        ],
+        tryIt:
+          'Serve a small open model with vLLM or through a GPU platform. Send your test set through it and compare quality, response time and cost per thousand requests with your hosted model.',
+        outcome:
+          'Decide when serving an open model yourself is worth it, and choose the right way to host it.',
+      },
+      {
+        id: '6.11',
+        title: 'Should You Fine-Tune?',
+        icon: 'scale',
+        days: [96, 96],
+        minutes: 60,
+        bullets: [
+          {
+            title: 'What fine-tuning changes',
+            text: "It teaches a model a behavior, format, style or narrow skill from examples; it's a poor way to add facts that change, which is what RAG is for.",
+          },
+          {
+            title: 'Prompt, RAG or fine-tune',
+            text: 'Try a better prompt first, add RAG for knowledge, and fine-tune only when your evals show those have run out.',
+          },
+          {
+            title: 'When it wins',
+            text: 'A consistent format or tone, a narrow task like classifying or extracting at high volume, specialist language, or replacing a large model with a small one to cut cost and response time.',
+          },
+          {
+            title: 'What it costs',
+            text: 'Collecting data, training, serving the tuned model, and tuning again whenever the base model changes.',
+          },
+          {
+            title: 'Data is most of the work',
+            text: 'Gather examples from your traces and test set, clean them, remove duplicates and personal data, and format them as conversations.',
+          },
+          {
+            title: 'Quality beats quantity',
+            text: 'A few hundred careful examples often beat thousands of messy ones.',
+          },
+          {
+            title: 'Keep a held-out set',
+            text: 'Set aside examples the model never trains on, and never train on your test set.',
+          },
+          {
+            title: 'Examples from a stronger model',
+            text: "A stronger model can help write training examples; check the provider's terms first.",
+          },
+        ],
+        tryIt:
+          'Pick a narrow task in your app, such as classifying incoming requests. Build 200 training examples from your traces and model-generated examples, plus 50 held-out examples, and measure how well your current prompted model does on the held-out set.',
+        outcome:
+          'Decide whether a task justifies fine-tuning, and prepare a clean dataset and a fair baseline.',
+      },
+      {
+        id: '6.12',
+        title: 'Fine-Tuning with LoRA',
+        icon: 'sliders-horizontal',
+        days: [97, 97],
+        minutes: 60,
+        bullets: [
+          {
+            title: 'Full vs lightweight tuning',
+            text: 'Full fine-tuning updates every weight and needs a lot of hardware; LoRA trains a small add-on instead and gets most of the benefit.',
+          },
+          {
+            title: 'Even less memory',
+            text: 'QLoRA trains on a compressed model, so a small model can be tuned on a single modest GPU.',
+          },
+          {
+            title: 'Choosing a base model',
+            text: "Pick a small open model that's good at your kind of task and whose license allows your use.",
+          },
+          {
+            title: 'Tools',
+            text: 'Libraries such as Hugging Face PEFT and Unsloth handle LoRA training; free notebook GPUs or rented GPUs are enough for small models.',
+          },
+          {
+            title: 'Key settings',
+            text: 'Learning rate, number of passes over the data and the size of the add-on; start from recommended values and change one thing at a time.',
+          },
+          {
+            title: 'Watch for overfitting',
+            text: 'If the model keeps improving on training data but gets worse on held-out data, stop.',
+          },
+          {
+            title: 'Managed fine-tuning',
+            text: 'Some providers tune models for you from an uploaded dataset, with no GPUs to manage; check where the tuned model lives and whether you can take it with you.',
+          },
+          {
+            title: 'Forgetting other skills',
+            text: 'Tuning hard on one task can make the model worse at others.',
+          },
+        ],
+        tryIt:
+          'Fine-tune a small open model with LoRA on your 200 examples using a free notebook GPU, and record training and held-out results as it trains.',
+        outcome:
+          "Run a LoRA fine-tune, choose sensible settings, and spot when it's overfitting.",
+      },
+      {
+        id: '6.13',
+        title: 'Evaluating, Serving and Distilling Fine-Tuned Models',
+        icon: 'flask-conical',
+        days: [98, 98],
+        minutes: 60,
+        bullets: [
+          {
+            title: "Beat the baseline or don't ship it",
+            text: "Compare the tuned model with your prompted model on the held-out set; keep it only if it's clearly better or much cheaper at the same quality.",
+          },
+          {
+            title: 'Check what else changed',
+            text: 'Run your full regression suite to catch anything the tune made worse.',
+          },
+          {
+            title: 'Cost and speed',
+            text: 'Compare cost and response time per request against the large model it might replace.',
+          },
+          {
+            title: 'Learning from preferences',
+            text: 'Preference tuning (DPO) teaches a model from pairs of better and worse answers, useful for tone and judgment.',
+          },
+          {
+            title: 'Distillation',
+            text: "Use a strong model's answers to train a small model to do one task almost as well, much more cheaply.",
+          },
+          {
+            title: 'Serving a tuned model',
+            text: 'Merge the LoRA add-on into the model, or serve several add-ons on one base model with tools like vLLM.',
+          },
+          {
+            title: 'Treat it like any release',
+            text: 'Version the tuned model, release it gradually, and retrain when the base model or your data changes.',
+          },
+        ],
+        tryIt:
+          'Compare your tuned small model with your prompted model on the held-out set for accuracy, cost and response time. Serve the tuned model, run your regression suite, and decide whether to use it.',
+        outcome:
+          'Prove with numbers whether a fine-tuned or distilled model earns its place, and serve it safely.',
+      },
+      {
+        id: '6.14',
         title: 'When Things Break',
         icon: 'siren',
-        days: [95, 95],
+        days: [99, 99],
         minutes: 60,
         bullets: [
           {
@@ -3217,19 +3392,19 @@ export const hundredDaysModules: DaysModule[] = [
           'Respond to production problems calmly and quickly, and make each one less likely to happen again.',
       },
       {
-        id: '6.11',
+        id: '6.15',
         title: 'Whole-App Security Review',
         icon: 'scan-eye',
-        days: [96, 96],
+        days: [100, 100],
         minutes: 60,
         bullets: [
           {
             title: 'Threat model the whole system',
-            text: 'Map every path for untrusted input and every action that could cause harm, across the frontend, API, RAG system, agent, MCP servers, memory and logs.',
+            text: 'Map every path for untrusted input and every action that could cause harm, across the frontend, API, RAG system, agent, MCP servers, memory, models and logs.',
           },
           {
             title: 'Secrets and personal data everywhere',
-            text: 'Check that no keys, passwords or personal details appear in code, containers, logs, traces, caches or test sets.',
+            text: 'Check that no keys, passwords or personal details appear in code, containers, logs, traces, caches, test sets or fine-tuning data.',
           },
           {
             title: 'Checks at every boundary',
@@ -3271,13 +3446,13 @@ export const hundredDaysModules: DaysModule[] = [
         where: [{ level: 11, href: '/level/11/#m11-2' }],
       },
       {
-        topic: 'Self-hosting open models and sizing hardware',
-        why: 'Most teams start with hosted models',
-        where: [{ level: 11, href: '/level/11/#m11-6' }],
+        topic: 'Reinforcement fine-tuning',
+        why: "An advanced technique most teams don't need at first",
+        where: [{ level: 13, href: '/level/13/#m13-6' }],
       },
       {
         topic: 'Design case studies beyond your own app',
-        why: "You'll practice more designs in the interview module",
+        why: "You'll find more in the interview prep section",
         where: [{ level: 9, href: '/level/9/#m9-9' }],
       },
       {
@@ -3302,10 +3477,12 @@ export const shortVersionOfLevel = (n: number): DaysModule | undefined =>
   hundredDaysModules.find((m) => m.shortVersionOf === n);
 
 /** A module that covers a roadmap level's topic without being its short version. */
-export function coveredInModule(n: number): { module: DaysModule; topic: string } | undefined {
+export function coveredInModule(
+  n: number,
+): { module: DaysModule; topic: string; plural: boolean } | undefined {
   for (const m of hundredDaysModules) {
     const hit = m.alsoCovers?.find((c) => c.level === n);
-    if (hit) return { module: m, topic: hit.topic };
+    if (hit) return { module: m, topic: hit.topic, plural: hit.plural ?? false };
   }
   return undefined;
 }

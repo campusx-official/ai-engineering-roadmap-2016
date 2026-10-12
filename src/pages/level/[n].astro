@@ -111,7 +111,7 @@ const description = `Level ${level.number} of the CampusX AI Engineering Roadmap
           <a class="lh__short" href={daysModuleHref(coveredIn.module)} data-track="level_covered_in" data-track-data={String(level.number)}>
             <Icon name="calendar-days" size={15} />
             <span>
-              {coveredIn.topic} is covered inside the {coveredIn.module.title} module of
+              {coveredIn.topic} {coveredIn.plural ? 'are' : 'is'} covered inside the {coveredIn.module.title} module of
               <b>100 Days of AI Engineering</b>
             </span>
             <Icon name="arrow-right" size={14} class="lh__short-go" />
