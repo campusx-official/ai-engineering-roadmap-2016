@@ -63,7 +63,7 @@ const projectByNumber = new Map(projects.map((p) => [p.number, p]));
           {howToUse.map((h, i) => (
             <li class="how__item">
               <span class="how__n">{String(i + 1).padStart(2, '0')}</span>
-              <p class="how__text"><b>{h.title}</b> {h.body}</p>
+              <p class="how__text">{h}</p>
             </li>
           ))}
         </ol>
@@ -372,8 +372,7 @@ const projectByNumber = new Map(projects.map((p) => [p.number, p]));
     border-radius: var(--cx-r-card-sm);
   }
   .how__n { font-family: var(--cx-font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--phase-ac); }
-  .how__text { font-size: 14.5px; line-height: 1.55; color: var(--cx-g600); }
-  .how__text b { color: var(--cx-ink); font-weight: 600; }
+  .how__text { font-size: 15px; font-weight: 600; line-height: 1.45; color: var(--cx-ink); }
 
   /* ---------- guidelines ---------- */
   .guide, .check, .avoid { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; }

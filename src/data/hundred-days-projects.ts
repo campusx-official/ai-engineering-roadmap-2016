@@ -26,23 +26,11 @@ export const projectsSummary =
 export const whyBuild =
   'Everyone who finishes the track has an app like yours. These projects show range: each one uses a different skill, with real test results, security testing and a live deployment.';
 
-export const howToUse: { title: string; body: string }[] = [
-  {
-    title: 'Build two or three projects, not ten.',
-    body: 'One deep, finished project beats several half-built demos.',
-  },
-  {
-    title: 'Make each one different',
-    body: 'from the course project and from each other.',
-  },
-  {
-    title: 'Pick for the job you want.',
-    body: 'Use "Choosing your portfolio" below.',
-  },
-  {
-    title: 'Finish in two to four weeks each.',
-    body: 'When time runs short, cut features, not quality.',
-  },
+export const howToUse: string[] = [
+  'Build two or three projects, not ten.',
+  'Make each one different.',
+  'Pick for the job you want.',
+  'Finish each in two to four weeks.',
 ];
 
 export const guidelines: { title: string; body: string }[] = [
