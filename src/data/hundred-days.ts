@@ -78,8 +78,8 @@ export const hundredDaysModules: DaysModule[] = [
     icon: 'brain-circuit',
     summary:
       'Learn how LLMs behave, what they cost, where they fail, and how to choose one from measurements rather than leaderboard rank.',
-    days: [1, 5],
-    hours: 'about 4 hours',
+    days: [1, 6],
+    hours: 'about 5 hours',
     before: 'Basic Python, calling an API, and an API key for at least one model provider.',
     outcome:
       'Explain why an LLM gives fluent wrong answers, estimate what a request will cost and how long it will take, and choose a model from measurements rather than rank.',
@@ -162,9 +162,50 @@ export const hundredDaysModules: DaysModule[] = [
       },
       {
         id: '1.3',
+        title: 'Beyond Text: Images, Audio and PDFs',
+        icon: 'image',
+        days: [3, 3],
+        minutes: 60,
+        bullets: [
+          {
+            title: 'Models that see and hear',
+            text: 'Many models now accept images, audio and documents as well as text, and answer in text.',
+          },
+          {
+            title: 'Images cost tokens too',
+            text: 'An image is turned into tokens, and the cost grows with its resolution, so crop or resize to what the question needs.',
+          },
+          {
+            title: 'PDFs come in two kinds',
+            text: 'Digital PDFs carry their own text; scanned ones are just pictures of pages, and the model has to read them like an image.',
+          },
+          {
+            title: 'Audio',
+            text: 'You can transcribe speech to text first and send the text, or send the audio to a model that understands it directly and keeps tone and emphasis.',
+          },
+          {
+            title: 'What models read well',
+            text: 'Text in images, the main point of a chart, and named fields on forms.',
+          },
+          {
+            title: 'Where they slip',
+            text: "Counting objects, small or dense text, exact table values, and confidently describing details that aren't really there.",
+          },
+          {
+            title: 'Image or extracted text?',
+            text: 'When clean text is available, sending text is usually cheaper and more accurate; send images when layout, charts or handwriting matter.',
+          },
+        ],
+        tryIt:
+          'Send the same chart to a model once as an image and once as text extracted from it. Ask both the same three questions and compare the answers and tokens used.',
+        outcome:
+          'Choose when to send images, audio or documents to a model, and predict what each will cost and where it may go wrong.',
+      },
+      {
+        id: '1.4',
         title: 'Controlling Output',
         icon: 'sliders-horizontal',
-        days: [3, 3],
+        days: [4, 4],
         minutes: 50,
         bullets: [
           {
@@ -197,10 +238,10 @@ export const hundredDaysModules: DaysModule[] = [
         outcome: 'Choose settings and the type of model based on the task instead of guessing.',
       },
       {
-        id: '1.4',
+        id: '1.5',
         title: 'Where LLMs Fail',
         icon: 'triangle-alert',
-        days: [4, 4],
+        days: [5, 5],
         minutes: 45,
         bullets: [
           {
@@ -226,10 +267,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Predict which tasks an LLM will handle well and which need safeguards such as giving it the right documents, checking its output, or a human review.',
       },
       {
-        id: '1.5',
+        id: '1.6',
         title: 'Choosing a Model',
         icon: 'scale',
-        days: [5, 5],
+        days: [6, 6],
         minutes: 30,
         bullets: [
           {
@@ -314,8 +355,8 @@ export const hundredDaysModules: DaysModule[] = [
     icon: 'plug',
     summary:
       'Use LangChain to turn single model calls into a reliable app: conversations, streaming, structured answers, tools, multi-step chains, error handling and cost tracking.',
-    days: [6, 14],
-    hours: 'about 9 hours',
+    days: [7, 17],
+    hours: 'about 10 hours',
     before:
       'Module 1 (LLM Fundamentals).',
     outcome:
@@ -327,7 +368,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '2.1',
         title: 'LangChain Basics and Conversations',
         icon: 'messages-square',
-        days: [6, 6],
+        days: [7, 7],
         minutes: 60,
         bullets: [
           {
@@ -366,9 +407,50 @@ export const hundredDaysModules: DaysModule[] = [
       },
       {
         id: '2.2',
+        title: 'Open and Local Models',
+        icon: 'laptop',
+        days: [8, 8],
+        minutes: 60,
+        bullets: [
+          {
+            title: 'Open models',
+            text: "Some models publish their weights, so anyone can download and run them; check each model's license before you build on it.",
+          },
+          {
+            title: 'Run one on your own machine',
+            text: 'Tools such as Ollama download and run open models locally with one command.',
+          },
+          {
+            title: 'What your computer can handle',
+            text: "Your computer's memory decides how big a model you can run; smaller and compressed versions trade some quality for fitting in less memory.",
+          },
+          {
+            title: 'Same code, different model',
+            text: 'Swap a local model into your LangChain app by changing the chat model; many local tools offer the same interface as the big API providers.',
+          },
+          {
+            title: 'Hosted open models',
+            text: 'If your machine is too small, providers host open models for you and charge per token.',
+          },
+          {
+            title: 'The trade-offs',
+            text: 'Local models are free to run and keep data on your machine, but are usually slower and less capable than top API models.',
+          },
+          {
+            title: 'A practical habit',
+            text: 'Use a cheap or local model while you build and experiment, and your chosen model for real use.',
+          },
+        ],
+        tryIt:
+          'Run a small open model on your own machine. Send it your 10 project questions alongside the model you chose in Module 1, and compare answer quality and speed.',
+        outcome:
+          "Run open models locally or through a provider, swap them into your app, and judge when they're good enough.",
+      },
+      {
+        id: '2.3',
         title: 'Streaming',
         icon: 'zap',
-        days: [7, 7],
+        days: [9, 9],
         minutes: 60,
         bullets: [
           {
@@ -398,10 +480,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Stream answers to the user and still end up with a complete, saved response, even when the stream is interrupted.',
       },
       {
-        id: '2.3',
+        id: '2.4',
         title: 'Structured Outputs',
         icon: 'braces',
-        days: [8, 9],
+        days: [10, 11],
         minutes: 90,
         bullets: [
           {
@@ -431,10 +513,10 @@ export const hundredDaysModules: DaysModule[] = [
           "Get structured data from a model that your code can rely on, and handle the cases where it can't.",
       },
       {
-        id: '2.4',
+        id: '2.5',
         title: 'Tool Calling',
         icon: 'wrench',
-        days: [10, 11],
+        days: [12, 13],
         minutes: 120,
         bullets: [
           {
@@ -480,10 +562,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Build the complete tool-calling loop in LangChain and give a model tools it uses correctly and safely.',
       },
       {
-        id: '2.5',
+        id: '2.6',
         title: 'Chaining Steps Together',
         icon: 'workflow',
-        days: [12, 12],
+        days: [14, 14],
         minutes: 60,
         bullets: [
           {
@@ -512,10 +594,10 @@ export const hundredDaysModules: DaysModule[] = [
         outcome: 'Design a feature as a chain of small steps, and know when that beats a single prompt.',
       },
       {
-        id: '2.6',
+        id: '2.7',
         title: 'Handling Failures',
         icon: 'life-buoy',
-        days: [13, 13],
+        days: [15, 15],
         minutes: 60,
         bullets: [
           {
@@ -549,10 +631,43 @@ export const hundredDaysModules: DaysModule[] = [
           'Make your app survive the everyday failures of model APIs without crashing or retrying forever.',
       },
       {
-        id: '2.7',
+        id: '2.8',
+        title: 'Processing at Scale',
+        icon: 'boxes',
+        days: [16, 16],
+        minutes: 60,
+        bullets: [
+          {
+            title: 'One at a time is slow',
+            text: 'When you have many independent requests, such as summarizing hundreds of documents, send them at the same time instead of waiting for each one.',
+          },
+          {
+            title: 'Stay within your limits',
+            text: "Cap how many requests run at once so you don't hit the provider's rate limits; LangChain's batch processing lets you set this.",
+          },
+          {
+            title: 'Batch APIs',
+            text: "Many providers offer a cheaper batch option for jobs that don't need an answer right away, such as processing a document collection or running tests overnight.",
+          },
+          {
+            title: "Don't lose progress",
+            text: "Retry failed items on their own and save results as you go, so one failure or crash doesn't mean starting over.",
+          },
+          {
+            title: 'Estimate before you run',
+            text: 'Work out the tokens and cost of a big job before starting it.',
+          },
+        ],
+        tryIt:
+          'Summarize 200 short texts one at a time, then concurrently with a limit on how many run at once. Compare total time, errors and cost.',
+        outcome:
+          'Process large volumes of requests quickly and cheaply without hitting rate limits or losing work.',
+      },
+      {
+        id: '2.9',
         title: 'Cost, Logging and Tracing',
         icon: 'receipt',
-        days: [14, 14],
+        days: [17, 17],
         minutes: 60,
         bullets: [
           {
@@ -584,11 +699,6 @@ export const hundredDaysModules: DaysModule[] = [
         where: [{ level: 2, href: '/level/2/#m2-1' }],
       },
       {
-        topic: 'Concurrency and batch processing in depth',
-        why: 'One rule covers it here: limit how many requests run at once',
-        where: [{ level: 2, href: '/level/2/#m2-8' }],
-      },
-      {
         topic: 'Where to put retry logic',
         why: 'A design detail that matters at larger scale',
         where: [{ level: 2, href: '/level/2/#m2-9' }],
@@ -613,8 +723,8 @@ export const hundredDaysModules: DaysModule[] = [
     icon: 'message-square-text',
     summary:
       'Write prompts that make your assistant reliable and predictable, and choose between prompt versions by testing them, not by gut feel.',
-    days: [15, 20],
-    hours: 'about 6 hours',
+    days: [18, 24],
+    hours: 'about 7 hours',
     before: 'Module 2 (Building with LLM APIs).',
     outcome:
       "Write clear prompts and system prompts, use examples and reasoning only where they help, test prompt versions against each other on the same questions, keep prompts versioned and cheap, and explain why prompt wording alone can't keep your app safe.",
@@ -625,7 +735,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '3.1',
         title: 'Anatomy of a Prompt',
         icon: 'file-text',
-        days: [15, 15],
+        days: [18, 18],
         minutes: 60,
         bullets: [
           {
@@ -657,7 +767,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '3.2',
         title: 'Zero-Shot and Few-Shot Prompting',
         icon: 'list-checks',
-        days: [16, 16],
+        days: [19, 19],
         minutes: 60,
         bullets: [
           {
@@ -690,7 +800,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '3.3',
         title: 'System Prompts and Output Control',
         icon: 'settings-2',
-        days: [17, 17],
+        days: [20, 20],
         minutes: 60,
         bullets: [
           {
@@ -727,7 +837,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '3.4',
         title: 'Reasoning and Breaking Tasks Down',
         icon: 'git-branch',
-        days: [18, 18],
+        days: [21, 21],
         minutes: 45,
         bullets: [
           {
@@ -756,7 +866,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '3.5',
         title: 'Testing and Improving Prompts',
         icon: 'flask-conical',
-        days: [19, 19],
+        days: [22, 22],
         minutes: 60,
         bullets: [
           {
@@ -786,9 +896,46 @@ export const hundredDaysModules: DaysModule[] = [
       },
       {
         id: '3.6',
+        title: 'Automatic Prompt Improvement',
+        icon: 'wand-sparkles',
+        days: [23, 23],
+        minutes: 60,
+        bullets: [
+          {
+            title: 'Let a model improve your prompt',
+            text: 'Give a model your prompt, the cases it gets wrong and what good answers look like, and ask it for better versions.',
+          },
+          {
+            title: 'An improvement loop',
+            text: 'Generate several prompt versions, score each on your test set, keep the best, and repeat.',
+          },
+          {
+            title: 'Choosing examples automatically',
+            text: 'Let your test results decide which few-shot examples help most, instead of picking them by hand.',
+          },
+          {
+            title: 'Optimization tools',
+            text: 'Tools such as DSPy let you describe what goes in and what should come out, then search for instructions and examples that score best on your data.',
+          },
+          {
+            title: "Don't overfit",
+            text: 'Keep some questions aside that the optimizer never sees, and judge the final prompt on those.',
+          },
+          {
+            title: 'Read what you get',
+            text: "Always read the winning prompt; an optimized prompt that you can't understand is hard to maintain.",
+          },
+        ],
+        tryIt:
+          'Give a model your current system prompt and five questions it gets wrong, and ask for three improved versions. Score all of them on your test set and on five questions you held back.',
+        outcome:
+          'Use a model or an optimization tool to improve prompts, and confirm the improvement on questions it never saw.',
+      },
+      {
+        id: '3.7',
         title: 'Versions, Cost and Caching',
         icon: 'file-clock',
-        days: [20, 20],
+        days: [24, 24],
         minutes: 30,
         bullets: [
           {
@@ -813,10 +960,10 @@ export const hundredDaysModules: DaysModule[] = [
         outcome: 'Keep a versioned history of your prompts and make them cheaper without making them worse.',
       },
       {
-        id: '3.7',
+        id: '3.8',
         title: 'Prompt Injection Basics',
         icon: 'shield-alert',
-        days: [20, 20],
+        days: [24, 24],
         minutes: 30,
         bullets: [
           {
@@ -837,7 +984,7 @@ export const hundredDaysModules: DaysModule[] = [
           },
           {
             title: 'More later',
-            text: 'Deeper defenses come in the security module later in the track.',
+            text: 'Deeper defenses come in the RAG and Agents modules later in the track.',
           },
         ],
         tryIt:
@@ -867,7 +1014,7 @@ export const hundredDaysModules: DaysModule[] = [
       },
       {
         topic: 'Deep prompt-injection defenses',
-        why: 'Covered properly in the security module',
+        why: 'Covered in the RAG and Agents modules',
         where: [{ level: 8, href: '/level/8/#m8-2' }],
       },
     ],
@@ -880,8 +1027,8 @@ export const hundredDaysModules: DaysModule[] = [
     icon: 'library',
     summary:
       'Give your assistant the right information at the right time: build a simple RAG system, improve it with advanced retrieval patterns, measure which improvements actually helped, and protect it against attacks and data leaks.',
-    days: [21, 50],
-    hours: 'about 27 hours',
+    days: [25, 56],
+    hours: 'about 29 hours',
     before: 'Module 3 (Prompt Engineering).',
     outcome:
       "Build a RAG system that finds the right passages, answers with citations and says when it doesn't know; improve it with advanced patterns such as hybrid search, reranking, query transformation and self-correcting retrieval; prove with a test set and automatic checks which changes helped; and keep it safe from hidden instructions, unauthorized access and personal-data leaks.",
@@ -898,7 +1045,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '4.1',
         title: 'When to Use RAG',
         icon: 'circle-question-mark',
-        days: [21, 21],
+        days: [25, 25],
         minutes: 45,
         part: 1,
         bullets: [
@@ -928,7 +1075,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '4.2',
         title: 'Loading and Cleaning Documents',
         icon: 'file-input',
-        days: [22, 23],
+        days: [26, 27],
         minutes: 90,
         part: 1,
         bullets: [
@@ -956,9 +1103,47 @@ export const hundredDaysModules: DaysModule[] = [
       },
       {
         id: '4.3',
+        title: 'Parsing Messy Documents',
+        icon: 'file-scan',
+        days: [28, 28],
+        minutes: 60,
+        part: 1,
+        bullets: [
+          {
+            title: 'Why basic loaders fail',
+            text: 'Multi-column pages, tables, headers and footers, forms and scanned pages often come out scrambled or empty.',
+          },
+          {
+            title: 'Parsers that understand layout',
+            text: 'Layout-aware tools such as Unstructured or Docling detect headings, columns and tables instead of reading a page as one stream of text.',
+          },
+          {
+            title: 'Scanned pages',
+            text: 'Use text recognition (OCR), or send the page image to a vision model to read it, as you saw in Module 1.',
+          },
+          {
+            title: 'Tables',
+            text: 'Extract tables as tables, keeping column headers with every row so each row still makes sense on its own.',
+          },
+          {
+            title: 'Check the result',
+            text: 'Compare extracted text with the original on a few sample pages, and pick a parsing approach per document type.',
+          },
+          {
+            title: 'Cost and speed',
+            text: 'Vision-based parsing is slower and more expensive, so use it only for the documents that need it.',
+          },
+        ],
+        tryIt:
+          'Parse your messiest PDF three ways: with the basic loader, a layout-aware parser and a vision model. Compare how each handles one table and one multi-column page.',
+        outcome:
+          'Turn messy real-world documents, including tables and scans, into clean text you can trust.',
+      },
+      {
+        id: '4.4',
         title: 'Chunking',
         icon: 'scissors',
-        days: [24, 24],
+        days: [29, 29],
         minutes: 60,
         part: 1,
         bullets: [
@@ -985,10 +1170,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Choose a chunking approach that fits your documents and the questions people ask about them.',
       },
       {
-        id: '4.4',
+        id: '4.5',
         title: 'Embeddings and Semantic Search',
         icon: 'scan-search',
-        days: [25, 26],
+        days: [30, 31],
         minutes: 90,
         part: 1,
         bullets: [
@@ -1023,10 +1208,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Explain how semantic search works, choose an embedding model, and predict the questions it will struggle with.',
       },
       {
-        id: '4.5',
+        id: '4.6',
         title: 'Vector Databases',
         icon: 'database',
-        days: [27, 28],
+        days: [32, 33],
         minutes: 90,
         part: 1,
         bullets: [
@@ -1053,10 +1238,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Store your whole collection in a vector database and search it quickly with filters.',
       },
       {
-        id: '4.6',
+        id: '4.7',
         title: 'Your First RAG Pipeline',
         icon: 'workflow',
-        days: [29, 30],
+        days: [34, 35],
         minutes: 90,
         part: 1,
         bullets: [
@@ -1083,10 +1268,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Build a working RAG pipeline that answers from your documents instead of whole files.',
       },
       {
-        id: '4.7',
+        id: '4.8',
         title: "Citations and Saying \"I Don't Know\"",
         icon: 'quote',
-        days: [31, 31],
+        days: [36, 36],
         minutes: 60,
         part: 1,
         bullets: [
@@ -1117,10 +1302,10 @@ export const hundredDaysModules: DaysModule[] = [
           "Produce answers people can verify, and an assistant that admits when it doesn't know.",
       },
       {
-        id: '4.8',
+        id: '4.9',
         title: 'Keyword and Hybrid Search',
         icon: 'combine',
-        days: [32, 32],
+        days: [37, 37],
         minutes: 60,
         part: 2,
         bullets: [
@@ -1147,10 +1332,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Add hybrid search to your pipeline and know which kinds of questions it helps with.',
       },
       {
-        id: '4.9',
+        id: '4.10',
         title: 'Smarter Chunks and Filters',
         icon: 'layers',
-        days: [33, 33],
+        days: [38, 38],
         minutes: 60,
         part: 2,
         bullets: [
@@ -1177,10 +1362,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Shape your passages and filters so search finds the right content and the model sees enough of it.',
       },
       {
-        id: '4.10',
+        id: '4.11',
         title: 'Reranking',
         icon: 'arrow-down-wide-narrow',
-        days: [34, 34],
+        days: [39, 39],
         minutes: 60,
         part: 2,
         bullets: [
@@ -1207,10 +1392,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Add reranking to your pipeline and explain what it improves and what it costs.',
       },
       {
-        id: '4.11',
+        id: '4.12',
         title: 'Query Transformation',
         icon: 'pencil-line',
-        days: [35, 35],
+        days: [40, 40],
         minutes: 60,
         part: 2,
         bullets: [
@@ -1249,10 +1434,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Turn hard questions into searches that find the right passages, and choose the right technique for each kind of question.',
       },
       {
-        id: '4.12',
+        id: '4.13',
         title: 'Routing and Adaptive RAG',
         icon: 'split',
-        days: [36, 36],
+        days: [41, 41],
         minutes: 60,
         part: 2,
         bullets: [
@@ -1279,10 +1464,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Build a RAG system that adapts its effort to each question instead of treating every question the same.',
       },
       {
-        id: '4.13',
+        id: '4.14',
         title: 'Self-Correcting RAG',
         icon: 'refresh-ccw',
-        days: [37, 37],
+        days: [42, 42],
         minutes: 60,
         part: 2,
         bullets: [
@@ -1313,10 +1498,52 @@ export const hundredDaysModules: DaysModule[] = [
           'Build a RAG system that notices bad retrieval or unsupported answers and corrects itself within a set limit.',
       },
       {
-        id: '4.14',
+        id: '4.15',
+        title: 'RAG over Structured Data',
+        icon: 'table',
+        days: [43, 43],
+        minutes: 60,
+        part: 2,
+        bullets: [
+          {
+            title: 'Not all knowledge is in documents',
+            text: 'Much of what users ask about lives in spreadsheets and databases, and vector search is poor at counting, adding up and filtering.',
+          },
+          {
+            title: 'Text-to-SQL',
+            text: "The model turns the user's question into a database query, your code runs it, and the model explains the result.",
+          },
+          {
+            title: 'Give it the map',
+            text: 'Provide the table structure, plain-language descriptions of each column, example values and a few example questions with their queries.',
+          },
+          {
+            title: 'Keep it safe',
+            text: "Use read-only access, allow only the tables it needs, check the query before running it, and limit how many rows come back; you'll go deeper in Part 4.",
+          },
+          {
+            title: 'When the query fails',
+            text: 'Spot errors, empty or odd results, and let the model fix its query within a retry limit.',
+          },
+          {
+            title: 'Show your working',
+            text: 'Show users the query or the figures behind an answer so they can check it.',
+          },
+          {
+            title: 'Documents or database?',
+            text: 'Use the routing you built in Unit 4.13 to send each question to document search, the database, or both.',
+          },
+        ],
+        tryIt:
+          'Put a spreadsheet related to your project into a small database. Answer five questions that need counts, totals or filters, once with text-to-SQL and once with document search, and compare.',
+        outcome:
+          'Answer questions from tables and databases accurately and safely, and route each question to the right source.',
+      },
+      {
+        id: '4.16',
         title: 'Graph RAG and Choosing a Pattern',
         icon: 'network',
-        days: [38, 38],
+        days: [44, 44],
         minutes: 60,
         part: 2,
         bullets: [
@@ -1334,7 +1561,7 @@ export const hundredDaysModules: DaysModule[] = [
           },
           {
             title: 'Choosing a pattern',
-            text: 'Start from your actual failures. Missed exact terms → hybrid search. Right passages ranked low → reranking. Vague questions → query transformation. Weak retrieval → corrective RAG. Relationship questions → Graph RAG.',
+            text: 'Start from your actual failures. Missed exact terms → hybrid search. Right passages ranked low → reranking. Vague questions → query transformation. Weak retrieval → corrective RAG. Questions about numbers in tables → text-to-SQL. Relationship questions → Graph RAG.',
           },
           {
             title: "More isn't better",
@@ -1347,10 +1574,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Recognize when Graph RAG is worth its cost, and choose RAG patterns based on your own failures rather than novelty.',
       },
       {
-        id: '4.15',
+        id: '4.17',
         title: 'Why Evals, and Reading Your Failures',
         icon: 'search-check',
-        days: [39, 39],
+        days: [45, 45],
         minutes: 60,
         part: 3,
         bullets: [
@@ -1381,10 +1608,10 @@ export const hundredDaysModules: DaysModule[] = [
           "Explain why AI apps need systematic testing, and find your app's most common failures by reading its answers.",
       },
       {
-        id: '4.16',
+        id: '4.18',
         title: 'Test Sets and Scoring',
         icon: 'clipboard-check',
-        days: [40, 41],
+        days: [46, 47],
         minutes: 120,
         part: 3,
         bullets: [
@@ -1419,10 +1646,10 @@ export const hundredDaysModules: DaysModule[] = [
           "Build a golden test set from your documents and score answers with code checks and a judge you've verified.",
       },
       {
-        id: '4.17',
+        id: '4.19',
         title: 'Measuring Retrieval',
         icon: 'target',
-        days: [42, 42],
+        days: [48, 48],
         minutes: 60,
         part: 3,
         bullets: [
@@ -1449,10 +1676,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Measure whether your search finds what users need, and know which of your Part 2 techniques actually improved it.',
       },
       {
-        id: '4.18',
+        id: '4.20',
         title: 'Evaluating RAG Answers',
         icon: 'list-checks',
-        days: [43, 44],
+        days: [49, 50],
         minutes: 120,
         part: 3,
         bullets: [
@@ -1491,10 +1718,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Evaluate a RAG system part by part and pinpoint where each failure comes from.',
       },
       {
-        id: '4.19',
+        id: '4.21',
         title: 'Automatic Regression Tests',
         icon: 'shield-check',
-        days: [45, 45],
+        days: [51, 51],
         minutes: 60,
         part: 3,
         bullets: [
@@ -1525,10 +1752,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Make it impossible to make your app worse without noticing.',
       },
       {
-        id: '4.20',
+        id: '4.22',
         title: 'Threats to a RAG App',
         icon: 'shield-alert',
-        days: [46, 46],
+        days: [52, 52],
         minutes: 45,
         part: 4,
         bullets: [
@@ -1555,10 +1782,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Map where your RAG app can be attacked before deciding how to defend it.',
       },
       {
-        id: '4.21',
+        id: '4.23',
         title: 'Hidden Instructions and Poisoned Documents',
         icon: 'file-warning',
-        days: [47, 47],
+        days: [53, 53],
         minutes: 60,
         part: 4,
         bullets: [
@@ -1589,10 +1816,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Recognize injection through documents and defend against it with controls in your code, not just your prompt.',
       },
       {
-        id: '4.22',
+        id: '4.24',
         title: 'Who Can See What',
         icon: 'lock-keyhole',
-        days: [48, 48],
+        days: [54, 54],
         minutes: 60,
         part: 4,
         bullets: [
@@ -1619,10 +1846,10 @@ export const hundredDaysModules: DaysModule[] = [
           "Make your RAG app show each user only the information they're allowed to see.",
       },
       {
-        id: '4.23',
+        id: '4.25',
         title: 'Personal Data and Secrets',
         icon: 'eye-off',
-        days: [49, 49],
+        days: [55, 55],
         minutes: 45,
         part: 4,
         bullets: [
@@ -1653,10 +1880,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Keep personal data and secrets out of your index, logs and test sets, and remove them completely when needed.',
       },
       {
-        id: '4.24',
+        id: '4.26',
         title: 'Red-Teaming Your RAG',
         icon: 'swords',
-        days: [50, 50],
+        days: [56, 56],
         minutes: 60,
         part: 4,
         bullets: [
@@ -1685,7 +1912,7 @@ export const hundredDaysModules: DaysModule[] = [
           'Write 15 attacks across injection, poisoned documents, permissions and data extraction. Record how many succeed, fix what you can, and run them again.',
         outcome:
           "Test your RAG app's defenses the way an attacker would, and turn what you find into permanent tests.",
-      }
+      },
     ],
     skipped: [
       {
@@ -1749,7 +1976,7 @@ export const hundredDaysModules: DaysModule[] = [
     icon: 'bot',
     summary:
       "Turn your RAG assistant into an agent that plans, uses tools and MCP servers, remembers, manages its context and works with other agents, then measure how well it behaves and lock down what it's allowed to do.",
-    days: [51, 77],
+    days: [57, 83],
     hours: 'about 27 hours',
     before: 'Module 4 (RAG).',
     outcome:
@@ -1768,7 +1995,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '5.1',
         title: 'What Is an Agent?',
         icon: 'bot',
-        days: [51, 51],
+        days: [57, 57],
         minutes: 45,
         part: 1,
         bullets: [
@@ -1802,7 +2029,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '5.2',
         title: 'The Agent Loop',
         icon: 'repeat',
-        days: [52, 52],
+        days: [58, 58],
         minutes: 60,
         part: 1,
         bullets: [
@@ -1832,7 +2059,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '5.3',
         title: 'Building Agents with LangGraph',
         icon: 'git-fork',
-        days: [53, 54],
+        days: [59, 60],
         minutes: 120,
         part: 1,
         bullets: [
@@ -1866,7 +2093,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '5.4',
         title: 'Tools for Agents',
         icon: 'wrench',
-        days: [55, 55],
+        days: [61, 61],
         minutes: 60,
         part: 1,
         bullets: [
@@ -1900,7 +2127,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '5.5',
         title: 'Planning and Reflection',
         icon: 'list-todo',
-        days: [56, 56],
+        days: [62, 62],
         minutes: 60,
         part: 1,
         bullets: [
@@ -1930,7 +2157,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '5.6',
         title: 'Saving Progress and Asking for Approval',
         icon: 'hand',
-        days: [57, 57],
+        days: [63, 63],
         minutes: 60,
         part: 1,
         bullets: [
@@ -1960,7 +2187,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '5.7',
         title: 'MCP Fundamentals',
         icon: 'plug',
-        days: [58, 58],
+        days: [64, 64],
         minutes: 60,
         part: 2,
         bullets: [
@@ -1998,7 +2225,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '5.8',
         title: 'Building MCP Servers',
         icon: 'server',
-        days: [59, 60],
+        days: [65, 66],
         minutes: 120,
         part: 2,
         bullets: [
@@ -2040,7 +2267,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '5.9',
         title: 'Memory',
         icon: 'brain',
-        days: [61, 62],
+        days: [67, 68],
         minutes: 120,
         part: 2,
         bullets: [
@@ -2090,7 +2317,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '5.10',
         title: 'Context Engineering Basics',
         icon: 'layout-dashboard',
-        days: [63, 63],
+        days: [69, 69],
         minutes: 60,
         part: 2,
         bullets: [
@@ -2128,7 +2355,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '5.11',
         title: 'Compaction, Offloading and Tool Context',
         icon: 'shrink',
-        days: [64, 65],
+        days: [70, 71],
         minutes: 120,
         part: 2,
         bullets: [
@@ -2174,7 +2401,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '5.12',
         title: 'Harness Engineering',
         icon: 'cog',
-        days: [66, 66],
+        days: [72, 72],
         minutes: 60,
         part: 2,
         bullets: [
@@ -2220,7 +2447,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '5.13',
         title: 'Multi-Agent Patterns',
         icon: 'network',
-        days: [67, 67],
+        days: [73, 73],
         minutes: 60,
         part: 2,
         bullets: [
@@ -2262,7 +2489,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '5.14',
         title: 'Building Multi-Agent Systems',
         icon: 'users',
-        days: [68, 69],
+        days: [74, 75],
         minutes: 120,
         part: 2,
         bullets: [
@@ -2308,7 +2535,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '5.15',
         title: 'Reliability and User Experience',
         icon: 'gauge',
-        days: [70, 70],
+        days: [76, 76],
         minutes: 60,
         part: 2,
         bullets: [
@@ -2342,7 +2569,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '5.16',
         title: 'Why Agent Evals Are Different',
         icon: 'footprints',
-        days: [71, 71],
+        days: [77, 77],
         minutes: 60,
         part: 3,
         bullets: [
@@ -2372,7 +2599,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '5.17',
         title: 'Evaluating Tool Use and Task Success',
         icon: 'clipboard-check',
-        days: [72, 72],
+        days: [78, 78],
         minutes: 60,
         part: 3,
         bullets: [
@@ -2406,7 +2633,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '5.18',
         title: 'Testing Recovery, Memory and Efficiency',
         icon: 'life-buoy',
-        days: [73, 73],
+        days: [79, 79],
         minutes: 60,
         part: 3,
         bullets: [
@@ -2436,7 +2663,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '5.19',
         title: 'Agent Threats and Least Privilege',
         icon: 'key-round',
-        days: [74, 74],
+        days: [80, 80],
         minutes: 60,
         part: 4,
         bullets: [
@@ -2470,7 +2697,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '5.20',
         title: 'Approval Gates and Sandboxing',
         icon: 'box',
-        days: [75, 75],
+        days: [81, 81],
         minutes: 60,
         part: 4,
         bullets: [
@@ -2504,7 +2731,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '5.21',
         title: 'Securing MCP and Tools',
         icon: 'shield-check',
-        days: [76, 76],
+        days: [82, 82],
         minutes: 60,
         part: 4,
         bullets: [
@@ -2538,7 +2765,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '5.22',
         title: 'Red-Teaming Your Agent',
         icon: 'swords',
-        days: [77, 77],
+        days: [83, 83],
         minutes: 60,
         part: 4,
         bullets: [
@@ -2610,7 +2837,7 @@ export const hundredDaysModules: DaysModule[] = [
     icon: 'rocket',
     summary:
       'Put your agent in front of real users: design it properly, deploy it, release changes safely, watch how it behaves, keep costs under control, and know what to do when something breaks.',
-    days: [78, 90],
+    days: [84, 96],
     hours: 'about 13 hours',
     before: 'Module 5 (Agents).',
     outcome:
@@ -2623,7 +2850,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '6.1',
         title: 'Designing an AI System',
         icon: 'drafting-compass',
-        days: [78, 78],
+        days: [84, 84],
         minutes: 60,
         bullets: [
           {
@@ -2660,7 +2887,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '6.2',
         title: 'From Prototype to Service',
         icon: 'server',
-        days: [79, 79],
+        days: [85, 85],
         minutes: 60,
         bullets: [
           {
@@ -2697,7 +2924,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '6.3',
         title: 'A Real Frontend',
         icon: 'monitor-smartphone',
-        days: [80, 80],
+        days: [86, 86],
         minutes: 60,
         bullets: [
           {
@@ -2734,7 +2961,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '6.4',
         title: 'Packaging and Deploying',
         icon: 'container',
-        days: [81, 82],
+        days: [87, 88],
         minutes: 120,
         bullets: [
           {
@@ -2775,7 +3002,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '6.5',
         title: 'Automatic Checks on Every Change',
         icon: 'shield-check',
-        days: [83, 83],
+        days: [89, 89],
         minutes: 60,
         bullets: [
           {
@@ -2808,7 +3035,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '6.6',
         title: 'Releasing Safely',
         icon: 'rocket',
-        days: [84, 84],
+        days: [90, 90],
         minutes: 60,
         bullets: [
           {
@@ -2845,7 +3072,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '6.7',
         title: 'Watching It in Production',
         icon: 'activity',
-        days: [85, 86],
+        days: [91, 92],
         minutes: 120,
         bullets: [
           {
@@ -2890,7 +3117,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '6.8',
         title: 'Cost, Speed and Scale',
         icon: 'gauge',
-        days: [87, 87],
+        days: [93, 93],
         minutes: 60,
         bullets: [
           {
@@ -2927,7 +3154,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '6.9',
         title: 'Model Gateways and Managed Platforms',
         icon: 'waypoints',
-        days: [88, 88],
+        days: [94, 94],
         minutes: 60,
         bullets: [
           {
@@ -2960,7 +3187,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '6.10',
         title: 'When Things Break',
         icon: 'siren',
-        days: [89, 89],
+        days: [95, 95],
         minutes: 60,
         bullets: [
           {
@@ -2993,7 +3220,7 @@ export const hundredDaysModules: DaysModule[] = [
         id: '6.11',
         title: 'Whole-App Security Review',
         icon: 'scan-eye',
-        days: [90, 90],
+        days: [96, 96],
         minutes: 60,
         bullets: [
           {
