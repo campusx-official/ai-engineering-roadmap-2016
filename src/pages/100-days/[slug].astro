@@ -14,7 +14,6 @@ import {
   hundredDaysModules,
   daysModuleHref,
   dayRange,
-  formatMinutes,
   DAYS_BASE,
   TOTAL_DAYS,
   type DaysModule,
@@ -95,8 +94,8 @@ const description = `${dayRange(mod.days)} of 100 Days of AI Engineering. ${mod.
 
         <div class="dh__facts">
           <div class="dh__fact">
-            <span class="dh__fact-label">Duration</span>
-            <span class="dh__fact-strong">{dayRange(mod.days)} · {mod.hours}</span>
+            <span class="dh__fact-label">Days</span>
+            <span class="dh__fact-strong">{dayRange(mod.days)}</span>
             <span class="dh__fact-value">{unitCount} units{mod.parts && ` in ${mod.parts.length} parts`}</span>
           </div>
 
@@ -143,7 +142,7 @@ const description = `${dayRange(mod.days)} of 100 Days of AI Engineering. ${mod.
                   module={asModule(u)}
                   index={mod.units.indexOf(u)}
                   levelNumber={1}
-                  duration={`${dayRange(u.days)} · ${formatMinutes(u.minutes)}`}
+                  duration={dayRange(u.days)}
                   idLabel={`Unit ${u.id}`}
                   anchor={`unit-${u.id.replace(/\./g, '-')}`}
                   trackKey={`100d-${mod.number}`}

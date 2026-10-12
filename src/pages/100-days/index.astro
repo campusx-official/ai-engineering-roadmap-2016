@@ -17,19 +17,6 @@ import { INTERVIEW_HREF } from '../../data/hundred-days-interview';
 
 const first = hundredDaysModules[0];
 
-const howItWorks = [
-  {
-    icon: 'clock',
-    title: 'One hour a day.',
-    body: "Some days run a little longer; that's fine.",
-  },
-  {
-    icon: 'package-check',
-    title: 'Done means measured.',
-    body: 'A module is done when you can do what its outcomes say, not when the videos are watched.',
-  },
-];
-
 /* Where the full roadmap goes deeper than this track. */
 const after = [
   { title: 'Managed platforms and self-hosting', levels: [11] },
@@ -42,8 +29,8 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
 ---
 
 <Base
-  title="100 Days of AI Engineering — about an hour a day | CampusX"
-  description="Build, evaluate, secure and ship AI apps — about an hour a day for 100 days. A compressed companion to the 16-level AI Engineering Roadmap."
+  title="100 Days of AI Engineering | CampusX"
+  description="Build, evaluate, secure and ship AI apps in 100 days. A compressed companion to the 16-level AI Engineering Roadmap."
   page="days_overview"
 >
   <!-- ───────────────── hero ───────────────── -->
@@ -53,7 +40,7 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
         <Eyebrow text="A companion to the roadmap" />
         <h1 class="h1 dhero__title">100 Days of <span class="grad-text">AI Engineering</span></h1>
         <p class="lede dhero__lede">
-          Build, evaluate, secure and ship AI apps — about an hour a day.
+          Build, evaluate, secure and ship AI apps in 100 days.
         </p>
         <div class="dhero__ctas">
           <Button href={daysModuleHref(first)} variant="primary" size="lg" icon="arrow-right" track="days_cta_start">
@@ -65,7 +52,6 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
         </div>
         <div class="dhero__stats">
           <StatBlock value={TOTAL_DAYS} label="Days" icon="calendar-days" />
-          <StatBlock value="~100" label="Hours" icon="clock" />
         </div>
       </div>
     </div>
@@ -94,17 +80,11 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
   <!-- ───────────────── how ───────────────── -->
   <section class="section dsec dsec--cream">
     <div class="wrap">
-      <SectionHeader eyebrow="How it works" title="One hour a day, measured." />
-      <ol class="how" role="list">
-        {howItWorks.map((step, i) => (
-          <li class="how__item">
-            <span class="how__ico"><Icon name={step.icon} size={19} /></span>
-            <span class="how__n">{String(i + 1).padStart(2, '0')}</span>
-            <h3 class="how__title">{step.title}</h3>
-            <p class="how__body">{step.body}</p>
-          </li>
-        ))}
-      </ol>
+      <SectionHeader
+        eyebrow="How it works"
+        title="Done means measured."
+        subhead="A module is done when you can do what its outcomes say, not when the videos are watched."
+      />
     </div>
   </section>
 
@@ -120,7 +100,7 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
               <span class="dmod__ico"><Icon name={m.icon} size={18} /></span>
               <span class="dmod__main">
                 <span class="dmod__title">{m.title}</span>
-                <span class="dmod__meta">{dayRange(m.days)} · {m.hours}</span>
+                <span class="dmod__meta">{dayRange(m.days)}</span>
                 <span class="dmod__track" aria-hidden="true">
                   <span
                     class="dmod__span"
@@ -254,50 +234,6 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
   }
   .who__alt { font-size: 15.5px; line-height: 1.6; color: var(--cx-g600); }
   .who__alt a { color: var(--cx-purple); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
-
-  /* ---------- how ---------- */
-  .how {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 18px;
-    margin: 32px 0 0;
-    padding: 0;
-    list-style: none;
-  }
-  @media (min-width: 768px) { .how { grid-template-columns: repeat(2, 1fr); gap: 22px; } }
-  .how__item {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-areas: 'ico n' 'title title' 'body body';
-    align-content: start;
-    gap: 10px 12px;
-    padding: 24px;
-    background: #fff;
-    border: 1px solid var(--cx-border);
-    border-radius: var(--cx-r-card);
-  }
-  .how__ico {
-    grid-area: ico;
-    display: grid;
-    place-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 12px;
-    background: var(--cx-violet-bg);
-    border: 1px solid var(--cx-border);
-    color: var(--cx-purple);
-  }
-  .how__n {
-    grid-area: n;
-    align-self: center;
-    justify-self: end;
-    font-family: var(--cx-font-mono);
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    color: var(--cx-g500);
-  }
-  .how__title { grid-area: title; font-size: 19px; margin-top: 4px; }
-  .how__body { grid-area: body; font-size: 14.5px; line-height: 1.6; color: var(--cx-g600); }
 
   /* ---------- modules ---------- */
   .dmods { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; }
