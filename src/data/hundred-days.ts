@@ -1749,8 +1749,8 @@ export const hundredDaysModules: DaysModule[] = [
     icon: 'bot',
     summary:
       "Turn your RAG assistant into an agent that plans, uses tools and MCP servers, remembers, manages its context and works with other agents, then measure how well it behaves and lock down what it's allowed to do.",
-    days: [51, 76],
-    hours: 'about 26 hours',
+    days: [51, 77],
+    hours: 'about 27 hours',
     before: 'Module 4 (RAG).',
     outcome:
       "Decide when a problem needs an agent; build one with LangGraph that plans, uses tools and MCP servers, remembers what matters, manages its context, and works with other agents; measure its decisions, recovery and efficiency; and limit what it can do so a tricked agent can't cause harm.",
@@ -2172,9 +2172,55 @@ export const hundredDaysModules: DaysModule[] = [
       },
       {
         id: '5.12',
+        title: 'Harness Engineering',
+        icon: 'cog',
+        days: [66, 66],
+        minutes: 60,
+        part: 2,
+        bullets: [
+          {
+            title: 'What a harness is',
+            text: 'Everything around the model that turns it into a working agent: the loop, instructions, tools, how context is built and trimmed, memory, permissions, approvals, error handling and the checks on its work.',
+          },
+          {
+            title: 'The harness matters as much as the model',
+            text: 'The same model can do very well or very badly depending on its harness; when an agent fails, the fix is usually in the harness, not a bigger model.',
+          },
+          {
+            title: 'Designing the tool set',
+            text: "Choose between a few general tools and many narrow ones, decide what each tool's results show, and remove tools the agent rarely uses well.",
+          },
+          {
+            title: 'Let the agent check its own work',
+            text: 'Give it ways to verify results, such as running tests, validating output against a schema or re-checking a source, and feed errors back clearly so it can fix them.',
+          },
+          {
+            title: 'Instructions on demand',
+            text: 'Keep the core instructions short and load detailed guidance for a specific kind of task only when that task comes up.',
+          },
+          {
+            title: 'Fit the harness to the model',
+            text: 'Different models respond differently to the same tools and instructions; re-test your harness whenever you change models.',
+          },
+          {
+            title: 'Change one thing at a time',
+            text: 'Treat every harness change like a code change: make one change, run your test tasks, and keep it only if results improve.',
+          },
+          {
+            title: 'Learn from existing harnesses',
+            text: 'Study how well-known coding agents structure their loop, tools, instructions and checks.',
+          },
+        ],
+        tryIt:
+          "Make three separate changes to your agent's harness: rewrite its tool descriptions, add a step that checks its answer against the retrieved sources, and load detailed instructions only for request-handling tasks. Measure each change on the same 10 tasks.",
+        outcome:
+          'Improve an agent by changing its harness rather than its model, and prove each change with measurements.',
+      },
+      {
+        id: '5.13',
         title: 'Multi-Agent Patterns',
         icon: 'network',
-        days: [66, 66],
+        days: [67, 67],
         minutes: 60,
         part: 2,
         bullets: [
@@ -2213,10 +2259,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Choose a multi-agent pattern that fits the task, or decide that a single agent is better.',
       },
       {
-        id: '5.13',
+        id: '5.14',
         title: 'Building Multi-Agent Systems',
         icon: 'users',
-        days: [67, 68],
+        days: [68, 69],
         minutes: 120,
         part: 2,
         bullets: [
@@ -2259,10 +2305,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Build a working multi-agent system and judge with numbers whether it beats a single agent.',
       },
       {
-        id: '5.14',
+        id: '5.15',
         title: 'Reliability and User Experience',
         icon: 'gauge',
-        days: [69, 69],
+        days: [70, 70],
         minutes: 60,
         part: 2,
         bullets: [
@@ -2293,10 +2339,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Build agents that fail predictably, hand over when stuck, and keep users informed and in control.',
       },
       {
-        id: '5.15',
+        id: '5.16',
         title: 'Why Agent Evals Are Different',
         icon: 'footprints',
-        days: [70, 70],
+        days: [71, 71],
         minutes: 60,
         part: 3,
         bullets: [
@@ -2323,10 +2369,10 @@ export const hundredDaysModules: DaysModule[] = [
           "Find your agent's most common failures by reading what it actually did, not just what it answered.",
       },
       {
-        id: '5.16',
+        id: '5.17',
         title: 'Evaluating Tool Use and Task Success',
         icon: 'clipboard-check',
-        days: [71, 71],
+        days: [72, 72],
         minutes: 60,
         part: 3,
         bullets: [
@@ -2357,10 +2403,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Measure whether your agent makes good decisions and completes its tasks.',
       },
       {
-        id: '5.17',
+        id: '5.18',
         title: 'Testing Recovery, Memory and Efficiency',
         icon: 'life-buoy',
-        days: [72, 72],
+        days: [73, 73],
         minutes: 60,
         part: 3,
         bullets: [
@@ -2387,10 +2433,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Measure how well your agent copes when things go wrong, whether its memory can be trusted, and what each task costs.',
       },
       {
-        id: '5.18',
+        id: '5.19',
         title: 'Agent Threats and Least Privilege',
         icon: 'key-round',
-        days: [73, 73],
+        days: [74, 74],
         minutes: 60,
         part: 4,
         bullets: [
@@ -2421,10 +2467,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Explain how agents can be attacked and give yours only the access they truly need.',
       },
       {
-        id: '5.19',
+        id: '5.20',
         title: 'Approval Gates and Sandboxing',
         icon: 'box',
-        days: [74, 74],
+        days: [75, 75],
         minutes: 60,
         part: 4,
         bullets: [
@@ -2455,10 +2501,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Let agents take powerful actions safely, with approval and isolation around anything risky.',
       },
       {
-        id: '5.20',
+        id: '5.21',
         title: 'Securing MCP and Tools',
         icon: 'shield-check',
-        days: [75, 75],
+        days: [76, 76],
         minutes: 60,
         part: 4,
         bullets: [
@@ -2480,7 +2526,7 @@ export const hundredDaysModules: DaysModule[] = [
           },
           {
             title: 'Hijacked tool use',
-            text: "Injected instructions from documents or tool results may try to make the agent call tools it shouldn't; your code checks from Unit 5.18 are what stop them.",
+            text: "Injected instructions from documents or tool results may try to make the agent call tools it shouldn't; your code checks from Unit 5.19 are what stop them.",
           },
         ],
         tryIt:
@@ -2489,10 +2535,10 @@ export const hundredDaysModules: DaysModule[] = [
           'Connect agents to MCP servers and tools without handing control to whoever wrote them.',
       },
       {
-        id: '5.21',
+        id: '5.22',
         title: 'Red-Teaming Your Agent',
         icon: 'swords',
-        days: [76, 76],
+        days: [77, 77],
         minutes: 60,
         part: 4,
         bullets: [
