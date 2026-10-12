@@ -12,6 +12,7 @@ import {
   dayRange,
   TOTAL_DAYS,
 } from '../../data/hundred-days';
+import { PROJECTS_HREF, projects } from '../../data/hundred-days-projects';
 
 const first = hundredDaysModules[0];
 
@@ -137,6 +138,18 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
           <span>Modules for Days {publishedThrough + 1}–{TOTAL_DAYS} are added here as they're published.</span>
         </p>
       )}
+
+      <div class="beyond" data-phase="foundations">
+        <p class="beyond__label">After the 100 days</p>
+        <a class="dmod beyond__link" href={PROJECTS_HREF} data-track="days_projects_click">
+          <span class="dmod__ico"><Icon name="folder-kanban" size={18} /></span>
+          <span class="dmod__main">
+            <span class="dmod__title">Projects</span>
+            <span class="dmod__meta">{projects.length} portfolio projects · build two or three</span>
+          </span>
+          <Icon name="arrow-right" size={18} class="dmod__go" />
+        </a>
+      </div>
     </div>
   </section>
 
@@ -339,6 +352,18 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
     text-transform: uppercase;
     color: var(--cx-g500);
   }
+
+  .beyond { margin-top: 30px; }
+  .beyond__label {
+    margin-bottom: 10px;
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
+  .beyond__link { grid-template-columns: auto 1fr auto; }
 
   /* ---------- after ---------- */
   .after {

@@ -1,0 +1,588 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import Eyebrow from '../../components/Eyebrow.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import { hundredDaysModules, daysModuleHref, DAYS_BASE } from '../../data/hundred-days';
+import {
+  projects,
+  projectsSummary,
+  whyBuild,
+  howToUse,
+  guidelines,
+  checklist,
+  portfolios,
+  portfolioNote,
+  avoid,
+  projectAnchor,
+} from '../../data/hundred-days-projects';
+
+const moduleByNumber = new Map(hundredDaysModules.map((m) => [m.number, m]));
+const lastModule = hundredDaysModules[hundredDaysModules.length - 1];
+const projectByNumber = new Map(projects.map((p) => [p.number, p]));
+---
+
+<Base
+  title="Projects — 100 Days of AI Engineering | CampusX"
+  description={projectsSummary}
+  page="days_projects"
+>
+  <article data-phase="foundations">
+    <!-- ───────────────── header ───────────────── -->
+    <header class="ph">
+      <div class="wrap ph__inner">
+        <div class="ph__crumbs">
+          <a href={`${DAYS_BASE}/`} class="ph__crumb">100 Days of AI Engineering</a>
+          <Icon name="chevron-right" size={13} />
+          <span class="ph__crumb ph__crumb--here">Projects</span>
+        </div>
+
+        <div class="ph__top">
+          <span class="ph__badge" aria-hidden="true"><Icon name="folder-kanban" size={30} /></span>
+          <div class="ph__headings">
+            <Eyebrow text="100 Days of AI Engineering · After the 100 days" class="ph__eyebrow" />
+            <h1 class="h1 ph__title">Projects</h1>
+          </div>
+        </div>
+
+        <div class="ph__why">
+          <p class="ph__why-label">Why build more projects</p>
+          <p class="ph__why-text">{whyBuild}</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- ───────────────── how to use ───────────────── -->
+    <section class="section psec" aria-labelledby="how-h">
+      <div class="wrap">
+        <h2 class="psec__label" id="how-h">
+          <Icon name="compass" size={14} />
+          <span>How to use this section</span>
+        </h2>
+        <ol class="how" role="list">
+          {howToUse.map((h, i) => (
+            <li class="how__item">
+              <span class="how__n">{String(i + 1).padStart(2, '0')}</span>
+              <p class="how__text"><b>{h.title}</b> {h.body}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- ───────────────── guidelines + checklist ───────────────── -->
+    <section class="section psec psec--gray" aria-labelledby="guide-h">
+      <div class="wrap pgrid">
+        <div>
+          <h2 class="psec__label" id="guide-h">
+            <Icon name="ruler" size={14} />
+            <span>Project guidelines</span>
+          </h2>
+          <p class="psec__lede">Every project should meet this standard before you call it done.</p>
+          <ol class="guide" role="list">
+            {guidelines.map((g, i) => (
+              <li class="guide__item">
+                <span class="guide__n">{i + 1}</span>
+                <span><b>{g.title}:</b> {g.body}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div>
+          <h2 class="psec__label">
+            <Icon name="list-checks" size={14} />
+            <span>Self-review checklist</span>
+          </h2>
+          <p class="psec__lede">Before sharing a project, check every line:</p>
+          <ul class="check" role="list">
+            {checklist.map((c) => (
+              <li class="check__item">
+                <Icon name="square" size={16} class="check__box" />
+                <span>{c}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────── the projects ───────────────── -->
+    <section class="section psec" aria-labelledby="projects-h">
+      <div class="wrap">
+        <h2 class="psec__label" id="projects-h">
+          <Icon name="folder-kanban" size={14} />
+          <span>The projects</span>
+        </h2>
+        <div class="projs">
+          {projects.map((p) => (
+            <details
+              class="proj"
+              id={projectAnchor(p.number)}
+              data-track-expand="project_expand"
+              data-track-data={String(p.number)}
+            >
+              <summary class="proj__summary">
+                <span class="proj__num">{String(p.number).padStart(2, '0')}</span>
+                <span class="proj__main">
+                  <span class="proj__title">{p.title}</span>
+                  <span class="proj__meta">
+                    <span class="proj__level">{p.level}</span>
+                    <span class="proj__mods">
+                      Builds on {p.buildsOn.length === 1 ? 'Module' : 'Modules'}{' '}
+                      {p.buildsOn.map((n, i) => (
+                        <>{i > 0 && (i === p.buildsOn.length - 1 ? ' and ' : ', ')}{n}</>
+                      ))}
+                    </span>
+                  </span>
+                </span>
+                <Icon name="chevron-down" size={18} class="proj__chev" />
+              </summary>
+
+              <div class="proj__body">
+                <p class="proj__build"><b>What you'll build</b> · {p.build}</p>
+
+                <dl class="proj__facts">
+                  <div>
+                    <dt>Who it's for</dt>
+                    <dd>{p.forWho}</dd>
+                  </div>
+                  <div>
+                    <dt>Skills it shows</dt>
+                    <dd>{p.skills}</dd>
+                  </div>
+                  <div>
+                    <dt>Builds on</dt>
+                    <dd>
+                      {p.buildsOn.map((n, i) => {
+                        const m = moduleByNumber.get(n);
+                        const sep = i > 0 ? (i === p.buildsOn.length - 1 ? ' and ' : ', ') : '';
+                        return (
+                          <>{sep}{m ? <a href={daysModuleHref(m)}>Module {n}</a> : `Module ${n}`}</>
+                        );
+                      })}
+                    </dd>
+                  </div>
+                </dl>
+
+                <div>
+                  <p class="proj__label">Must-haves</p>
+                  <ul class="proj__list" role="list">
+                    {p.mustHaves.map((m) => (
+                      <li><Icon name="check" size={13} class="proj__tick" /><span>{m}</span></li>
+                    ))}
+                  </ul>
+                </div>
+
+                <dl class="proj__facts proj__facts--2">
+                  <div>
+                    <dt>Stretch goals</dt>
+                    <dd>{p.stretch}</dd>
+                  </div>
+                  <div>
+                    <dt>Suggested data</dt>
+                    <dd>{p.data}</dd>
+                  </div>
+                </dl>
+
+                <p class="proj__done">
+                  <Icon name="target" size={15} />
+                  <span><b>Done when</b> · {p.done}</span>
+                </p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────── choosing ───────────────── -->
+    <section class="section psec psec--gray" aria-labelledby="choose-h">
+      <div class="wrap pgrid">
+        <div>
+          <h2 class="psec__label" id="choose-h">
+            <Icon name="briefcase" size={14} />
+            <span>Choosing your portfolio</span>
+          </h2>
+          <table class="roles">
+            <thead>
+              <tr><th scope="col">Target role</th><th scope="col">Suggested projects</th></tr>
+            </thead>
+            <tbody>
+              {portfolios.map((r) => (
+                <tr>
+                  <th scope="row">{r.role}</th>
+                  <td>
+                    <span class="roles__picks">
+                      {r.projects.map((n) => (
+                        <a
+                          class="roles__pick"
+                          href={`#${projectAnchor(n)}`}
+                          title={projectByNumber.get(n)?.title}
+                        >
+                          {n}
+                        </a>
+                      ))}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p class="roles__note">{portfolioNote}</p>
+        </div>
+
+        <div>
+          <h2 class="psec__label">
+            <Icon name="ban" size={14} />
+            <span>Projects to avoid</span>
+          </h2>
+          <ul class="avoid" role="list">
+            {avoid.map((a) => (
+              <li class="avoid__item">
+                <Icon name="x" size={15} class="avoid__x" />
+                <span><b>{a.title}:</b> {a.body}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────── nav ───────────────── -->
+    <nav class="section psec pnav no-print" aria-label="100 Days navigation">
+      <div class="wrap pnav__inner">
+        <a class="pnav__card" href={`${DAYS_BASE}/`}>
+          <Icon name="arrow-left" size={16} />
+          <span>
+            <span class="pnav__k">Back to</span>
+            <span class="pnav__t">100 Days of AI Engineering</span>
+          </span>
+        </a>
+        {lastModule && (
+          <a class="pnav__card" href={daysModuleHref(lastModule)}>
+            <Icon name="arrow-left" size={16} />
+            <span>
+              <span class="pnav__k">Module {lastModule.number}</span>
+              <span class="pnav__t">{lastModule.title}</span>
+            </span>
+          </a>
+        )}
+      </div>
+    </nav>
+  </article>
+</Base>
+
+<style>
+  /* ---------- header ---------- */
+  .ph {
+    padding-block: 40px 34px;
+    background: linear-gradient(180deg, var(--phase-bg) 0%, #fff 100%);
+  }
+  @media (min-width: 768px) { .ph { padding-block: 56px 44px; } }
+  .ph__inner { display: flex; flex-direction: column; gap: 18px; }
+
+  .ph__crumbs {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--cx-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
+  .ph__crumb:hover { color: var(--cx-purple); }
+  .ph__crumb--here, .ph__crumb--here:hover { color: var(--phase-ac); }
+
+  .ph__top { display: flex; align-items: flex-start; gap: 16px; }
+  @media (min-width: 768px) { .ph__top { gap: 24px; align-items: center; } }
+
+  .ph__badge {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 62px;
+    height: 62px;
+    border-radius: 20px;
+    background: #fff;
+    border: 2px solid var(--phase-br);
+    color: var(--phase-ac);
+    box-shadow: var(--cx-shadow-card);
+  }
+  @media (min-width: 768px) { .ph__badge { width: 88px; height: 88px; border-radius: 26px; } }
+
+  .ph__headings { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .ph__eyebrow { color: var(--phase-ac) !important; }
+  .ph__title { font-size: clamp(30px, 6vw, 62px); }
+
+  .ph__why {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-top: 8px;
+    padding: 18px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid var(--phase-br);
+    border-radius: var(--cx-r-card);
+  }
+  @media (min-width: 820px) { .ph__why { padding: 20px 24px; } }
+  .ph__why-label {
+    font-family: var(--cx-font-mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
+  .ph__why-text { font-size: 15.5px; line-height: 1.6; color: var(--cx-g700); max-width: 92ch; }
+
+  /* ---------- sections ---------- */
+  .psec { padding-block: 44px; }
+  @media (min-width: 768px) { .psec { padding-block: 56px; } }
+  .psec--gray { background: var(--cx-gray); border-block: 1px solid var(--cx-border); }
+
+  .psec__label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
+  .psec__lede { margin: -4px 0 14px; font-size: 14.5px; color: var(--cx-g600); }
+
+  .pgrid { display: grid; grid-template-columns: 1fr; gap: 40px; }
+  @media (min-width: 960px) { .pgrid { grid-template-columns: 1fr 1fr; gap: 56px; } }
+
+  /* ---------- how to use ---------- */
+  .how { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 0; padding: 0; list-style: none; }
+  @media (min-width: 640px) { .how { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1040px) { .how { grid-template-columns: repeat(4, 1fr); } }
+  .how__item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 18px;
+    background: #fff;
+    border: 1px solid var(--cx-border);
+    border-radius: var(--cx-r-card-sm);
+  }
+  .how__n { font-family: var(--cx-font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--phase-ac); }
+  .how__text { font-size: 14.5px; line-height: 1.55; color: var(--cx-g600); }
+  .how__text b { color: var(--cx-ink); font-weight: 600; }
+
+  /* ---------- guidelines ---------- */
+  .guide, .check, .avoid { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; }
+  .guide__item {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    gap: 10px;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--cx-g600);
+  }
+  .guide__item b, .avoid__item b { color: var(--cx-ink); font-weight: 600; }
+  .guide__n {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    background: var(--phase-bg);
+    border: 1px solid var(--phase-br);
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--phase-ac);
+  }
+
+  .check__item, .avoid__item {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+    gap: 10px;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--cx-g700);
+  }
+  .check__item :global(.check__box) { margin-top: 3px; color: var(--phase-ac); }
+  .avoid__item :global(.avoid__x) { margin-top: 3px; color: var(--p-rose-ac); }
+
+  /* ---------- projects ---------- */
+  .projs { border-top: 1px solid var(--cx-border); }
+  .proj { border-bottom: 1px solid var(--cx-border); background: #fff; scroll-margin-top: 24px; }
+
+  .proj__summary {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 4px;
+    cursor: pointer;
+    list-style: none;
+    transition: background-color 0.16s ease;
+  }
+  .proj__summary::-webkit-details-marker { display: none; }
+  .proj__summary:hover { background: var(--cx-gray); }
+  .proj__summary:focus-visible { outline-offset: -3px; }
+
+  .proj__num {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--phase-bg);
+    border: 1px solid var(--phase-br);
+    font-family: var(--cx-font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--phase-ac);
+  }
+
+  .proj__main { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+  .proj__title {
+    font-family: var(--cx-font-display);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    color: var(--cx-ink);
+  }
+  @media (min-width: 768px) { .proj__title { font-size: 17px; } }
+  .proj__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
+  .proj__level {
+    padding: 2px 9px;
+    border-radius: 999px;
+    background: var(--cx-gray);
+    border: 1px solid var(--cx-border-2);
+    font-family: var(--cx-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
+    color: var(--cx-g700);
+  }
+  .proj__mods { font-family: var(--cx-font-mono); font-size: 10.5px; letter-spacing: 0.06em; color: var(--cx-g500); }
+
+  .proj__chev { color: var(--cx-g500); transition: transform 0.2s ease; }
+  .proj[open] .proj__chev { transform: rotate(180deg); }
+
+  .proj__body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 2px 16px 26px 54px;
+  }
+  @media (max-width: 520px) { .proj__body { padding-left: 4px; padding-right: 4px; } }
+
+  .proj__build { font-size: 15px; line-height: 1.6; color: var(--cx-g700); max-width: 90ch; }
+  .proj__build b { color: var(--cx-ink); font-weight: 600; }
+
+  .proj__facts { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 0; }
+  @media (min-width: 860px) {
+    .proj__facts { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .proj__facts--2 { grid-template-columns: repeat(2, 1fr); }
+  }
+  .proj__facts dt, .proj__label {
+    margin-bottom: 5px;
+    font-family: var(--cx-font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
+  .proj__facts dd { margin: 0; font-size: 14px; line-height: 1.55; color: var(--cx-g700); }
+  .proj__facts dd a { color: var(--phase-ac); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+  .proj__list { display: flex; flex-direction: column; gap: 7px; margin: 0; padding: 0; list-style: none; }
+  .proj__list li {
+    display: grid;
+    grid-template-columns: 16px 1fr;
+    gap: 8px;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--cx-g700);
+  }
+  .proj__list :global(.proj__tick) { margin-top: 5px; color: var(--phase-ac); }
+
+  .proj__done {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    padding: 11px 14px;
+    border-radius: 12px;
+    background: var(--cx-green-bg);
+    border: 1px solid #a7f3d0;
+    color: #065f46;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .proj__done :global(svg) { flex: none; margin-top: 3px; color: var(--cx-green-ink); }
+  .proj__done b { font-weight: 600; }
+
+  /* ---------- choosing ---------- */
+  .roles {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border: 1px solid var(--cx-border);
+    border-radius: var(--cx-r-card-sm);
+    overflow: hidden;
+    font-size: 14.5px;
+  }
+  .roles th, .roles td { padding: 12px 16px; text-align: left; vertical-align: middle; }
+  .roles thead th {
+    font-family: var(--cx-font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+    border-bottom: 1px solid var(--cx-border);
+  }
+  .roles tbody tr + tr { border-top: 1px solid var(--cx-border); }
+  .roles tbody th { font-weight: 600; color: var(--cx-ink); }
+  .roles__picks { display: flex; gap: 6px; }
+  .roles__pick {
+    display: grid;
+    place-items: center;
+    min-width: 30px;
+    height: 30px;
+    padding: 0 6px;
+    border-radius: 9px;
+    background: var(--phase-bg);
+    border: 1px solid var(--phase-br);
+    font-family: var(--cx-font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--phase-ac);
+  }
+  .roles__pick:hover { border-color: var(--phase-ac); }
+  .roles__note { margin-top: 12px; font-size: 14px; line-height: 1.55; color: var(--cx-g600); }
+
+  /* ---------- nav ---------- */
+  .pnav { padding-top: 36px; padding-bottom: 72px; }
+  .pnav__inner { display: flex; flex-wrap: wrap; gap: 12px; }
+  .pnav__card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1 1 240px;
+    padding: 16px 18px;
+    background: #fff;
+    border: 1px solid var(--cx-border);
+    border-radius: var(--cx-r-card-sm);
+    color: var(--cx-g600);
+    transition: border-color 0.16s ease;
+  }
+  .pnav__card:hover { border-color: var(--cx-purple); }
+  .pnav__card > span { display: flex; flex-direction: column; gap: 2px; }
+  .pnav__k { font-family: var(--cx-font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cx-g500); }
+  .pnav__t { font-family: var(--cx-font-display); font-weight: 700; font-size: 16px; color: var(--cx-ink); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .proj__summary, .proj__chev, .pnav__card { transition: none; }
+  }
+</style>

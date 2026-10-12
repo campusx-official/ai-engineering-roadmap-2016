@@ -7,6 +7,7 @@ import ModuleRow from '../../components/ModuleRow.astro';
 import CourseCard from '../../components/CourseCard.astro';
 import Button from '../../components/Button.astro';
 import { coursesFor, CAMPUSX_ONE_URL } from '../../data/courses';
+import { PROJECTS_HREF } from '../../data/hundred-days-projects';
 import type { Module } from '../../data/levels';
 import {
   hundredDaysModules,
@@ -234,11 +235,19 @@ const description = `${dayRange(mod.days)} of 100 Days of AI Engineering. ${mod.
             </span>
           </a>
         )}
-        {next && (
+        {next ? (
           <a class="dnav__card dnav__card--next" href={daysModuleHref(next)}>
             <span>
               <span class="dnav__k">Module {next.number}</span>
               <span class="dnav__t">{next.title}</span>
+            </span>
+            <Icon name="arrow-right" size={16} />
+          </a>
+        ) : (
+          <a class="dnav__card dnav__card--next" href={PROJECTS_HREF}>
+            <span>
+              <span class="dnav__k">After the 100 days</span>
+              <span class="dnav__t">Projects</span>
             </span>
             <Icon name="arrow-right" size={16} />
           </a>
