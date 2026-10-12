@@ -356,7 +356,7 @@ export const hundredDaysModules: DaysModule[] = [
     summary:
       'Use LangChain to turn single model calls into a reliable app: conversations, streaming, structured answers, tools, multi-step chains, error handling and cost tracking.',
     days: [7, 17],
-    hours: 'about 10 hours',
+    hours: 'about 22 hours',
     before:
       'Module 1 (LLM Fundamentals).',
     outcome:
@@ -369,7 +369,7 @@ export const hundredDaysModules: DaysModule[] = [
         title: 'LangChain Basics and Conversations',
         icon: 'messages-square',
         days: [7, 7],
-        minutes: 60,
+        minutes: 120,
         bullets: [
           {
             title: 'What LangChain is for',
@@ -410,7 +410,7 @@ export const hundredDaysModules: DaysModule[] = [
         title: 'Open and Local Models',
         icon: 'laptop',
         days: [8, 8],
-        minutes: 60,
+        minutes: 120,
         bullets: [
           {
             title: 'Open models',
@@ -451,7 +451,7 @@ export const hundredDaysModules: DaysModule[] = [
         title: 'Streaming',
         icon: 'zap',
         days: [9, 9],
-        minutes: 60,
+        minutes: 120,
         bullets: [
           {
             title: 'Show answers as they arrive',
@@ -484,7 +484,7 @@ export const hundredDaysModules: DaysModule[] = [
         title: 'Structured Outputs',
         icon: 'braces',
         days: [10, 11],
-        minutes: 90,
+        minutes: 240,
         bullets: [
           {
             title: "Don't just ask for JSON",
@@ -517,7 +517,7 @@ export const hundredDaysModules: DaysModule[] = [
         title: 'Tool Calling',
         icon: 'wrench',
         days: [12, 13],
-        minutes: 120,
+        minutes: 240,
         bullets: [
           {
             title: 'The model asks; your code acts',
@@ -566,7 +566,7 @@ export const hundredDaysModules: DaysModule[] = [
         title: 'Chaining Steps Together',
         icon: 'workflow',
         days: [14, 14],
-        minutes: 60,
+        minutes: 120,
         bullets: [
           {
             title: 'Beyond one call',
@@ -598,7 +598,7 @@ export const hundredDaysModules: DaysModule[] = [
         title: 'Handling Failures',
         icon: 'life-buoy',
         days: [15, 15],
-        minutes: 60,
+        minutes: 120,
         bullets: [
           {
             title: 'What goes wrong',
@@ -635,7 +635,7 @@ export const hundredDaysModules: DaysModule[] = [
         title: 'Processing at Scale',
         icon: 'boxes',
         days: [16, 16],
-        minutes: 60,
+        minutes: 120,
         bullets: [
           {
             title: 'One at a time is slow',
@@ -668,7 +668,7 @@ export const hundredDaysModules: DaysModule[] = [
         title: 'Cost, Logging and Tracing',
         icon: 'receipt',
         days: [17, 17],
-        minutes: 60,
+        minutes: 120,
         bullets: [
           {
             title: 'Record every request',
