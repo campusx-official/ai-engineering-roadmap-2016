@@ -33,24 +33,15 @@ export const howToUse: string[] = [
   'Finish each in two to four weeks.',
 ];
 
-export const guidelines: { title: string; body: string }[] = [
-  { title: 'A real problem and a real user', body: "Say who it's for and what they do today without it." },
-  { title: 'A baseline first', body: 'Build and measure the simplest version before adding anything clever.' },
-  {
-    title: 'A test set with numbers',
-    body: 'At least 30 test cases, scored, with before-and-after results for every improvement you keep.',
-  },
-  {
-    title: 'A security pass',
-    body: "A set of attacks suited to the project, the defenses you added, and proof they're blocked.",
-  },
-  { title: 'Live and usable', body: 'Deployed, with a link anyone can try.' },
-  { title: 'Cost and speed', body: 'Cost per request and response time, stated plainly.' },
-  {
-    title: 'A strong README',
-    body: 'The problem, how it works, your results, the trade-offs you made, and the failures you hit and what you changed because of them.',
-  },
-  { title: 'A short demo video', body: 'Two to three minutes showing it working on a real example.' },
+export const guidelines: string[] = [
+  'A real problem and a real user',
+  'A baseline first',
+  'A test set of 30+ cases, with before-and-after scores',
+  'A security pass, with proof attacks are blocked',
+  'Live, with a link anyone can try',
+  'Cost per request and response time',
+  'A README with results, trade-offs and failures',
+  'A two-to-three-minute demo video',
 ];
 
 export const checklist: string[] = [

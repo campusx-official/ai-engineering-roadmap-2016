@@ -78,12 +78,11 @@ const projectByNumber = new Map(projects.map((p) => [p.number, p]));
             <Icon name="ruler" size={14} />
             <span>Project guidelines</span>
           </h2>
-          <p class="psec__lede">Every project should meet this standard before you call it done.</p>
           <ol class="guide" role="list">
             {guidelines.map((g, i) => (
               <li class="guide__item">
                 <span class="guide__n">{i + 1}</span>
-                <span><b>{g.title}:</b> {g.body}</span>
+                <span>{g}</span>
               </li>
             ))}
           </ol>
@@ -379,12 +378,14 @@ const projectByNumber = new Map(projects.map((p) => [p.number, p]));
   .guide__item {
     display: grid;
     grid-template-columns: 24px 1fr;
+    align-items: center;
     gap: 10px;
-    font-size: 14.5px;
-    line-height: 1.55;
-    color: var(--cx-g600);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.45;
+    color: var(--cx-ink);
   }
-  .guide__item b, .avoid__item b { color: var(--cx-ink); font-weight: 600; }
+  .avoid__item b { color: var(--cx-ink); font-weight: 600; }
   .guide__n {
     display: grid;
     place-items: center;
