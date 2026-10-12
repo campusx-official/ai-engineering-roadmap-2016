@@ -23,7 +23,7 @@ import {
   totalSessions,
   type Level,
 } from '../../data/levels';
-import { shortVersionOfLevel, daysModuleHref } from '../../data/hundred-days';
+import { shortVersionOfLevel, coveredInModule, daysModuleHref } from '../../data/hundred-days';
 
 export function getStaticPaths() {
   return levels.map((level) => ({
@@ -53,6 +53,7 @@ const prereqs = level.prerequisites
 
 /* A level with a compressed version in 100 Days of AI Engineering points to it. */
 const shortVersion = shortVersionOfLevel(level.number);
+const coveredIn = shortVersion ? undefined : coveredInModule(level.number);
 
 const description = `Level ${level.number} of the CampusX AI Engineering Roadmap: ${level.scope}`.slice(0, 300);
 ---
@@ -100,6 +101,17 @@ const description = `Level ${level.number} of the CampusX AI Engineering Roadmap
             <Icon name="calendar-days" size={15} />
             <span>
               Short on time? Do the {shortVersion.days[1] - shortVersion.days[0] + 1}-day version in
+              <b>100 Days of AI Engineering</b>
+            </span>
+            <Icon name="arrow-right" size={14} class="lh__short-go" />
+          </a>
+        )}
+
+        {coveredIn && (
+          <a class="lh__short" href={daysModuleHref(coveredIn.module)} data-track="level_covered_in" data-track-data={String(level.number)}>
+            <Icon name="calendar-days" size={15} />
+            <span>
+              {coveredIn.topic} is covered inside the {coveredIn.module.title} module of
               <b>100 Days of AI Engineering</b>
             </span>
             <Icon name="arrow-right" size={14} class="lh__short-go" />

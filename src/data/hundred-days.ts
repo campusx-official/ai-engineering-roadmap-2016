@@ -65,6 +65,8 @@ export interface DaysModule {
   coursesFrom: { level: number; only?: string[] }[];
   /** Roadmap level this module is the short version of; that level links here. */
   shortVersionOf?: number;
+  /** Other roadmap levels whose topic this module covers; those levels link here too. */
+  alsoCovers?: { level: number; topic: string }[];
 }
 
 export const hundredDaysModules: DaysModule[] = [
@@ -1739,6 +1741,668 @@ export const hundredDaysModules: DaysModule[] = [
       },
     ],
   },
+  {
+    number: 5,
+    slug: 'agents',
+    title: 'Agents',
+    phase: 'agentic',
+    icon: 'bot',
+    summary:
+      "Turn your RAG assistant into an agent that plans, uses tools, remembers and asks for approval, then measure how well it behaves and lock down what it's allowed to do.",
+    days: [51, 71],
+    hours: 'about 21 hours',
+    before: 'Module 4 (RAG).',
+    outcome:
+      "Decide when a problem needs an agent; build one with LangGraph that plans, uses tools and MCP servers, remembers what matters, manages its context and asks for approval before risky actions; measure its decisions, recovery and efficiency; and limit what it can do so a tricked agent can't cause harm.",
+    coursesFrom: [{ level: 5 }, { level: 6 }, { level: 7 }, { level: 8 }],
+    shortVersionOf: 5,
+    alsoCovers: [{ level: 6, topic: 'Context engineering' }],
+    parts: [
+      { title: 'Build an Agent' },
+      { title: 'Advanced Agents' },
+      { title: 'Evaluating Agents' },
+      { title: 'Securing Agents' },
+    ],
+    units: [
+      {
+        id: '5.1',
+        title: 'What Is an Agent?',
+        icon: 'bot',
+        days: [51, 51],
+        minutes: 45,
+        part: 1,
+        bullets: [
+          {
+            title: 'The agent loop',
+            text: 'Goal → decide what to do → act → look at the result → repeat until done.',
+          },
+          {
+            title: 'Who decides what happens next',
+            text: 'In a single call or a chain, your code decides the steps; in an agent, the model does.',
+          },
+          {
+            title: 'Where agents help',
+            text: "Open-ended, multi-step tasks where you can't map out every step in advance.",
+          },
+          {
+            title: 'When a chain is better',
+            text: 'If you can write the steps down, a chain is simpler, cheaper and more reliable than an agent.',
+          },
+          {
+            title: 'What an agent is made of',
+            text: 'A model, instructions, tools, memory, a loop, and rules for when to stop.',
+          },
+        ],
+        tryIt:
+          'List five tasks your users might want done. Mark which ones need an agent and which a simple chain could handle.',
+        outcome:
+          'Decide whether a problem genuinely needs an agent, and name the parts every agent needs.',
+      },
+      {
+        id: '5.2',
+        title: 'The Agent Loop',
+        icon: 'repeat',
+        days: [52, 52],
+        minutes: 60,
+        part: 1,
+        bullets: [
+          {
+            title: 'Reason, then act (ReAct)',
+            text: 'The agent alternates between deciding what to do and doing it, using each result to choose the next step.',
+          },
+          {
+            title: 'Build the loop yourself once',
+            text: 'Using the tool calling you learned in Module 2, write a simple loop that keeps calling tools until the task is done.',
+          },
+          {
+            title: 'When to stop',
+            text: 'Set a maximum number of steps and a clear finish condition, and detect when the agent is repeating itself.',
+          },
+          {
+            title: 'Step by step vs plan first',
+            text: 'Some agents decide one step at a time; others write a plan first and then follow it.',
+          },
+        ],
+        tryIt:
+          'Give your loop a task that needs three tool calls in a row. Then give it an impossible task and confirm your step limit stops it.',
+        outcome:
+          'Explain how an agent loop works and build one that always stops.',
+      },
+      {
+        id: '5.3',
+        title: 'Building Agents with LangGraph',
+        icon: 'git-fork',
+        days: [53, 54],
+        minutes: 120,
+        part: 1,
+        bullets: [
+          {
+            title: 'Why LangGraph',
+            text: "It gives you explicit control over each step, saves the agent's progress, and supports pausing for human approval.",
+          },
+          {
+            title: 'State, nodes and edges',
+            text: 'State holds what the agent knows; nodes do the work (call the model, run a tool, make a decision); edges decide what runs next.',
+          },
+          {
+            title: 'Branches and loops',
+            text: 'Use conditional edges to choose the next step and loops to repeat tool use until the task is done.',
+          },
+          {
+            title: 'Ready-made vs custom',
+            text: "Start with LangGraph's ready-made tool-using agent, then build your own graph when you need more control.",
+          },
+          {
+            title: 'See what happened',
+            text: "Inspect the agent's state after a run to understand why it took the path it did.",
+          },
+        ],
+        tryIt:
+          'Rebuild your Unit 5.2 loop as a LangGraph graph, then add a branch that sends simple questions straight to an answer without using tools.',
+        outcome:
+          'Build a controllable agent in LangGraph and debug it by inspecting its state.',
+      },
+      {
+        id: '5.4',
+        title: 'Tools for Agents',
+        icon: 'wrench',
+        days: [55, 55],
+        minutes: 60,
+        part: 1,
+        bullets: [
+          {
+            title: 'Your RAG pipeline becomes a tool',
+            text: 'Wrap the RAG system from Module 4 as a search tool the agent can choose to use.',
+          },
+          {
+            title: 'Tools the agent can choose between',
+            text: 'Clear names, descriptions and inputs matter even more when the agent picks from several tools on its own.',
+          },
+          {
+            title: 'Keep tool results small',
+            text: "Return only what the agent needs, so long results don't fill its context.",
+          },
+          {
+            title: 'When tools fail',
+            text: 'Return useful error messages so the agent can retry, try another tool, or give up gracefully.',
+          },
+          {
+            title: 'Looking vs changing',
+            text: 'Separate tools that only read information from tools that change things, and treat the second kind with care.',
+          },
+        ],
+        tryIt:
+          'Give your agent your RAG search tool and a tool that takes an action, such as creating a support request. Ask one question that needs only search, and one task that needs search followed by an action.',
+        outcome:
+          'Give an agent a well-designed set of tools, including your own RAG system.',
+      },
+      {
+        id: '5.5',
+        title: 'Planning and Reflection',
+        icon: 'list-todo',
+        days: [56, 56],
+        minutes: 60,
+        part: 1,
+        bullets: [
+          {
+            title: 'Plan before acting',
+            text: 'For longer tasks, have the agent write a short plan, then work through it.',
+          },
+          {
+            title: 'Change the plan',
+            text: 'Let the agent revise its plan when a step fails or new information appears.',
+          },
+          {
+            title: 'Check its own work',
+            text: 'Have the agent review its result before finishing and try again if it falls short.',
+          },
+          {
+            title: 'The cost of thinking',
+            text: 'More planning and checking can improve results but adds time and cost; use it where tasks are genuinely complex.',
+          },
+        ],
+        tryIt:
+          'Give your agent a multi-part task with and without a planning step, and compare success, steps and cost.',
+        outcome:
+          "Add planning and self-checking where they help, and leave them out where they don't.",
+      },
+      {
+        id: '5.6',
+        title: 'Saving Progress and Asking for Approval',
+        icon: 'hand',
+        days: [57, 57],
+        minutes: 60,
+        part: 1,
+        bullets: [
+          {
+            title: 'Save as you go',
+            text: "LangGraph can save the agent's state after each step, so a long task survives a crash or restart.",
+          },
+          {
+            title: "Resume, don't restart",
+            text: 'Pick up an interrupted run from where it stopped.',
+          },
+          {
+            title: 'Pause for a human',
+            text: 'Stop before important actions, show the person what the agent wants to do, and continue only once they approve.',
+          },
+          {
+            title: 'Safe to retry',
+            text: "Design actions so that running them twice doesn't do the thing twice, such as creating the same support request again.",
+          },
+        ],
+        tryIt:
+          'Add an approval step before a tool that changes something runs. Approve one request, reject another, and confirm the agent handles both.',
+        outcome:
+          'Build an agent that saves its progress, resumes after interruptions, and waits for approval before acting.',
+      },
+      {
+        id: '5.7',
+        title: 'MCP (Model Context Protocol)',
+        icon: 'plug',
+        days: [58, 59],
+        minutes: 120,
+        part: 2,
+        bullets: [
+          {
+            title: 'Why MCP exists',
+            text: 'A standard way to connect AI apps to tools and data, so one integration works with many apps.',
+          },
+          {
+            title: 'Host, client and server',
+            text: 'The app (host) uses a client to talk to MCP servers, and each server exposes tools, data and prompts.',
+          },
+          {
+            title: 'Tool calling vs MCP',
+            text: 'Tool calling is how a model asks for an action; MCP is how tools are packaged and shared between apps.',
+          },
+          {
+            title: 'Build an MCP server',
+            text: 'Expose a real system, such as support requests or your document search, as an MCP server.',
+          },
+          {
+            title: 'Connect your agent',
+            text: "Use LangChain's MCP support to give your agent the server's tools.",
+          },
+          {
+            title: 'Running locally or remotely',
+            text: 'Understand the difference between servers running on your machine and servers reached over the internet, and why remote ones need authentication.',
+          },
+        ],
+        tryIt:
+          "Build an MCP server that exposes your agent's tools, connect your agent to it, and also connect it to an AI app that supports MCP.",
+        outcome:
+          'Package your tools as an MCP server that any compatible app or agent can use.',
+      },
+      {
+        id: '5.8',
+        title: 'Memory',
+        icon: 'brain',
+        days: [60, 60],
+        minutes: 60,
+        part: 2,
+        bullets: [
+          {
+            title: 'Kinds of memory',
+            text: "The current conversation, the agent's working state, and long-term memory that lasts between conversations.",
+          },
+          {
+            title: "Remember what's worth keeping",
+            text: 'Store useful facts, preferences and past outcomes, not every message.',
+          },
+          {
+            title: "Recall only what's relevant",
+            text: "Look up memories when they're needed instead of adding everything to every request.",
+          },
+          {
+            title: 'Keep memory accurate',
+            text: 'Update memories when facts change and remove ones that are wrong or out of date.',
+          },
+        ],
+        tryIt:
+          'Tell your agent a preference in one conversation, such as "always reply in Hindi", and check that it remembers it in a new conversation.',
+        outcome:
+          'Build an agent that remembers what matters across conversations without carrying everything along.',
+      },
+      {
+        id: '5.9',
+        title: 'Context Engineering',
+        icon: 'layout-dashboard',
+        days: [61, 62],
+        minutes: 120,
+        part: 2,
+        bullets: [
+          {
+            title: 'Context is a budget',
+            text: 'Instructions, history, retrieved passages, memories, tool descriptions and tool results all compete for limited space.',
+          },
+          {
+            title: 'Long runs go wrong',
+            text: 'As context grows, agents lose track of the goal, miss details and cost more with every step.',
+          },
+          {
+            title: "See what's really in there",
+            text: "Inspect exactly what the agent sends the model at each step and spot what's useful and what's noise.",
+          },
+          {
+            title: 'Build it on purpose',
+            text: "Decide what's always included, what's looked up when needed, what's summarized and what's left out.",
+          },
+          {
+            title: 'Shrink without losing the plot',
+            text: 'Summarize older history while keeping the goal, decisions and unfinished work, and trim large tool results before they go back to the model.',
+          },
+          {
+            title: 'Write things down',
+            text: 'Let the agent keep notes, plans and progress outside its context and read them back when needed.',
+          },
+          {
+            title: 'Only the tools it needs',
+            text: 'Give the agent only the tools relevant to the current task, since every tool description takes space.',
+          },
+          {
+            title: 'Use caching',
+            text: 'Keep fixed instructions at the start so they can be cached, as you did in Module 3.',
+          },
+        ],
+        tryIt:
+          'Run a long task that needs 20 or more steps. Compare a version that keeps everything with one that summarizes history and trims tool results, on success, tokens and cost.',
+        outcome:
+          'Keep long, tool-heavy agent runs focused and affordable by managing what goes into the context.',
+      },
+      {
+        id: '5.10',
+        title: 'Multi-Agent Systems',
+        icon: 'users',
+        days: [63, 63],
+        minutes: 60,
+        part: 2,
+        bullets: [
+          {
+            title: 'Why more than one agent',
+            text: 'Different parts of a task may need different tools, instructions, models or permissions.',
+          },
+          {
+            title: 'Common patterns',
+            text: 'A supervisor that hands work to specialist agents, agents that pass work along in sequence, and specialists working in parallel.',
+          },
+          {
+            title: 'What goes wrong',
+            text: 'Duplicated work, agents talking past each other, growing context, conflicting results, and higher cost.',
+          },
+          {
+            title: 'Agents talking to agents',
+            text: 'MCP connects agents to tools; A2A is an emerging standard for connecting independently built agents to each other.',
+          },
+          {
+            title: 'One strong agent is often enough',
+            text: 'Add more agents only when splitting the work clearly helps.',
+          },
+        ],
+        tryIt:
+          'Build a supervisor in LangGraph with two specialists, one for answering questions and one for handling requests. Compare it with your single agent on the same five tasks.',
+        outcome:
+          'Build a multi-agent system and judge honestly whether it beats a single agent.',
+      },
+      {
+        id: '5.11',
+        title: 'Reliability and User Experience',
+        icon: 'gauge',
+        days: [64, 64],
+        minutes: 60,
+        part: 2,
+        bullets: [
+          {
+            title: 'Common agent failures',
+            text: 'Wrong tool, bad inputs, tools that are down, repeating itself, incomplete plans and running too long.',
+          },
+          {
+            title: 'Budgets',
+            text: 'Limit steps, time, retries and cost for every task.',
+          },
+          {
+            title: 'Know when to hand over',
+            text: "When the agent can't continue safely, fall back to a simpler path or pass the task to a person.",
+          },
+          {
+            title: 'Show progress',
+            text: "Let users see what the agent is doing, which tool it's using, and what it found.",
+          },
+          {
+            title: 'Keep users in control',
+            text: 'Let them cancel, pause, resume or change direction during long tasks.',
+          },
+        ],
+        tryIt:
+          "Stream your agent's progress to the user step by step, and add a cost limit that stops any task above a set amount.",
+        outcome:
+          'Build agents that fail predictably, hand over when stuck, and keep users informed and in control.',
+      },
+      {
+        id: '5.12',
+        title: 'Why Agent Evals Are Different',
+        icon: 'footprints',
+        days: [65, 65],
+        minutes: 60,
+        part: 3,
+        bullets: [
+          {
+            title: "The final answer isn't enough",
+            text: 'An agent can reach the right answer the wrong way, or the wrong answer for a fixable reason; you need to see the steps.',
+          },
+          {
+            title: 'Read the traces',
+            text: 'Look through 20 full agent runs step by step, using the tracing you set up in Module 2.',
+          },
+          {
+            title: 'Group the failures',
+            text: 'Note what went wrong in each run (wrong tool, bad inputs, loops, gave up early) and count each type.',
+          },
+          {
+            title: 'What to measure',
+            text: 'Decisions, tool use, the path taken, task success, recovery from problems, efficiency and safety.',
+          },
+        ],
+        tryIt:
+          'Read 20 traces from your agent, write a one-line note on each problem you find, and group them into failure types.',
+        outcome:
+          "Find your agent's most common failures by reading what it actually did, not just what it answered.",
+      },
+      {
+        id: '5.13',
+        title: 'Evaluating Tool Use and Task Success',
+        icon: 'clipboard-check',
+        days: [66, 66],
+        minutes: 60,
+        part: 3,
+        bullets: [
+          {
+            title: 'An agent test set',
+            text: 'A list of tasks, each with what success looks like and, where it matters, the tools that should be used.',
+          },
+          {
+            title: 'Right tool, right inputs',
+            text: 'Check whether the agent picked the correct tool and filled in its inputs correctly.',
+          },
+          {
+            title: 'A sensible path',
+            text: 'Check for unnecessary tool calls, repeated steps, wrong order and stopping too early.',
+          },
+          {
+            title: 'Did it get the job done?',
+            text: 'Measure how often the agent completes each task successfully.',
+          },
+          {
+            title: 'Judging the path',
+            text: 'Use a model as a judge for whether the steps were reasonable, and check it against your own scores as you did in Module 4.',
+          },
+        ],
+        tryIt:
+          'Build an agent test set of 15 tasks and score your agent on tool choice, inputs and task success.',
+        outcome:
+          'Measure whether your agent makes good decisions and completes its tasks.',
+      },
+      {
+        id: '5.14',
+        title: 'Testing Recovery and Efficiency',
+        icon: 'life-buoy',
+        days: [67, 67],
+        minutes: 60,
+        part: 3,
+        bullets: [
+          {
+            title: 'Break things on purpose',
+            text: 'Make tools fail, return bad data or become unavailable, and leave out information the agent needs.',
+          },
+          {
+            title: 'Did it notice and recover?',
+            text: 'Check whether the agent retries, tries another tool, changes its plan or asks for help.',
+          },
+          {
+            title: 'Measure recovery, not just success',
+            text: "An agent that only works when nothing goes wrong isn't ready for real users.",
+          },
+          {
+            title: 'Efficiency',
+            text: 'Track steps, tool calls, tokens, time and cost per task alongside success.',
+          },
+        ],
+        tryIt:
+          'Make your search tool fail on three tasks and return empty results on two more. Record how the agent handles each.',
+        outcome:
+          'Measure how well your agent copes when things go wrong and what each task costs.',
+      },
+      {
+        id: '5.15',
+        title: 'Agent Threats and Least Privilege',
+        icon: 'key-round',
+        days: [68, 68],
+        minutes: 60,
+        part: 4,
+        bullets: [
+          {
+            title: 'The dangerous combination',
+            text: 'An agent that reads untrusted content, has access to private data or powerful tools, and has a way to send information out can be turned against its users.',
+          },
+          {
+            title: 'Least privilege',
+            text: 'Give the agent only the tools and permissions the current task needs, and nothing more.',
+          },
+          {
+            title: 'Check tool use in code',
+            text: "Validate which tool is used, its inputs and the user's permissions outside the model, before anything runs.",
+          },
+          {
+            title: 'Limits stop runaways',
+            text: 'Step, time and cost limits also protect against attacks designed to make the agent loop or spend.',
+          },
+        ],
+        tryIt:
+          'List every tool and permission your agent has. For each one, write what an attacker could do with it, then remove or restrict anything not essential.',
+        outcome:
+          'Explain how agents can be attacked and give yours only the access it truly needs.',
+      },
+      {
+        id: '5.16',
+        title: 'Approval Gates and Sandboxing',
+        icon: 'box',
+        days: [69, 69],
+        minutes: 60,
+        part: 4,
+        bullets: [
+          {
+            title: 'Approval for anything irreversible',
+            text: 'Sending messages, changing or deleting records, payments and running code should wait for a person.',
+          },
+          {
+            title: 'Run generated code in a sandbox',
+            text: 'Never run code the model writes inside your app; use an isolated environment such as E2B, Modal or a container.',
+          },
+          {
+            title: 'Restrict the sandbox',
+            text: 'Limit file access, network access, credentials, run time and computing power.',
+          },
+          {
+            title: 'Generated commands are untrusted',
+            text: 'Treat database queries, shell commands and web addresses written by the model as untrusted input.',
+          },
+          {
+            title: 'Limit the damage',
+            text: 'Design so that even a fully tricked agent can only do a small amount of harm.',
+          },
+        ],
+        tryIt:
+          'Give your agent a tool that runs Python in a sandbox. Ask it to read a file outside the sandbox and to make a network request, and confirm both are blocked.',
+        outcome:
+          'Let agents take powerful actions safely, with approval and isolation around anything risky.',
+      },
+      {
+        id: '5.17',
+        title: 'Securing MCP and Tools',
+        icon: 'shield-check',
+        days: [70, 70],
+        minutes: 60,
+        part: 4,
+        bullets: [
+          {
+            title: 'Untrusted MCP servers',
+            text: "Connecting to someone else's MCP server gives them a way to influence your agent; treat third-party servers like third-party code.",
+          },
+          {
+            title: 'Hidden instructions in tools',
+            text: 'Tool descriptions and tool results can contain instructions aimed at the model, just like documents can.',
+          },
+          {
+            title: 'Servers that change',
+            text: 'A server you approved can change its tools or behavior later; review what it offers before every update.',
+          },
+          {
+            title: 'Over-broad access',
+            text: 'Give each server the narrowest permissions and credentials it needs.',
+          },
+          {
+            title: 'Hijacked tool use',
+            text: "Injected instructions from documents or tool results may try to make the agent call tools it shouldn't; your code checks from Unit 5.15 are what stop them.",
+          },
+        ],
+        tryIt:
+          "Change one tool description on your MCP server to include a hidden instruction, and one tool result to include another. See whether either changes your agent's behavior.",
+        outcome:
+          'Connect agents to MCP servers and tools without handing control to whoever wrote them.',
+      },
+      {
+        id: '5.18',
+        title: 'Red-Teaming Your Agent',
+        icon: 'swords',
+        days: [71, 71],
+        minutes: 60,
+        part: 4,
+        bullets: [
+          {
+            title: 'Attack your own agent',
+            text: 'Try to make it misuse tools, go beyond its permissions, reveal secrets, take actions without approval, or loop and run up costs.',
+          },
+          {
+            title: 'Attack through every door',
+            text: "Use the user's messages, retrieved documents, tool results and MCP tool descriptions.",
+          },
+          {
+            title: 'Measure unsafe actions',
+            text: "Track how often attacks succeed and how often the agent attempts an action it shouldn't.",
+          },
+          {
+            title: 'Every successful attack becomes a test',
+            text: 'Add each attack that worked to your regression suite.',
+          },
+          {
+            title: 'Safety vs usefulness',
+            text: "Check that your defenses haven't made the agent unable to do its job.",
+          },
+        ],
+        tryIt:
+          'Write 10 attacks on your agent across messages, documents, tool results and MCP. Record how many succeed, fix what you can, and run them again.',
+        outcome:
+          'Test your agent the way an attacker would and turn what you find into permanent tests.',
+      },
+    ],
+    skipped: [
+      {
+        topic: 'CrewAI, Agno, Google ADK and the OpenAI Agents SDK',
+        why: "One framework, learned well, teaches the same ideas; compare others once you've shipped with one",
+        where: [{ level: 5, href: '/level/5/#m5-10' }],
+      },
+      {
+        topic: 'A2A in depth',
+        why: 'Still emerging; MCP covers what most agents need today',
+        where: [{ level: 5, href: '/level/5/#m5-6' }],
+      },
+      {
+        topic: 'Long-context strategies in depth',
+        why: 'Unit 5.9 covers what agents need; very long documents are a specialist topic',
+        where: [{ level: 6, href: '/level/6/#m6-5' }],
+      },
+      {
+        topic: 'Hierarchical summaries and advanced compaction',
+        why: 'Basic summarizing and trimming handle most agent runs',
+        where: [{ level: 6, href: '/level/6/#m6-3' }],
+      },
+      {
+        topic: 'Cybersecurity capability benchmarks',
+        why: 'A concern for model builders, not for teams building agents',
+        where: [{ level: 7, href: '/level/7/#m7-9' }],
+      },
+      {
+        topic: 'Deploying agents to production',
+        why: 'Covered in Shipping to Production',
+        where: [{ level: 10, href: '/level/10/#m10-8' }],
+      },
+      {
+        topic: 'A security review of the whole app',
+        why: 'Covered in Shipping to Production, once the app is complete',
+        where: [{ level: 8, href: '/level/8/#m8-7' }],
+      },
+    ],
+  },
 ];
 
 export const daysModuleHref = (m: DaysModule) => `${DAYS_BASE}/${m.slug}/`;
@@ -1752,3 +2416,12 @@ export const formatMinutes = (m: number) => `${m} min`;
 /** The module that is the short version of a roadmap level. */
 export const shortVersionOfLevel = (n: number): DaysModule | undefined =>
   hundredDaysModules.find((m) => m.shortVersionOf === n);
+
+/** A module that covers a roadmap level's topic without being its short version. */
+export function coveredInModule(n: number): { module: DaysModule; topic: string } | undefined {
+  for (const m of hundredDaysModules) {
+    const hit = m.alsoCovers?.find((c) => c.level === n);
+    if (hit) return { module: m, topic: hit.topic };
+  }
+  return undefined;
+}
