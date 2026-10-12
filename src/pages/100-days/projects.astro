@@ -93,7 +93,6 @@ const projectByNumber = new Map(projects.map((p) => [p.number, p]));
             <Icon name="list-checks" size={14} />
             <span>Self-review checklist</span>
           </h2>
-          <p class="psec__lede">Before sharing a project, check every line:</p>
           <ul class="check" role="list">
             {checklist.map((c) => (
               <li class="check__item">
@@ -352,7 +351,6 @@ const projectByNumber = new Map(projects.map((p) => [p.number, p]));
     text-transform: uppercase;
     color: var(--cx-g500);
   }
-  .psec__lede { margin: -4px 0 14px; font-size: 14.5px; color: var(--cx-g600); }
 
   .pgrid { display: grid; grid-template-columns: 1fr; gap: 40px; }
   @media (min-width: 960px) { .pgrid { grid-template-columns: 1fr 1fr; gap: 56px; } }

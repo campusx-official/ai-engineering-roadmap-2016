@@ -45,17 +45,17 @@ export const guidelines: string[] = [
 ];
 
 export const checklist: string[] = [
-  "I can explain the problem and who it's for in two sentences.",
-  'I measured a simple baseline before improving it.',
-  'My test set has at least 30 cases, and I report scores for the baseline and the final version.',
-  'Any model-as-a-judge I used agrees with my own scores on most of a sample I checked by hand.',
-  "I tried at least 10 attacks suited to this project, and they're all blocked.",
-  'No API keys, passwords or personal data appear in my code, logs or repository.',
-  "The app is live, and someone who isn't me has used it.",
+  'I can explain the problem and user in two sentences.',
+  'I measured a baseline first.',
+  'My test set has 30+ cases, with baseline and final scores.',
+  'My judge agrees with my own scores.',
+  'I tried 10+ attacks, and all are blocked.',
+  'No secrets or personal data in my code, logs or repository.',
+  "It's live, and someone else has used it.",
   'I report cost per request and response time.',
-  'My README explains the design, the results, the trade-offs and at least one failure.',
+  'My README covers the design, results, trade-offs and a failure.',
   'I have a demo video.',
-  'I can answer: Why this design? What would break at 100× the traffic? How would I halve the cost?',
+  'I can answer: Why this design? What breaks at 100× the traffic? How would I halve the cost?',
 ];
 
 export const projects: Project[] = [
