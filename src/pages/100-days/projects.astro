@@ -16,6 +16,7 @@ import {
   avoid,
   projectAnchor,
 } from '../../data/hundred-days-projects';
+import { INTERVIEW_HREF } from '../../data/hundred-days-interview';
 
 const moduleByNumber = new Map(hundredDaysModules.map((m) => [m.number, m]));
 const lastModule = hundredDaysModules[hundredDaysModules.length - 1];
@@ -266,6 +267,13 @@ const projectByNumber = new Map(projects.map((p) => [p.number, p]));
             </span>
           </a>
         )}
+        <a class="pnav__card pnav__card--next" href={INTERVIEW_HREF}>
+          <span>
+            <span class="pnav__k">After the 100 days</span>
+            <span class="pnav__t">Interview Prep</span>
+          </span>
+          <Icon name="arrow-right" size={16} />
+        </a>
       </div>
     </nav>
   </article>
@@ -576,6 +584,7 @@ const projectByNumber = new Map(projects.map((p) => [p.number, p]));
     transition: border-color 0.16s ease;
   }
   .pnav__card:hover { border-color: var(--cx-purple); }
+  .pnav__card--next { justify-content: flex-end; text-align: right; }
   .pnav__card > span { display: flex; flex-direction: column; gap: 2px; }
   .pnav__k { font-family: var(--cx-font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cx-g500); }
   .pnav__t { font-family: var(--cx-font-display); font-weight: 700; font-size: 16px; color: var(--cx-ink); }

@@ -1,0 +1,464 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import Eyebrow from '../../components/Eyebrow.astro';
+import { hundredDaysModules, daysModuleHref, DAYS_BASE } from '../../data/hundred-days';
+import { PROJECTS_HREF } from '../../data/hundred-days-projects';
+import {
+  interviewSummary,
+  howToUse,
+  questionTypes,
+  strongAnswer,
+  questionGroups,
+  practiceSteps,
+  mockRounds,
+  rubric,
+  questionAnchor,
+  type QuestionType,
+} from '../../data/hundred-days-interview';
+
+const moduleByNumber = new Map(hundredDaysModules.map((m) => [m.number, m]));
+
+/* One pastel per question type, so a scan down the list shows the mix. */
+const typeTone: Record<QuestionType, string> = {
+  Concept: 'blue',
+  Scenario: 'amber',
+  Debugging: 'rose',
+  Design: 'emerald',
+  Defense: 'violet',
+};
+const toneStyle = (t: QuestionType) =>
+  `--t-bg:var(--p-${typeTone[t]}-bg);--t-br:var(--p-${typeTone[t]}-br);--t-ac:var(--p-${typeTone[t]}-ac)`;
+---
+
+<Base
+  title="Interview Prep — 100 Days of AI Engineering | CampusX"
+  description={interviewSummary}
+  page="days_interview"
+>
+  <article data-phase="interview">
+    <!-- ───────────────── header ───────────────── -->
+    <header class="ih">
+      <div class="wrap ih__inner">
+        <div class="ih__crumbs">
+          <a href={`${DAYS_BASE}/`} class="ih__crumb">100 Days of AI Engineering</a>
+          <Icon name="chevron-right" size={13} />
+          <span class="ih__crumb ih__crumb--here">Interview Prep</span>
+        </div>
+
+        <div class="ih__top">
+          <span class="ih__badge" aria-hidden="true"><Icon name="messages-square" size={30} /></span>
+          <div class="ih__headings">
+            <Eyebrow text="100 Days of AI Engineering · After the 100 days" class="ih__eyebrow" />
+            <h1 class="h1 ih__title">Interview Prep</h1>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ───────────────── how to use ───────────────── -->
+    <section class="section isec isec--first" aria-labelledby="how-h">
+      <div class="wrap">
+        <h2 class="isec__label" id="how-h">
+          <Icon name="compass" size={14} />
+          <span>How to use this section</span>
+        </h2>
+        <ol class="how" role="list">
+          {howToUse.map((h, i) => (
+            <li class="how__item">
+              <span class="how__n">{String(i + 1).padStart(2, '0')}</span>
+              <p class="how__text"><b>{h.title}</b> {h.body}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- ───────────────── types + strong answers ───────────────── -->
+    <section class="section isec isec--gray" aria-labelledby="types-h">
+      <div class="wrap igrid">
+        <div>
+          <h2 class="isec__label" id="types-h">
+            <Icon name="tags" size={14} />
+            <span>Question types</span>
+          </h2>
+          <ul class="types" role="list">
+            {questionTypes.map((t) => (
+              <li class="types__item">
+                <span class="qtype" style={toneStyle(t.type)}>{t.type}</span>
+                <span>{t.meaning}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="isec__label">
+            <Icon name="star" size={14} />
+            <span>What every strong answer does</span>
+          </h2>
+          <ol class="strong" role="list">
+            {strongAnswer.map((s, i) => (
+              <li class="strong__item">
+                <span class="strong__n">{i + 1}</span>
+                <span><b>{s.title}</b> {s.body}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────── the 100 questions ───────────────── -->
+    <section class="section isec" aria-labelledby="qs-h">
+      <div class="wrap">
+        <h2 class="isec__label" id="qs-h">
+          <Icon name="list-ordered" size={14} />
+          <span>The 100 questions</span>
+        </h2>
+
+        {questionGroups.map((g) => {
+          const first = g.questions[0].number;
+          const last = g.questions[g.questions.length - 1].number;
+          const mod = g.module ? moduleByNumber.get(g.module) : undefined;
+          return (
+            <div class="qgroup">
+              <div class="qgroup__head">
+                <p class="qgroup__eyebrow">
+                  Questions {first}–{last}
+                  {mod && (
+                    <>
+                      {' · '}
+                      <a href={daysModuleHref(mod)}>Module {mod.number}</a>
+                    </>
+                  )}
+                </p>
+                <h3 class="qgroup__title">{g.title}</h3>
+                {g.intro && <p class="qgroup__intro">{g.intro}</p>}
+              </div>
+
+              <div class="qs">
+                {g.questions.map((q) => (
+                  <details
+                    class="q"
+                    id={questionAnchor(q.number)}
+                    data-track-expand="interview_question_expand"
+                    data-track-data={String(q.number)}
+                  >
+                    <summary class="q__summary">
+                      <span class="q__n">{q.number}</span>
+                      <span class="q__text">{q.question}</span>
+                      <span class="qtype" style={toneStyle(q.type)}>{q.type}</span>
+                      <Icon name="chevron-down" size={17} class="q__chev" />
+                    </summary>
+                    <p class="q__answer">
+                      <b>A strong answer covers</b> · {q.answer}
+                    </p>
+                  </details>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- ───────────────── how to practice ───────────────── -->
+    <section class="section isec isec--gray" aria-labelledby="practice-h">
+      <div class="wrap">
+        <h2 class="isec__label" id="practice-h">
+          <Icon name="mic" size={14} />
+          <span>How to practice</span>
+        </h2>
+        <ol class="practice" role="list">
+          {practiceSteps.map((p, i) => (
+            <li class="practice__item">
+              <span class="practice__n">{i + 1}</span>
+              <div class="practice__body">
+                <p><b>{p.title}</b> {p.body}</p>
+                {i === 3 && (
+                  <ul class="practice__sub" role="list">
+                    {mockRounds.map((r) => (
+                      <li><b>{r.title}</b> {r.body}</li>
+                    ))}
+                  </ul>
+                )}
+                {i === 4 && (
+                  <ul class="practice__sub" role="list">
+                    {rubric.map((r) => (
+                      <li><b>{r.title}</b> {r.body}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- ───────────────── nav ───────────────── -->
+    <nav class="section isec inav no-print" aria-label="100 Days navigation">
+      <div class="wrap inav__inner">
+        <a class="inav__card" href={`${DAYS_BASE}/`}>
+          <Icon name="arrow-left" size={16} />
+          <span>
+            <span class="inav__k">Back to</span>
+            <span class="inav__t">100 Days of AI Engineering</span>
+          </span>
+        </a>
+        <a class="inav__card" href={PROJECTS_HREF}>
+          <Icon name="arrow-left" size={16} />
+          <span>
+            <span class="inav__k">After the 100 days</span>
+            <span class="inav__t">Projects</span>
+          </span>
+        </a>
+      </div>
+    </nav>
+  </article>
+</Base>
+
+<style>
+  /* ---------- header ---------- */
+  .ih {
+    padding-block: 40px 30px;
+    background: linear-gradient(180deg, var(--phase-bg) 0%, #fff 100%);
+  }
+  @media (min-width: 768px) { .ih { padding-block: 56px 40px; } }
+  .ih__inner { display: flex; flex-direction: column; gap: 18px; }
+
+  .ih__crumbs {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--cx-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
+  .ih__crumb:hover { color: var(--cx-purple); }
+  .ih__crumb--here, .ih__crumb--here:hover { color: var(--phase-ac); }
+
+  .ih__top { display: flex; align-items: flex-start; gap: 16px; }
+  @media (min-width: 768px) { .ih__top { gap: 24px; align-items: center; } }
+
+  .ih__badge {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 62px;
+    height: 62px;
+    border-radius: 20px;
+    background: #fff;
+    border: 2px solid var(--phase-br);
+    color: var(--phase-ac);
+    box-shadow: var(--cx-shadow-card);
+  }
+  @media (min-width: 768px) { .ih__badge { width: 88px; height: 88px; border-radius: 26px; } }
+
+  .ih__headings { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .ih__eyebrow { color: var(--phase-ac) !important; }
+  .ih__title { font-size: clamp(30px, 6vw, 62px); }
+
+  /* ---------- sections ---------- */
+  .isec { padding-block: 44px; }
+  @media (min-width: 768px) { .isec { padding-block: 56px; } }
+  .isec--first { padding-top: 12px; }
+  .isec--gray { background: var(--cx-gray); border-block: 1px solid var(--cx-border); }
+
+  .isec__label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
+
+  .igrid { display: grid; grid-template-columns: 1fr; gap: 40px; }
+  @media (min-width: 960px) { .igrid { grid-template-columns: 1fr 1fr; gap: 56px; } }
+
+  /* ---------- how to use ---------- */
+  .how { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 0; padding: 0; list-style: none; }
+  @media (min-width: 640px) { .how { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1040px) { .how { grid-template-columns: repeat(4, 1fr); } }
+  .how__item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 18px;
+    background: #fff;
+    border: 1px solid var(--cx-border);
+    border-radius: var(--cx-r-card-sm);
+  }
+  .how__n { font-family: var(--cx-font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--phase-ac); }
+  .how__text { font-size: 14.5px; line-height: 1.55; color: var(--cx-g600); }
+  .how__text b { color: var(--cx-ink); font-weight: 600; }
+
+  /* ---------- types + strong ---------- */
+  .types, .strong { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; }
+  .types__item {
+    display: grid;
+    grid-template-columns: 92px 1fr;
+    align-items: baseline;
+    gap: 12px;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--cx-g700);
+  }
+  .types__item .qtype { justify-self: start; }
+
+  .qtype {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 999px;
+    background: var(--t-bg);
+    border: 1px solid var(--t-br);
+    color: var(--t-ac);
+    font-family: var(--cx-font-mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  .strong__item {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    gap: 10px;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--cx-g600);
+  }
+  .strong__item b { color: var(--cx-ink); font-weight: 600; }
+  .strong__n, .practice__n {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    background: var(--phase-bg);
+    border: 1px solid var(--phase-br);
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--phase-ac);
+  }
+
+  /* ---------- questions ---------- */
+  .qgroup + .qgroup { margin-top: 38px; }
+  .qgroup__head { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+  .qgroup__eyebrow {
+    font-family: var(--cx-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--phase-ac);
+  }
+  .qgroup__eyebrow a { text-decoration: underline; text-underline-offset: 3px; }
+  .qgroup__title { font-size: clamp(19px, 2.6vw, 23px); letter-spacing: -0.02em; color: var(--cx-ink); }
+  .qgroup__intro { max-width: 90ch; font-size: 14.5px; line-height: 1.55; color: var(--cx-g600); }
+
+  .qs { border-top: 1px solid var(--cx-border); }
+  .q { border-bottom: 1px solid var(--cx-border); background: #fff; scroll-margin-top: 24px; }
+
+  .q__summary {
+    display: grid;
+    grid-template-columns: 30px 1fr auto auto;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 4px;
+    cursor: pointer;
+    list-style: none;
+    transition: background-color 0.16s ease;
+  }
+  .q__summary::-webkit-details-marker { display: none; }
+  .q__summary:hover { background: var(--cx-gray); }
+  .q__summary:focus-visible { outline-offset: -3px; }
+
+  .q__n {
+    font-family: var(--cx-font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--phase-ac);
+    font-variant-numeric: tabular-nums;
+  }
+  .q__text { font-size: 15px; font-weight: 500; line-height: 1.45; color: var(--cx-ink); min-width: 0; }
+  .q__chev { color: var(--cx-g500); transition: transform 0.2s ease; }
+  .q[open] .q__chev { transform: rotate(180deg); }
+
+  /* On a phone the type pill drops under the question instead of squeezing it. */
+  @media (max-width: 560px) {
+    .q__summary { grid-template-columns: 26px 1fr auto; row-gap: 6px; }
+    .q__summary .qtype { grid-column: 2; grid-row: 2; justify-self: start; }
+    .q__chev { grid-column: 3; grid-row: 1; }
+  }
+
+  .q__answer {
+    margin: 0 4px 16px 46px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--cx-green-bg);
+    border: 1px solid #a7f3d0;
+    color: #065f46;
+    font-size: 14.5px;
+    line-height: 1.6;
+    max-width: 96ch;
+  }
+  @media (max-width: 560px) { .q__answer { margin-left: 4px; } }
+  .q__answer b { font-weight: 600; }
+
+  /* ---------- practice ---------- */
+  .practice { display: flex; flex-direction: column; gap: 14px; margin: 0; padding: 0; list-style: none; }
+  .practice__item {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    gap: 10px;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--cx-g600);
+  }
+  .practice__body { display: flex; flex-direction: column; gap: 8px; max-width: 90ch; }
+  .practice__body b { color: var(--cx-ink); font-weight: 600; }
+  .practice__sub {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+    padding: 10px 14px;
+    list-style: none;
+    background: #fff;
+    border: 1px solid var(--cx-border);
+    border-radius: 12px;
+  }
+
+  /* ---------- nav ---------- */
+  .inav { padding-top: 36px; padding-bottom: 72px; }
+  .inav__inner { display: flex; flex-wrap: wrap; gap: 12px; }
+  .inav__card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1 1 240px;
+    padding: 16px 18px;
+    background: #fff;
+    border: 1px solid var(--cx-border);
+    border-radius: var(--cx-r-card-sm);
+    color: var(--cx-g600);
+    transition: border-color 0.16s ease;
+  }
+  .inav__card:hover { border-color: var(--cx-purple); }
+  .inav__card > span { display: flex; flex-direction: column; gap: 2px; }
+  .inav__k { font-family: var(--cx-font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cx-g500); }
+  .inav__t { font-family: var(--cx-font-display); font-weight: 700; font-size: 16px; color: var(--cx-ink); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .q__summary, .q__chev, .inav__card { transition: none; }
+  }
+</style>

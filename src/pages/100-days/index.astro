@@ -13,6 +13,7 @@ import {
   TOTAL_DAYS,
 } from '../../data/hundred-days';
 import { PROJECTS_HREF, projects } from '../../data/hundred-days-projects';
+import { INTERVIEW_HREF } from '../../data/hundred-days-interview';
 
 const first = hundredDaysModules[0];
 
@@ -146,6 +147,14 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
           <span class="dmod__main">
             <span class="dmod__title">Projects</span>
             <span class="dmod__meta">{projects.length} portfolio projects · build two or three</span>
+          </span>
+          <Icon name="arrow-right" size={18} class="dmod__go" />
+        </a>
+        <a class="dmod beyond__link" href={INTERVIEW_HREF} data-phase="interview" data-track="days_interview_click">
+          <span class="dmod__ico"><Icon name="messages-square" size={18} /></span>
+          <span class="dmod__main">
+            <span class="dmod__title">Interview Prep</span>
+            <span class="dmod__meta">100 questions · what a strong answer covers</span>
           </span>
           <Icon name="arrow-right" size={18} class="dmod__go" />
         </a>
@@ -363,6 +372,8 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
     text-transform: uppercase;
     color: var(--cx-g500);
   }
+  .beyond { display: flex; flex-direction: column; gap: 10px; }
+  .beyond__label { margin-bottom: 0; }
   .beyond__link { grid-template-columns: auto 1fr auto; }
 
   /* ---------- after ---------- */
