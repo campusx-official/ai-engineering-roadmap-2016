@@ -877,18 +877,19 @@ export const hundredDaysModules: DaysModule[] = [
     phase: 'retrieval',
     icon: 'library',
     summary:
-      'Give your assistant the right information at the right time: build a simple RAG system, improve it with advanced retrieval patterns, then measure which improvements actually helped.',
-    days: [21, 45],
-    hours: 'about 23 hours',
+      'Give your assistant the right information at the right time: build a simple RAG system, improve it with advanced retrieval patterns, measure which improvements actually helped, and protect it against attacks and data leaks.',
+    days: [21, 50],
+    hours: 'about 27 hours',
     before: 'Module 3 (Prompt Engineering).',
     outcome:
-      "Build a RAG system that finds the right passages, answers with citations and says when it doesn't know; improve it with advanced patterns such as hybrid search, reranking, query transformation and self-correcting retrieval; and prove with a test set and automatic checks which changes helped.",
-    coursesFrom: [{ level: 4 }, { level: 7, only: ['LLM Evaluations'] }],
+      "Build a RAG system that finds the right passages, answers with citations and says when it doesn't know; improve it with advanced patterns such as hybrid search, reranking, query transformation and self-correcting retrieval; prove with a test set and automatic checks which changes helped; and keep it safe from hidden instructions, unauthorized access and personal-data leaks.",
+    coursesFrom: [{ level: 4 }, { level: 7 }, { level: 8 }],
     shortVersionOf: 4,
     parts: [
       { title: 'Build a Simple RAG' },
       { title: 'Advanced RAG', intro: 'Each unit in this part tackles a specific way simple RAG fails.' },
       { title: 'Evaluating RAG' },
+      { title: 'Securing a RAG Application' },
     ],
     units: [
       {
@@ -1521,6 +1522,168 @@ export const hundredDaysModules: DaysModule[] = [
         outcome:
           'Make it impossible to make your app worse without noticing.',
       },
+      {
+        id: '4.20',
+        title: 'Threats to a RAG App',
+        icon: 'shield-alert',
+        days: [46, 46],
+        minutes: 45,
+        part: 4,
+        bullets: [
+          {
+            title: 'Where untrusted text gets in',
+            text: "User questions, your documents, uploaded files, web pages and anything else the model reads that your app didn't write itself.",
+          },
+          {
+            title: 'Documents are data, never instructions',
+            text: 'Anything retrieved can contain text that tries to give the model orders; your app must never treat it as a command.',
+          },
+          {
+            title: 'Model output is untrusted too',
+            text: "The model's answer can carry injected content onward, into links, tool calls or other systems.",
+          },
+          {
+            title: 'A standard checklist',
+            text: 'Use the OWASP Top 10 for LLM Applications as a checklist of the most common risks.',
+          },
+        ],
+        tryIt:
+          'Sketch how data flows through your assistant. Mark every point where untrusted text enters and every action that could cause harm if the model were tricked.',
+        outcome:
+          'Map where your RAG app can be attacked before deciding how to defend it.',
+      },
+      {
+        id: '4.21',
+        title: 'Hidden Instructions and Poisoned Documents',
+        icon: 'file-warning',
+        days: [47, 47],
+        minutes: 60,
+        part: 4,
+        bullets: [
+          {
+            title: 'Direct and indirect injection',
+            text: 'Attacks can come from the user typing instructions, or from instructions hidden inside a retrieved document, web page or file.',
+          },
+          {
+            title: 'Poisoned documents',
+            text: "If someone can add or edit a document, they can plant content designed to be retrieved and change the assistant's answers.",
+          },
+          {
+            title: 'Leaking through answers',
+            text: 'Injected instructions can make the model include private information in a link or image that sends it elsewhere when displayed.',
+          },
+          {
+            title: 'Defenses that work in code',
+            text: 'Clearly separate documents from instructions, limit what the model is allowed to do, check outputs before showing or acting on them, and control who can add documents.',
+          },
+          {
+            title: 'Why "ignore malicious instructions" fails',
+            text: 'A prompt telling the model to resist attacks helps a little but can always be talked around; the real protection is in your code.',
+          },
+        ],
+        tryIt:
+          "Add three planted documents to your collection: one that tries to change answers, one that tries to make your assistant use a tool it shouldn't, and one that tries to include a link containing the user's question. See which succeed.",
+        outcome:
+          'Recognize injection through documents and defend against it with controls in your code, not just your prompt.',
+      },
+      {
+        id: '4.22',
+        title: 'Who Can See What',
+        icon: 'lock-keyhole',
+        days: [48, 48],
+        minutes: 60,
+        part: 4,
+        bullets: [
+          {
+            title: 'Not every user should see every document',
+            text: 'Store who is allowed to see each document alongside its passages.',
+          },
+          {
+            title: 'Filter during search, not after',
+            text: "Apply the user's permissions as a search filter, so restricted passages never reach the model; hiding them afterwards is too late.",
+          },
+          {
+            title: 'Keep users and customers apart',
+            text: "If your app serves several teams or customers, make sure one can never retrieve another's data.",
+          },
+          {
+            title: 'Other places data leaks',
+            text: 'Cached answers, conversation memory and citations that show restricted document titles can all leak information.',
+          },
+        ],
+        tryIt:
+          'Create two users with different access. Ask, as each user, a question that only a restricted document can answer, and check both the answers and the citations.',
+        outcome:
+          "Make your RAG app show each user only the information they're allowed to see.",
+      },
+      {
+        id: '4.23',
+        title: 'Personal Data and Secrets',
+        icon: 'eye-off',
+        days: [49, 49],
+        minutes: 45,
+        part: 4,
+        bullets: [
+          {
+            title: 'Find it before you index it',
+            text: 'Scan documents for personal details such as phone numbers, emails and ID numbers, and for secrets like passwords and keys.',
+          },
+          {
+            title: "Remove or mask what you don't need",
+            text: 'Strip or mask sensitive data before it goes into your index.',
+          },
+          {
+            title: 'Keep it out of everything else',
+            text: 'Personal data easily ends up in logs, traces, caches and test sets; keep it out of all of them.',
+          },
+          {
+            title: 'Deleting means everywhere',
+            text: 'When a document must be removed, remove it from the index, caches, logs and test sets too.',
+          },
+          {
+            title: "Know your provider's terms",
+            text: "Check how long your model provider keeps your data and whether it can use it, and know the basics of India's data protection law (DPDP) if you serve Indian users.",
+          },
+        ],
+        tryIt:
+          'Scan your document collection and your recent logs for phone numbers, email addresses and anything that looks like a key or password.',
+        outcome:
+          'Keep personal data and secrets out of your index, logs and test sets, and remove them completely when needed.',
+      },
+      {
+        id: '4.24',
+        title: 'Red-Teaming Your RAG',
+        icon: 'swords',
+        days: [50, 50],
+        minutes: 60,
+        part: 4,
+        bullets: [
+          {
+            title: 'Attack your own app',
+            text: 'Systematically try injection, poisoned documents, permission bypasses, attempts to extract private data and attempts to get around your rules.',
+          },
+          {
+            title: 'Input and output checks',
+            text: 'Add checks that block clearly harmful requests and catch unsafe or leaking answers, as one extra layer rather than your only defense.',
+          },
+          {
+            title: 'Measure how often attacks work',
+            text: 'Track the share of attacks that succeed and how often private data leaks, before and after your fixes.',
+          },
+          {
+            title: 'Every successful attack becomes a test',
+            text: 'Add each attack that worked to your regression suite so it can never quietly work again.',
+          },
+          {
+            title: 'Security vs quality',
+            text: 'Some defenses make answers worse; check your quality scores after every security change.',
+          },
+        ],
+        tryIt:
+          'Write 15 attacks across injection, poisoned documents, permissions and data extraction. Record how many succeed, fix what you can, and run them again.',
+        outcome:
+          "Test your RAG app's defenses the way an attacker would, and turn what you find into permanent tests.",
+      }
     ],
     skipped: [
       {
@@ -1560,12 +1723,19 @@ export const hundredDaysModules: DaysModule[] = [
         ],
       },
       {
-        topic: 'Safety and injection testing in depth',
-        why: 'Covered in the security module',
-        where: [
-          { level: 7, href: '/level/7/#m7-8' },
-          { level: 8, href: '/level/8/#m8-2' },
-        ],
+        topic: 'Agent and tool security',
+        why: 'Covered in the Agents module, where those risks appear',
+        where: [{ level: 8, href: '/level/8/#m8-4' }],
+      },
+      {
+        topic: 'A security review of the whole app',
+        why: 'Covered in Shipping to Production, once the app is complete',
+        where: [{ level: 8, href: '/level/8/#m8-7' }],
+      },
+      {
+        topic: 'Responsible AI and regulation in depth',
+        why: 'Beyond what a RAG app needs on day one',
+        where: [{ level: 8, href: '/level/8/#m8-8' }],
       },
     ],
   },
