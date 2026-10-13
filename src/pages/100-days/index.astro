@@ -17,6 +17,13 @@ import { INTERVIEW_HREF } from '../../data/hundred-days-interview';
 
 const first = hundredDaysModules[0];
 
+/* What the track assumes; each links to its refresher module in Level 0. */
+const prerequisites = [
+  { icon: 'code', title: 'Basic Python', text: 'Write and run small scripts.', module: 1 },
+  { icon: 'cloud-download', title: 'Calling an API', text: 'Send a request and read the JSON that comes back.', module: 2 },
+  { icon: 'git-branch', title: 'Git', text: 'Commit, branch and push your code.', module: 5 },
+];
+
 /* Where the full roadmap goes deeper than this track. */
 const after = [
   { title: 'Managed platforms and self-hosting', levels: [11] },
@@ -56,30 +63,29 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
         </div>
       </div>
 
-      <aside class="brief">
-        <div class="brief__item">
-          <span class="brief__ico"><Icon name="user-check" size={18} /></span>
-          <div class="brief__body">
-            <span class="brief__label">Who it's for</span>
-            <p class="brief__text">
-              You can write basic Python, call an API and use Git, and want the core of AI engineering without
-              the full 16-level path.
-            </p>
-            <p class="brief__alt">
-              New to coding? Start with
-              <a href="/level/0/" data-track="days_level0_click">Level 0 of the full roadmap</a>.
-            </p>
-          </div>
+      <aside class="prereq" aria-labelledby="prereq-h">
+        <div class="prereq__head">
+          <span class="prereq__eyebrow">Before you start</span>
+          <h2 class="prereq__title" id="prereq-h">What you should already know</h2>
         </div>
-        <div class="brief__item">
-          <span class="brief__ico"><Icon name="package-check" size={18} /></span>
-          <div class="brief__body">
-            <span class="brief__label">Done means measured</span>
-            <p class="brief__text">
-              A module is done when you can do what its outcomes say, not when the videos are watched.
-            </p>
-          </div>
-        </div>
+        <ul class="prereq__list" role="list">
+          {prerequisites.map((p) => (
+            <li class="prereq__item">
+              <span class="prereq__ico"><Icon name={p.icon} size={19} /></span>
+              <span class="prereq__body">
+                <span class="prereq__name">{p.title}</span>
+                <span class="prereq__text">{p.text}</span>
+              </span>
+              <a class="prereq__ref" href={`/level/0/#m0-${p.module}`} data-track="days_prereq_click" data-track-data={String(p.module)} aria-label={`Refresh ${p.title} in Level 0`}>
+                L0 · M{p.module}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <a class="prereq__foot" href="/level/0/" data-track="days_level0_click">
+          <span>New to coding? <b>Start with Level 0 of the full roadmap.</b></span>
+          <Icon name="arrow-right" size={16} />
+        </a>
       </aside>
     </div>
   </section>
@@ -211,30 +217,26 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
     border-top: 1px solid var(--cx-border);
   }
 
-  /* ---------- brief (who + done) ---------- */
-  .brief {
+  /* ---------- prerequisites card ---------- */
+  .prereq {
+    position: relative;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     background: #fff;
     border: 1px solid var(--cx-border);
-    border-radius: var(--cx-r-card);
-    box-shadow: var(--cx-shadow-card);
+    border-radius: 22px;
+    box-shadow: 0 18px 48px rgba(67, 56, 202, 0.1);
   }
-  .brief__item { display: flex; align-items: flex-start; gap: 14px; padding: 22px 24px; }
-  .brief__item + .brief__item { border-top: 1px solid var(--cx-border); }
-  .brief__ico {
-    display: grid;
-    place-items: center;
-    width: 38px;
-    height: 38px;
-    flex: none;
-    border-radius: 11px;
-    background: var(--cx-violet-bg);
-    border: 1px solid var(--p-violet-br);
-    color: var(--cx-purple);
+  .prereq::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 4px;
+    background: var(--cx-grad);
   }
-  .brief__body { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-  .brief__label {
+  .prereq__head { display: flex; flex-direction: column; gap: 6px; padding: 26px 26px 6px; }
+  .prereq__eyebrow {
     font-family: var(--cx-font-mono);
     font-size: 11px;
     font-weight: 500;
@@ -242,9 +244,63 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
     text-transform: uppercase;
     color: var(--cx-purple);
   }
-  .brief__text { font-size: 15.5px; line-height: 1.55; color: var(--cx-ink); }
-  .brief__alt { font-size: 14px; line-height: 1.55; color: var(--cx-g600); }
-  .brief__alt a { color: var(--cx-purple); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+  .prereq__title { font-size: 22px; letter-spacing: -0.02em; line-height: 1.2; }
+
+  .prereq__list { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 16px 20px 22px; list-style: none; }
+  .prereq__item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: var(--cx-violet-bg);
+    border: 1px solid var(--p-violet-br);
+  }
+  .prereq__ico {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: #fff;
+    border: 1px solid var(--p-violet-br);
+    color: var(--cx-purple);
+  }
+  .prereq__body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .prereq__name { font-family: var(--cx-font-display); font-weight: 700; font-size: 16px; color: var(--cx-ink); }
+  .prereq__text { font-size: 14px; line-height: 1.45; color: var(--cx-g600); }
+  .prereq__ref {
+    padding: 4px 9px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid var(--p-violet-br);
+    color: var(--cx-violet-700);
+    font-family: var(--cx-font-mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    transition: border-color 0.16s ease;
+  }
+  .prereq__ref:hover { border-color: var(--cx-purple); }
+
+  .prereq__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 26px;
+    border-top: 1px solid var(--cx-border);
+    background: var(--cx-gray);
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--cx-g600);
+    transition: color 0.16s ease;
+  }
+  .prereq__foot b { color: var(--cx-ink); font-weight: 600; }
+  .prereq__foot:hover, .prereq__foot:hover b { color: var(--cx-purple); }
+  .prereq__foot :global(svg) { flex: none; color: var(--cx-purple); }
 
   /* ---------- sections ---------- */
   .dsec { padding-block: 56px; }
@@ -426,6 +482,6 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
   .back__go { margin-left: auto; flex: none; color: var(--cx-purple); }
 
   @media (prefers-reduced-motion: reduce) {
-    .dmod, .back, .route__seg { transition: none; }
+    .dmod, .back, .route__seg, .prereq__ref, .prereq__foot { transition: none; }
   }
 </style>
