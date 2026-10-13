@@ -4,13 +4,9 @@
  * before a single paragraph is read.
  */
 import Icon from './Icon.astro';
-import { phases, getLevel, totalSessions, levels } from '../data/levels';
+import { phases, totalSessions, levels } from '../data/levels';
 
-const rows = phases.map((p) => ({
-  ...p,
-  sessions: p.levels.reduce((n, l) => n + (getLevel(l)?.totalSessions ?? 0), 0),
-}));
-const maxSessions = Math.max(...rows.map((r) => r.sessions));
+const rows = phases;
 ---
 
 <div class="hp">
@@ -39,12 +35,8 @@ const maxSessions = Math.max(...rows.map((r) => r.sessions));
                 ))}
               </span>
             </span>
-            <span class="hp__bar">
-              <span class="hp__fill" style={`width:${Math.round((row.sessions / maxSessions) * 100)}%`} />
-            </span>
           </span>
 
-          <span class="hp__count">{row.sessions}</span>
         </li>
       ))
     }
@@ -90,10 +82,10 @@ const maxSessions = Math.max(...rows.map((r) => r.sessions));
 
   .hp__row {
     display: grid;
-    grid-template-columns: 20px 1fr auto;
+    grid-template-columns: 20px 1fr;
     align-items: center;
     gap: 12px;
-    padding-block: 9px;
+    padding-block: 12px;
   }
 
   /* continuous rail down the left, colour-changing per phase */
@@ -106,8 +98,8 @@ const maxSessions = Math.max(...rows.map((r) => r.sessions));
   .hp__rail::before {
     content: '';
     position: absolute;
-    top: -9px;
-    bottom: -9px;
+    top: -12px;
+    bottom: -12px;
     width: 3px;
     border-radius: 3px;
     background: var(--phase-br);
@@ -124,14 +116,14 @@ const maxSessions = Math.max(...rows.map((r) => r.sessions));
     box-shadow: 0 0 0 3.5px #fff;
   }
 
-  .hp__body { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .hp__body { display: flex; flex-direction: column; min-width: 0; }
   .hp__top { display: flex; align-items: center; gap: 8px; min-width: 0; }
   .hp__ico { color: var(--phase-ac); flex: none; }
 
   .hp__name {
     font-family: var(--cx-font-display);
     font-weight: 700;
-    font-size: 14.5px;
+    font-size: 15px;
     letter-spacing: -0.01em;
     color: var(--cx-ink);
     white-space: nowrap;
@@ -155,16 +147,6 @@ const maxSessions = Math.max(...rows.map((r) => r.sessions));
   }
   .hp__chip:hover { background: var(--phase-ac); color: #fff; }
 
-  .hp__bar { height: 5px; border-radius: 999px; background: var(--cx-gray); overflow: hidden; }
-  .hp__fill { display: block; height: 100%; border-radius: 999px; background: var(--phase-ac); opacity: 0.75; }
-
-  .hp__count {
-    font-family: var(--cx-font-mono);
-    font-size: 11px;
-    color: var(--cx-g500);
-    font-variant-numeric: tabular-nums;
-    align-self: center;
-  }
 
   .hp__foot {
     display: flex;

@@ -4,7 +4,6 @@
  */
 import PhaseBand from './PhaseBand.astro';
 import ProgressDots from './ProgressDots.astro';
-import Icon from './Icon.astro';
 import { phases, levels, totalSessions } from '../data/levels';
 ---
 
@@ -29,10 +28,6 @@ import { phases, levels, totalSessions } from '../data/levels';
           </li>
         ))
       }
-      <li class="map__key map__key--done">
-        <span class="map__swatch map__swatch--done"><Icon name="check" size={10} strokeWidth={4} /></span>
-        <span class="map__key-name">Completed by you</span>
-      </li>
     </ul>
   </div>
 
@@ -89,13 +84,6 @@ import { phases, levels, totalSessions } from '../data/levels';
     background: var(--phase-bg, var(--cx-cream));
     border: 1.5px solid var(--phase-ac, var(--cx-g400));
     flex: none;
-  }
-  .map__swatch--done {
-    display: grid;
-    place-items: center;
-    background: var(--cx-green-bg);
-    border-color: var(--cx-green-ink);
-    color: var(--cx-green-ink);
   }
   .map__key-name { font-size: 13px; color: var(--cx-g700); font-weight: 500; }
   .map__key-range {

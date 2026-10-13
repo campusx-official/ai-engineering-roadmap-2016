@@ -2,7 +2,6 @@
 /**
  * The whole path in one strip: 15 phase-coloured segments, each a link to its
  * level. Doubles as the map legend and as the sticky mini-map on level pages.
- * Completion state is applied by client JS.
  */
 import { levels, phaseOfLevel } from '../data/levels';
 
@@ -73,17 +72,6 @@ const { current, variant = 'strip', class: className = '', ...rest } = Astro.pro
   .dots__link[aria-current='page'] {
     background: var(--phase-ac);
     border-color: var(--phase-ac);
-    color: #fff;
-  }
-
-  /* completed */
-  .dots__item[data-done] .dots__link {
-    background: var(--cx-green-bg);
-    border-color: var(--cx-green-ink);
-    color: var(--cx-green-ink);
-  }
-  .dots__item[data-done] .dots__link[aria-current='page'] {
-    background: var(--cx-green);
     color: #fff;
   }
 

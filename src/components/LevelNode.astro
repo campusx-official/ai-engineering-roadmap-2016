@@ -1,8 +1,6 @@
 ---
 /**
  * One stop on the roadmap: a node pinned to the phase rail plus its card.
- * Completion state is stamped on by client JS (data-done) — the server render
- * is the "not started" state, so the page is correct before any JS runs.
  */
 import Icon from './Icon.astro';
 import SessionMeter from './SessionMeter.astro';
@@ -27,7 +25,6 @@ const moduleCount = level.modules.length;
     <span class="node__pin">
       <span class="node__badge">
         <span class="node__num">{level.number}</span>
-        <Icon name="check" size={20} class="node__check" strokeWidth={3} />
       </span>
     </span>
 
@@ -35,7 +32,6 @@ const moduleCount = level.modules.length;
       <span class="node__top">
         <Icon name={level.icon} size={17} class="node__ico" />
         <span class="node__eyebrow">Level {level.number}</span>
-        <span class="node__done-tag">Completed</span>
       </span>
 
       <span class="node__title">{level.title}</span>
@@ -91,8 +87,6 @@ const moduleCount = level.modules.length;
     .node__badge { width: 44px; height: 44px; font-size: 17px; }
   }
 
-  .node__check { display: none; }
-
   /* ----- card ----- */
   .node__card {
     display: flex;
@@ -118,21 +112,6 @@ const moduleCount = level.modules.length;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--phase-ac);
-  }
-
-  .node__done-tag {
-    display: none;
-    margin-left: auto;
-    align-items: center;
-    gap: 5px;
-    padding: 3px 10px;
-    border-radius: 999px;
-    background: var(--cx-green-bg);
-    color: var(--cx-green-ink);
-    font-family: var(--cx-font-mono);
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
   }
 
   .node__title {
@@ -196,23 +175,6 @@ const moduleCount = level.modules.length;
   }
   .node__link:hover .node__arrow { color: var(--phase-ac); transform: translateX(3px); }
   .node__link:focus-visible { outline-offset: 4px; }
-
-  /* ----- completed ----- */
-  .node[data-done] .node__badge {
-    background: var(--cx-green-bg);
-    border-color: var(--cx-green-ink);
-    color: var(--cx-green-ink);
-  }
-  .node[data-done] .node__num { display: none; }
-  .node[data-done] .node__check { display: block; }
-  .node[data-done] .node__done-tag { display: inline-flex; }
-  .node[data-done] .node__card { background: #fcfdfc; }
-
-  /* ----- resume marker ----- */
-  .node[data-resume] .node__card {
-    border-color: var(--cx-purple);
-    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.12), var(--cx-shadow-card);
-  }
 
   @media (prefers-reduced-motion: reduce) {
     .node__card, .node__badge, .node__arrow { transition: none; }

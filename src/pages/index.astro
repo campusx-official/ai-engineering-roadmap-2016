@@ -3,10 +3,8 @@ import Base from '../layouts/Base.astro';
 import Eyebrow from '../components/Eyebrow.astro';
 import Button from '../components/Button.astro';
 import Icon from '../components/Icon.astro';
-import StatBlock from '../components/StatBlock.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import HeroPath from '../components/HeroPath.astro';
-import ProgressStrip from '../components/ProgressStrip.astro';
 import RoadmapMap from '../components/RoadmapMap.astro';
 import { CAMPUSX_ONE_URL } from '../data/courses';
 import {
@@ -38,7 +36,7 @@ const howItWorks = [
   {
     icon: 'package-check',
     title: 'Prove it by shipping',
-    body: 'A level counts as done when its capstone is built and you can do everything on its outcome list — not when the videos are watched. Then mark it complete and move on.',
+    body: 'A level counts as done when its capstone is built and you can do everything on its outcome list — not when the videos are watched.',
   },
 ];
 ---
@@ -64,18 +62,11 @@ const howItWorks = [
 
         <div class="hero__ctas">
           <Button href="#map" variant="primary" size="lg" icon="arrow-down" track="hero_cta_map">
-            See the map
+            See the Roadmap
           </Button>
-          <Button href="/start/" variant="secondary" size="lg" track="hero_cta_start">
+          <Button href="#how" variant="secondary" size="lg" track="hero_cta_start">
             How to use it
           </Button>
-        </div>
-
-        <div class="hero__stats">
-          <StatBlock value={levels.length} label="Levels" icon="layers" />
-          <StatBlock value={totalModules} label="Modules" icon="list-tree" />
-          <StatBlock value={totalSessions} label="Sessions" icon="clock" />
-          <StatBlock value={ships.length} label="Things you ship" icon="package-check" />
         </div>
       </div>
 
@@ -85,13 +76,8 @@ const howItWorks = [
     </div>
   </section>
 
-  <!-- ───────────────────────── progress ───────────────────────── -->
-  <div class="wrap resume no-print">
-    <ProgressStrip />
-  </div>
-
   <!-- ───────────────────────── how it works ───────────────────────── -->
-  <section class="section how">
+  <section class="section how" id="how">
     <div class="wrap">
       <SectionHeader
         eyebrow="How to use this"
@@ -221,20 +207,7 @@ const howItWorks = [
 
   .hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
 
-  .hero__stats {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 22px 18px;
-    margin-top: 18px;
-    padding-top: 26px;
-    border-top: 1px solid var(--cx-border);
-  }
-  @media (min-width: 560px) { .hero__stats { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-
   .hero__visual { min-width: 0; }
-
-  /* ---------- progress ---------- */
-  .resume { margin-top: 8px; }
 
   /* ---------- how ---------- */
   .how { padding-block: 64px; }

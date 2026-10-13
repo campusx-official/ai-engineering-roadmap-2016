@@ -1,7 +1,7 @@
 ---
 /**
- * Sticky mini-map for level pages: where you are, every other level one tap
- * away, and the complete/undo toggle. Wired up in src/scripts/app.ts.
+ * Sticky mini-map for level pages: where you are, and every other level one
+ * tap away.
  */
 import Icon from './Icon.astro';
 import ProgressDots from './ProgressDots.astro';
@@ -21,16 +21,6 @@ const { level } = Astro.props;
 
     <ProgressDots variant="nav" current={level.number} class="slnav__dots" />
 
-    <button
-      type="button"
-      class="slnav__done"
-      data-complete-toggle
-      data-level={level.number}
-      aria-pressed="false"
-    >
-      <Icon name="check" size={15} strokeWidth={3} class="slnav__done-ico" />
-      <span class="slnav__done-text">Mark complete</span>
-    </button>
   </div>
 </div>
 
@@ -89,32 +79,5 @@ const { level } = Astro.props;
   .slnav__dots { flex: 1 1 auto; min-width: 0; }
   @media (max-width: 560px) { .slnav__dots { display: none; } }
 
-  .slnav__done {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    flex: none;
-    padding: 8px 15px;
-    border-radius: 999px;
-    border: 1px solid var(--cx-border);
-    background: #fff;
-    color: var(--cx-g600);
-    font-family: var(--cx-font-body);
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.16s ease;
-  }
-  .slnav__done:hover { border-color: var(--cx-green-ink); color: var(--cx-green-ink); }
-  .slnav__done .slnav__done-ico { opacity: 0.45; }
-
-  .slnav__done[aria-pressed='true'] {
-    background: var(--cx-green-bg);
-    border-color: var(--cx-green-ink);
-    color: var(--cx-green-ink);
-  }
-  .slnav__done[aria-pressed='true'] .slnav__done-ico { opacity: 1; }
-
-  @media (max-width: 420px) { .slnav__done-text { display: none; } }
-  @media (prefers-reduced-motion: reduce) { .slnav__done, .slnav__here { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .slnav__here { transition: none; } }
 </style>

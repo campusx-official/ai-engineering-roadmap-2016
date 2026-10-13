@@ -1,35 +1,8 @@
 /**
- * The site's entire client runtime: progress tracking, the complete/undo
- * toggle, scroll reveals and analytics hooks. Everything degrades to a working
+ * The site's entire client runtime: deep links into collapsed modules, scroll
+ * reveals and analytics hooks. Everything degrades to a working
  * static page if this never executes.
  */
-
-const STORE_KEY = 'cxr.progress.v2';
-const LEGACY_KEY = 'cxr.progress.v1';
-const TOTAL_LEVELS = 16;
-
-/* Managed AI Platforms was inserted as level 11, shifting every level above it
- * up by one. Progress is stored as level numbers, so a v1 record has to be
- * remapped once or a learner's completed levels would silently point at
- * different subjects. The v1 key is left in place as a fallback. */
-const LEGACY_INSERTED_AT = 11;
-
-function migrateLegacyProgress(): void {
-  try {
-    if (localStorage.getItem(STORE_KEY) !== null) return;
-    const legacy = localStorage.getItem(LEGACY_KEY);
-    if (legacy === null) return;
-    const parsed: unknown = JSON.parse(legacy);
-    if (!Array.isArray(parsed)) return;
-    const shifted = parsed
-      .filter((n): n is number => Number.isInteger(n) && n >= 0)
-      .map((n) => (n >= LEGACY_INSERTED_AT ? n + 1 : n));
-    localStorage.setItem(STORE_KEY, JSON.stringify([...new Set(shifted)].sort((a, b) => a - b)));
-  } catch {
-    /* storage unavailable or corrupted — progress is a nicety */
-  }
-}
-migrateLegacyProgress();
 
 /* ------------------------------------------------------------------ */
 /* analytics                                                           */
@@ -49,131 +22,6 @@ function track(event: string, props: Record<string, unknown> = {}): void {
   window.dispatchEvent(new CustomEvent('cxr:track', { detail: payload }));
 }
 window.cxrTrack = track;
-
-/* ------------------------------------------------------------------ */
-/* progress                                                            */
-/* ------------------------------------------------------------------ */
-
-function readProgress(): Set<number> {
-  try {
-    const parsed = JSON.parse(localStorage.getItem(STORE_KEY) ?? '[]');
-    if (!Array.isArray(parsed)) return new Set();
-    return new Set(
-      parsed.filter((n): n is number => Number.isInteger(n) && n >= 0 && n < TOTAL_LEVELS),
-    );
-  } catch {
-    // Private mode, disabled storage, corrupted value — progress is a nicety.
-    return new Set();
-  }
-}
-
-function writeProgress(done: Set<number>): void {
-  try {
-    localStorage.setItem(STORE_KEY, JSON.stringify([...done].sort((a, b) => a - b)));
-  } catch {
-    /* ignore */
-  }
-}
-
-/** First level that is not yet done — where "resume" points. */
-function resumeLevel(done: Set<number>): number | null {
-  for (let n = 0; n < TOTAL_LEVELS; n++) if (!done.has(n)) return n;
-  return null;
-}
-
-function applyProgress(done: Set<number>): void {
-  // Node + mini-map completion state
-  document.querySelectorAll<HTMLElement>('[data-level]').forEach((el) => {
-    const n = Number(el.dataset.level);
-    if (Number.isNaN(n)) return;
-    el.toggleAttribute('data-done', done.has(n));
-  });
-
-  const resume = resumeLevel(done);
-
-  // Resume marker on the map
-  document.querySelectorAll<HTMLElement>('.node').forEach((el) => {
-    el.toggleAttribute('data-resume', done.size > 0 && Number(el.dataset.level) === resume);
-  });
-
-  // Summary widgets
-  const pct = Math.round((done.size / TOTAL_LEVELS) * 100);
-  document.querySelectorAll<HTMLElement>('[data-progress-percent]').forEach((el) => {
-    el.textContent = `${pct}%`;
-  });
-  document.querySelectorAll<HTMLElement>('[data-progress-count]').forEach((el) => {
-    el.textContent = String(done.size);
-  });
-  document.querySelectorAll<HTMLElement>('[data-progress-bar]').forEach((el) => {
-    el.style.width = `${pct}%`;
-    const bar = el.closest<HTMLElement>('[role="progressbar"]');
-    if (bar) {
-      bar.setAttribute('aria-valuenow', String(done.size));
-      bar.setAttribute('aria-valuetext', `${done.size} of ${TOTAL_LEVELS} levels complete`);
-    }
-  });
-
-  // Resume / start CTA
-  document.querySelectorAll<HTMLAnchorElement>('[data-resume-link]').forEach((el) => {
-    const target = resume ?? TOTAL_LEVELS - 1;
-    el.href = `/level/${target}/`;
-    const label = el.querySelector('[data-resume-label]');
-    if (label) {
-      label.textContent =
-        done.size === 0
-          ? 'Start at Level 0'
-          : resume === null
-            ? 'Revisit Level 14'
-            : `Resume at Level ${resume}`;
-    }
-  });
-
-  document.querySelectorAll<HTMLElement>('[data-progress-state]').forEach((el) => {
-    el.dataset.progressState = done.size === 0 ? 'empty' : resume === null ? 'complete' : 'active';
-  });
-
-  // Complete/undo toggles
-  document.querySelectorAll<HTMLButtonElement>('[data-complete-toggle]').forEach((btn) => {
-    const n = Number(btn.dataset.level);
-    const isDone = done.has(n);
-    btn.setAttribute('aria-pressed', String(isDone));
-    const text = btn.querySelector('[class*="done-text"]');
-    if (text) text.textContent = isDone ? 'Completed' : 'Mark complete';
-  });
-}
-
-function initProgress(): void {
-  let done = readProgress();
-  applyProgress(done);
-
-  document.querySelectorAll<HTMLButtonElement>('[data-complete-toggle]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const n = Number(btn.dataset.level);
-      if (Number.isNaN(n)) return;
-      if (done.has(n)) done.delete(n);
-      else done.add(n);
-      writeProgress(done);
-      applyProgress(done);
-      track(done.has(n) ? 'level_complete' : 'level_uncomplete', { level: n });
-    });
-  });
-
-  document.querySelectorAll<HTMLButtonElement>('[data-progress-reset]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      done = new Set();
-      writeProgress(done);
-      applyProgress(done);
-      track('progress_reset');
-    });
-  });
-
-  // Keep tabs in sync.
-  window.addEventListener('storage', (e) => {
-    if (e.key !== STORE_KEY) return;
-    done = readProgress();
-    applyProgress(done);
-  });
-}
 
 /* ------------------------------------------------------------------ */
 /* deep links into collapsed modules                                   */
@@ -239,7 +87,6 @@ function initTracking(): void {
 /* ------------------------------------------------------------------ */
 
 function boot(): void {
-  initProgress();
   openHashTarget();
   window.addEventListener('hashchange', openHashTarget);
   initReveals();
