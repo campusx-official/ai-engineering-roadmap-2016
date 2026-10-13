@@ -25,25 +25,25 @@ const shipLevelCount = levels.filter((level) => capstonesOf(level).length > 0).l
 const howItWorks = [
   {
     icon: 'map-pin',
-    title: 'Find your floor',
-    body: 'Start where you actually are. Every level states what it assumes, so you can skip forward honestly instead of hopefully.',
+    title: 'Start where you are',
+    body: 'Each level lists what you need to know first. If you already know it, skip ahead.',
   },
   {
     icon: 'layers',
-    title: 'Work one level at a time',
-    body: 'Each level is modules of a few sessions each, and most end in a capstone you build. The order is the point — the levels compound.',
+    title: 'Do one level at a time',
+    body: 'Each level has a few modules, and most end with a project. Go in order, because each level builds on the last.',
   },
   {
     icon: 'package-check',
-    title: 'Prove it by shipping',
-    body: 'A level counts as done when its capstone is built and you can do everything on its outcome list — not when the videos are watched.',
+    title: 'Finish by building',
+    body: "A level is done when you've built its project and can do everything on its outcome list. Watching the videos is not enough.",
   },
 ];
 ---
 
 <Base
   title="AI Engineering Roadmap — 16 levels from fundamentals to production | CampusX"
-  description={`A visual ${levels.length}-level path into AI engineering: software fundamentals, LLMs, RAG, agents, evals, security, system design and LLMOps — ${totalModules} modules, ${totalSessions} sessions, and a capstone in ${shipLevelCount} of the ${levels.length} levels.`}
+  description={`A visual ${levels.length}-level path into AI engineering: software fundamentals, LLMs, RAG, agents, evals, security, system design and LLMOps — ${totalModules} modules, ${totalSessions} sessions, and a project in ${shipLevelCount} of the ${levels.length} levels.`}
   page="home"
   ogImage="/og/default.png"
 >
@@ -56,8 +56,8 @@ const howItWorks = [
           Sixteen levels from <span class="grad-text">writing software</span> to shipping AI systems.
         </h1>
         <p class="lede hero__lede">
-          Not a playlist. A sequence. Each level builds on earlier ones and names exactly
-          which, teaches a few modules' worth of skills, and most end in a capstone you build.
+          Learn AI engineering step by step. Each level builds on the ones before it, and most
+          end with a project you build.
         </p>
 
         <div class="hero__ctas">
@@ -80,9 +80,8 @@ const howItWorks = [
   <section class="section how" id="how">
     <div class="wrap">
       <SectionHeader
-        eyebrow="How to use this"
-        title="Three rules, then start walking."
-        subhead="The roadmap works as a sequence. These are the only instructions it needs."
+        eyebrow="How to use it"
+        title="Three simple rules."
       />
       <ol class="how__grid" role="list">
         {
@@ -104,8 +103,8 @@ const howItWorks = [
     <div class="wrap">
       <SectionHeader
         eyebrow="The roadmap"
-        title="The whole path, in order."
-        subhead={`${phases.length} phases, ${levels.length} levels. Colour groups the phases; the rail is the order. Tap any level for its modules and capstone.`}
+        title={`All ${levels.length} levels, in order.`}
+        subhead={`${levels.length} levels in ${phases.length} phases. Each color is a phase. Click any level to see its modules and project.`}
         class="map-section__head"
       />
       <RoadmapMap />
@@ -116,9 +115,9 @@ const howItWorks = [
   <section class="section ships">
     <div class="wrap">
       <SectionHeader
-        eyebrow="Proof, not notes"
-        title={`${ships.length} things you will have built.`}
-        subhead="Every level ends in one deliverable. This is the portfolio the path produces."
+        eyebrow="What you'll build"
+        title={`${ships.length} projects you'll build.`}
+        subhead="Most levels end with a project. Together, they make your portfolio."
       />
       <ul class="ships__grid" role="list">
         {
@@ -140,7 +139,7 @@ const howItWorks = [
   <section class="section cta">
     <div class="wrap cta__inner">
       <div class="cta__copy">
-        <Eyebrow text="Learn it on CampusX" />
+        <Eyebrow text="CampusX One" />
         <h2 class="h2">The roadmap is free. Learn it on CampusX One.</h2>
         <p class="lede">
           Most levels have matching courses on CampusX One. Use the roadmap to decide what to
