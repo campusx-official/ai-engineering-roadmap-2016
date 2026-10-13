@@ -1,12 +1,13 @@
 ---
 import Icon from './Icon.astro';
-import Button from './Button.astro';
-import { CAMPUSX_ONE_URL } from '../data/courses';
+
+const path = Astro.url.pathname;
+const inDays = path.startsWith('/100-days');
 ---
 
 <header class="hdr no-print">
   <div class="wrap hdr__inner">
-    <a class="hdr__brand" href="/">
+    <a class="hdr__brand" href="/" aria-label="AI Engineering Roadmap by CampusX, home">
       <span class="hdr__mark"><Icon name="route" size={17} /></span>
       <span class="hdr__names">
         <span class="hdr__name">AI Engineering Roadmap</span>
@@ -15,23 +16,13 @@ import { CAMPUSX_ONE_URL } from '../data/courses';
     </a>
 
     <nav class="hdr__nav" aria-label="Primary">
-      <a class="hdr__link" href="/#map">The map</a>
-      <a class="hdr__link" href="/start/">How it works</a>
+      <a class="hdr__link" href="/" aria-current={!inDays ? 'page' : undefined} data-track="nav_full_roadmap">
+        The Full <span class="hdr__tail">Roadmap</span>
+      </a>
+      <a class="hdr__link" href="/100-days/" aria-current={inDays ? 'page' : undefined} data-track="nav_100_days">
+        Accelerated <span class="hdr__tail">Roadmap</span>
+      </a>
     </nav>
-
-    <!-- Outside the collapsing nav so the 100 Days track is reachable on a phone. -->
-    <a class="hdr__link hdr__days" href="/100-days/" data-track="nav_100_days">100 Days of <span class="hdr__days-tail">AI Engineering</span></a>
-
-    <Button
-      href={CAMPUSX_ONE_URL}
-      variant="primary"
-      external
-      class="hdr__cta"
-      track="campusx_cta_click"
-      trackData="header"
-    >
-      CampusX One
-    </Button>
   </div>
 </header>
 
@@ -64,6 +55,7 @@ import { CAMPUSX_ONE_URL } from '../data/courses';
     font-weight: 700;
     font-size: 15px;
     letter-spacing: -0.02em;
+    white-space: nowrap;
     color: var(--cx-ink);
   }
   .hdr__by {
@@ -74,26 +66,38 @@ import { CAMPUSX_ONE_URL } from '../data/courses';
     color: var(--cx-g500);
   }
 
-  .hdr__nav { display: none; gap: 26px; }
-  @media (min-width: 860px) { .hdr__nav { display: flex; } }
+  .hdr__nav { display: flex; align-items: center; gap: 26px; }
 
   .hdr__link {
+    position: relative;
     font-size: 14.5px;
     font-weight: 500;
+    white-space: nowrap;
     color: var(--cx-g600);
     transition: color 0.16s ease;
   }
   .hdr__link:hover { color: var(--cx-purple); }
-
-  .hdr__days { white-space: nowrap; }
-  /* On a phone the full track name wraps rather than squeezing the brand. */
-  @media (max-width: 520px) {
-    .hdr__name { white-space: nowrap; }
-    .hdr__days { text-align: right; font-size: 13.5px; line-height: 1.3; }
-    .hdr__days-tail { display: block; }
-    .hdr__inner { gap: 12px; }
+  .hdr__link[aria-current='page'] { color: var(--cx-ink); font-weight: 600; }
+  .hdr__link[aria-current='page']::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--cx-purple);
   }
 
-  .hdr__cta { padding: 10px 20px !important; font-size: 14px !important; }
-  @media (max-width: 480px) { .hdr__cta { display: none; } }
+  /* On a phone each name wraps onto two lines rather than squeezing the brand. */
+  @media (max-width: 640px) {
+    .hdr__inner { gap: 14px; }
+    .hdr__nav { gap: 16px; }
+    .hdr__link { font-size: 13px; line-height: 1.3; text-align: right; }
+    .hdr__tail { display: block; }
+    .hdr__link[aria-current='page']::after { bottom: -4px; }
+  }
+  /* Too narrow for the brand name too: keep the mark, which still links home. */
+  @media (max-width: 520px) { .hdr__names { display: none; } }
+
 </style>
