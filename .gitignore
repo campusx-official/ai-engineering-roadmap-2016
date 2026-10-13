@@ -7,3 +7,6 @@ dist/
 .env
 .env.production
 .vercel/
+
+# Generated module PDF study guides
+resources/**/*.pdf

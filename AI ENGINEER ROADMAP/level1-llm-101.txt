@@ -51,21 +51,14 @@ Understand input tokens, output tokens, time to first token (TTFT), tokens per s
 Build intuition for KV caching and why the model does not need to recompute the entire conversation from scratch after every generated token.
 Connect inference mechanics to latency, cost, long prompts, long outputs, and reasoning models.
 Outcome: Explain why generating 2,000 output tokens usually takes much longer than generating 50 tokens even with the same input.
-M1.6 · The Context Window — sessions: 1
-Understand what the context window is and what can occupy it: system instructions, conversation history, user prompts, documents, examples, tool outputs, and generated content.
-Distinguish context ≠ model knowledge ≠ long-term memory.
-Understand what can happen with very long contexts: truncation, attention degradation, lost-in-the-middle effects, and context dilution.
-Understand why a model supporting a huge context window does not mean it can use every token equally well.
-Try: Place an important fact near the beginning, middle, and end of a long document and compare retrieval performance.
-Outcome: Decide whether a task needs a larger-context model or a better strategy for selecting what enters context.
-M1.7 · Sampling & Generation Parameters — sessions: 1
+M1.6 · Sampling & Generation Parameters — sessions: 1
 Start from the model's next-token probability distribution and ask: which token should actually be generated?
 Understand greedy decoding, temperature, top-p, top-k, maximum output tokens, stop sequences, and repetition/frequency/presence penalties where supported.
 Understand task-dependent randomness: lower randomness for extraction, structured output, classification, and factual QA; higher randomness for brainstorming, creative writing, and diverse alternatives.
 Understand that different model APIs expose different controls and that some reasoning models provide less direct control over traditional sampling parameters.
 Try: Run the same prompt at several temperature settings and compare consistency, creativity, and correctness.
 Outcome: Choose sensible generation settings based on the task instead of changing temperature arbitrarily.
-M1.8 · Reasoning Models & Test-Time Compute — sessions: 1
+M1.7 · Reasoning Models & Test-Time Compute — sessions: 1
 Understand why some models spend substantially more compute before producing an answer.
 Build intuition for test-time compute, reasoning effort, thinking budgets, and internal reasoning tokens/compute.
 Identify tasks where reasoning tends to help: difficult mathematics, complex coding, planning, multi-step logic, and constraint-heavy problems.
@@ -74,6 +67,13 @@ Understand the trade-off: more reasoning can improve quality but generally incre
 Adapt prompting for reasoning models: move away from relying on “think step by step” and instead clearly state the goal, provide relevant context, specify constraints, and define what a good answer looks like.
 Try: Run the same problems through a fast general model and a reasoning model; compare accuracy, latency, and cost.
 Outcome: Recognize when paying for extra reasoning compute is likely to be worthwhile.
+M1.8 · The Context Window — sessions: 1
+Understand what the context window is and what can occupy it: system instructions, conversation history, user prompts, documents, examples, tool outputs, and generated content.
+Distinguish context ≠ model knowledge ≠ long-term memory.
+Understand what can happen with very long contexts: truncation, attention degradation, lost-in-the-middle effects, and context dilution.
+Understand why a model supporting a huge context window does not mean it can use every token equally well.
+Try: Place an important fact near the beginning, middle, and end of a long document and compare retrieval performance.
+Outcome: Decide whether a task needs a larger-context model or a better strategy for selecting what enters context.
 M1.9 · LLM Capabilities & Failure Modes — sessions: 1
 Understand common strengths: summarization, text transformation, extraction, classification, semantic understanding, coding, translation, brainstorming, working with unstructured information, and few-shot adaptation.
 Understand common failure modes: hallucination, arithmetic mistakes, brittle reasoning, instruction-following failures, prompt sensitivity, context failures, outdated knowledge, nondeterminism, and confident incorrect answers.

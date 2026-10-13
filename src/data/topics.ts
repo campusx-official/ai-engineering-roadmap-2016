@@ -153,25 +153,25 @@ export const topics: Record<string, TopicSet> = {
     'KV caching',
     'Why inference mechanics drive cost',
   ] },
-  'M1.6': { sig: 'c2eef853', labels: [
-    'What occupies the context window',
-    'Context ≠ knowledge ≠ memory',
-    'What goes wrong in long contexts',
-    'Why a big window is not enough',
-  ] },
-  'M1.7': { sig: '4f1a6c18', labels: [
+  'M1.6': { sig: '4f1a6c18', labels: [
     'From probabilities to a chosen token',
     'Temperature, top-p, top-k & penalties',
     'Matching randomness to the task',
     'Differences across model APIs',
   ] },
-  'M1.8': { sig: '8758a5ec', labels: [
+  'M1.7': { sig: '8758a5ec', labels: [
     'Why some models think longer',
     'Test-time compute & thinking budgets',
     'Where reasoning helps',
     'Where reasoning is unnecessary',
     'The quality / cost / latency trade-off',
     'Prompting reasoning models',
+  ] },
+  'M1.8': { sig: 'c2eef853', labels: [
+    'What occupies the context window',
+    'Context ≠ knowledge ≠ memory',
+    'What goes wrong in long contexts',
+    'Why a big window is not enough',
   ] },
   'M1.9': { sig: 'bdfc878b', labels: [
     'Common strengths',
