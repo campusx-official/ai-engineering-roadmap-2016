@@ -160,15 +160,11 @@ const description = `Level ${level.number} of the CampusX AI Engineering Roadmap
     <!-- ───────────────── module map ───────────────── -->
     <section class="section lsec" aria-labelledby="modules-h">
       <div class="wrap">
-        <SectionHeader
-          eyebrow="Module map"
-          title={capstones.length
-            ? `${modules.length} modules and ${capstones.length === 1 ? 'a capstone' : `${capstones.length} capstones`}, in order.`
-            : `${modules.length} modules to work through.`}
-          subhead="Each row is a module: its icon, its session count, and — behind the expander — exactly what you should be able to do afterwards."
-          class="lsec__head"
-        />
-        <div id="modules-h" class="mods">
+        <h2 class="mono-label lsec__label" id="modules-h">
+          <Icon name="list-ordered" size={14} />
+          <span>Modules</span>
+        </h2>
+        <div class="mods">
           {level.modules.map((m, i) => (
             <ModuleRow module={m} index={i} levelNumber={level.number} />
           ))}
@@ -385,6 +381,7 @@ const description = `Level ${level.number} of the CampusX AI Engineering Roadmap
   @media (min-width: 768px) { .lsec { padding-block: 56px; } }
   .lsec--tight { padding-block: 22px; }
   .lsec__head { margin-bottom: 26px; max-width: 640px; }
+  .lsec__label { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
 
   .mods { border-radius: var(--cx-r-card); overflow: hidden; }
 
