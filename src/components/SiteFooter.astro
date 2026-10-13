@@ -1,7 +1,6 @@
 ---
 import Icon from './Icon.astro';
-import { CAMPUSX_ONE_URL, CAMPUSX_URL } from '../data/courses';
-import { levels, totalSessions, totalModules } from '../data/levels';
+import { CAMPUSX_ONE_URL } from '../data/courses';
 const year = new Date().getFullYear();
 ---
 
@@ -11,27 +10,23 @@ const year = new Date().getFullYear();
       <span class="ftr__mark"><Icon name="route" size={18} /></span>
       <div>
         <p class="ftr__title">AI Engineering Roadmap</p>
-        <p class="ftr__sub">
-          {levels.length} levels · {totalModules} modules · {totalSessions} sessions
-        </p>
+        <p class="ftr__sub">by CampusX</p>
       </div>
     </div>
 
     <nav class="ftr__links" aria-label="Footer">
-      <a href="/#map">The map</a>
-      <a href="/#how">How it works</a>
-      <a href="/100-days/">100 Days of AI Engineering</a>
-      <a href={CAMPUSX_URL} target="_blank" rel="noopener noreferrer">CampusX</a>
+      <a href="/" data-track="footer_full_roadmap">Full Roadmap</a>
+      <a href="/100-days/" data-track="footer_100_days">Accelerated Roadmap</a>
       <a
         href={CAMPUSX_ONE_URL}
         target="_blank"
         rel="noopener noreferrer"
         data-track="campusx_cta_click"
         data-track-data="footer"
-      >CampusX One</a>
+      >CampusX One <Icon name="arrow-up-right" size={14} /></a>
     </nav>
 
-    <p class="ftr__legal">© {year} CampusX. Built as a learning map, not a syllabus to rush.</p>
+    <p class="ftr__legal">© {year} CampusX</p>
   </div>
 </footer>
 
@@ -59,6 +54,7 @@ const year = new Date().getFullYear();
     color: #fff;
   }
   .ftr__title {
+    white-space: nowrap;
     font-family: var(--cx-font-display);
     font-weight: 700;
     font-size: 15.5px;
@@ -66,14 +62,18 @@ const year = new Date().getFullYear();
   }
   .ftr__sub {
     font-family: var(--cx-font-mono);
-    font-size: 10.5px;
-    letter-spacing: 0.1em;
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--cx-g500);
   }
 
-  .ftr__links { display: flex; flex-wrap: wrap; gap: 10px 24px; }
+  .ftr__links { display: flex; flex-wrap: wrap; gap: 10px 28px; }
   .ftr__links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
     font-size: 14px;
     font-weight: 500;
     color: var(--cx-g600);
