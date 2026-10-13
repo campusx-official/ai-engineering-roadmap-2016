@@ -25,6 +25,7 @@ const after = [
   { title: 'Advanced RAG and multi-agent systems', levels: [4, 5] },
 ].map((a) => ({ ...a, refs: a.levels.map((n) => getLevel(n)!) }));
 
+const unitCount = hundredDaysModules.reduce((n, m) => n + m.units.length, 0);
 const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
 ---
 
@@ -39,9 +40,7 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
       <div class="dhero__copy">
         <Eyebrow text="A companion to the roadmap" />
         <h1 class="h1 dhero__title">100 Days of <span class="grad-text">AI Engineering</span></h1>
-        <p class="lede dhero__lede">
-          Build, evaluate, secure and ship AI apps in 100 days.
-        </p>
+        <p class="lede dhero__lede">Build, evaluate, secure and ship AI apps in 100 days.</p>
         <div class="dhero__ctas">
           <Button href={daysModuleHref(first)} variant="primary" size="lg" icon="arrow-right" track="days_cta_start">
             Start Day 1
@@ -52,47 +51,61 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
         </div>
         <div class="dhero__stats">
           <StatBlock value={TOTAL_DAYS} label="Days" icon="calendar-days" />
+          <StatBlock value={hundredDaysModules.length} label="Modules" icon="layers" />
+          <StatBlock value={unitCount} label="Units" icon="list-checks" />
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- ───────────────── who ───────────────── -->
-  <section class="section dsec">
-    <div class="wrap wrap-narrow">
-      <div class="who">
-        <span class="who__ico"><Icon name="user-check" size={20} /></span>
-        <div class="who__body">
-          <Eyebrow text="Who it's for" />
-          <p class="who__text">
-            People who can already write basic Python, call an API and use Git, and want the core of AI
-            engineering without the full 16-level path.
-          </p>
-          <p class="who__alt">
-            Complete beginners should start with
-            <a href="/level/0/" data-track="days_level0_click">Level 0 of the full roadmap</a>.
-          </p>
+      <aside class="brief">
+        <div class="brief__item">
+          <span class="brief__ico"><Icon name="user-check" size={18} /></span>
+          <div class="brief__body">
+            <span class="brief__label">Who it's for</span>
+            <p class="brief__text">
+              You can write basic Python, call an API and use Git, and want the core of AI engineering without
+              the full 16-level path.
+            </p>
+            <p class="brief__alt">
+              New to coding? Start with
+              <a href="/level/0/" data-track="days_level0_click">Level 0 of the full roadmap</a>.
+            </p>
+          </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ───────────────── how ───────────────── -->
-  <section class="section dsec dsec--cream">
-    <div class="wrap">
-      <SectionHeader
-        eyebrow="How it works"
-        title="Done means measured."
-        subhead="A module is done when you can do what its outcomes say, not when the videos are watched."
-      />
+        <div class="brief__item">
+          <span class="brief__ico"><Icon name="package-check" size={18} /></span>
+          <div class="brief__body">
+            <span class="brief__label">Done means measured</span>
+            <p class="brief__text">
+              A module is done when you can do what its outcomes say, not when the videos are watched.
+            </p>
+          </div>
+        </div>
+      </aside>
     </div>
   </section>
 
   <!-- ───────────────── modules ───────────────── -->
   <section class="section dsec" aria-labelledby="mods-h">
     <div class="wrap">
-      <SectionHeader eyebrow="The modules" title="In order, day by day." class="dsec__head" />
-      <ol class="dmods" id="mods-h" role="list">
+      <SectionHeader eyebrow="The route" title="Six modules, in order." class="dsec__head" id="mods-h" />
+
+      <div class="route" aria-hidden="true">
+        <div class="route__bar">
+          {hundredDaysModules.map((m) => (
+            <a
+              class="route__seg"
+              href={daysModuleHref(m)}
+              data-phase={m.phase}
+              style={`flex-grow:${m.days[1] - m.days[0] + 1}`}
+              tabindex="-1"
+              title={`Module ${m.number} · ${m.title} · ${dayRange(m.days)}`}
+            >{m.number}</a>
+          ))}
+        </div>
+        <div class="route__ends"><span>Day 1</span><span>Day {TOTAL_DAYS}</span></div>
+      </div>
+
+      <ol class="dmods" role="list">
         {hundredDaysModules.map((m) => (
           <li data-phase={m.phase}>
             <a class="dmod" href={daysModuleHref(m)} data-track="days_module_click" data-track-data={String(m.number)}>
@@ -100,13 +113,7 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
               <span class="dmod__ico"><Icon name={m.icon} size={18} /></span>
               <span class="dmod__main">
                 <span class="dmod__title">{m.title}</span>
-                <span class="dmod__meta">{dayRange(m.days)}</span>
-                <span class="dmod__track" aria-hidden="true">
-                  <span
-                    class="dmod__span"
-                    style={`left:${((m.days[0] - 1) / TOTAL_DAYS) * 100}%;width:${((m.days[1] - m.days[0] + 1) / TOTAL_DAYS) * 100}%`}
-                  ></span>
-                </span>
+                <span class="dmod__meta">{dayRange(m.days)} · {m.units.length} units</span>
               </span>
               <Icon name="arrow-right" size={18} class="dmod__go" />
             </a>
@@ -120,9 +127,9 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
         </p>
       )}
 
-      <div class="beyond" data-phase="frontier">
-        <p class="beyond__label">After the 100 days</p>
-        <a class="dmod beyond__link" href={PROJECTS_HREF} data-track="days_projects_click">
+      <p class="beyond__label">After the 100 days</p>
+      <div class="dmods beyond">
+        <a class="dmod" href={PROJECTS_HREF} data-phase="frontier" data-track="days_projects_click">
           <span class="dmod__ico"><Icon name="folder-kanban" size={18} /></span>
           <span class="dmod__main">
             <span class="dmod__title">Projects</span>
@@ -130,7 +137,7 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
           </span>
           <Icon name="arrow-right" size={18} class="dmod__go" />
         </a>
-        <a class="dmod beyond__link" href={INTERVIEW_HREF} data-phase="interview" data-track="days_interview_click">
+        <a class="dmod" href={INTERVIEW_HREF} data-phase="interview" data-track="days_interview_click">
           <span class="dmod__ico"><Icon name="messages-square" size={18} /></span>
           <span class="dmod__main">
             <span class="dmod__title">Interview Prep</span>
@@ -146,7 +153,7 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
   <section class="section dsec dsec--gray">
     <div class="wrap">
       <SectionHeader
-        eyebrow="After the 100 days"
+        eyebrow="Beyond this track"
         title="Go deeper in the full roadmap."
         subhead="This track covers the core. For deeper or specialist topics, the full roadmap picks up where it stops."
         class="dsec__head"
@@ -182,11 +189,12 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
   /* ---------- hero ---------- */
   .dhero {
     padding-block: 56px 48px;
-    background: linear-gradient(180deg, var(--cx-violet-bg) 0%, #fff 78%);
+    background: linear-gradient(180deg, var(--cx-violet-bg) 0%, #fff 82%);
   }
-  @media (min-width: 900px) { .dhero { padding-block: 80px 60px; } }
+  @media (min-width: 900px) { .dhero { padding-block: 80px 64px; } }
 
-  .dhero__grid > .dhero__copy { max-width: 720px; }
+  .dhero__grid { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
+  @media (min-width: 980px) { .dhero__grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 56px; } }
 
   .dhero__copy { display: flex; flex-direction: column; gap: 20px; }
   .dhero__title { font-size: clamp(38px, 6vw, 68px); max-width: 13ch; }
@@ -195,49 +203,91 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
 
   .dhero__stats {
     display: grid;
-    max-width: 360px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 440px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 18px;
     margin-top: 12px;
     padding-top: 24px;
     border-top: 1px solid var(--cx-border);
   }
 
-  /* ---------- sections ---------- */
-  .dsec { padding-block: 56px; }
-  @media (min-width: 768px) { .dsec { padding-block: 68px; } }
-  .dsec--cream { background: var(--cx-cream); border-block: 1px solid var(--cx-border); }
-  .dsec--gray { background: var(--cx-gray); border-top: 1px solid var(--cx-border); }
-  .dsec__head { margin-bottom: 28px; max-width: 640px; }
-
-  /* ---------- who ---------- */
-  .who { display: flex; align-items: flex-start; gap: 16px; }
-  .who__ico {
+  /* ---------- brief (who + done) ---------- */
+  .brief {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid var(--cx-border);
+    border-radius: var(--cx-r-card);
+    box-shadow: var(--cx-shadow-card);
+  }
+  .brief__item { display: flex; align-items: flex-start; gap: 14px; padding: 22px 24px; }
+  .brief__item + .brief__item { border-top: 1px solid var(--cx-border); }
+  .brief__ico {
     display: grid;
     place-items: center;
-    width: 44px;
-    height: 44px;
+    width: 38px;
+    height: 38px;
     flex: none;
-    border-radius: 12px;
+    border-radius: 11px;
     background: var(--cx-violet-bg);
     border: 1px solid var(--p-violet-br);
     color: var(--cx-purple);
   }
-  .who__body { display: flex; flex-direction: column; gap: 10px; }
-  .who__text {
-    font-family: var(--cx-font-display);
-    font-weight: 600;
-    font-size: clamp(19px, 2.6vw, 24px);
-    line-height: 1.35;
-    letter-spacing: -0.015em;
-    color: var(--cx-ink);
+  .brief__body { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .brief__label {
+    font-family: var(--cx-font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cx-purple);
   }
-  .who__alt { font-size: 15.5px; line-height: 1.6; color: var(--cx-g600); }
-  .who__alt a { color: var(--cx-purple); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+  .brief__text { font-size: 15.5px; line-height: 1.55; color: var(--cx-ink); }
+  .brief__alt { font-size: 14px; line-height: 1.55; color: var(--cx-g600); }
+  .brief__alt a { color: var(--cx-purple); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+
+  /* ---------- sections ---------- */
+  .dsec { padding-block: 56px; }
+  @media (min-width: 768px) { .dsec { padding-block: 68px; } }
+  .dsec--gray { background: var(--cx-gray); border-top: 1px solid var(--cx-border); }
+  .dsec__head { margin-bottom: 28px; max-width: 640px; }
+
+  /* ---------- the route: 100 days as one proportional bar ---------- */
+  .route { margin-bottom: 28px; }
+  .route__bar { display: flex; gap: 4px; }
+  .route__seg {
+    flex-basis: 0;
+    min-width: 0;
+    display: grid;
+    place-items: center;
+    height: 40px;
+    border-radius: 8px;
+    background: var(--phase-bg);
+    border: 1px solid var(--phase-br);
+    color: var(--phase-ac);
+    font-family: var(--cx-font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    transition: border-color 0.16s ease;
+  }
+  .route__seg:hover { border-color: var(--phase-ac); }
+  .route__ends {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-family: var(--cx-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
 
   /* ---------- modules ---------- */
-  .dmods { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; }
+  .dmods { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 0; padding: 0; list-style: none; }
+  @media (min-width: 820px) { .dmods { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
+  .dmods > li { display: flex; }
   .dmod {
+    flex: 1;
     display: grid;
     grid-template-columns: auto auto 1fr auto;
     align-items: center;
@@ -270,7 +320,10 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
     border: 1px solid var(--phase-br);
     color: var(--phase-ac);
   }
-  @media (max-width: 520px) { .dmod__ico { display: none; } }
+  @media (max-width: 520px) {
+    .dmods li .dmod { grid-template-columns: auto 1fr auto; }
+    .dmods li .dmod__ico { display: none; }
+  }
 
   .dmod__main { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
   .dmod__title { font-family: var(--cx-font-display); font-weight: 700; font-size: 18px; letter-spacing: -0.01em; color: var(--cx-ink); }
@@ -280,8 +333,6 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
     letter-spacing: 0.06em;
     color: var(--cx-g600);
   }
-  .dmod__track { position: relative; display: block; height: 5px; margin-top: 4px; border-radius: 999px; background: var(--cx-border-2); }
-  .dmod__span { position: absolute; top: 0; bottom: 0; min-width: 4px; border-radius: 999px; background: var(--phase-ac); }
 
   .dmod__go { color: var(--cx-g400); }
   .dmod:hover .dmod__go { color: var(--phase-ac); }
@@ -298,9 +349,8 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
     color: var(--cx-g500);
   }
 
-  .beyond { margin-top: 30px; }
   .beyond__label {
-    margin-bottom: 10px;
+    margin: 36px 0 12px;
     font-family: var(--cx-font-mono);
     font-size: 11px;
     font-weight: 500;
@@ -308,9 +358,7 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
     text-transform: uppercase;
     color: var(--cx-g500);
   }
-  .beyond { display: flex; flex-direction: column; gap: 10px; }
-  .beyond__label { margin-bottom: 0; }
-  .beyond__link { grid-template-columns: auto 1fr auto; }
+  .beyond .dmod { grid-template-columns: auto 1fr auto; }
 
   /* ---------- after ---------- */
   .after {
@@ -378,6 +426,6 @@ const publishedThrough = hundredDaysModules.at(-1)?.days[1] ?? 0;
   .back__go { margin-left: auto; flex: none; color: var(--cx-purple); }
 
   @media (prefers-reduced-motion: reduce) {
-    .dmod, .back { transition: none; }
+    .dmod, .back, .route__seg { transition: none; }
   }
 </style>
