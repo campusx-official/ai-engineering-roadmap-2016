@@ -1,8 +1,8 @@
 {
   "generatedFrom": "./AI ENGINEER ROADMAP",
   "totalLevels": 16,
-  "totalSessions": 285,
-  "totalModules": 165,
+  "totalSessions": 287,
+  "totalModules": 166,
   "phases": [
     {
       "id": "foundations",
@@ -2450,7 +2450,7 @@
       "slug": "level-6",
       "title": "Context Engineering",
       "sourceFile": "level6-context-engineering.txt",
-      "scope": "manage the model’s limited context window deliberately — decide what enters, what stays, what gets compressed, and what gets moved outside.",
+      "scope": "manage the model’s limited context window deliberately — decide what enters, what stays, what gets compressed, and what gets moved outside — and build the agent harness that applies these decisions across long-running work.",
       "prereqStated": null,
       "prerequisites": [
         5
@@ -2643,6 +2643,54 @@
         },
         {
           "id": "M6.8",
+          "name": "Harness engineering",
+          "sessionCount": 2,
+          "icon": "cable",
+          "objectives": [
+            {
+              "text": "Understand the harness as everything around the model that turns it into a working agent: the loop, system prompt, tool set, context management, state, permissions, and the environment it acts in.",
+              "group": "The agent harness"
+            },
+            {
+              "text": "Recognize that the same model can succeed or fail on the same task depending on its harness, and that many agent failures are harness problems rather than model problems.",
+              "group": "The agent harness"
+            },
+            {
+              "text": "Design the agent loop: how model calls and tool calls alternate, how results and errors are fed back, and when to stop using step, time, and token limits.",
+              "group": "The agent harness"
+            },
+            {
+              "text": "Decide what the harness enforces versus what the model decides: fixed workflow steps, permission checks, human approval for risky actions, and safe defaults.",
+              "group": "The agent harness"
+            },
+            {
+              "text": "Structure work that spans many context windows: an initial run that sets up the environment, plan, and task list, and later runs that read progress notes, complete one task at a time, and record what changed.",
+              "group": "Harnesses for long-running work"
+            },
+            {
+              "text": "Use durable artifacts as the source of truth between runs, such as progress files, task lists, git commits, and tests, rather than conversation history.",
+              "group": "Harnesses for long-running work"
+            },
+            {
+              "text": "Give the agent feedback loops it can run itself, such as tests, linters, type checks, and end-to-end checks, so it verifies work before marking it done.",
+              "group": "Harnesses for long-running work"
+            },
+            {
+              "text": "Make the environment legible to the agent: short instruction files (such as AGENTS.md), a clear project structure, and documentation written to be read by agents.",
+              "group": "Harnesses for long-running work"
+            },
+            {
+              "text": "Use sub-agents to give focused subtasks a fresh, isolated context and return only condensed results.",
+              "group": "Harnesses for long-running work"
+            }
+          ],
+          "notes": [],
+          "isCapstone": false,
+          "isGap": false,
+          "outcome": "Design a harness that keeps an agent productive and on track across long tasks that no single context window can hold."
+        },
+        {
+          "id": "M6.9",
           "name": "Capstone: Context-Managed Long-Horizon Agent",
           "sessionCount": 1,
           "icon": "flag",
@@ -2657,6 +2705,9 @@
               "text": "Add history compaction, external state, selective memory retrieval, and tool-output compression."
             },
             {
+              "text": "Wrap the agent in a harness: a progress file and task list it updates, a verification step before any task is marked done, and step and token limits."
+            },
+            {
               "text": "Preserve the original goal, constraints, completed work, and pending tasks across a long execution."
             },
             {
@@ -2669,8 +2720,8 @@
           "finalResult": "an agent that stays useful across a long, tool-heavy session because its context is actively managed."
         }
       ],
-      "project": "M6.8",
-      "totalSessions": 11,
+      "project": "M6.9",
+      "totalSessions": 13,
       "statedSessions": null,
       "completionOutcomes": [
         "Diagnose context-related failures.",
@@ -2682,6 +2733,7 @@
         "Choose between long-context stuffing, retrieval, summarization, and selective loading.",
         "Manage context growth in tool-heavy agents.",
         "Use caching and context reduction to control latency and cost.",
+        "Design agent harnesses that keep long-running work on track across many context windows.",
         "Build long-running agents that continuously keep, retrieve, compress, offload, and discard information."
       ],
       "todos": []

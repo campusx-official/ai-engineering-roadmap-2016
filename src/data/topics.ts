@@ -652,10 +652,22 @@ export const topics: Record<string, TopicSet> = {
     'Cutting redundant tokens',
     'Measuring cache utilization',
   ] },
-  'M6.8': { sig: 'a3b43dcd', labels: [
+  'M6.8': { sig: '83f5ab04', labels: [
+    'What an agent harness is',
+    'Harness problems vs model problems',
+    'Designing the agent loop',
+    'What the harness enforces',
+    'Work across many context windows',
+    'Durable artifacts as the source of truth',
+    'Self-run feedback loops',
+    'An environment agents can read',
+    'Sub-agents for isolated context',
+  ] },
+  'M6.9': { sig: 'e9efe333', labels: [
     'A long task that degrades naively',
     'An explicit context budget',
     'Compaction, offloading & retrieval',
+    'Wrapping the agent in a harness',
     'Holding the goal across a long run',
     'Managed vs keep-everything comparison',
   ] },

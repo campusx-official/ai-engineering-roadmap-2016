@@ -1,6 +1,6 @@
 Level 6 · Context Engineering
 
-Scope: manage the model’s limited context window deliberately — decide what enters, what stays, what gets compressed, and what gets moved outside.
+Scope: manage the model’s limited context window deliberately — decide what enters, what stays, what gets compressed, and what gets moved outside — and build the agent harness that applies these decisions across long-running work.
 
 M6.1 · The context window as a resource — (sessions: 1)
 
@@ -62,10 +62,27 @@ Separate stable context from rapidly changing task state.
 Reduce redundant tokens while preserving useful information.
 Measure token usage, cache utilization, latency, and cost rather than optimizing blindly.
 Outcome: Make large-context applications more efficient without sacrificing quality.
-M6.8 · Capstone: Context-Managed Long-Horizon Agent — (sessions: 1)
+
+M6.8 · Harness engineering — (sessions: 2)
+
+Session 1 · The agent harness
+Understand the harness as everything around the model that turns it into a working agent: the loop, system prompt, tool set, context management, state, permissions, and the environment it acts in.
+Recognize that the same model can succeed or fail on the same task depending on its harness, and that many agent failures are harness problems rather than model problems.
+Design the agent loop: how model calls and tool calls alternate, how results and errors are fed back, and when to stop using step, time, and token limits.
+Decide what the harness enforces versus what the model decides: fixed workflow steps, permission checks, human approval for risky actions, and safe defaults.
+Session 2 · Harnesses for long-running work
+Structure work that spans many context windows: an initial run that sets up the environment, plan, and task list, and later runs that read progress notes, complete one task at a time, and record what changed.
+Use durable artifacts as the source of truth between runs, such as progress files, task lists, git commits, and tests, rather than conversation history.
+Give the agent feedback loops it can run itself, such as tests, linters, type checks, and end-to-end checks, so it verifies work before marking it done.
+Make the environment legible to the agent: short instruction files (such as AGENTS.md), a clear project structure, and documentation written to be read by agents.
+Use sub-agents to give focused subtasks a fresh, isolated context and return only condensed results.
+Outcome: Design a harness that keeps an agent productive and on track across long tasks that no single context window can hold.
+
+M6.9 · Capstone: Context-Managed Long-Horizon Agent — (sessions: 1)
 Take a tool-using agent from Level 5 and run it through a long task where naive context accumulation causes degradation.
 Define an explicit context budget and dynamically decide what to keep, retrieve, compress, offload, or discard.
 Add history compaction, external state, selective memory retrieval, and tool-output compression.
+Wrap the agent in a harness: a progress file and task list it updates, a verification step before any task is marked done, and step and token limits.
 Preserve the original goal, constraints, completed work, and pending tasks across a long execution.
 Compare the context-managed version against a naive “keep everything” implementation on coherence, token usage, latency, and cost.
 Final result: an agent that stays useful across a long, tool-heavy session because its context is actively managed.
@@ -82,4 +99,5 @@ Offload state and working knowledge outside the active context.
 Choose between long-context stuffing, retrieval, summarization, and selective loading.
 Manage context growth in tool-heavy agents.
 Use caching and context reduction to control latency and cost.
+Design agent harnesses that keep long-running work on track across many context windows.
 Build long-running agents that continuously keep, retrieve, compress, offload, and discard information.

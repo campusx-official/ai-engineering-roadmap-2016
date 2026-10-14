@@ -151,6 +151,7 @@ const MODULE_ICON_RULES = [
   [/ingest|document processing|\bpdf\b|data curation|persistence/i, 'file-text'],
 
   // agents & context
+  [/harness/i, 'cable'],
   [/multi-agent|orchestrator|crew|team|specialist/i, 'users'],
   [/memory|offload|state/i, 'save'],
   [/context window|compress|compact|context selection|context engineering|long-context|context cach/i, 'layout-panel-left'],
