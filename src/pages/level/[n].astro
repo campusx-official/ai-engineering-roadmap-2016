@@ -3,7 +3,6 @@ import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
 import Eyebrow from '../../components/Eyebrow.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
-import SessionMeter from '../../components/SessionMeter.astro';
 import ModuleRow from '../../components/ModuleRow.astro';
 import ShipItCallout from '../../components/ShipItCallout.astro';
 import CourseCard from '../../components/CourseCard.astro';
@@ -24,6 +23,8 @@ import {
   type Level,
 } from '../../data/levels';
 import { shortVersionOfLevel, coveredInModule, daysModuleHref } from '../../data/hundred-days';
+import WeightCard from '../../components/WeightCard.astro';
+import { interviewWeights, jobWeights, WEIGHT_MAX } from '../../data/level-weights';
 
 export function getStaticPaths() {
   return levels.map((level) => ({
@@ -43,6 +44,7 @@ const courses = coursesFor(level.number);
 const books = booksFor(level.number);
 const cumulative = cumulativeSessions(level.number);
 const cumulativePct = Math.round((cumulative / totalSessions) * 100);
+const levelPct = Math.round((level.totalSessions / totalSessions) * 100);
 
 /* One link per level this one assumes. Most assume the previous level, but a
    stated Prerequisites line can name several, none of them adjacent (Level 13
@@ -54,6 +56,10 @@ const prereqs = level.prerequisites
 /* A level with a compressed version in 100 Days of AI Engineering points to it. */
 const shortVersion = shortVersionOfLevel(level.number);
 const coveredIn = shortVersion ? undefined : coveredInModule(level.number);
+
+/* How much this level counts, for getting hired and for doing the job. */
+const interviewWeight = interviewWeights[level.number];
+const jobWeight = jobWeights[level.number];
 
 const description = `Level ${level.number} of the CampusX AI Engineering Roadmap: ${level.scope}`.slice(0, 300);
 ---
@@ -118,11 +124,24 @@ const description = `Level ${level.number} of the CampusX AI Engineering Roadmap
           </a>
         )}
 
+        {(interviewWeight || jobWeight) && (
+          <div class="lh__weights">
+            {interviewWeight && (
+              <WeightCard title="Interview weight" icon="briefcase-business" score={interviewWeight.score} max={WEIGHT_MAX} reason={interviewWeight.reason} />
+            )}
+            {jobWeight && (
+              <WeightCard title="On-the-job weight" icon="wrench" score={jobWeight.score} max={WEIGHT_MAX} reason={jobWeight.reason} />
+            )}
+          </div>
+        )}
+
         <div class="lh__facts">
           <div class="lh__fact">
             <span class="lh__fact-label">This level</span>
-            <SessionMeter count={level.totalSessions} size="md" showLabel={false} class="lh__meter" />
-            <span class="lh__fact-value">{level.totalSessions} sessions · {level.modules.length} modules</span>
+            <span class="lh__prog" role="img" aria-label={`${level.totalSessions} of ${totalSessions} sessions in the roadmap`}>
+              <span class="lh__prog-fill" style={`width:${levelPct}%`}></span>
+            </span>
+            <span class="lh__fact-value">{level.totalSessions} of {totalSessions} sessions ({levelPct}%)</span>
           </div>
 
           <div class="lh__fact">
@@ -310,6 +329,9 @@ const description = `Level ${level.number} of the CampusX AI Engineering Roadmap
 
   .lh__scope { max-width: 62ch; }
 
+  .lh__weights { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 820px) { .lh__weights { grid-template-columns: 1fr 1fr; gap: 18px; } }
+
   .lh__short {
     display: inline-flex;
     align-items: center;
@@ -358,7 +380,6 @@ const description = `Level ${level.number} of the CampusX AI Engineering Roadmap
     color: var(--cx-g700);
     font-variant-numeric: tabular-nums;
   }
-  .lh__meter :global(.meter__track) { max-width: none; }
 
   .lh__prog { display: block; height: 6px; border-radius: 999px; background: var(--cx-border-2); overflow: hidden; }
   .lh__prog-fill { display: block; height: 100%; border-radius: 999px; background: var(--phase-ac); opacity: 0.85; }

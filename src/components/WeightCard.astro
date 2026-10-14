@@ -1,0 +1,75 @@
+---
+/**
+ * A level's importance from one angle (interviews, or the job itself): a score
+ * out of 10 shown as a solid progress bar, plus the reason. Two of these sit side
+ * by side at the top of each level page.
+ */
+import Icon from './Icon.astro';
+
+interface Props {
+  title: string;
+  icon: string;
+  score: number;
+  max: number;
+  reason: string;
+}
+const { title, icon, score, max, reason } = Astro.props;
+---
+
+<section class="wc" aria-label={`${title}: ${score} out of ${max}`}>
+  <div class="wc__head">
+    <span class="wc__ico"><Icon name={icon} size={16} /></span>
+    <span class="wc__title">{title}</span>
+    <span class="wc__score">{score}<span>/{max}</span></span>
+  </div>
+  <span class="wc__bar" role="img" aria-label={`${score} out of ${max}`}>
+    <span class="wc__fill" style={`width:${(score / max) * 100}%`}></span>
+  </span>
+  <p class="wc__reason">{reason}</p>
+</section>
+
+<style>
+  .wc {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px 18px;
+    background: #fff;
+    border: 1px solid var(--phase-br);
+    border-left: 4px solid var(--phase-ac);
+    border-radius: var(--cx-r-card);
+    box-shadow: var(--cx-shadow-card);
+    min-width: 0;
+  }
+  .wc__head { display: flex; align-items: center; gap: 9px; }
+  .wc__ico {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: var(--phase-bg);
+    color: var(--phase-ac);
+  }
+  .wc__title {
+    font-family: var(--cx-font-mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cx-g500);
+  }
+  .wc__score {
+    margin-left: auto;
+    font-family: var(--cx-font-display);
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: -0.02em;
+    color: var(--phase-ac);
+    font-variant-numeric: tabular-nums;
+  }
+  .wc__score span { font-size: 14px; color: var(--cx-g500); font-weight: 500; }
+  .wc__bar { display: block; height: 8px; border-radius: 999px; background: var(--cx-border-2); overflow: hidden; }
+  .wc__fill { display: block; height: 100%; border-radius: 999px; background: var(--phase-ac); opacity: 0.85; }
+  .wc__reason { margin: 0; font-size: 15px; line-height: 1.6; color: var(--cx-g700); }
+</style>
