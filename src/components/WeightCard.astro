@@ -14,6 +14,10 @@ interface Props {
   reason: string;
 }
 const { title, icon, score, max, reason } = Astro.props;
+
+/* "**phrase**" in the reason renders bold. Splitting on the markers gives
+   alternating plain / bold parts, so no HTML is injected from the data. */
+const parts = reason.split('**');
 ---
 
 <section class="wc" aria-label={`${title}: ${score} out of ${max}`}>
@@ -25,7 +29,7 @@ const { title, icon, score, max, reason } = Astro.props;
   <span class="wc__bar" role="img" aria-label={`${score} out of ${max}`}>
     <span class="wc__fill" style={`width:${(score / max) * 100}%`}></span>
   </span>
-  <p class="wc__reason">{reason}</p>
+  <p class="wc__reason">{parts.map((text, i) => (i % 2 === 1 ? <strong>{text}</strong> : text))}</p>
 </section>
 
 <style>
@@ -72,4 +76,5 @@ const { title, icon, score, max, reason } = Astro.props;
   .wc__bar { display: block; height: 8px; border-radius: 999px; background: var(--cx-border-2); overflow: hidden; }
   .wc__fill { display: block; height: 100%; border-radius: 999px; background: var(--phase-ac); opacity: 0.85; }
   .wc__reason { margin: 0; font-size: 15px; line-height: 1.6; color: var(--cx-g700); }
+  .wc__reason strong { font-weight: 600; color: var(--cx-ink); }
 </style>
