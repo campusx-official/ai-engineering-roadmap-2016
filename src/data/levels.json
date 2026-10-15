@@ -1,8 +1,8 @@
 {
   "generatedFrom": "./AI ENGINEER ROADMAP",
   "totalLevels": 16,
-  "totalSessions": 287,
-  "totalModules": 166,
+  "totalSessions": 286,
+  "totalModules": 165,
   "phases": [
     {
       "id": "foundations",
@@ -1639,30 +1639,6 @@
         },
         {
           "id": "M4.7",
-          "name": "Retrieval evaluation",
-          "sessionCount": 1,
-          "icon": "flask-conical",
-          "objectives": [
-            {
-              "text": "Create a small set of queries with known relevant documents/chunks."
-            },
-            {
-              "text": "Understand top-k retrieval and calculate Recall@k."
-            },
-            {
-              "text": "Compare chunking strategies, embedding models, retrieval methods, and k using the same evaluation set."
-            },
-            {
-              "text": "Understand why retrieval quality should be measured independently before adding an LLM generator."
-            }
-          ],
-          "notes": [],
-          "isCapstone": false,
-          "isGap": false,
-          "outcome": "Evaluate whether a retrieval system actually finds the information users need."
-        },
-        {
-          "id": "M4.8",
           "name": "Capstone: Build a Hybrid Search Engine",
           "sessionCount": 1,
           "icon": "flag",
@@ -1674,19 +1650,16 @@
               "text": "Implement dense search + BM25 + hybrid retrieval, including metadata filters where useful."
             },
             {
-              "text": "Create a small evaluation dataset and compare approaches using Recall@k."
-            },
-            {
               "text": "Deploy a simple search API/UI that returns the most relevant chunks for a user query."
             }
           ],
           "notes": [],
           "isCapstone": true,
           "isGap": false,
-          "finalResult": "a measurable retrieval system ready to become the retrieval component of a RAG application."
+          "finalResult": "a working hybrid retrieval system ready to become the retrieval component of a RAG application."
         },
         {
-          "id": "M4.9",
+          "id": "M4.8",
           "name": "RAG architecture & when to use it",
           "sessionCount": 1,
           "icon": "network",
@@ -1710,7 +1683,7 @@
           "outcome": "Decide whether a problem genuinely needs RAG."
         },
         {
-          "id": "M4.10",
+          "id": "M4.9",
           "name": "Baseline RAG from scratch",
           "sessionCount": 2,
           "icon": "hammer",
@@ -1737,7 +1710,7 @@
           "outcome": "Build a working RAG application without hiding the mechanics behind a framework."
         },
         {
-          "id": "M4.11",
+          "id": "M4.10",
           "name": "Reranking",
           "sessionCount": 2,
           "icon": "arrow-down-up",
@@ -1761,7 +1734,7 @@
           "outcome": "Improve the quality of context sent to the LLM without simply increasing the number of retrieved chunks."
         },
         {
-          "id": "M4.12",
+          "id": "M4.11",
           "name": "Query transformation & RAG-Fusion",
           "sessionCount": 2,
           "icon": "shuffle",
@@ -1791,7 +1764,7 @@
           "outcome": "Transform difficult user questions into better retrieval queries."
         },
         {
-          "id": "M4.13",
+          "id": "M4.12",
           "name": "Grounding, citations & abstention",
           "sessionCount": 1,
           "icon": "quote",
@@ -1818,7 +1791,7 @@
           "outcome": "Produce answers that are traceable to evidence and can abstain when the evidence is insufficient."
         },
         {
-          "id": "M4.14",
+          "id": "M4.13",
           "name": "RAG variants & advanced patterns",
           "sessionCount": 3,
           "icon": "git-fork",
@@ -1857,7 +1830,7 @@
           "outcome": "Recognize major RAG variants and choose an architecture based on why baseline RAG is failing."
         },
         {
-          "id": "M4.15",
+          "id": "M4.14",
           "name": "RAG with frameworks",
           "sessionCount": 1,
           "icon": "boxes",
@@ -1881,7 +1854,7 @@
           "outcome": "Use RAG frameworks productively while still understanding the retrieval and generation mechanics underneath them."
         },
         {
-          "id": "M4.16",
+          "id": "M4.15",
           "name": "Capstone: Deploy an Advanced RAG Application",
           "sessionCount": 1,
           "icon": "flag",
@@ -1908,8 +1881,8 @@
           "finalResult": "a complete RAG application that goes substantially beyond a basic retrieve → stuff context → generate demo."
         }
       ],
-      "project": "M4.8",
-      "totalSessions": 28,
+      "project": "M4.7",
+      "totalSessions": 27,
       "statedSessions": null,
       "completionOutcomes": [
         "Convert messy documents into retrieval-ready data.",
@@ -1920,7 +1893,6 @@
         "Use metadata filtering effectively.",
         "Understand BM25 and lexical retrieval.",
         "Build dense, sparse, and hybrid retrieval systems.",
-        "Measure retrieval quality using Recall@k.",
         "Improve retrieval based on evidence rather than intuition.",
         "Decide when RAG is and is not the right architecture.",
         "Build a complete RAG pipeline from scratch.",

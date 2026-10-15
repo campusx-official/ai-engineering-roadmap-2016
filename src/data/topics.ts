@@ -400,39 +400,32 @@ export const topics: Record<string, TopicSet> = {
     'Hybrid retrieval with RRF',
     'When hybrid retrieval helps',
   ] },
-  'M4.7': { sig: 'e198991b', labels: [
-    'Building a query set with known answers',
-    'Calculating Recall@k',
-    'Comparing choices on one eval set',
-    'Measure retrieval before adding an LLM',
-  ] },
-  'M4.8': { sig: '6a365e9b', labels: [
+  'M4.7': { sig: '0f712f9f', labels: [
     'Ingest, chunk, embed & index a real corpus',
     'Dense + BM25 + hybrid retrieval',
-    'Comparing approaches on Recall@k',
     'Deploying a search API or UI',
   ] },
 
-  'M4.9': { sig: '6779fd7f', labels: [
+  'M4.8': { sig: '6779fd7f', labels: [
     'The core RAG pipeline',
     'What RAG solves',
     'When not to use RAG',
     'Retrieval failure vs generation failure',
   ] },
-  'M4.10': { sig: '00f28e73', labels: [
+  'M4.9': { sig: '00f28e73', labels: [
     'Building the pipeline by hand',
     'Retrieve, assemble, generate',
     'Prompting for grounded answers',
     'Handling weak or missing context',
     'The effect of k and chunk ordering',
   ] },
-  'M4.11': { sig: 'eaf01646', labels: [
+  'M4.10': { sig: 'eaf01646', labels: [
     'Retrieve many, rerank, send the best',
     'Cross-encoder & reranking models',
     'Relevance gained, latency added',
     'When reranking adds little',
   ] },
-  'M4.12': { sig: '850d377d', labels: [
+  'M4.11': { sig: '850d377d', labels: [
     'Why the user question is a poor query',
     'Rewriting, expansion, multi-query & HyDE',
     'RAG-Fusion',
@@ -440,14 +433,14 @@ export const topics: Record<string, TopicSet> = {
     'The extra calls it costs',
     'When to skip transformation',
   ] },
-  'M4.13': { sig: '5706e473', labels: [
+  'M4.12': { sig: '5706e473', labels: [
     'Answering from evidence',
     'Attaching claims to sources',
     'Citations are not grounding',
     'Abstaining on insufficient evidence',
     'Keeping evidence and synthesis distinct',
   ] },
-  'M4.14': { sig: '8072a42f', labels: [
+  'M4.13': { sig: '8072a42f', labels: [
     'Naive → Advanced → adaptive RAG',
     'Self-RAG',
     'CRAG (Corrective RAG)',
@@ -458,13 +451,13 @@ export const topics: Record<string, TopicSet> = {
     'When Graph RAG is useful',
     'Choosing by failure mode, not novelty',
   ] },
-  'M4.15': { sig: 'a9f10b29', labels: [
+  'M4.14': { sig: 'a9f10b29', labels: [
     'Rebuilding with LlamaIndex or LangChain',
     'Indexes, retrievers & query engines',
     'Framework reranking & query transforms',
     'Framework vs hand-built',
   ] },
-  'M4.16': { sig: 'edf7066d', labels: [
+  'M4.15': { sig: 'edf7066d', labels: [
     'A document Q&A app end to end',
     'A baseline plus one real improvement',
     'Degrading gracefully on weak evidence',
